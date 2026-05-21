@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id               String          @id @default(cuid())
+  name             String
+  slug             String          @unique
+  description      String
+  longDescription  String          @default("")
+  features         String          @default("[]")
+  specifications   String          @default("[]")
+  galleryImages    String          @default("[]")
+  colors           String          @default("[]")
+  sku              String?
+  tag              String?
+  price            Float
+  compareAt        Float?
+  image            String
+  category         String
+  stock            Int             @default(0)
+  featured         Boolean         @default(false)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  orderItems       OrderItem[]
+  reviews          ProductReview[]
+}
+
+model ProductReview {
+  id          String   @id @default(cuid())
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  authorName  String
+  authorEmail String
+  rating      Int
+  title       String   @default("")
+  body        String
+  createdAt   DateTime @default(now())
+}
+
+model Customer {
+  id              String   @id @default(cuid())
+  name            String
+  email           String
+  phone           String   @unique
+  shippingAddress String?
+  city            String?
+  country         String   @default("Bangladesh")
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  orders          Order[]
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  status          String      @default("pending_payment")
+  paymentMethod   String      @default("cod")
+  paymentRef      String?
+  userId          String?
+  user            User?       @relation(fields: [userId], references: [id])
+  customerId      String?
+  customer        Customer?   @relation(fields: [customerId], references: [id])
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  shippingAddress String
+  city            String
+  state           String
+  zipCode         String
+  country         String      @default("Bangladesh")
+  subtotal        Float
+  shippingCost    Float       @default(0)
+  tax             Float       @default(0)
+  total           Float
+  notes           String?
+  adminNotes      String?
+  invoiceNumber   String?     @unique
+  paidAt          DateTime?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  name      String
+  price     Float
+  quantity  Int
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model StoreSettings {
+  id              Int    @id @default(1)
+  storeName       String @default("TriZen Store")
+  tagline         String @default("Premium Tech & Lifestyle")
+  email           String @default("support@trizenstore.com")
+  phone           String @default("+1 (555) 123-4567")
+  address         String @default("123 Innovation Drive, Tech City, TC 10001")
+  bankName        String @default("First National Bank")
+  accountName     String @default("TriZen Store LLC")
+  accountNumber   String @default("****7890")
+  routingNumber   String @default("021000021")
+  swiftCode       String @default("FNBAUS33")
+  iban            String @default("")
+  paymentInstructions String @default("Use your order number as the payment reference. Orders ship after payment is confirmed (1-2 business days).")
+  shippingFlat    Float  @default(9.99)
+  taxRate         Float  @default(0.08)
+  currency        String @default("BDT")
+}
+
+model Admin {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String   @default("Admin")
+  createdAt    DateTime @default(now())
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  passwordHash String?
+  image        String?
+  provider     String   @default("credentials")
+  googleId     String?  @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  orders       Order[]
+  reviews      ProductReview[]
+}
