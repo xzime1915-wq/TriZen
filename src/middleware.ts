@@ -36,23 +36,17 @@ function applySecurityHeaders(response: NextResponse) {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const isAdminPage =
-    pathname.startsWith("/admin") && !pathname.startsWith("/admin/login");
   const isAdminApi =
     pathname.startsWith("/api/admin") &&
     !pathname.startsWith("/api/admin/login");
 
-  if (isAdminPage || isAdminApi) {
+  /* Admin pages use requireAdmin() in each page — middleware here broke HTTP VPS logins */
+  if (isAdminApi) {
     const ok = await hasValidAdminSession(request);
     if (!ok) {
-      if (isAdminApi) {
-        return applySecurityHeaders(
-          NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-        );
-      }
-      const login = new URL("/admin/login", request.url);
-      login.searchParams.set("from", pathname);
-      return applySecurityHeaders(NextResponse.redirect(login));
+      return applySecurityHeaders(
+        NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      );
     }
   }
 
