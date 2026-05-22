@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 import { getAppUrl } from "./env";
+import { useSecureCookies } from "./auth";
 
 const COOKIE = "trizen_user_session";
 
@@ -21,7 +22,7 @@ export async function createUserSession(userId: string) {
   const jar = await cookies();
   jar.set(COOKIE, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: useSecureCookies(),
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 30,

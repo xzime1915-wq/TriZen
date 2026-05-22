@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { useSecureCookies } from "@/lib/auth";
 import { createGoogleOAuthState, getGoogleAuthUrl } from "@/lib/user-auth";
 
 const STATE_COOKIE = "google_oauth_state";
@@ -10,7 +11,7 @@ export async function GET(req: NextRequest) {
     const res = NextResponse.redirect(url);
     res.cookies.set(STATE_COOKIE, state, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: useSecureCookies(),
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 10,
