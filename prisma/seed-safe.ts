@@ -50,21 +50,25 @@ async function main() {
     },
   });
 
-  const adminEmail = process.env.ADMIN_EMAIL?.trim() || "admin@trizenstore.com";
-  const existingAdmin = await prisma.admin.findUnique({ where: { email: adminEmail } });
+  const adminEmail = (
+    process.env.ADMIN_EMAIL?.trim() || "admin@trizenstore.com"
+  ).toLowerCase();
+  const adminPassword = process.env.ADMIN_PASSWORD?.trim();
 
-  if (!existingAdmin && process.env.ADMIN_PASSWORD?.trim()) {
-    const hash = await bcrypt.hash(process.env.ADMIN_PASSWORD.trim(), 12);
-    await prisma.admin.create({
-      data: {
+  if (adminPassword) {
+    const hash = await bcrypt.hash(adminPassword, 12);
+    await prisma.admin.upsert({
+      where: { email: adminEmail },
+      create: {
         email: adminEmail,
         passwordHash: hash,
         name: "TriZen Admin",
       },
+      update: { passwordHash: hash },
     });
-    console.log(`Admin created: ${adminEmail}`);
-  } else if (!existingAdmin) {
-    console.log("No admin yet — set ADMIN_PASSWORD and run again, or create via db:seed (dev only).");
+    console.log(`Admin ready: ${adminEmail}`);
+  } else {
+    console.log("Set ADMIN_EMAIL + ADMIN_PASSWORD in .env, then run again.");
   }
 
   console.log("Safe seed complete (products upserted, orders untouched).");

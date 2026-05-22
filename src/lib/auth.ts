@@ -53,7 +53,9 @@ export async function getAdminSession() {
 }
 
 export async function verifyAdminLogin(email: string, password: string) {
-  const admin = await prisma.admin.findUnique({ where: { email } });
+  const admin = await prisma.admin.findUnique({
+    where: { email: email.trim().toLowerCase() },
+  });
   if (!admin) return null;
   const ok = await bcrypt.compare(password, admin.passwordHash);
   return ok ? admin : null;
