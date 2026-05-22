@@ -87,15 +87,15 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
   return (
     <h2
       ref={rootRef}
-      className={`mt-3 text-2xl font-bold uppercase tracking-tight text-white md:text-3xl lg:text-4xl ${className}`}
+      className={`mt-3 text-xl sm:text-2xl font-bold uppercase tracking-tight text-white md:text-3xl lg:text-4xl ${className}`}
       aria-label={TITLE}
     >
-      <span className="relative inline-block min-h-[1.2em] text-center">
-        <span className="invisible block" aria-hidden>
+      <span className="relative inline-block min-h-[1.2em] max-w-full text-center">
+        <span className="invisible block px-1 text-center break-words sm:whitespace-nowrap" aria-hidden>
           {TITLE}
         </span>
         <span
-          className={`absolute inset-0 flex items-center justify-center whitespace-nowrap transition-opacity duration-300 ${
+          className={`absolute inset-0 flex items-center justify-center px-1 text-center break-words sm:whitespace-nowrap transition-opacity duration-300 ${
             showText ? "opacity-100" : "opacity-0"
           }`}
         >

@@ -19,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)]">
+      <body className="min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)] overflow-x-clip">
         <CartProvider>
           <Header user={user ? { name: user.name, email: user.email } : null} />
           <main className="flex-1">{children}</main>

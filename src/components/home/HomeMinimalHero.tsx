@@ -14,7 +14,7 @@ export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Prop
           alt="TriZen TriPad V1 black and white editions with gaming mouse"
           fill
           priority
-          className="object-contain object-[85%_50%] sm:object-[78%_50%] md:object-[72%_50%] scale-[1.08] sm:scale-100"
+          className="object-contain object-[85%_50%] sm:object-[78%_50%] md:object-[72%_50%]"
           sizes="100vw"
           quality={95}
         />
@@ -35,9 +35,9 @@ export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Prop
       </div>
 
       <div className="container-trizen relative z-10 flex min-h-[100svh] flex-col justify-center pt-[4.25rem] pb-14 md:pt-24 md:pb-16">
-        <div className="max-w-xl">
+        <div className="max-w-xl w-full min-w-0">
           <p className="trizen-eyebrow trizen-fade-in">TriZen Store</p>
-          <h1 className="trizen-headline trizen-metallic-light trizen-fade-in-delay-1 mt-5 text-4xl sm:text-5xl md:text-[3.35rem] md:leading-[1.06]">
+          <h1 className="trizen-headline trizen-metallic-light trizen-fade-in-delay-1 mt-5 text-3xl sm:text-5xl md:text-[3.35rem] md:leading-[1.06]">
             TriPad
           </h1>
           <p className="trizen-fade-in-delay-2 mt-3 text-[11px] uppercase tracking-[0.22em] text-zinc-500">

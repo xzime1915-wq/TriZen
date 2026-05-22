@@ -1,0 +1,26 @@
+# ─── PostgreSQL (required — Supabase / Neon / local Postgres) ───
+# Supabase: Project → Settings → Database → URI (add ?sslmode=require if needed)
+DATABASE_URL="postgresql://postgres:database%40trizen@db.vlflaudzfifnqbydurmk.supabase.co:5432/postgres"
+
+# ─── Old local SQLite (no longer used — keep prisma/dev.db only for migration) ───
+# DATABASE_URL="file:./dev.db"
+
+# Your live site URL (Netlify example below)
+APP_URL="http://localhost:3000"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+
+# Auth — generate: openssl rand -hex 32
+JWT_SECRET="sdcvfgtredfgbnhytjumjhngbvfrteds"
+ADMIN_JWT_SECRET=""
+
+# Admin (for db:seed / db:setup-safe)
+ADMIN_EMAIL="xzime1915@gmail.com"
+ADMIN_PASSWORD="admin@me"
+
+# Google OAuth (optional)
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+
+# Checkout wallet numbers
+NEXT_PUBLIC_BKASH_NUMBER="+880 1860-841739"
+NEXT_PUBLIC_NAGAD_NUMBER="+880 1860-841739"

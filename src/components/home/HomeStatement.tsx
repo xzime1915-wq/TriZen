@@ -7,7 +7,7 @@ export function HomeStatement() {
       />
       <div className="container-trizen relative py-24 md:py-32 lg:py-40 min-h-[70vh] flex flex-col justify-center">
         <p className="trizen-eyebrow mb-8">Philosophy</p>
-        <h2 className="trizen-headline max-w-4xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1]">
+        <h2 className="trizen-headline max-w-4xl text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15]">
           Less friction.
           <br />
           <span className="trizen-metallic-muted">More control.</span>
