@@ -43,10 +43,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <HomeMinimalHero
-        price={heroProduct?.price}
-        productSlug={heroProduct?.slug ?? HERO_SLUG}
-      />
+      <HomeMinimalHero productSlug={heroProduct?.slug ?? HERO_SLUG} />
 
       <HomeMarquee />
       <HomeStatement />

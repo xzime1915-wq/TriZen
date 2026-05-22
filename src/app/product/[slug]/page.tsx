@@ -9,6 +9,7 @@ import {
   parseGallery,
   parseColors,
   averageRating,
+  getTripadDescriptionSlides,
 } from "@/lib/product-data";
 
 export const dynamic = "force-dynamic";
@@ -43,13 +44,13 @@ export default async function ProductPage({
     slug: product.slug,
     name: product.name,
   });
+  const descriptionSlides = getTripadDescriptionSlides(product.slug, product.name);
   const colors = parseColors(product.colors);
   const avgRating = averageRating(product.reviews);
   const related = await getRelatedProducts(product.id, product.category);
 
   return (
-    <div className="bg-black min-h-screen border-t border-[var(--color-border)]">
-      <div className="container-trizen py-10 md:py-14">
+    <div className="bg-black min-h-screen border-t border-[var(--color-border)] w-full">
       <ProductDetailView
         product={{
           id: product.id,
@@ -68,6 +69,7 @@ export default async function ProductPage({
         features={features}
         specifications={specifications}
         gallery={gallery}
+        descriptionSlides={descriptionSlides}
         colors={colors}
         avgRating={avgRating}
         reviews={product.reviews.map((r) => ({
@@ -75,7 +77,8 @@ export default async function ProductPage({
           createdAt: r.createdAt.toISOString(),
         }))}
       />
-      <RelatedProducts products={related} category={product.category} />
+      <div className="product-page-pad pb-14 md:pb-16">
+        <RelatedProducts products={related} category={product.category} />
       </div>
     </div>
   );

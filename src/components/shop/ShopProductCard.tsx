@@ -11,6 +11,7 @@ type Product = {
   name: string;
   slug: string;
   description: string;
+  longDescription?: string;
   price: number;
   compareAt: number | null;
   image: string;
@@ -19,7 +20,21 @@ type Product = {
   tag: string | null;
 };
 
-export function ShopProductCard({ product }: { product: Product }) {
+function previewText(product: Product) {
+  const fromLong = product.longDescription
+    ?.split("\n\n")
+    .map((p) => p.trim())
+    .filter(Boolean)[0];
+  return fromLong || product.description;
+}
+
+export function ShopProductCard({
+  product,
+  editionLabel,
+}: {
+  product: Product;
+  editionLabel?: string;
+}) {
   const inStock = isInStock(product.stock);
   const upcoming = isUpcoming(product.tag);
   const showGlide = usesTripadGlideBackground(product.slug);
@@ -74,13 +89,23 @@ export function ShopProductCard({ product }: { product: Product }) {
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-6 sm:p-8 border-t border-[var(--color-border)]">
-        <p className="trizen-eyebrow text-zinc-600">{product.category}</p>
-        <h2 className="mt-3 text-lg sm:text-xl font-bold uppercase tracking-tight text-white leading-snug group-hover:underline">
+      <div className="flex flex-1 flex-col p-6 sm:p-8 lg:p-10 border-t border-[var(--color-border)]">
+        <div className="flex flex-wrap items-center gap-2">
+          {editionLabel && (
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 border border-[var(--color-border)] px-2.5 py-1">
+              {editionLabel}
+            </span>
+          )}
+          <p className="trizen-eyebrow text-zinc-600">{product.category}</p>
+        </div>
+        <h2 className="mt-4 text-xl sm:text-2xl font-bold uppercase tracking-tight text-white leading-snug group-hover:underline">
           {product.name}
         </h2>
-        <p className="mt-3 text-sm text-zinc-500 line-clamp-2 leading-relaxed flex-1">
+        <p className="mt-4 text-base text-zinc-400 line-clamp-3 leading-relaxed">
           {product.description}
+        </p>
+        <p className="mt-4 text-base sm:text-lg text-white/90 line-clamp-4 leading-relaxed flex-1">
+          {previewText(product)}
         </p>
         <div className="mt-6 pt-6 border-t border-[var(--color-border)] flex items-end justify-between gap-4">
           {shouldShowProductPrice(product.tag) ? (

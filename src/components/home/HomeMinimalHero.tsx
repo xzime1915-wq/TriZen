@@ -1,14 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HOME_HERO_IMAGE } from "@/lib/home-assets";
-import { formatCurrency } from "@/lib/utils";
-
 type Props = {
-  price?: number;
   productSlug?: string;
 };
 
-export function HomeMinimalHero({ price, productSlug = "trizen-tripad-v1-black" }: Props) {
+export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Props) {
   return (
     <section className="relative isolate min-h-[100svh] overflow-hidden bg-black">
       <div className="absolute inset-0 bg-black">
@@ -56,11 +53,6 @@ export function HomeMinimalHero({ price, productSlug = "trizen-tripad-v1-black" 
             Premium glass mouse pad — minimal design, maximum glide. Built for
             competitive esports in Bangladesh.
           </p>
-          {price != null && (
-            <p className="trizen-fade-in-delay-2 mt-4 text-xl font-semibold text-white tabular-nums">
-              {formatCurrency(price)}
-            </p>
-          )}
           <div className="trizen-fade-in-delay-2 mt-9 flex flex-wrap items-center gap-5 sm:gap-6">
             <Link href={`/product/${productSlug}`} className="trizen-btn-primary px-8 py-3">
               Shop TriPad

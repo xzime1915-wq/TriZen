@@ -17,10 +17,10 @@ const V2_BLACK_SLUG = "trizen-tripad-v2-black";
 const V2_WHITE_SLUG = "trizen-tripad-v2-white";
 
 const cellShell =
-  "group flex h-full min-h-[260px] flex-col overflow-hidden transition-opacity duration-500 hover:opacity-90";
+  "group flex h-full min-h-[320px] sm:min-h-[360px] flex-col overflow-hidden transition-opacity duration-500 hover:opacity-90";
 
 const editionLabelClass =
-  "shrink-0 w-full text-center px-4 py-4 text-[10px] uppercase tracking-[0.28em] text-zinc-500 transition-colors duration-300 group-hover:text-zinc-300";
+  "shrink-0 w-full text-center px-4 py-5 text-[11px] uppercase tracking-[0.28em] text-zinc-500 transition-colors duration-300 group-hover:text-zinc-300";
 
 function SwapImages({
   primarySrc,
@@ -34,21 +34,21 @@ function SwapImages({
   hoverAlt: string;
 }) {
   return (
-    <div className="relative flex-1 w-full min-h-[200px]">
-      <div className="absolute inset-6 sm:inset-8">
+    <div className="relative flex-1 w-full min-h-[260px] sm:min-h-[300px]">
+      <div className="absolute inset-3 sm:inset-5 md:inset-6">
         <Image
           src={primarySrc}
           alt={primaryAlt}
           fill
           className="object-contain object-center transition-opacity duration-500 ease-out group-hover:opacity-0"
-          sizes="(max-width: 768px) 42vw, 20vw"
+          sizes="(max-width: 768px) 90vw, 28vw"
         />
         <Image
           src={hoverSrc}
           alt={hoverAlt}
           fill
           className="object-contain object-center opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
-          sizes="(max-width: 768px) 42vw, 20vw"
+          sizes="(max-width: 768px) 90vw, 28vw"
         />
       </div>
     </div>
@@ -96,17 +96,17 @@ function UpcomingEditionCard({
 }) {
   return (
     <Link href={href} className={cellShell}>
-      <div className="relative flex-1 w-full min-h-[200px]">
-        <div className="absolute inset-6 sm:inset-8">
+      <div className="relative flex-1 w-full min-h-[260px] sm:min-h-[300px]">
+        <div className="absolute inset-3 sm:inset-5 md:inset-6">
           <Image
             src={src}
             alt={alt}
             fill
             className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
-            sizes="(max-width: 768px) 90vw, 45vw"
+            sizes="(max-width: 768px) 90vw, 42vw"
           />
         </div>
-        <span className="absolute top-4 left-4 z-10 text-[10px] font-bold uppercase tracking-widest bg-white text-black px-2 py-0.5">
+        <span className="absolute top-5 left-5 z-10 text-[10px] font-bold uppercase tracking-widest bg-white text-black px-2.5 py-1">
           Upcoming
         </span>
       </div>
@@ -118,8 +118,8 @@ function UpcomingEditionCard({
 function TripadV1Card() {
   return (
     <Link href={`/product/${V1_BLACK_SLUG}`} className={cellShell}>
-      <div className="relative flex-1 w-full min-h-[200px]">
-        <div className="absolute inset-6 sm:inset-8 md:inset-10">
+      <div className="relative flex-1 w-full min-h-[260px] sm:min-h-[300px]">
+        <div className="absolute inset-3 sm:inset-5 md:inset-6">
           <Image
             src={HOME_GLIDE_TRIPAD_IMAGE}
             alt="TriZen TriPad V1 black and white editions"
@@ -181,12 +181,16 @@ export function HomeGlideFeature() {
       <GlideEditionBridge />
 
       <div className="border-b border-[var(--color-border)]">
-        <div className="container-trizen py-10 md:py-14">
-          <p className="trizen-eyebrow text-center mb-8 md:mb-10">
-            Choose your edition
+        <div className="container-trizen py-12 md:py-20">
+          <p className="trizen-eyebrow text-center mb-2">Choose your edition</p>
+          <h3 className="text-center text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white mb-8 md:mb-10">
+            TriPad V1
+          </h3>
+          <p className="trizen-body text-center max-w-xl mx-auto mb-10 md:mb-12 -mt-4">
+            Black and white glass editions — in stock and ready to ship.
           </p>
 
-          <div className="mx-auto max-w-6xl border border-[var(--color-border)] shadow-[0_32px_80px_-40px_rgba(0,0,0,0.9)] grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-[var(--color-border)] divide-y sm:divide-y-0">
+          <div className="mx-auto max-w-7xl border border-[var(--color-border)] shadow-[0_32px_80px_-40px_rgba(0,0,0,0.9)] grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-[var(--color-border)] divide-y sm:divide-y-0">
             <TripadV1Card />
             <EditionSwapCard
               primarySrc={HOME_GLIDE_WHITE_IMAGE}
@@ -206,17 +210,17 @@ export function HomeGlideFeature() {
             />
           </div>
 
-          <div className="mt-16 md:mt-20">
+          <div className="mt-20 md:mt-28">
             <p className="trizen-eyebrow text-center mb-2">Upcoming</p>
-            <h3 className="text-center text-xl sm:text-2xl font-bold uppercase tracking-tight text-white mb-8 md:mb-10">
+            <h3 className="text-center text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white mb-8 md:mb-10">
               TriPad V2
             </h3>
-            <p className="trizen-body text-center max-w-xl mx-auto mb-8 md:mb-10 -mt-4">
+            <p className="trizen-body text-center max-w-xl mx-auto mb-10 md:mb-12 -mt-4">
               Same glass glide you trust — refreshed vertical TriZen branding in
               black and white.
             </p>
 
-            <div className="mx-auto max-w-4xl border border-[var(--color-border)] shadow-[0_32px_80px_-40px_rgba(0,0,0,0.9)] grid grid-cols-1 sm:grid-cols-2 sm:divide-x divide-[var(--color-border)] divide-y sm:divide-y-0">
+            <div className="mx-auto max-w-6xl border border-[var(--color-border)] shadow-[0_32px_80px_-40px_rgba(0,0,0,0.9)] grid grid-cols-1 sm:grid-cols-2 sm:divide-x divide-[var(--color-border)] divide-y sm:divide-y-0">
               <UpcomingEditionCard
                 src={HOME_GLIDE_V2_BLACK_IMAGE}
                 alt="TriZen TriPad V2 black edition"

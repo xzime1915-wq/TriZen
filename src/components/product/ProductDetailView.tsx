@@ -42,6 +42,7 @@ type Props = {
   features: string[];
   specifications: ProductSpec[];
   gallery: string[];
+  descriptionSlides: string[];
   colors: ProductColor[];
   reviews: ProductReviewData[];
   avgRating: number;
@@ -52,6 +53,7 @@ export function ProductDetailView({
   features,
   specifications,
   gallery,
+  descriptionSlides,
   colors,
   reviews: initialReviews,
   avgRating: initialAvg,
@@ -71,7 +73,8 @@ export function ProductDetailView({
   }
 
   return (
-    <div>
+    <div className="w-full">
+      <div className="product-page-pad py-10 md:py-14">
       <nav className="text-sm text-[var(--color-muted)] mb-8">
         <Link href="/" className="hover:text-white">
           Home
@@ -88,7 +91,7 @@ export function ProductDetailView({
         <span className="text-white">{product.name}</span>
       </nav>
 
-      <div className="grid lg:grid-cols-2 gap-10 lg:gap-14">
+      <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 2xl:gap-20">
         <ProductGallery
           images={gallery}
           productName={product.name}
@@ -194,10 +197,13 @@ export function ProductDetailView({
           </dl>
         </div>
       </div>
+      </div>
 
-      <div className="mt-14">
+      <div className="trizen-full-bleed mt-14">
         <ProductTabs
+          productName={product.name}
           description={product.longDescription || product.description}
+          descriptionSlides={descriptionSlides}
           features={features}
           specifications={specifications}
           reviewsCount={reviews.length}

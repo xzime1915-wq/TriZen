@@ -6,7 +6,7 @@ const STEPS = [
   {
     n: "01",
     title: "Choose your gear",
-    body: "Browse TriPad editions and add to cart in seconds.",
+    body: "Browse TriPad editions and shop in seconds.",
   },
   {
     n: "02",

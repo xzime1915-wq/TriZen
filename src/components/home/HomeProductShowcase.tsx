@@ -9,6 +9,8 @@ import { ChevronRight } from "lucide-react";
 import { isUpcoming } from "@/lib/product-status";
 import { usesTripadGlideBackgroundOnHome } from "@/lib/product-visuals";
 import { ProductGlideBackground } from "@/components/product/ProductGlideBackground";
+import { ProductDescriptionCarousel } from "@/components/product/ProductDescriptionCarousel";
+import { getTripadDescriptionSlides } from "@/lib/product-data";
 
 type Props = {
   product: {
@@ -53,6 +55,7 @@ export function HomeProductShowcase({
   const upcoming = isUpcoming(product.tag);
   const mainVisual = visualImage || product.image;
   const showGlide = usesTripadGlideBackgroundOnHome(product.slug);
+  const descriptionSlides = getTripadDescriptionSlides(product.slug, product.name);
 
   return (
     <section className="relative border-t border-[var(--color-border)] bg-black overflow-hidden">
@@ -118,7 +121,13 @@ export function HomeProductShowcase({
               </p>
             )}
 
-            <div className="trizen-body mt-10 space-y-5">
+            {descriptionSlides.length > 0 && (
+              <div className="mt-12 w-full">
+                <ProductDescriptionCarousel slides={descriptionSlides} compact />
+              </div>
+            )}
+
+            <div className="trizen-body mt-10 space-y-5 text-center">
               {paragraphs.map((para) => (
                 <p key={para.slice(0, 48)}>{para}</p>
               ))}
@@ -132,15 +141,7 @@ export function HomeProductShowcase({
             </div>
 
             <div className="mt-10">
-              <HomeProductActions
-                productId={product.id}
-                name={product.name}
-                price={product.price}
-                image={product.image}
-                stock={product.stock}
-                slug={product.slug}
-                tag={product.tag}
-              />
+              <HomeProductActions slug={product.slug} tag={product.tag} />
             </div>
 
             {highlightFeatures.length > 0 && (

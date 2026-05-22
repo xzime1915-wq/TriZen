@@ -12,6 +12,20 @@
 @theme {
   --font-sans: "New Academy", "Arial Narrow", sans-serif;
   --font-mono: "New Academy", "Arial Narrow", sans-serif;
+  /* Site-wide: one step larger type scale */
+  --text-xs: 0.875rem;
+  --text-sm: 1rem;
+  --text-base: 1.125rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.375rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+  --text-9xl: 8rem;
   --color-brand: #ffffff;
   --color-surface: #0a0a0a;
   --color-surface-elevated: #141414;
@@ -23,6 +37,7 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 106.25%;
 }
 
 body {
@@ -59,8 +74,20 @@ textarea {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
+  /* Product page — edge padding only, no narrow max-width */
+  .product-page-pad {
+    @apply w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-16;
+  }
+
+  .trizen-full-bleed {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
   .trizen-eyebrow {
-    @apply text-[10px] uppercase tracking-[0.38em] text-zinc-500;
+    @apply text-xs uppercase tracking-[0.38em] text-zinc-500;
   }
 
   .trizen-headline {
@@ -68,19 +95,19 @@ textarea {
   }
 
   .trizen-body {
-    @apply text-sm text-zinc-500 leading-relaxed;
+    @apply text-base text-zinc-500 leading-relaxed;
   }
 
   .trizen-btn-primary {
-    @apply inline-flex items-center justify-center bg-white px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-zinc-100 hover:shadow-[0_0_40px_rgba(255,255,255,0.12)];
+    @apply inline-flex items-center justify-center bg-white px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-zinc-100 hover:shadow-[0_0_40px_rgba(255,255,255,0.12)];
   }
 
   .trizen-btn-outline {
-    @apply inline-flex items-center justify-center border border-[var(--color-border)] px-10 py-4 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-400 transition-all duration-300 hover:border-zinc-400 hover:text-white hover:shadow-[0_0_32px_rgba(255,255,255,0.06)];
+    @apply inline-flex items-center justify-center border border-[var(--color-border)] px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 transition-all duration-300 hover:border-zinc-400 hover:text-white hover:shadow-[0_0_32px_rgba(255,255,255,0.06)];
   }
 
   .trizen-nav-link {
-    @apply relative text-sm tracking-wide uppercase transition-colors duration-300;
+    @apply relative text-base tracking-wide uppercase transition-colors duration-300;
   }
 
   .trizen-nav-link::after {
@@ -248,12 +275,95 @@ textarea {
     @apply border border-[var(--color-border)] bg-zinc-950/40 backdrop-blur-sm;
   }
 
+  .trizen-desc-carousel {
+    @apply relative w-full max-w-xl mx-auto;
+  }
+
+  .trizen-desc-carousel--compact {
+    @apply max-w-md;
+  }
+
+  .trizen-desc-carousel-header {
+    @apply flex items-center justify-center gap-4 mb-8;
+  }
+
+  .trizen-desc-carousel-line {
+    @apply h-px w-10 sm:w-16 bg-gradient-to-r from-transparent via-zinc-700 to-transparent;
+  }
+
+  .trizen-desc-carousel-shell {
+    @apply relative w-full;
+  }
+
+  .trizen-desc-carousel-frame {
+    @apply relative aspect-square w-full overflow-hidden border border-[var(--color-border)] bg-black;
+  }
+
+  .trizen-desc-carousel-slide {
+    @apply absolute inset-0 z-[1] transition-opacity duration-700 ease-out;
+  }
+
+  .trizen-desc-carousel-image {
+    @apply object-cover object-center;
+  }
+
+  .trizen-desc-carousel-slide-active {
+    @apply opacity-100;
+  }
+
+  .trizen-desc-carousel-slide-inactive {
+    @apply opacity-0 pointer-events-none;
+  }
+
+  .trizen-desc-carousel-counter {
+    @apply absolute bottom-3 left-1/2 z-20 -translate-x-1/2 text-[10px] uppercase tracking-[0.38em] text-zinc-600 tabular-nums px-3 py-1 border border-[var(--color-border)] bg-black/80 backdrop-blur-sm;
+  }
+
+  .trizen-desc-carousel-nav {
+    @apply absolute top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center border border-[var(--color-border)] bg-zinc-950/90 text-zinc-500 opacity-0 transition-all duration-300 group-hover:opacity-100 hover:border-zinc-500 hover:text-white;
+  }
+
+  .trizen-desc-carousel-thumbs {
+    @apply mt-8 pt-6 border-t border-[var(--color-border)]/60;
+  }
+
+  .trizen-desc-thumb {
+    @apply relative h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden border border-[var(--color-border)] bg-black transition-all duration-300 hover:border-zinc-500;
+  }
+
+  .trizen-desc-thumb-image {
+    @apply h-full w-full object-cover object-center;
+  }
+
+  .trizen-desc-thumb-active {
+    @apply border-zinc-400 shadow-[0_0_20px_rgba(255,255,255,0.06)];
+  }
+
+  .trizen-product-tab {
+    @apply relative px-6 sm:px-10 py-4 text-xs sm:text-sm uppercase tracking-[0.22em] whitespace-nowrap text-[var(--color-muted)] font-medium transition-colors duration-300 hover:text-white;
+  }
+
+  .trizen-product-tab-active {
+    @apply text-white font-bold;
+  }
+
+  .trizen-product-tab-active::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 60%;
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+  }
+
   .trizen-link-underline {
-    @apply text-[11px] font-medium uppercase tracking-[0.22em] text-zinc-500 transition-all duration-300 hover:text-white;
+    @apply text-xs font-medium uppercase tracking-[0.22em] text-zinc-500 transition-all duration-300 hover:text-white;
   }
 
   .trizen-scroll-hint {
-    @apply text-[10px] uppercase tracking-[0.35em] text-zinc-600;
+    @apply text-xs uppercase tracking-[0.35em] text-zinc-600;
     animation: trizen-scroll-pulse 2.2s ease-in-out infinite;
   }
 
@@ -267,6 +377,10 @@ textarea {
 
     .trizen-scroll-hint {
       animation: none;
+    }
+
+    .trizen-desc-carousel-slide {
+      transition: none;
     }
 
     .trizen-process-item {

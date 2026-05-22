@@ -1,6 +1,28 @@
 export type ProductColor = { name: string; image?: string };
 export type ProductSpec = { label: string; value: string };
 
+/** Marketing banners — description slideshow only, never product gallery */
+export const TRIPAD_DESCRIPTION_SLIDES = [
+  "/products/tripad-3mm-feature.png",
+  "/products/tripad-scratch-proof.png",
+  "/products/tripad-anti-slip-base.png",
+] as const;
+
+const DESCRIPTION_ONLY_IMAGES = new Set<string>(TRIPAD_DESCRIPTION_SLIDES);
+
+export function isTripadProduct(slug?: string, name?: string): boolean {
+  const label = `${slug || ""} ${name || ""}`.toLowerCase();
+  return label.includes("tripad") || label.includes("tri pad");
+}
+
+export function getTripadDescriptionSlides(slug?: string, name?: string): string[] {
+  return isTripadProduct(slug, name) ? [...TRIPAD_DESCRIPTION_SLIDES] : [];
+}
+
+function stripDescriptionOnlyImages(urls: string[]): string[] {
+  return urls.filter((src) => !DESCRIPTION_ONLY_IMAGES.has(src));
+}
+
 export function parseJsonField<T>(raw: string | null | undefined, fallback: T): T {
   if (!raw) return fallback;
   try {
@@ -43,10 +65,11 @@ export function parseGallery(
     }
   }
 
-  const merged = [...list];
+  let merged = [...list];
   if (mainImage && !merged.includes(mainImage)) merged.unshift(mainImage);
-  if (merged.length === 0 && mainImage) return [mainImage];
-  return merged;
+  if (merged.length === 0 && mainImage) merged = [mainImage];
+
+  return stripDescriptionOnlyImages(merged);
 }
 
 /** Color names for checkout only — not used in the photo gallery */
