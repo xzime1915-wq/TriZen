@@ -5,6 +5,12 @@ import { prisma } from "./prisma";
 
 const COOKIE = "trizen_admin_session";
 
+function useSecureCookies() {
+  const appUrl =
+    process.env.APP_URL?.trim() || process.env.NEXT_PUBLIC_APP_URL?.trim() || "";
+  return appUrl.startsWith("https://");
+}
+
 function getSecret() {
   const secret =
     process.env.ADMIN_JWT_SECRET?.trim() || process.env.JWT_SECRET?.trim();
@@ -21,7 +27,7 @@ export async function createAdminSession(adminId: string) {
   const jar = await cookies();
   jar.set(COOKIE, token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: useSecureCookies(),
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
