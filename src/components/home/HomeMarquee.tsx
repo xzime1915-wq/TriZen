@@ -12,10 +12,10 @@ export function HomeMarquee() {
         aria-hidden
       />
       <div className="home-marquee-track flex whitespace-nowrap">
-        <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-zinc-800/90 select-none">
+        <span className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-zinc-800/90 select-none">
           {repeated}
         </span>
-        <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-zinc-800/90 select-none">
+        <span className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-zinc-800/90 select-none">
           {repeated}
         </span>
       </div>
