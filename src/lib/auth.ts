@@ -5,10 +5,27 @@ import { prisma } from "./prisma";
 
 const COOKIE = "trizen_admin_session";
 
-function useSecureCookies() {
+export function useSecureCookies() {
   const appUrl =
     process.env.APP_URL?.trim() || process.env.NEXT_PUBLIC_APP_URL?.trim() || "";
   return appUrl.startsWith("https://");
+}
+
+export function adminSessionCookieOptions() {
+  return {
+    httpOnly: true,
+    secure: useSecureCookies(),
+    sameSite: "lax" as const,
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7,
+  };
+}
+
+export async function signAdminToken(adminId: string) {
+  return new SignJWT({ sub: adminId, role: "admin" })
+    .setProtectedHeader({ alg: "HS256" })
+    .setExpirationTime("7d")
+    .sign(getSecret());
 }
 
 function getSecret() {
@@ -19,19 +36,10 @@ function getSecret() {
 }
 
 export async function createAdminSession(adminId: string) {
-  const token = await new SignJWT({ sub: adminId, role: "admin" })
-    .setProtectedHeader({ alg: "HS256" })
-    .setExpirationTime("7d")
-    .sign(getSecret());
-
+  const token = await signAdminToken(adminId);
   const jar = await cookies();
-  jar.set(COOKIE, token, {
-    httpOnly: true,
-    secure: useSecureCookies(),
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
+  jar.set(COOKIE, token, adminSessionCookieOptions());
+  return token;
 }
 
 export async function destroyAdminSession() {

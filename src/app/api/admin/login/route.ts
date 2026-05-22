@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { createAdminSession, verifyAdminLogin } from "@/lib/auth";
+import {
+  adminSessionCookieOptions,
+  signAdminToken,
+  verifyAdminLogin,
+} from "@/lib/auth";
+
+const ADMIN_COOKIE = "trizen_admin_session";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
@@ -26,6 +32,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
 
-  await createAdminSession(admin.id);
-  return NextResponse.json({ ok: true, name: admin.name });
+  const token = await signAdminToken(admin.id);
+  const response = NextResponse.json({ ok: true, name: admin.name });
+  response.cookies.set(ADMIN_COOKIE, token, adminSessionCookieOptions());
+  return response;
 }
