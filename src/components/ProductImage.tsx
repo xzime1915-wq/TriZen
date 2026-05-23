@@ -16,6 +16,10 @@ export function ProductImage({
   className,
   sizes = "(max-width: 768px) 100vw, 50vw",
 }: ProductImageProps) {
+  // Large local PNGs (20MB+) fail Next image optimizer on VPS — serve directly.
+  const unoptimized =
+    src.startsWith("/products/") || src.startsWith("/uploads/");
+
   return (
     <Image
       src={src}
@@ -24,6 +28,7 @@ export function ProductImage({
       priority={priority}
       quality={95}
       sizes={sizes}
+      unoptimized={unoptimized}
       className={cn("object-contain object-center", className)}
     />
   );

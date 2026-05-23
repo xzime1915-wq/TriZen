@@ -40,6 +40,7 @@ function SwapImages({
           src={primarySrc}
           alt={primaryAlt}
           fill
+          unoptimized
           className="object-contain object-center transition-opacity duration-500 ease-out group-hover:opacity-0"
           sizes="(max-width: 768px) 90vw, 28vw"
         />
@@ -47,6 +48,7 @@ function SwapImages({
           src={hoverSrc}
           alt={hoverAlt}
           fill
+          unoptimized
           className="object-contain object-center opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100"
           sizes="(max-width: 768px) 90vw, 28vw"
         />
@@ -102,6 +104,7 @@ function UpcomingEditionCard({
             src={src}
             alt={alt}
             fill
+            unoptimized
             className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
             sizes="(max-width: 768px) 90vw, 42vw"
           />
@@ -124,6 +127,7 @@ function TripadV1Card() {
             src={HOME_GLIDE_TRIPAD_IMAGE}
             alt="TriZen TriPad V1 black and white editions"
             fill
+            unoptimized
             className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.02]"
             sizes="(max-width: 1024px) 90vw, 45vw"
           />
@@ -141,6 +145,7 @@ function GlideActionBanner() {
         src={HOME_GLIDE_IMAGE}
         alt="Mouse gliding at speed on TriZen glass surface"
         fill
+        unoptimized
         className="object-cover object-center opacity-95"
         sizes="100vw"
         quality={90}
