@@ -1,5 +1,21 @@
 import { stringifyJsonField } from "./product-data";
 
+/** TriPad glass mouse pad — physical size (all V1 & V2 editions) */
+export const TRIPAD_DIMENSIONS = "490 × 430 × 3 mm";
+
+const tripadSpecsShared = [
+  { label: "Dimensions (L × W × H)", value: `${TRIPAD_DIMENSIONS}` },
+  { label: "Active Area", value: "490 × 430 mm" },
+  { label: "Thickness", value: "3 mm" },
+  { label: "Material", value: "Tempered glass" },
+  { label: "Surface", value: "Ultra-smooth, low-friction" },
+  { label: "Base", value: "Non-slip rubber — stays fixed under fast swipes" },
+  { label: "Compatibility", value: "All gaming mice (wired & wireless)" },
+  { label: "Ideal For", value: "Esports, FPS, MOBA & ranked play" },
+  { label: "Care", value: "Wipe with a soft cloth — avoid harsh chemicals" },
+  { label: "Sold By", value: "TriZen Store (Official)" },
+];
+
 export const tripadFeatures = [
   "Ultra-smooth tempered glass surface — super-fast, low-friction glide",
   "Engineered for competitive esports: precision flicks, tracking & aim",
@@ -13,14 +29,7 @@ export const tripadFeatures = [
 
 export const tripadSpecs = [
   { label: "Product", value: "TriZen TriPad V1 Glass Mouse Pad" },
-  { label: "Material", value: "Tempered glass" },
-  { label: "Surface", value: "Ultra-smooth / low friction" },
-  { label: "Base", value: "Non-slip rubber / stable grip" },
-  { label: "Compatibility", value: "All mouse types (FPS, MOBA, BR)" },
-  { label: "Ideal For", value: "Esports, ranked play & long sessions" },
-  { label: "Care", value: "Wipe with soft cloth — avoid harsh chemicals" },
-  { label: "Warranty", value: "Official TriZen store support" },
-  { label: "Brand", value: "TriZen Store" },
+  ...tripadSpecsShared,
 ];
 
 export function tripadLongDescription(variant: "black" | "white") {
@@ -60,11 +69,8 @@ export const tripadV2Features = [
 export const tripadV2Specs = [
   { label: "Product", value: "TriZen TriPad V2 Glass Mouse Pad" },
   { label: "Series", value: "TriPad V2 (Upcoming)" },
-  { label: "Material", value: "Tempered glass" },
+  ...tripadSpecsShared,
   { label: "Design", value: "Vertical TriZen signature layout" },
-  { label: "Surface", value: "Ultra-smooth / low friction" },
-  { label: "Ideal For", value: "Esports & ranked play" },
-  { label: "Brand", value: "TriZen Store" },
 ];
 
 export function tripadV2LongDescription(variant: "black" | "white") {
@@ -86,6 +92,28 @@ export function tripadV2ShortDescription(variant: "black" | "white") {
     : "TriPad V2 White — clean silver aesthetic, bold branding. Upcoming.";
 }
 
+export function buildTripadSpecs(variant: "black" | "white") {
+  const edition = variant === "black" ? "Black" : "White";
+  return [
+    { label: "Product", value: "TriZen TriPad V1 Glass Mouse Pad" },
+    { label: "Edition", value: edition },
+    { label: "SKU", value: variant === "black" ? "TZ-TRIPAD-V1-BLK" : "TZ-TRIPAD-V1-WHT" },
+    ...tripadSpecsShared,
+  ];
+}
+
+export function buildTripadV2Specs(variant: "black" | "white") {
+  const edition = variant === "black" ? "Black" : "White";
+  return [
+    { label: "Product", value: "TriZen TriPad V2 Glass Mouse Pad" },
+    { label: "Series", value: "TriPad V2 (Upcoming)" },
+    { label: "Edition", value: edition },
+    { label: "SKU", value: variant === "black" ? "TZ-TRIPAD-V2-BLK" : "TZ-TRIPAD-V2-WHT" },
+    ...tripadSpecsShared,
+    { label: "Design", value: "Vertical TriZen signature layout" },
+  ];
+}
+
 export function buildTripadV2ProductData(variant: "black" | "white") {
   const isBlack = variant === "black";
   return {
@@ -94,7 +122,7 @@ export function buildTripadV2ProductData(variant: "black" | "white") {
     description: tripadV2ShortDescription(variant),
     longDescription: tripadV2LongDescription(variant),
     features: stringifyJsonField(tripadV2Features),
-    specifications: stringifyJsonField(tripadV2Specs),
+    specifications: stringifyJsonField(buildTripadV2Specs(variant)),
     galleryImages: stringifyJsonField([
       isBlack ? "/products/tripad-v2-black.png" : "/products/tripad-v2-white.png",
     ]),
@@ -115,7 +143,7 @@ export function buildTripadProductData(variant: "black" | "white") {
     description: tripadShortDescription(variant),
     longDescription: tripadLongDescription(variant),
     features: stringifyJsonField(tripadFeatures),
-    specifications: stringifyJsonField(tripadSpecs),
+    specifications: stringifyJsonField(buildTripadSpecs(variant)),
     galleryImages: stringifyJsonField([
       isBlack ? "/products/tripad-v1-black.png" : "/products/tripad-v1-white.png",
     ]),
