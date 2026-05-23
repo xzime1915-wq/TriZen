@@ -55,6 +55,7 @@ export function HomeProductShowcase({
   const upcoming = isUpcoming(product.tag);
   const mainVisual = visualImage || product.image;
   const showGlide = usesTripadGlideBackgroundOnHome(product.slug);
+  const isBlackPad = product.slug.includes("black");
   const descriptionSlides = getTripadDescriptionSlides(product.slug, product.name);
 
   return (
@@ -76,16 +77,22 @@ export function HomeProductShowcase({
             {showGlide && <ProductGlideBackground />}
             <Link
               href={`/product/${product.slug}`}
-              className="relative z-10 block w-full min-h-[420px] sm:min-h-[500px] lg:min-h-[580px]"
+              className="relative z-20 block w-full min-h-[420px] sm:min-h-[500px] lg:min-h-[580px]"
             >
+              {showGlide && isBlackPad && (
+                <div
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_60%_at_50%_42%,rgba(255,255,255,0.14)_0%,transparent_68%)]"
+                  aria-hidden
+                />
+              )}
               <ProductImage
                 src={mainVisual}
                 alt={headline}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className={
                   showGlide
-                    ? "p-6 sm:p-10 object-contain object-top pb-20"
-                    : "p-0 sm:p-2 object-contain"
+                    ? "p-6 sm:p-10 object-contain object-center pb-24"
+                    : "p-0 sm:p-2 object-contain object-center"
                 }
               />
             </Link>

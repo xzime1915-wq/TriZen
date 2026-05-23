@@ -8,15 +8,15 @@ type Props = {
 
 function HeroCopy({ productSlug }: { productSlug: string }) {
   return (
-    <div className="flex w-full max-w-[15.5rem] flex-col items-start sm:max-w-[17rem] md:max-w-xs">
-      <p className="trizen-fade-in max-w-[18rem] text-[11px] uppercase leading-snug tracking-[0.1em] text-zinc-300 antialiased sm:text-[13px] sm:tracking-[0.12em] md:text-sm">
+    <div className="flex w-full max-w-[18rem] flex-col items-start sm:max-w-md md:max-w-lg">
+      <h1 className="trizen-headline trizen-fade-in max-w-[16rem] text-xl leading-[1.15] sm:max-w-none sm:text-2xl md:text-3xl lg:text-4xl">
         Maximum glide for only pros.
-      </p>
+      </h1>
 
-      <div className="trizen-fade-in-delay-1 mt-6 sm:mt-7">
+      <div className="trizen-fade-in-delay-1 mt-8 sm:mt-10">
         <Link
           href={`/product/${productSlug}`}
-          className="trizen-btn-primary !px-6 !py-2.5 text-[10px] leading-none tracking-[0.18em] sm:!px-8 sm:!py-3 sm:text-xs"
+          className="trizen-btn-primary !px-8 !py-3.5 text-xs tracking-[0.2em] sm:!px-10 sm:!py-4 sm:text-sm md:!px-12 md:!py-5 md:text-base"
         >
           Shop TriPad
         </Link>

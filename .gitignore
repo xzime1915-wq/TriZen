@@ -6,5 +6,7 @@ node_modules
 .env.local
 *.db
 *.db-journal
+public/uploads/chat/**
+!public/uploads/.gitkeep
 .DS_Store
 tsconfig.tsbuildinfo

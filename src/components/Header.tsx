@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { AnimatedLogo } from "@/components/AnimatedLogo";
 import { usePathname } from "next/navigation";
-import { ShoppingCart, Menu, X, Search, User } from "lucide-react";
+import { ShoppingCart, Menu, X, Search, User, MessageCircle } from "lucide-react";
+import { useChatStore } from "@/lib/chat-store";
 import { useState, useEffect } from "react";
 import { useCart } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
+import { ChatHeaderButton } from "@/components/chat/ChatHeaderButton";
 
 type HeaderUser = { name: string | null; email: string } | null;
 
@@ -17,8 +19,8 @@ const links = [
   { href: "/contact", label: "Contact" },
 ];
 
-const iconBtn =
-  "p-2 text-[var(--color-muted)] transition-colors duration-300 hover:text-white";
+const iconClass = "h-[18px] w-[18px]";
+const iconStroke = 1.5;
 
 export function Header({ user = null }: { user?: HeaderUser }) {
   const pathname = usePathname();
@@ -48,83 +50,98 @@ export function Header({ user = null }: { user?: HeaderUser }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b transition-all duration-500",
+        "sticky top-0 z-50 border-b transition-all duration-300",
         scrolled
-          ? "border-zinc-800/90 bg-black/95 backdrop-blur-xl shadow-[0_12px_40px_-20px_rgba(0,0,0,0.9)]"
-          : "border-[var(--color-border)] bg-black/80 backdrop-blur-md"
+          ? "border-white/[0.06] bg-black/90 backdrop-blur-xl"
+          : "border-transparent bg-black/40 backdrop-blur-sm"
       )}
     >
-      <div className="container-trizen flex h-16 items-center justify-between gap-4">
+      <div className="container-trizen flex h-14 items-center justify-between gap-6">
         <Link
           href="/"
-          className="group flex items-center gap-3 shrink-0 transition-opacity hover:opacity-90"
+          className="group flex items-center gap-2.5 shrink-0 transition-opacity hover:opacity-80"
         >
           <AnimatedLogo size="sm" />
-          <span className="hidden sm:block text-sm font-semibold tracking-[0.28em] uppercase text-white">
+          <span className="hidden sm:block text-[11px] font-medium tracking-[0.26em] uppercase text-white/90">
             TriZen Store
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-10">
+        <nav className="hidden lg:flex items-center gap-8">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               data-active={pathname === l.href ? "true" : "false"}
-              className={cn(
-                "trizen-nav-link",
-                pathname === l.href ? "text-white" : "text-[var(--color-muted)]"
-              )}
+              className="trizen-nav-link"
             >
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center gap-0.5 sm:gap-1">
+          <ChatHeaderButton className="trizen-header-icon hidden sm:flex" />
           <Link
             href={user ? "/account" : "/sign-in"}
-            className={cn(iconBtn, "hidden sm:flex")}
+            className="trizen-header-icon hidden sm:flex"
             aria-label={user ? "My account" : "Sign in"}
           >
-            <User className="h-5 w-5" />
+            <User className={iconClass} strokeWidth={iconStroke} />
           </Link>
           <Link
             href="/shop"
-            className={cn(iconBtn, "hidden md:flex")}
+            className="trizen-header-icon hidden md:flex"
             aria-label="Search shop"
           >
-            <Search className="h-5 w-5" />
+            <Search className={iconClass} strokeWidth={iconStroke} />
           </Link>
-          <Link href="/cart" className={cn(iconBtn, "relative")} aria-label="Cart">
-            <ShoppingCart className="h-5 w-5" />
+          <Link
+            href="/cart"
+            className="trizen-header-icon relative"
+            aria-label="Cart"
+          >
+            <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
             {mounted && totalItems > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 flex h-5 w-5 items-center justify-center rounded-sm bg-white text-[10px] font-bold text-black shadow-[0_0_12px_rgba(255,255,255,0.35)]">
-                {totalItems}
-              </span>
+              <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-white ring-2 ring-black" />
             )}
           </Link>
           <button
             type="button"
-            className="lg:hidden p-2 text-white transition-opacity hover:opacity-80"
+            className="trizen-header-icon lg:hidden text-white"
             onClick={() => setOpen(!open)}
             aria-label="Menu"
           >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {open ? (
+              <X className={iconClass} strokeWidth={iconStroke} />
+            ) : (
+              <Menu className={iconClass} strokeWidth={iconStroke} />
+            )}
           </button>
         </div>
       </div>
 
       {open && (
-        <nav className="lg:hidden border-t border-[var(--color-border)] bg-black/98 backdrop-blur-xl px-4 py-4">
+        <nav className="lg:hidden border-t border-white/[0.06] bg-black/95 backdrop-blur-xl px-4 py-3">
+          <button
+            type="button"
+            onClick={() => {
+              useChatStore.getState().toggle();
+              setOpen(false);
+            }}
+            className="flex w-full items-center gap-3 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors"
+          >
+            <MessageCircle className={iconClass} strokeWidth={iconStroke} />
+            Live Chat
+          </button>
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
               className={cn(
-                "block py-3 text-sm uppercase tracking-wide border-b border-[var(--color-border)] transition-colors",
-                pathname === l.href ? "text-white" : "text-zinc-500"
+                "block py-3 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors",
+                pathname === l.href ? "text-white" : "text-zinc-500 hover:text-zinc-300"
               )}
             >
               {l.label}
@@ -135,7 +152,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block py-3 text-sm uppercase tracking-wide border-b border-[var(--color-border)] text-zinc-500 last:border-0 hover:text-white"
+              className="block py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-300"
             >
               {l.label}
             </Link>

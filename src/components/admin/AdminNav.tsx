@@ -10,6 +10,7 @@ import {
   Users,
   Settings,
   LogOut,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -17,6 +18,7 @@ const links = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { href: "/admin/customers", label: "Customers", icon: Users },
+  { href: "/admin/chat", label: "Live Chat", icon: MessageCircle },
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];

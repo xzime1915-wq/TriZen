@@ -3,6 +3,7 @@ import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartProvider } from "@/components/CartProvider";
+import { ChatWidgetHost } from "@/components/chat/ChatWidgetHost";
 import { getUserSession } from "@/lib/user-auth";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default async function RootLayout({
           <Header user={user ? { name: user.name, email: user.email } : null} />
           <main className="flex-1">{children}</main>
           <Footer />
+          <ChatWidgetHost />
         </CartProvider>
       </body>
     </html>

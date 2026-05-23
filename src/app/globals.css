@@ -124,30 +124,93 @@ textarea {
   }
 
   .trizen-nav-link {
-    @apply relative text-sm sm:text-base tracking-wide uppercase transition-colors duration-300;
+    @apply relative text-[11px] font-medium tracking-[0.22em] uppercase text-zinc-500 transition-colors duration-200;
   }
 
-  .trizen-nav-link::after {
+  .trizen-nav-link:hover {
+    @apply text-zinc-300;
+  }
+
+  .trizen-nav-link[data-active="true"] {
+    @apply text-white;
+  }
+
+  .trizen-nav-link[data-active="true"]::after {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #fff, transparent);
-    transform: scaleX(0);
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    transform-origin: right;
+    left: 50%;
+    bottom: -6px;
+    width: 3px;
+    height: 3px;
+    border-radius: 9999px;
+    background: #fff;
+    transform: translateX(-50%);
+    opacity: 0.9;
   }
 
-  .trizen-nav-link:hover::after,
-  .trizen-nav-link[data-active="true"]::after {
-    transform: scaleX(1);
-    transform-origin: left;
+  .trizen-header-icon {
+    @apply flex h-8 w-8 items-center justify-center text-zinc-500 transition-colors duration-200 hover:text-white;
   }
 
   .trizen-footer-link {
     @apply transition-colors duration-300 hover:text-white hover:translate-x-0.5 inline-block;
+  }
+
+  .trizen-footer-contact-icon {
+    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-zinc-950/80 text-zinc-400 transition-colors group-hover:border-zinc-500 group-hover:text-white;
+  }
+
+  .trizen-pay-with {
+    @apply w-full;
+  }
+
+  .trizen-pay-with-label {
+    @apply inline-flex h-8 shrink-0 items-center justify-center bg-white px-3 sm:px-3.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.16em] text-black leading-none;
+  }
+
+  .trizen-pay-with-logo {
+    @apply block h-8 w-auto max-h-8 object-contain object-center opacity-[0.92] transition-opacity duration-300 hover:opacity-100;
+  }
+
+  .trizen-chat-panel {
+    @apply overflow-hidden rounded-sm flex flex-col pointer-events-auto;
+    height: min(85vh, 480px);
+    margin-bottom: 4.5rem;
+  }
+
+  .trizen-chat-messages {
+    min-height: 0;
+  }
+
+  .trizen-chat-input {
+    @apply w-full rounded-sm border border-[var(--color-border)] bg-[#141414] px-3 py-2.5 text-sm outline-none transition-colors focus:border-zinc-500;
+    color: #fafafa;
+    caret-color: #fafafa;
+    -webkit-text-fill-color: #fafafa;
+  }
+
+  .trizen-chat-input::placeholder {
+    color: #52525b;
+    -webkit-text-fill-color: #52525b;
+    opacity: 1;
+  }
+
+  .trizen-chat-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .trizen-chat-tool-btn {
+    @apply shrink-0 p-2 text-zinc-500 transition-colors hover:text-white disabled:opacity-40;
+  }
+
+  .trizen-chat-send-btn {
+    @apply shrink-0 flex h-[42px] w-[42px] items-center justify-center rounded-sm bg-white text-black transition-opacity hover:opacity-90 disabled:opacity-40;
+  }
+
+  .trizen-chat-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #404040 transparent;
   }
 
   .trizen-card-hover {

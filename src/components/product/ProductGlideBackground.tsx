@@ -16,11 +16,11 @@ export function ProductGlideBackground() {
         />
       </div>
       <div
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black via-transparent to-black/20"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[46%] z-[1] bg-gradient-to-t from-black via-black/50 to-transparent"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-x-0 top-[40%] h-28 z-[2] bg-gradient-to-b from-black to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-[48%] h-20 z-[1] bg-gradient-to-b from-black to-transparent"
         aria-hidden
       />
     </>

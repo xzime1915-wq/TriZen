@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { StarRating } from "./StarRating";
 import { ProductTabs } from "./ProductTabs";
+import { ProductFaqSection } from "./ProductFaqSection";
 import { ProductReviewSection } from "./ProductReviewSection";
 import { ProductFeaturesList } from "./ProductFeaturesList";
 import { ProductGallery } from "./ProductGallery";
@@ -216,6 +217,8 @@ export function ProductDetailView({
           }
         />
       </div>
+
+      <ProductFaqSection productName={product.name} tag={product.tag} />
     </div>
   );
 }
