@@ -5,7 +5,6 @@ export const TRIPAD_DIMENSIONS = "490 × 430 × 3 mm";
 
 const tripadSpecsShared = [
   { label: "Dimensions (L × W × H)", value: `${TRIPAD_DIMENSIONS}` },
-  { label: "Active Area", value: "490 × 430 mm" },
   { label: "Thickness", value: "3 mm" },
   { label: "Material", value: "Tempered glass" },
   { label: "Surface", value: "Ultra-smooth, low-friction" },
