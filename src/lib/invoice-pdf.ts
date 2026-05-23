@@ -158,7 +158,15 @@ export async function buildInvoicePdf(
   y -= 14;
   drawRight(`Order: ${order.orderNumber}`, 10);
 
-  y = headerBottom - 20;
+  const headerLineY = Math.min(headerBottom, y) - 14;
+  page.drawLine({
+    start: { x: margin, y: headerLineY },
+    end: { x: pageWidth - margin, y: headerLineY },
+    thickness: 2,
+    color: rgb(0, 0, 0),
+  });
+
+  y = headerLineY - 24;
 
   // Bill To / From — fixed column width + word wrap (no overlap)
   const colGap = 20;
@@ -220,11 +228,11 @@ export async function buildInvoicePdf(
 
   y = Math.min(leftY, rightY) - 20;
 
-  // Table header line
+  // Table header line (matches web border-b-2)
   page.drawLine({
     start: { x: margin, y },
     end: { x: pageWidth - margin, y },
-    thickness: 1,
+    thickness: 2,
     color: rgb(0, 0, 0),
   });
   y -= 16;
@@ -312,14 +320,14 @@ export async function buildInvoicePdf(
     font: fontBold,
   });
 
-  y -= 40;
+  y -= 36;
   page.drawLine({
     start: { x: margin, y },
     end: { x: pageWidth - margin, y },
-    thickness: 0.5,
-    color: rgb(0.8, 0.8, 0.8),
+    thickness: 1.5,
+    color: rgb(0, 0, 0),
   });
-  y -= 20;
+  y -= 22;
 
   drawText(
     `Payment Method: Cash on Delivery (COD) — ${getStatusLabel(order.status)}`,
