@@ -17,6 +17,7 @@ const tripadSpecsShared = [
 ];
 
 export const tripadFeatures = [
+  `Generous playing area — ${TRIPAD_DIMENSIONS} (L × W × H)`,
   "Ultra-smooth tempered glass surface — super-fast, low-friction glide",
   "Engineered for competitive esports: precision flicks, tracking & aim",
   "Hall-effect level consistency — same feel across the entire pad",
@@ -56,6 +57,7 @@ export function tripadShortDescription(variant: "black" | "white") {
 }
 
 export const tripadV2Features = [
+  `Same pro size as V1 — ${TRIPAD_DIMENSIONS} (L × W × H)`,
   "Next-gen TriPad design — bold vertical TriZen branding",
   "Same esports-grade tempered glass glide as V1",
   "Refined surface feel for precision tracking and flicks",
