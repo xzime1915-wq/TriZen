@@ -162,7 +162,7 @@ export async function buildInvoicePdf(
   page.drawLine({
     start: { x: margin, y: headerLineY },
     end: { x: pageWidth - margin, y: headerLineY },
-    thickness: 2,
+    thickness: 1,
     color: rgb(0, 0, 0),
   });
 
@@ -228,11 +228,11 @@ export async function buildInvoicePdf(
 
   y = Math.min(leftY, rightY) - 20;
 
-  // Table header line (matches web border-b-2)
+  // Table header line
   page.drawLine({
     start: { x: margin, y },
     end: { x: pageWidth - margin, y },
-    thickness: 2,
+    thickness: 1,
     color: rgb(0, 0, 0),
   });
   y -= 16;
@@ -300,7 +300,7 @@ export async function buildInvoicePdf(
   page.drawLine({
     start: { x: colAmt - 120, y: y + 6 },
     end: { x: pageWidth - margin, y: y + 6 },
-    thickness: 1.5,
+    thickness: 1,
     color: rgb(0, 0, 0),
   });
   y -= 18;
@@ -324,7 +324,7 @@ export async function buildInvoicePdf(
   page.drawLine({
     start: { x: margin, y },
     end: { x: pageWidth - margin, y },
-    thickness: 1.5,
+    thickness: 1,
     color: rgb(0, 0, 0),
   });
   y -= 22;
