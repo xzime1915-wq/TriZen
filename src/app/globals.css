@@ -839,15 +839,148 @@ textarea {
   }
 }
 
+/* Invoice — clean sans (Inter), separate from site New Academy */
+.invoice-print {
+  font-family: var(--font-invoice, Inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  letter-spacing: 0;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.invoice-print .invoice-header {
+  align-items: flex-start;
+}
+
+.invoice-print .invoice-brand {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.invoice-print .invoice-brand-logo {
+  width: 88px;
+  height: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.invoice-print .invoice-brand > span {
+  display: block !important;
+  flex-shrink: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0;
+}
+
+.invoice-print .invoice-brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.invoice-print .invoice-brand-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #000;
+}
+
+.invoice-print .invoice-tagline {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #525252;
+  line-height: 1.3;
+}
+
+.invoice-print .invoice-address-grid {
+  align-items: start;
+}
+
+.invoice-print .invoice-address-col {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.invoice-print .invoice-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+
+.invoice-print .invoice-meta {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #525252;
+}
+
+.invoice-print .invoice-meta-id {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #000;
+  letter-spacing: 0.02em;
+}
+
+.invoice-print .invoice-section-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #737373;
+}
+
+.invoice-print .invoice-table th {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.invoice-print .invoice-table td {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.invoice-print .invoice-total-row {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.invoice-print footer {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #525252;
+}
+
+.invoice-print footer strong {
+  font-weight: 600;
+  color: #000;
+}
+
 @media print {
   .no-print,
   nav,
-  aside {
+  aside,
+  header,
+  footer {
     display: none !important;
   }
   body {
     background: white !important;
     color: black !important;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif !important;
   }
   .invoice-print {
     background: white !important;
@@ -856,5 +989,6 @@ textarea {
     max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif !important;
   }
 }

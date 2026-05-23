@@ -1,3 +1,5 @@
+import { readFile } from "fs/promises";
+import path from "path";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import type { Order, OrderItem, StoreSettings } from "@prisma/client";
 import { getStatusLabel } from "@/lib/utils";
@@ -10,6 +12,55 @@ function formatMoney(amount: number) {
     maximumFractionDigits: 2,
   });
   return `BDT ${n} Taka`;
+}
+
+function wrapText(
+  text: string,
+  maxWidth: number,
+  measure: (line: string) => number
+): string[] {
+  const trimmed = text.trim();
+  if (!trimmed) return [];
+
+  const pushLongWord = (word: string, lines: string[], carry: { value: string }) => {
+    let chunk = carry.value;
+    for (const ch of word) {
+      const test = chunk + ch;
+      if (measure(test) <= maxWidth) {
+        chunk = test;
+        continue;
+      }
+      if (chunk) lines.push(chunk);
+      chunk = ch;
+    }
+    carry.value = chunk;
+  };
+
+  const words = trimmed.split(/\s+/);
+  const lines: string[] = [];
+  const carry = { value: "" };
+
+  for (const word of words) {
+    if (measure(word) > maxWidth) {
+      if (carry.value) {
+        lines.push(carry.value);
+        carry.value = "";
+      }
+      pushLongWord(word, lines, carry);
+      continue;
+    }
+
+    const next = carry.value ? `${carry.value} ${word}` : word;
+    if (measure(next) <= maxWidth) {
+      carry.value = next;
+      continue;
+    }
+    if (carry.value) lines.push(carry.value);
+    carry.value = word;
+  }
+
+  if (carry.value) lines.push(carry.value);
+  return lines;
 }
 
 export async function buildInvoicePdf(
@@ -55,10 +106,48 @@ export async function buildInvoicePdf(
     });
   };
 
-  // Header
-  drawText(storeName, margin, 16, true);
-  y -= 18;
-  drawText(settings?.tagline || "Premium Esports Gear", margin, 10, false, rgb(0.4, 0.4, 0.4));
+  // Header — brand logo
+  const headerTop = page.getHeight() - margin;
+  let headerBottom = headerTop - 20;
+  try {
+    const logoPath = path.join(process.cwd(), "public", "invoice-logo.png");
+    const logoBytes = await readFile(logoPath);
+    const logoImage = await pdf.embedJpg(logoBytes);
+    const logoW = 56;
+    const logoH = (logoImage.height / logoImage.width) * logoW;
+    const logoY = headerTop - logoH;
+    const textX = margin + logoW + 14;
+    const brandName = storeName;
+    const tagline = settings?.tagline?.trim() || "Premium Esports Gear";
+
+    page.drawImage(logoImage, {
+      x: margin,
+      y: logoY,
+      width: logoW,
+      height: logoH,
+    });
+    page.drawText(brandName, {
+      x: textX,
+      y: logoY + logoH - 20,
+      size: 13,
+      font: fontBold,
+      color: rgb(0, 0, 0),
+    });
+    page.drawText(tagline, {
+      x: textX,
+      y: logoY + logoH - 36,
+      size: 10,
+      font,
+      color: rgb(0.4, 0.4, 0.4),
+    });
+    headerBottom = logoY - 8;
+  } catch {
+    y = headerTop - 16;
+    drawText(storeName, margin, 16, true);
+    y -= 18;
+    drawText(settings?.tagline || "Premium Esports Gear", margin, 10, false, rgb(0.4, 0.4, 0.4));
+    headerBottom = y - 8;
+  }
 
   y = page.getHeight() - margin;
   drawRight("INVOICE", 20, true);
@@ -69,42 +158,67 @@ export async function buildInvoicePdf(
   y -= 14;
   drawRight(`Order: ${order.orderNumber}`, 10);
 
-  y = page.getHeight() - margin - 70;
+  y = headerBottom - 20;
 
-  // Bill To / From
-  const col2 = margin + contentWidth / 2;
-  drawText("BILL TO", margin, 9, true, rgb(0.5, 0.5, 0.5));
-  drawText("FROM", col2, 9, true, rgb(0.5, 0.5, 0.5));
+  // Bill To / From — fixed column width + word wrap (no overlap)
+  const colGap = 20;
+  const colWidth = contentWidth / 2 - colGap;
+  const colRight = margin + contentWidth / 2 + colGap;
+  const lineH = 14;
+  const bodySize = 10;
 
-  y -= 16;
-  const billY = y;
+  y -= 12;
+  page.drawText("BILL TO", {
+    x: margin,
+    y,
+    size: 9,
+    font: fontBold,
+    color: rgb(0.5, 0.5, 0.5),
+  });
+  page.drawText("FROM", {
+    x: colRight,
+    y,
+    size: 9,
+    font: fontBold,
+    color: rgb(0.5, 0.5, 0.5),
+  });
+
+  const measure = (line: string) => font.widthOfTextAtSize(line, bodySize);
+
   const linesLeft = [
     order.customerName,
     order.customerEmail,
     order.customerPhone,
-    `${order.shippingAddress}, ${order.city}${order.country ? `, ${order.country}` : ""}`,
-  ];
+    order.shippingAddress,
+    [order.city, order.country].filter(Boolean).join(", "),
+  ].filter((line) => line?.trim());
+
   const linesRight = [
     storeName,
     settings?.email || "",
     settings?.phone || "",
     settings?.address || "",
-  ].filter(Boolean);
+  ].filter((line) => line?.trim());
 
-  let ly = billY;
-  for (const line of linesLeft) {
-    drawText(line, margin, 10);
-    ly -= 14;
-    y = ly;
-  }
+  let leftY = y - 16;
+  let rightY = y - 16;
 
-  ly = billY;
-  for (const line of linesRight) {
-    page.drawText(line, { x: col2, y: ly, size: 10, font, color: rgb(0, 0, 0) });
-    ly -= 14;
-  }
+  const drawColumn = (lines: string[], x: number, startY: number) => {
+    let cy = startY;
+    for (const line of lines) {
+      const wrapped = wrapText(line, colWidth, measure);
+      for (const part of wrapped) {
+        page.drawText(part, { x, y: cy, size: bodySize, font, color: rgb(0, 0, 0) });
+        cy -= lineH;
+      }
+    }
+    return cy;
+  };
 
-  y = Math.min(y, ly) - 24;
+  leftY = drawColumn(linesLeft, margin, leftY);
+  rightY = drawColumn(linesRight, colRight, rightY);
+
+  y = Math.min(leftY, rightY) - 20;
 
   // Table header line
   page.drawLine({

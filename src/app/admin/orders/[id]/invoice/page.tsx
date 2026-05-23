@@ -23,60 +23,64 @@ export default async function InvoicePage({
   if (!order) notFound();
 
   const settings = await prisma.storeSettings.findFirst();
+  const storeName = settings?.storeName?.trim() || "TriZen Store";
+  const tagline = settings?.tagline?.trim() || "Premium Esports Gear";
 
   return (
   <>
     <InvoiceActions invoiceNumber={order.invoiceNumber ?? order.orderNumber} />
-    <div className="invoice-print min-h-screen bg-white text-black p-8 md:p-12 max-w-4xl mx-auto">
-      <header className="flex justify-between items-start border-b-2 border-black pb-6 mb-8">
-        <div className="flex items-center gap-4">
-          <Image src="/logo.png" alt="TriZen Store" width={56} height={56} />
-          <div>
-            <h1 className="text-xl font-bold uppercase tracking-[0.15em]">
-              {settings?.storeName || "TriZen Store"}
-            </h1>
-            <p className="text-sm text-gray-600">{settings?.tagline}</p>
+    <div className="invoice-print min-h-screen bg-white text-black px-8 pb-8 pt-4 md:px-12 md:pb-12 md:pt-6 max-w-4xl mx-auto">
+      <header className="invoice-header flex justify-between items-start gap-6 border-b-2 border-black pb-6 mb-8">
+        <div className="invoice-brand">
+          <Image
+            src="/invoice-logo.png"
+            alt="TriZen Store"
+            width={88}
+            height={88}
+            className="invoice-brand-logo"
+            unoptimized
+            priority
+          />
+          <div className="invoice-brand-text">
+            <p className="invoice-brand-name">{storeName}</p>
+            <p className="invoice-tagline">{tagline}</p>
           </div>
         </div>
-        <div className="text-right text-sm">
-          <p className="text-2xl font-bold uppercase">Invoice</p>
-          <p className="font-mono mt-1">{order.invoiceNumber}</p>
-          <p className="text-gray-600 mt-2">
+        <div className="text-right">
+          <p className="invoice-heading uppercase">Invoice</p>
+          <p className="invoice-meta-id mt-1">{order.invoiceNumber}</p>
+          <p className="invoice-meta mt-2">
             Date: {new Date(order.createdAt).toLocaleDateString()}
           </p>
-          <p className="text-gray-600">Order: {order.orderNumber}</p>
+          <p className="invoice-meta">Order: {order.orderNumber}</p>
         </div>
       </header>
 
-      <div className="grid sm:grid-cols-2 gap-8 mb-8 text-sm">
-        <div>
-          <p className="text-xs uppercase tracking-widest font-semibold mb-2 text-gray-500">
-            Bill To
-          </p>
+      <div className="invoice-address-grid grid sm:grid-cols-2 gap-x-10 gap-y-6 mb-8">
+        <div className="invoice-address-col min-w-0">
+          <p className="invoice-section-label mb-2">Bill To</p>
           <p className="font-semibold">{order.customerName}</p>
-          <p>{order.customerEmail}</p>
+          <p className="break-words">{order.customerEmail}</p>
           <p>{order.customerPhone}</p>
-          <p className="mt-2">
+          <p className="mt-2 break-words">
             {order.shippingAddress}
             <br />
             {order.city}
             {order.country ? `, ${order.country}` : ""}
           </p>
         </div>
-        <div>
-          <p className="text-xs uppercase tracking-widest font-semibold mb-2 text-gray-500">
-            From
-          </p>
+        <div className="invoice-address-col min-w-0">
+          <p className="invoice-section-label mb-2">From</p>
           <p className="font-semibold">{settings?.storeName}</p>
-          <p>{settings?.email}</p>
+          <p className="break-words">{settings?.email}</p>
           <p>{settings?.phone}</p>
-          <p className="mt-2">{settings?.address}</p>
+          <p className="mt-2 break-words">{settings?.address}</p>
         </div>
       </div>
 
-      <table className="w-full text-sm mb-8">
+      <table className="invoice-table w-full mb-8">
         <thead>
-          <tr className="border-b-2 border-black text-left text-xs uppercase">
+          <tr className="border-b-2 border-black text-left">
             <th className="py-2">Description</th>
             <th className="py-2 text-center">Qty</th>
             <th className="py-2 text-right">Unit Price</th>
@@ -98,23 +102,23 @@ export default async function InvoicePage({
       </table>
 
       <div className="flex justify-end mb-8">
-        <div className="w-64 text-sm space-y-2">
-          <div className="flex justify-between">
-            <span className="text-gray-600">Subtotal</span>
-            <span>{formatCurrency(order.subtotal)}</span>
+        <div className="w-64 space-y-2">
+          <div className="flex justify-between invoice-meta">
+            <span>Subtotal</span>
+            <span className="text-black">{formatCurrency(order.subtotal)}</span>
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-600">Delivery Charge</span>
-            <span>{formatCurrency(order.shippingCost)}</span>
+          <div className="flex justify-between invoice-meta">
+            <span>Delivery Charge</span>
+            <span className="text-black">{formatCurrency(order.shippingCost)}</span>
           </div>
-          <div className="flex justify-between font-bold text-lg border-t-2 border-black pt-2">
+          <div className="invoice-total-row flex justify-between border-t-2 border-black pt-2">
             <span>Total Due</span>
             <span>{formatCurrency(order.total)}</span>
           </div>
         </div>
       </div>
 
-      <footer className="border-t border-gray-300 pt-6 text-sm text-gray-600">
+      <footer className="border-t border-gray-300 pt-6">
         <p>
           <strong>Payment Method:</strong> Cash on Delivery (COD) —{" "}
           {getStatusLabel(order.status)}
