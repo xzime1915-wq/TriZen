@@ -15,6 +15,14 @@ export const dynamic = "force-dynamic";
 
 const HERO_SLUG = "trizen-tripad-v1-black";
 
+/** Already shown in HomeGlideFeature — skip duplicate showcases on home */
+const GLIDE_SECTION_SLUGS = new Set([
+  "trizen-tripad-v1-black",
+  "trizen-tripad-v1-white",
+  "trizen-tripad-v2-black",
+  "trizen-tripad-v2-white",
+]);
+
 function stripEditionSuffix(name: string) {
   return name.replace(/\s+(Black|White)$/i, "");
 }
@@ -49,7 +57,9 @@ export default async function HomePage() {
       <HomeStatement />
       <HomeGlideFeature />
 
-      {products.map((p, index) => {
+      {products
+        .filter((p) => !GLIDE_SECTION_SLUGS.has(p.slug))
+        .map((p, index) => {
         const usesDuoVisual = p.slug === HERO_SLUG;
 
         return (

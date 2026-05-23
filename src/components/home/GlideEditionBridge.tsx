@@ -97,8 +97,7 @@ export function GlideEditionBridge() {
               aria-hidden
             />
             <p className="glide-bridge-item glide-bridge-item-delay-3 mt-5 text-sm leading-relaxed text-zinc-300 md:text-[0.9375rem]">
-              Precision glass surface, tournament-ready build — choose your
-              edition below.
+              Black &amp; white glass editions — in stock and ready to ship.
             </p>
           </div>
         </div>
