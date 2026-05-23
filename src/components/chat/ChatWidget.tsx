@@ -212,14 +212,25 @@ export function ChatWidget() {
   }
 
   async function sendText(body: string) {
-    if (!conversationId) return;
-    const res = await fetch("/api/chat/messages", {
+    if (!conversationId) {
+      setError("Chat session expired. Close the chat and open it again.");
+      return;
+    }
+    setError(null);
+    const { ok, data } = await fetchJson<{
+      message?: ChatMessageDto;
+      meta?: ChatPresenceMeta;
+      error?: string;
+    }>("/api/chat/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ conversationId, body }),
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Send failed");
+    if (!ok || !data.message) {
+      const msg = data.error || "Message could not be sent. Try again.";
+      setError(msg);
+      throw new Error(msg);
+    }
     setMessages((prev) =>
       applyPresence([...prev, data.message as ChatMessageDto], data.meta)
     );
@@ -227,7 +238,11 @@ export function ChatWidget() {
   }
 
   async function uploadFile(file: File) {
-    if (!conversationId) return;
+    if (!conversationId) {
+      setError("Chat session expired. Close the chat and open it again.");
+      return;
+    }
+    setError(null);
     const form = new FormData();
     form.append("file", file);
     form.append("conversationId", conversationId);
@@ -235,7 +250,11 @@ export function ChatWidget() {
     const upData = await up.json();
     if (!up.ok) throw new Error(upData.error || "Upload failed");
 
-    const res = await fetch("/api/chat/messages", {
+    const { ok, data } = await fetchJson<{
+      message?: ChatMessageDto;
+      meta?: ChatPresenceMeta;
+      error?: string;
+    }>("/api/chat/messages", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -245,8 +264,11 @@ export function ChatWidget() {
         attachmentType: upData.attachmentType,
       }),
     });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "Send failed");
+    if (!ok || !data.message) {
+      const msg = data.error || "Message could not be sent. Try again.";
+      setError(msg);
+      throw new Error(msg);
+    }
     setMessages((prev) =>
       applyPresence([...prev, data.message as ChatMessageDto], data.meta)
     );

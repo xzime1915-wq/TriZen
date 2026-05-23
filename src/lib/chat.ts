@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { randomUUID } from "crypto";
+import { useSecureCookies } from "./auth";
 import { prisma } from "./prisma";
 import { applySeenToMessages, isTypingActive } from "./chat-presence";
 
@@ -58,7 +59,7 @@ export async function getVisitorSessionId(): Promise<string> {
   const id = randomUUID();
   jar.set(CHAT_VISITOR_COOKIE, id, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: useSecureCookies(),
     sameSite: "lax",
     path: "/",
     maxAge: 60 * 60 * 24 * 365,

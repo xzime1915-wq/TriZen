@@ -44,6 +44,10 @@ export function ChatComposer({
     try {
       await onSendText(value);
       setText("");
+    } catch (e) {
+      const msg =
+        e instanceof Error ? e.message : "Could not send message. Try again.";
+      alert(msg);
     } finally {
       setSending(false);
     }
