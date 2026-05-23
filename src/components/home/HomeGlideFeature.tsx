@@ -182,6 +182,9 @@ export function HomeGlideFeature() {
 
       <div className="border-b border-[var(--color-border)]">
         <div className="container-trizen pt-10 pb-12 md:pt-14 md:pb-20">
+          <p className="trizen-eyebrow mb-8 text-center md:mb-10">
+            Choose your edition
+          </p>
           <div className="mx-auto max-w-7xl border border-[var(--color-border)] shadow-[0_32px_80px_-40px_rgba(0,0,0,0.9)] grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-[var(--color-border)] divide-y sm:divide-y-0">
             <TripadV1Card />
             <EditionSwapCard
