@@ -135,7 +135,7 @@ export function ProductDetailView({
             />
           </div>
 
-          <p className="text-sm text-[var(--color-muted)] leading-relaxed mb-6">
+          <p className="text-sm text-[var(--color-muted)] leading-relaxed tracking-[0.01em] normal-case mb-6">
             {product.description}
           </p>
 
