@@ -1,13 +1,7 @@
 import { cookies } from "next/headers";
 import { randomUUID } from "crypto";
 import { prisma } from "./prisma";
-import {
-  applySeenToMessages,
-  isTypingActive,
-  type ChatPresenceMeta,
-} from "./chat-presence";
-
-export type { ChatPresenceMeta };
+import { applySeenToMessages, isTypingActive } from "./chat-presence";
 
 export const CHAT_VISITOR_COOKIE = "trizen_chat_visitor";
 export const CHAT_POLL_MS = 3000;
