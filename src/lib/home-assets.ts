@@ -1,5 +1,5 @@
 export const HOME_HERO_IMAGE = "/products/trizen-tripad-hero.png";
-export const HOME_GLIDE_IMAGE = "/products/engineered-glide.jpg";
+export const HOME_GLIDE_IMAGE = "/products/engineered-glide.png";
 /** Glide → Choose edition — Ultimate Esports banner (user asset) */
 export const HOME_GLIDE_BRIDGE_IMAGE = "/products/trizen-ultimate-esports.png";
 export const HOME_GLIDE_TRIPAD_IMAGE = "/products/tripad-v1-duo.png";
