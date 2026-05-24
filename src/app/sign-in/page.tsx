@@ -12,6 +12,7 @@ import { AuthDivider } from "@/components/AuthDivider";
 const ERROR_MESSAGES: Record<string, string> = {
   google_cancelled: "Google sign-in was cancelled.",
   google_failed: "Google sign-in failed. Please try again.",
+  google_state_invalid: "Google sign-in expired. Please try again.",
   google_not_configured:
     "Google sign-in is not set up. Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env, then restart the server.",
 };

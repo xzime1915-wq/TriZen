@@ -37,14 +37,8 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 100%;
+  font-size: 106.25%;
   overflow-x: clip;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 106.25%;
-  }
 }
 
 body {
@@ -75,6 +69,88 @@ input,
 select,
 textarea {
   font-family: inherit;
+}
+
+/* Mobile: match desktop text where components use sm:/md: larger sizes */
+@media (max-width: 767px) {
+  .text-xs {
+    font-size: var(--text-sm);
+  }
+
+  .text-xs.sm\:text-sm.md\:text-base {
+    font-size: var(--text-base);
+  }
+
+  .text-sm.sm\:text-base {
+    font-size: var(--text-base);
+  }
+
+  .text-sm.sm\:text-\[0\.9375rem\] {
+    font-size: 0.9375rem;
+  }
+
+  .text-sm.sm\:text-base.md\:text-\[1\.0625rem\] {
+    font-size: 1.0625rem;
+  }
+
+  .text-base.sm\:text-lg,
+  .text-base.md\:text-lg {
+    font-size: var(--text-lg);
+  }
+
+  .text-xl.sm\:text-2xl {
+    font-size: var(--text-2xl);
+  }
+
+  .text-xl.sm\:text-4xl {
+    font-size: var(--text-4xl);
+  }
+
+  .text-xl.md\:text-2xl {
+    font-size: var(--text-2xl);
+  }
+
+  .text-xl.md\:text-3xl {
+    font-size: var(--text-3xl);
+  }
+
+  .text-2xl.sm\:text-3xl {
+    font-size: var(--text-3xl);
+  }
+
+  .text-2xl.sm\:text-3xl.md\:text-4xl {
+    font-size: var(--text-4xl);
+  }
+
+  .text-2xl.sm\:text-4xl {
+    font-size: var(--text-4xl);
+  }
+
+  .text-2xl.md\:text-3xl {
+    font-size: var(--text-3xl);
+  }
+
+  .text-3xl.sm\:text-4xl,
+  .text-3xl.md\:text-4xl {
+    font-size: var(--text-4xl);
+  }
+
+  .text-3xl.sm\:text-4xl.md\:text-5xl {
+    font-size: var(--text-5xl);
+  }
+
+  .text-3xl.md\:text-5xl {
+    font-size: var(--text-5xl);
+  }
+
+  .text-4xl.sm\:text-5xl,
+  .text-4xl.md\:text-6xl {
+    font-size: var(--text-6xl);
+  }
+
+  .trizen-pay-with-label {
+    font-size: 10px;
+  }
 }
 
 @layer utilities {
