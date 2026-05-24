@@ -165,11 +165,27 @@ textarea {
   }
 
   .trizen-pay-with-label {
-    @apply inline-flex h-8 shrink-0 items-center justify-center bg-white px-3 sm:px-3.5 text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.16em] text-black leading-none;
+    @apply inline-flex shrink-0 items-center justify-center text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.18em] text-white leading-none;
   }
 
   .trizen-pay-with-logo {
-    @apply block h-8 w-auto max-h-8 object-contain object-center opacity-[0.92] transition-opacity duration-300 hover:opacity-100;
+    @apply block w-auto object-contain object-center opacity-[0.92] transition-opacity duration-300 hover:opacity-100;
+    height: 0.8125rem;
+    max-height: 0.8125rem;
+  }
+
+  @media (min-width: 640px) {
+    .trizen-pay-with-logo {
+      height: 1.375rem;
+      max-height: 1.375rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .trizen-pay-with-logo {
+      height: 2rem;
+      max-height: 2rem;
+    }
   }
 
   .trizen-chat-panel {

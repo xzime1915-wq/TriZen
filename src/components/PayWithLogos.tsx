@@ -6,7 +6,7 @@ export function PayWithLogos({ className }: { className?: string }) {
   return (
     <ul
       className={cn(
-        "flex flex-wrap items-center gap-2.5 sm:gap-3 min-w-0",
+        "flex flex-nowrap items-center justify-center gap-1 min-w-0 sm:gap-2 md:gap-2.5",
         className
       )}
     >
@@ -18,7 +18,7 @@ export function PayWithLogos({ className }: { className?: string }) {
             width={88}
             height={36}
             className="trizen-pay-with-logo"
-            sizes="88px"
+            sizes="(max-width: 639px) 36px, 88px"
           />
         </li>
       ))}
