@@ -56,68 +56,82 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           : "border-transparent bg-black/40 backdrop-blur-sm"
       )}
     >
-      <div className="container-trizen flex h-14 items-center justify-between gap-6">
+      <div className="container-trizen relative flex h-14 items-center justify-between gap-6 lg:gap-6">
+        {/* Mobile: MENU (left) */}
+        <button
+          type="button"
+          className="hidden h-8 w-8 shrink-0 items-center justify-center text-white transition-colors hover:text-white/80 max-lg:flex"
+          onClick={() => setOpen(!open)}
+          aria-label="Menu"
+          aria-expanded={open}
+        >
+          {open ? (
+            <X className={iconClass} strokeWidth={iconStroke} />
+          ) : (
+            <Menu className={iconClass} strokeWidth={iconStroke} />
+          )}
+        </button>
+
+        {/* Branding — centered on mobile, left on desktop */}
         <Link
           href="/"
-          className="group flex items-center gap-2.5 shrink-0 transition-opacity hover:opacity-80"
+          className="group absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 transition-opacity hover:opacity-80 lg:static lg:translate-x-0 lg:shrink-0"
         >
-          <AnimatedLogo size="sm" />
-          <span className="hidden sm:block text-[11px] font-medium tracking-[0.26em] uppercase text-white/90">
-            TriZen Store
-          </span>
+          <AnimatedLogo size="sm" variant="on-dark" className="shrink-0" />
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-8">
+        <nav className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:flex">
           {links.map((l) => (
             <Link
               key={l.href}
               href={l.href}
               data-active={pathname === l.href ? "true" : "false"}
-              className="trizen-nav-link"
+              className="trizen-nav-link pointer-events-auto"
             >
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-0.5 sm:gap-1">
-          <ChatHeaderButton className="trizen-header-icon hidden sm:flex" />
+        {/* Mobile: cart only */}
+        <div className="ml-auto hidden items-center max-lg:flex">
+          <Link
+            href="/cart"
+            className="trizen-header-icon relative text-white"
+            aria-label="Cart"
+          >
+            <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
+            {mounted && totalItems > 0 && (
+              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-black">
+                {totalItems > 99 ? "99+" : totalItems}
+              </span>
+            )}
+          </Link>
+        </div>
+
+        {/* Desktop: chat, account, search, cart */}
+        <div className="relative z-10 ml-auto hidden items-center gap-0.5 sm:gap-1 lg:flex">
+          <ChatHeaderButton className="trizen-header-icon" />
           <Link
             href={user ? "/account" : "/sign-in"}
-            className="trizen-header-icon hidden sm:flex"
+            className="trizen-header-icon"
             aria-label={user ? "My account" : "Sign in"}
           >
             <User className={iconClass} strokeWidth={iconStroke} />
           </Link>
           <Link
             href="/shop"
-            className="trizen-header-icon hidden md:flex"
+            className="trizen-header-icon"
             aria-label="Search shop"
           >
             <Search className={iconClass} strokeWidth={iconStroke} />
           </Link>
-          <Link
-            href="/cart"
-            className="trizen-header-icon relative"
-            aria-label="Cart"
-          >
+          <Link href="/cart" className="trizen-header-icon relative" aria-label="Cart">
             <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
             {mounted && totalItems > 0 && (
               <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-white ring-2 ring-black" />
             )}
           </Link>
-          <button
-            type="button"
-            className="trizen-header-icon lg:hidden text-white"
-            onClick={() => setOpen(!open)}
-            aria-label="Menu"
-          >
-            {open ? (
-              <X className={iconClass} strokeWidth={iconStroke} />
-            ) : (
-              <Menu className={iconClass} strokeWidth={iconStroke} />
-            )}
-          </button>
         </div>
       </div>
 

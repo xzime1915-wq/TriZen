@@ -1,15 +1,15 @@
 type Props = {
   count: number;
-  activeCategory?: string;
+  activeGearLabel?: string;
   query?: string;
 };
 
-export function ShopHero({ count, activeCategory, query }: Props) {
+export function ShopHero({ count, activeGearLabel, query }: Props) {
   const subtitle = query
     ? `Results for “${query}”`
-    : activeCategory
-      ? activeCategory
-      : "Premium esports gear — mouse pads & accessories";
+    : activeGearLabel
+      ? activeGearLabel
+      : "Glass pads, soft pads, skates & sleeves";
 
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-black">
@@ -26,12 +26,12 @@ export function ShopHero({ count, activeCategory, query }: Props) {
           {subtitle}
         </p>
         <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-white/90">
-          Browse TriPad by generation — V1 editions in stock now, V2 launching soon
-          with refreshed vertical TriZen branding. Glass glide built for competitive
-          play in Bangladesh.
+          Every gear line has its own section — TriPad glass mouse pads, soft pads,
+          mouse skates, and hand sleeves. Pick a filter above or scroll through the
+          full lineup.
         </p>
         <p className="mt-8 text-xs uppercase tracking-[0.22em] text-zinc-600">
-          {count} {count === 1 ? "product" : "products"} · V1 & V2 clearly listed below
+          {count} {count === 1 ? "product" : "products"} listed below
         </p>
       </div>
     </section>

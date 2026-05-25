@@ -10,6 +10,11 @@ import type {
   ChatPresenceMeta,
 } from "@/components/chat/chat-types";
 import { applySeenToMessages } from "@/lib/chat-presence";
+import {
+  playChatSound,
+  requestChatNotificationPermission,
+  showChatNotification,
+} from "@/lib/chat-notify";
 import { cn } from "@/lib/utils";
 
 const POLL_MS = 3000;
@@ -23,6 +28,8 @@ export function AdminChat() {
   const [otherTyping, setOtherTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<ChatMessageDto[]>([]);
+  const knownMessageIdsRef = useRef(new Set<string>());
+  const prevUnreadTotalRef = useRef(0);
   messagesRef.current = messages;
 
   const selected = conversations.find((c) => c.id === selectedId);
@@ -57,6 +64,19 @@ export function AdminChat() {
           (a, b) =>
             new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
         );
+        const freshVisitor = incoming.filter(
+          (m) =>
+            m.sender === "visitor" && !knownMessageIdsRef.current.has(m.id)
+        );
+        for (const m of freshVisitor) knownMessageIdsRef.current.add(m.id);
+        if (freshVisitor.length > 0) {
+          playChatSound();
+          const last = freshVisitor[freshVisitor.length - 1];
+          const preview =
+            last.body?.trim() ||
+            (last.attachmentUrl ? "Customer sent an attachment" : "New message");
+          showChatNotification("Live Chat", preview);
+        }
       }
       return applyPresence(merged, meta);
     },
@@ -81,9 +101,9 @@ export function AdminChat() {
     const data = await res.json();
     const meta = data.meta as ChatPresenceMeta | undefined;
     if (replace) {
-      setMessages(
-        applyPresence((data.messages ?? []) as ChatMessageDto[], meta)
-      );
+      const initial = (data.messages ?? []) as ChatMessageDto[];
+      knownMessageIdsRef.current = new Set(initial.map((m) => m.id));
+      setMessages(applyPresence(initial, meta));
     } else {
       setMessages((prev) =>
         mergePollData(prev, (data.messages ?? []) as ChatMessageDto[], meta)
@@ -94,10 +114,32 @@ export function AdminChat() {
   }, [loadConversations]);
 
   useEffect(() => {
+    void requestChatNotificationPermission();
     void loadConversations();
     const id = setInterval(() => void loadConversations(), POLL_MS);
     return () => clearInterval(id);
   }, [loadConversations, applyPresence, mergePollData]);
+
+  const totalUnread = conversations.reduce((n, c) => n + (c.unreadAdmin ?? 0), 0);
+
+  useEffect(() => {
+    if (totalUnread > prevUnreadTotalRef.current) {
+      const external = conversations.filter(
+        (c) => (c.unreadAdmin ?? 0) > 0 && c.id !== selectedId
+      );
+      if (external.length > 0) {
+        playChatSound();
+        const top = external[0];
+        if (document.visibilityState === "hidden") {
+          showChatNotification(
+            "New chat message",
+            `${top.visitorName}: ${top.lastMessage?.body || "New message"}`
+          );
+        }
+      }
+    }
+    prevUnreadTotalRef.current = totalUnread;
+  }, [totalUnread, conversations, selectedId]);
 
   useEffect(() => {
     if (!selectedId) {
@@ -194,8 +236,6 @@ export function AdminChat() {
     void loadThread(selectedId, false);
   }
 
-  const totalUnread = conversations.reduce((n, c) => n + (c.unreadAdmin ?? 0), 0);
-
   return (
     <div className="grid lg:grid-cols-[300px_1fr] gap-0 border border-[var(--color-border)] min-h-[calc(100vh-8rem)] bg-black">
       <aside className="border-b lg:border-b-0 lg:border-r border-[var(--color-border)] flex flex-col max-h-[40vh] lg:max-h-none">
@@ -221,6 +261,7 @@ export function AdminChat() {
               onClick={() => {
                 setSelectedId(c.id);
                 setMessages([]);
+                knownMessageIdsRef.current = new Set();
                 void loadThread(c.id);
               }}
               className={cn(

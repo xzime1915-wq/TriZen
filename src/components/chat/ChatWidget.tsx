@@ -11,14 +11,21 @@ import type { ChatMessageDto, ChatPresenceMeta } from "./chat-types";
 import { applySeenToMessages } from "@/lib/chat-presence";
 import { fetchJson } from "@/lib/fetch-json";
 import { useChatStore } from "@/lib/chat-store";
+import {
+  playChatSound,
+  requestChatNotificationPermission,
+  showChatNotification,
+} from "@/lib/chat-notify";
 import { cn } from "@/lib/utils";
 
 const POLL_MS = 4000;
 
 export function ChatWidget() {
   const open = useChatStore((s) => s.open);
+  const unreadCount = useChatStore((s) => s.unreadCount);
   const setOpen = useChatStore((s) => s.setOpen);
-  const toggle = useChatStore((s) => s.toggle);
+  const addUnread = useChatStore((s) => s.addUnread);
+  const clearUnread = useChatStore((s) => s.clearUnread);
   const [mounted, setMounted] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [visitorName, setVisitorName] = useState("");
@@ -31,9 +38,75 @@ export function ChatWidget() {
   const bottomRef = useRef<HTMLDivElement>(null);
   const messagesRef = useRef<ChatMessageDto[]>([]);
   const prevMessageCountRef = useRef(0);
+  const knownMessageIdsRef = useRef(new Set<string>());
+  const openRef = useRef(open);
+  const [panelMounted, setPanelMounted] = useState(false);
+  const [panelEntered, setPanelEntered] = useState(false);
   messagesRef.current = messages;
+  openRef.current = open;
+
+  const closeChat = useCallback(() => setOpen(false), [setOpen]);
+
+  const openChat = useCallback(() => {
+    void requestChatNotificationPermission();
+    setOpen(true);
+  }, [setOpen]);
+
+  const notifyIncomingAdmin = useCallback(
+    (incoming: ChatMessageDto[]) => {
+      const fresh = incoming.filter(
+        (m) => m.sender === "admin" && !knownMessageIdsRef.current.has(m.id)
+      );
+      if (fresh.length === 0) return;
+
+      for (const m of fresh) knownMessageIdsRef.current.add(m.id);
+
+      playChatSound();
+
+      const preview =
+        fresh[fresh.length - 1].body?.trim() ||
+        (fresh[fresh.length - 1].attachmentUrl ? "Sent an attachment" : "New message");
+
+      if (!openRef.current || document.visibilityState === "hidden") {
+        addUnread(fresh.length);
+        showChatNotification("TriZen Support", preview, () => setOpen(true));
+      }
+    },
+    [addUnread, setOpen]
+  );
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    if (open) clearUnread();
+  }, [open, clearUnread]);
+
+  useEffect(() => {
+    if (open) {
+      setPanelMounted(true);
+      const id = requestAnimationFrame(() => {
+        requestAnimationFrame(() => setPanelEntered(true));
+      });
+      return () => cancelAnimationFrame(id);
+    }
+    setPanelEntered(false);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open && panelMounted) {
+      const t = window.setTimeout(() => setPanelMounted(false), 320);
+      return () => window.clearTimeout(t);
+    }
+  }, [open, panelMounted]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeChat();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open, closeChat]);
 
   const scrollToBottom = useCallback(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -80,11 +153,12 @@ export function ChatWidget() {
             (a, b) =>
               new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
           );
+          notifyIncomingAdmin(incoming);
         }
         return applyPresence(merged, meta);
       });
     },
-    [applyPresence]
+    [applyPresence, notifyIncomingAdmin]
   );
 
   const notifyTyping = useCallback(() => {
@@ -130,10 +204,10 @@ export function ChatWidget() {
         error?: string;
       }>(`/api/chat/messages?conversationId=${data.conversation.id}`);
       if (msgOk) {
-        setMessages(
-          applyPresence((msgData.messages ?? []) as ChatMessageDto[], msgData.meta)
-        );
-        prevMessageCountRef.current = msgData.messages?.length ?? 0;
+        const initial = (msgData.messages ?? []) as ChatMessageDto[];
+        for (const m of initial) knownMessageIdsRef.current.add(m.id);
+        setMessages(applyPresence(initial, msgData.meta));
+        prevMessageCountRef.current = initial.length;
       } else {
         setMessages([]);
       }
@@ -146,20 +220,25 @@ export function ChatWidget() {
   }, [applyPresence]);
 
   useEffect(() => {
+    void initChat();
+  }, [initChat]);
+
+  useEffect(() => {
     if (open) void initChat();
   }, [open, initChat]);
 
   useEffect(() => {
-    if (!open || !conversationId || showIntro) return;
+    if (!conversationId || showIntro) return;
 
     const tick = () => {
       const last = messagesRef.current[messagesRef.current.length - 1];
       void loadMessages(conversationId, last?.createdAt);
     };
 
+    tick();
     const id = setInterval(tick, POLL_MS);
     return () => clearInterval(id);
-  }, [open, conversationId, showIntro, loadMessages]);
+  }, [conversationId, showIntro, loadMessages]);
 
   useEffect(() => {
     if (messages.length > prevMessageCountRef.current) {
@@ -193,6 +272,7 @@ export function ChatWidget() {
 
     setConversationId(data.conversation.id);
     setShowIntro(false);
+    void requestChatNotificationPermission();
 
     const { ok: msgOk, data: msgData } = await fetchJson<{
       messages?: ChatMessageDto[];
@@ -200,12 +280,13 @@ export function ChatWidget() {
     }>(`/api/chat/messages?conversationId=${data.conversation.id}`);
 
     if (msgOk) {
-      setMessages(
-        applyPresence((msgData.messages ?? []) as ChatMessageDto[], msgData.meta)
-      );
-      prevMessageCountRef.current = msgData.messages?.length ?? 0;
+      const initial = (msgData.messages ?? []) as ChatMessageDto[];
+      knownMessageIdsRef.current = new Set(initial.map((m) => m.id));
+      setMessages(applyPresence(initial, msgData.meta));
+      prevMessageCountRef.current = initial.length;
     } else {
       setMessages([]);
+      knownMessageIdsRef.current = new Set();
     }
 
     setLoading(false);
@@ -275,17 +356,18 @@ export function ChatWidget() {
     scrollToBottom();
   }
 
-  const panel = open ? (
+  const panel = panelMounted ? (
     <div
       className={cn(
-        "trizen-chat-panel w-[min(100vw-2rem,380px)] flex flex-col pointer-events-auto",
-        "border border-[var(--color-border)] bg-black shadow-[0_24px_80px_-24px_rgba(0,0,0,0.95)]"
+        "trizen-chat-panel w-[min(100vw-2rem,380px)] border border-[var(--color-border)] bg-black shadow-[0_24px_80px_-24px_rgba(0,0,0,0.95)]",
+        panelEntered ? "trizen-chat-panel--open" : "trizen-chat-panel--closed"
       )}
       role="dialog"
+      aria-modal="true"
       aria-label="TriZen support chat"
     >
-      <header className="shrink-0 flex items-center justify-between border-b border-[var(--color-border)] px-4 py-3 bg-[var(--color-surface-elevated)]">
-        <div>
+      <header className="shrink-0 flex items-center justify-between gap-3 border-b border-[var(--color-border)] px-4 py-3 bg-[var(--color-surface-elevated)]">
+        <div className="min-w-0">
           <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
             TriZen Support
           </p>
@@ -293,11 +375,11 @@ export function ChatWidget() {
         </div>
         <button
           type="button"
-          onClick={() => setOpen(false)}
-          className="p-2 text-zinc-500 hover:text-white"
+          onClick={closeChat}
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-[var(--color-border)] bg-black/70 text-zinc-400 transition-colors hover:border-zinc-500 hover:bg-zinc-900 hover:text-white"
           aria-label="Close chat"
         >
-          <X className="h-5 w-5" />
+          <X className="h-4 w-4" strokeWidth={2} />
         </button>
       </header>
 
@@ -387,31 +469,54 @@ export function ChatWidget() {
   return (
     <>
       {mounted &&
+        panelMounted &&
         createPortal(
-          <div className="fixed bottom-5 right-4 z-[9999] flex flex-col items-end sm:right-6 pointer-events-none">
-            {panel}
-          </div>,
+          <>
+            <button
+              type="button"
+              className={cn(
+                "trizen-chat-backdrop z-[9998]",
+                panelEntered
+                  ? "trizen-chat-backdrop--visible"
+                  : "trizen-chat-backdrop--hidden"
+              )}
+              aria-label="Close chat"
+              onClick={closeChat}
+            />
+            <div className="pointer-events-none fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[9999] flex flex-col items-end sm:right-6 lg:bottom-5">
+              {panel}
+            </div>
+          </>,
           document.body
         )}
 
       <button
         type="button"
-        onClick={toggle}
+        onClick={() => (open ? closeChat() : openChat())}
         className={cn(
-          "fixed bottom-5 right-4 z-[9999] border-0 bg-transparent p-0 sm:right-6",
-          "transition-transform hover:scale-110 active:scale-95",
-          open && "scale-0 opacity-0 pointer-events-none"
+          "trizen-chat-fab fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[9999] border-0 bg-transparent p-0 sm:right-6 lg:bottom-5",
+          "hover:scale-110 active:scale-95",
+          open ? "trizen-chat-fab--hidden" : "trizen-chat-fab--visible"
         )}
-        aria-label={open ? "Close chat" : "Open chat"}
+        aria-label={
+          unreadCount > 0 ? `Open chat, ${unreadCount} new messages` : "Open chat"
+        }
       >
-        <Image
-          src="/chat-icon.png"
-          alt=""
-          width={52}
-          height={52}
-          className="h-[52px] w-[52px] object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
-          priority
-        />
+        <span className="relative block">
+          <Image
+            src="/chat-icon.png"
+            alt=""
+            width={52}
+            height={52}
+            className="h-[52px] w-[52px] object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
+            priority
+          />
+          {unreadCount > 0 && (
+            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1 text-[10px] font-bold text-black ring-2 ring-black">
+              {unreadCount > 9 ? "9+" : unreadCount}
+            </span>
+          )}
+        </span>
       </button>
     </>
   );

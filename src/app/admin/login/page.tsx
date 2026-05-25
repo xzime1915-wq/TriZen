@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { TrizenLogo } from "@/components/TrizenLogo";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
         onSubmit={handleSubmit}
         className="w-full max-w-sm border border-[var(--color-border)] p-8 bg-[var(--color-surface-elevated)]"
       >
-        <Image src="/logo.png" alt="TriZen Store" width={48} height={48} className="mx-auto mb-4" />
+        <TrizenLogo variant="on-dark" width={48} height={48} className="mx-auto mb-4" />
         <h1 className="text-center text-lg font-bold uppercase tracking-wide mb-6">
           Admin Login
         </h1>

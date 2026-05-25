@@ -1,23 +1,26 @@
 "use client";
 
 import Image from "next/image";
+import { getLogoSrc, type LogoVariant } from "@/lib/brand-logos";
 import { cn } from "@/lib/utils";
 
 type AnimatedLogoProps = {
   size?: "sm" | "hero";
+  variant?: LogoVariant;
   className?: string;
   priority?: boolean;
 };
 
 export function AnimatedLogo({
   size = "hero",
+  variant = "on-dark",
   className,
   priority = false,
 }: AnimatedLogoProps) {
   if (size === "sm") {
     return (
       <Image
-        src="/logo.png"
+        src={getLogoSrc(variant)}
         alt="TriZen Store"
         width={40}
         height={40}

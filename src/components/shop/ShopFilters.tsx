@@ -3,17 +3,19 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Search } from "lucide-react";
+import { SHOP_GEAR_COPY, SHOP_GEAR_ORDER, isShopGearLine } from "@/lib/shop-gears";
 
-export function ShopFilters({ categories }: { categories: string[] }) {
+export function ShopFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [q, setQ] = useState(searchParams.get("q") || "");
-  const activeCategory = searchParams.get("category");
+  const activeGear = searchParams.get("gear");
 
-  function updateParams(updates: { category?: string | null; q?: string | null }) {
+  function updateParams(updates: { gear?: string | null; q?: string | null }) {
     const params = new URLSearchParams(searchParams.toString());
-    if (updates.category === null) params.delete("category");
-    else if (updates.category) params.set("category", updates.category);
+    params.delete("category");
+    if (updates.gear === null) params.delete("gear");
+    else if (updates.gear) params.set("gear", updates.gear);
     if (updates.q === null) params.delete("q");
     else if (updates.q) params.set("q", updates.q);
     router.push(`/shop?${params.toString()}`);
@@ -30,18 +32,18 @@ export function ShopFilters({ categories }: { categories: string[] }) {
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-wrap gap-2">
             <FilterPill
-              active={!activeCategory}
-              onClick={() => updateParams({ category: null })}
+              active={!activeGear || !isShopGearLine(activeGear)}
+              onClick={() => updateParams({ gear: null })}
             >
               All
             </FilterPill>
-            {categories.map((cat) => (
+            {SHOP_GEAR_ORDER.map((gear) => (
               <FilterPill
-                key={cat}
-                active={activeCategory === cat}
-                onClick={() => updateParams({ category: cat })}
+                key={gear}
+                active={activeGear === gear}
+                onClick={() => updateParams({ gear })}
               >
-                {cat}
+                {SHOP_GEAR_COPY[gear].title}
               </FilterPill>
             ))}
           </div>

@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { TrizenLogo } from "@/components/TrizenLogo";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
@@ -60,7 +60,7 @@ function SignInForm() {
       onSubmit={handleSubmit}
       className="w-full max-w-sm border border-[var(--color-border)] p-8 bg-[var(--color-surface-elevated)]"
     >
-      <Image src="/logo.png" alt="TriZen Store" width={48} height={48} className="mx-auto mb-4" />
+      <TrizenLogo variant="on-dark" width={48} height={48} className="mx-auto mb-4" />
       <h1 className="text-center text-lg font-bold uppercase tracking-wide mb-2">Sign In</h1>
       <p className="text-center text-sm text-[var(--color-muted)] mb-6">
         Welcome back to TriZen Store

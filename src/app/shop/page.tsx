@@ -3,33 +3,29 @@ import { prisma } from "@/lib/prisma";
 import { ShopHero } from "@/components/shop/ShopHero";
 import { ShopMarquee } from "@/components/shop/ShopMarquee";
 import { ShopFilters } from "@/components/shop/ShopFilters";
-import { ShopEditionSection } from "@/components/shop/ShopEditionSection";
+import { ShopGearSection } from "@/components/shop/ShopGearSection";
 import { ShopEmpty } from "@/components/shop/ShopEmpty";
 import { HomeCta } from "@/components/home/HomeCta";
 import {
-  getShopEdition,
-  SHOP_EDITION_ORDER,
-  type ShopEdition,
-} from "@/lib/shop-editions";
+  getShopGearLine,
+  SHOP_GEAR_COPY,
+  SHOP_GEAR_ORDER,
+  isShopGearLine,
+  type ShopGearLine,
+} from "@/lib/shop-gears";
 
 export const dynamic = "force-dynamic";
 
 export default async function ShopPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string; q?: string }>;
+  searchParams: Promise<{ category?: string; gear?: string; q?: string }>;
 }) {
   const params = await searchParams;
-
-  const categories = await prisma.product.findMany({
-    select: { category: true },
-    distinct: ["category"],
-  });
-  const categoryList = categories.map((c) => c.category);
+  const activeGear = isShopGearLine(params.gear) ? params.gear : undefined;
 
   const products = await prisma.product.findMany({
     where: {
-      ...(params.category ? { category: params.category } : {}),
       ...(params.q
         ? {
             OR: [
@@ -42,43 +38,51 @@ export default async function ShopPage({
     orderBy: [{ featured: "desc" }, { name: "asc" }],
   });
 
-  const grouped = SHOP_EDITION_ORDER.reduce(
-    (acc, edition) => {
-      acc[edition] = [];
+  const grouped = SHOP_GEAR_ORDER.reduce(
+    (acc, gear) => {
+      acc[gear] = [];
       return acc;
     },
-    {} as Record<ShopEdition, typeof products>
+    {} as Record<ShopGearLine, typeof products>
   );
 
   for (const p of products) {
-    const edition = getShopEdition(p.slug, p.name);
-    grouped[edition].push(p);
+    const gear = getShopGearLine(p.slug, p.name, p.category);
+    grouped[gear].push(p);
   }
+
+  const sectionsToShow = activeGear ? [activeGear] : SHOP_GEAR_ORDER;
+  const productCount = sectionsToShow.reduce(
+    (n, gear) => n + grouped[gear].length,
+    0
+  );
+  const showAllGearSections = !activeGear && !params.q;
 
   return (
     <div className="bg-black min-h-screen">
       <ShopHero
-        count={products.length}
-        activeCategory={params.category}
+        count={productCount}
+        activeGearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}
         query={params.q}
       />
       <ShopMarquee />
 
       <Suspense fallback={<div className="h-[72px] border-b border-[var(--color-border)]" />}>
-        <ShopFilters categories={categoryList} />
+        <ShopFilters />
       </Suspense>
 
       <div className="container-trizen pb-0">
-        {products.length === 0 ? (
+        {productCount === 0 && !showAllGearSections ? (
           <section className="py-16 md:py-24">
             <ShopEmpty />
           </section>
         ) : (
-          SHOP_EDITION_ORDER.map((edition) => (
-            <ShopEditionSection
-              key={edition}
-              edition={edition}
-              products={grouped[edition].map((p) => ({
+          sectionsToShow.map((gear) => (
+            <ShopGearSection
+              key={gear}
+              gear={gear}
+              showWhenEmpty={showAllGearSections}
+              products={grouped[gear].map((p) => ({
                 name: p.name,
                 slug: p.slug,
                 description: p.description,

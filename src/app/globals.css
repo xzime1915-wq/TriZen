@@ -264,10 +264,53 @@ textarea {
     }
   }
 
+  .trizen-chat-backdrop {
+    @apply fixed inset-0 bg-black/55 backdrop-blur-[2px] transition-opacity duration-300 ease-out;
+    pointer-events: auto;
+  }
+
+  .trizen-chat-backdrop--hidden {
+    @apply pointer-events-none opacity-0;
+  }
+
+  .trizen-chat-backdrop--visible {
+    @apply opacity-100;
+  }
+
   .trizen-chat-panel {
     @apply overflow-hidden rounded-sm flex flex-col pointer-events-auto;
     height: min(85vh, 480px);
     margin-bottom: 4.5rem;
+    transform-origin: bottom right;
+    transition:
+      opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .trizen-chat-panel--closed {
+    @apply pointer-events-none opacity-0;
+    transform: translateY(12px) scale(0.96);
+  }
+
+  .trizen-chat-panel--open {
+    @apply opacity-100;
+    transform: translateY(0) scale(1);
+  }
+
+  .trizen-chat-fab {
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .trizen-chat-fab--hidden {
+    @apply pointer-events-none opacity-0;
+    transform: scale(0.85);
+  }
+
+  .trizen-chat-fab--visible {
+    @apply opacity-100;
+    transform: scale(1);
   }
 
   .trizen-chat-messages {
@@ -373,6 +416,16 @@ textarea {
       rgba(0, 0, 0, 0.18) 72%,
       transparent 84%
     );
+  }
+
+  @media (max-width: 767px) {
+    .trizen-hero-fade-bottom {
+      height: min(28vh, 220px);
+    }
+
+    .trizen-hero-fade-bottom-glow {
+      height: min(24vh, 200px);
+    }
   }
 
   .trizen-fade-in {
@@ -562,8 +615,59 @@ textarea {
     }
   }
 
+  .edition-carousel {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .edition-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
   .home-marquee-track {
     animation: home-marquee 50s linear infinite;
+  }
+
+  @media (max-width: 767px) {
+    .home-marquee-text {
+      font-size: 0.8125rem;
+      line-height: 1.2;
+    }
+
+    /* Glide “Performance” banner — PC-like proportions on small screens */
+    .glide-performance-block .glide-performance-eyebrow {
+      font-size: 0.5625rem;
+      letter-spacing: 0.28em;
+      line-height: 1.3;
+    }
+
+    .glide-performance-block .glide-performance-title {
+      margin-top: 0.5rem;
+      font-size: 1.0625rem;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
+
+    .glide-performance-block .glide-performance-title span {
+      max-width: 16.5rem;
+      margin-inline: auto;
+    }
+
+    .glide-performance-block .glide-performance-body {
+      margin-top: 0.625rem;
+      max-width: 17.5rem;
+      font-size: 0.6875rem;
+      line-height: 1.5;
+      letter-spacing: 0.03em;
+    }
+
+  }
+
+  @media (min-width: 768px) {
+    .glide-performance-block .glide-performance-title span {
+      max-width: none;
+      font-size: inherit;
+    }
   }
 
   @keyframes home-marquee {
@@ -598,7 +702,7 @@ textarea {
 
   .glide-bridge-img {
     opacity: 0;
-    transform: scale(1.22);
+    transform: scale(1.04);
   }
 
   .glide-bridge-inview .glide-bridge-img {
@@ -628,7 +732,7 @@ textarea {
 
   .glide-bridge-frame:not(.glide-bridge-inview) .glide-bridge-img {
     opacity: 0;
-    transform: scale(1.22);
+    transform: scale(1.04);
     animation: none;
   }
 
@@ -656,13 +760,37 @@ textarea {
   }
 
   .glide-bridge-eyebrow {
-    color: #ffffff;
-    letter-spacing: 0.32em;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    color: #d4d4d4;
+    letter-spacing: 0.3em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
   }
 
-  .glide-bridge-line {
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  .our-gear-card-mark {
+    transform: rotate(45deg);
+  }
+
+  .our-gear-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    pointer-events: none;
+  }
+
+  .our-gear-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    pointer-events: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -672,7 +800,7 @@ textarea {
 
     .glide-bridge-img {
       opacity: 1;
-      transform: scale(1.14);
+      transform: scale(1);
       animation: none;
     }
 
@@ -692,8 +820,8 @@ textarea {
 
 @keyframes glide-bridge-img-in {
   to {
-    opacity: 0.92;
-    transform: scale(1.14);
+    opacity: 0.95;
+    transform: scale(1);
   }
 }
 

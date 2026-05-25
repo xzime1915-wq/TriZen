@@ -110,9 +110,9 @@ export async function buildInvoicePdf(
   const headerTop = page.getHeight() - margin;
   let headerBottom = headerTop - 20;
   try {
-    const logoPath = path.join(process.cwd(), "public", "invoice-logo.png");
+    const logoPath = path.join(process.cwd(), "public", "logo_b.png");
     const logoBytes = await readFile(logoPath);
-    const logoImage = await pdf.embedJpg(logoBytes);
+    const logoImage = await pdf.embedPng(logoBytes);
     const logoW = 56;
     const logoH = (logoImage.height / logoImage.width) * logoW;
     const logoY = headerTop - logoH;

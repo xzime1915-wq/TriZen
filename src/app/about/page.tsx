@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { TrizenLogo } from "@/components/TrizenLogo";
 import { PageHero } from "@/components/PageHero";
 
 export default function AboutPage() {
@@ -14,13 +14,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--color-border)]">
         <div className="container-trizen py-16 md:py-20 max-w-3xl">
           <div className="flex items-center gap-5 mb-12">
-            <Image
-              src="/logo.png"
-              alt="TriZen Store"
-              width={56}
-              height={56}
-              className="shrink-0"
-            />
+            <TrizenLogo variant="on-dark" width={56} height={56} className="shrink-0" />
             <p className="trizen-body md:text-base">
               Designed for competitive play — from ranked queues to long practice
               sessions.

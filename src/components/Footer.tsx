@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { TrizenLogo } from "@/components/TrizenLogo";
 import { usePathname } from "next/navigation";
 import { Mail, Phone } from "lucide-react";
 import { PayWithLogos } from "@/components/PayWithLogos";
@@ -72,7 +72,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-16 border-t border-[var(--color-border)] bg-black overflow-hidden">
+    <footer className="relative mt-16 border-t border-[var(--color-border)] bg-black overflow-hidden max-lg:mb-[calc(4rem+env(safe-area-inset-bottom))]">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-600/40 to-transparent"
         aria-hidden
@@ -86,7 +86,7 @@ export function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
           <div className="sm:col-span-2 lg:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <Image src="/logo.png" alt="TriZen Store" width={44} height={44} />
+              <TrizenLogo variant="on-dark" width={44} height={44} />
               <span className="text-sm font-semibold tracking-[0.22em] uppercase text-white">
                 TriZen Store
               </span>

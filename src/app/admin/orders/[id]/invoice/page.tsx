@@ -33,7 +33,7 @@ export default async function InvoicePage({
       <header className="invoice-header flex justify-between items-start gap-6 border-b-2 border-black pb-6 mb-8">
         <div className="invoice-brand">
           <Image
-            src="/invoice-logo.png"
+            src="/logo_b.png"
             alt="TriZen Store"
             width={88}
             height={88}

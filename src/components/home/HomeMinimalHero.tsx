@@ -13,7 +13,7 @@ function HeroCopy({ productSlug }: { productSlug: string }) {
         Maximum glide for only pros.
       </h1>
 
-      <div className="trizen-fade-in-delay-1 mt-8 sm:mt-10">
+      <div className="trizen-fade-in-delay-1 mt-6 sm:mt-10">
         <Link
           href={`/product/${productSlug}`}
           className="trizen-btn-primary !px-8 !py-3.5 text-xs tracking-[0.2em] sm:!px-10 sm:!py-4 sm:text-sm md:!px-12 md:!py-5 md:text-base"
@@ -27,7 +27,7 @@ function HeroCopy({ productSlug }: { productSlug: string }) {
 
 export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Props) {
   return (
-    <section className="relative isolate min-h-[calc(100dvh-4rem)] overflow-hidden bg-black">
+    <section className="relative isolate min-h-[62dvh] sm:min-h-[72dvh] md:min-h-[calc(100dvh-4rem)] overflow-hidden bg-black">
       <div className="absolute inset-0 bg-black">
         <Image
           src={HOME_HERO_IMAGE}
@@ -54,13 +54,13 @@ export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Prop
         <div className="trizen-hero-fade-bottom" aria-hidden />
       </div>
 
-      <div className="container-trizen relative z-10 min-h-[calc(100dvh-4rem)] pb-14">
-        <div className="absolute inset-x-0 top-[34%] -translate-y-1/2 px-4 md:static md:inset-auto md:top-auto md:flex md:min-h-[calc(100dvh-4rem)] md:translate-y-0 md:items-center md:px-0">
+      <div className="container-trizen relative z-10 flex min-h-[62dvh] flex-col justify-center pb-8 sm:min-h-[72dvh] sm:pb-10 md:min-h-[calc(100dvh-4rem)] md:pb-14">
+        <div className="px-4 md:absolute md:inset-x-0 md:top-[34%] md:-translate-y-1/2 md:px-0">
           <HeroCopy productSlug={productSlug} />
         </div>
       </div>
 
-      <p className="trizen-scroll-hint absolute bottom-5 left-1/2 z-10 -translate-x-1/2 sm:bottom-6">
+      <p className="trizen-scroll-hint absolute bottom-3 left-1/2 z-10 -translate-x-1/2 sm:bottom-6">
         Scroll
       </p>
     </section>

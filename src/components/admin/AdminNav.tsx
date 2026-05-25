@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { TrizenLogo } from "@/components/TrizenLogo";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -37,7 +37,7 @@ export function AdminNav({ admin }: { admin: { name: string; email: string } }) 
     <aside className="fixed left-0 top-0 z-40 h-screen w-56 border-r border-[var(--color-border)] bg-black flex flex-col">
       <div className="p-4 border-b border-[var(--color-border)]">
         <Link href="/admin" className="flex items-center gap-2">
-          <Image src="/logo.png" alt="TriZen" width={32} height={32} />
+          <TrizenLogo variant="on-dark" alt="TriZen" width={32} height={32} />
           <span className="text-xs font-semibold uppercase tracking-widest">Admin</span>
         </Link>
       </div>

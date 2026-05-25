@@ -8,6 +8,7 @@ import { HomeFeaturesGrid } from "@/components/home/HomeFeaturesGrid";
 import { HomeProcess } from "@/components/home/HomeProcess";
 import { HomeReviews } from "@/components/home/HomeReviews";
 import { HomeCta } from "@/components/home/HomeCta";
+import { HomeOurGears } from "@/components/home/HomeOurGears";
 import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 import { parseFeatures, averageRating } from "@/lib/product-data";
 
@@ -48,6 +49,8 @@ export default async function HomePage() {
       <HomeMarquee />
       <HomeStatement />
       <HomeGlideFeature />
+
+      <HomeOurGears />
 
       {products.map((p, index) => (
         <HomeProductShowcase

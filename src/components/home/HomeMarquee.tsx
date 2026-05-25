@@ -4,7 +4,7 @@ export function HomeMarquee() {
 
   return (
     <section
-      className="relative border-y border-[var(--color-border)] bg-black py-7 overflow-hidden"
+      className="relative border-y border-[var(--color-border)] bg-black py-4 sm:py-7 overflow-hidden"
       aria-hidden
     >
       <div
@@ -12,10 +12,10 @@ export function HomeMarquee() {
         aria-hidden
       />
       <div className="home-marquee-track flex whitespace-nowrap">
-        <span className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-zinc-800/90 select-none">
+        <span className="home-marquee-text text-sm sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-[0.12em] sm:tracking-tight text-zinc-800/90 select-none">
           {repeated}
         </span>
-        <span className="text-xl sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-zinc-800/90 select-none">
+        <span className="home-marquee-text text-sm sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-[0.12em] sm:tracking-tight text-zinc-800/90 select-none">
           {repeated}
         </span>
       </div>
