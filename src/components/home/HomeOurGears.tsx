@@ -98,11 +98,15 @@ export function HomeOurGears() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(255,255,255,0.03)_0%,transparent_60%)]"
         aria-hidden
       />
-      <div className="container-trizen relative py-16 md:py-24 lg:py-28">
-        <div className="mb-10 text-center md:mb-14 md:text-left">
-          <p className="trizen-eyebrow mb-4">Catalog</p>
-          <h2 className="trizen-headline text-2xl md:text-4xl">Our Gears</h2>
-          <p className="trizen-body mx-auto mt-4 max-w-xl md:mx-0">
+      <div className="container-trizen relative py-10 md:py-24 lg:py-28">
+        <div className="mb-6 text-center md:mb-14 md:text-left">
+          <p className="trizen-eyebrow mb-2 text-[8px] tracking-[0.28em] md:mb-4 md:text-xs">
+            Catalog
+          </p>
+          <h2 className="trizen-headline text-[1.15rem] leading-tight md:text-4xl">
+            Our Gears
+          </h2>
+          <p className="mx-auto mt-2 max-w-md text-[0.7rem] leading-[1.55] text-zinc-500 md:mx-0 md:mt-4 md:max-w-xl md:text-base md:leading-relaxed">
             The full TriZen lineup — glass pads, soft pads, skates, and sleeves built
             for competitive play.
           </p>

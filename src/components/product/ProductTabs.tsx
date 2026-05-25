@@ -75,14 +75,14 @@ export function ProductTabs({
             )}
 
             <h2
-              className={`trizen-headline text-xl sm:text-2xl max-w-3xl tracking-[0.06em] ${
+              className={`trizen-headline max-w-3xl text-[1rem] tracking-[0.06em] md:text-2xl ${
                 slides.length > 0 ? "mt-14 sm:mt-16" : "mt-0"
               }`}
             >
               {productName}
             </h2>
 
-            <div className="mt-8 sm:mt-10 max-w-2xl space-y-6 text-sm sm:text-base md:text-[1.0625rem] leading-relaxed text-white">
+            <div className="mt-6 max-w-2xl space-y-4 text-[0.75rem] leading-relaxed text-white md:mt-10 md:space-y-6 md:text-base">
               {paragraphs.map((para) => (
                 <p key={para.slice(0, 40)}>{para}</p>
               ))}

@@ -75,8 +75,8 @@ export function ProductDetailView({
 
   return (
     <div className="w-full">
-      <div className="product-page-pad py-10 md:py-14">
-      <nav className="text-sm text-[var(--color-muted)] mb-8">
+      <div className="product-page-pad py-6 md:py-14">
+      <nav className="mb-4 text-[0.65rem] text-[var(--color-muted)] md:mb-8 md:text-sm">
         <Link href="/" className="hover:text-white">
           Home
         </Link>
@@ -105,7 +105,9 @@ export function ProductDetailView({
               {product.tag}
             </span>
           )}
-          <h1 className="text-2xl sm:text-3xl font-bold mb-3">{product.name}</h1>
+          <h1 className="mb-2 text-[1.15rem] font-bold leading-tight md:mb-3 sm:text-3xl">
+            {product.name}
+          </h1>
 
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <StarRating value={avgRating} />
@@ -133,10 +135,12 @@ export function ProductDetailView({
               price={product.price}
               compareAt={product.compareAt}
               tag={product.tag}
+              className="text-[1.1rem] font-semibold text-emerald-400 md:text-2xl"
+              compareClassName="text-[0.75rem] text-[var(--color-muted)] line-through md:text-lg"
             />
           </div>
 
-          <p className="text-sm text-[var(--color-muted)] leading-relaxed tracking-[0.01em] normal-case mb-6">
+          <p className="mb-6 text-[0.75rem] leading-relaxed tracking-[0.01em] text-[var(--color-muted)] normal-case md:text-sm">
             {product.description}
           </p>
 

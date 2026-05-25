@@ -23,10 +23,17 @@ export async function POST(request: Request) {
     }
 
     const session = await getUserSession();
+    if (!session) {
+      return NextResponse.json(
+        { error: "Sign in required to place an order." },
+        { status: 401 }
+      );
+    }
 
     const order = await createOrder({
-      userId: session?.id,
+      userId: session.id,
       ...parsed,
+      customerEmail: session.email,
     });
 
     return NextResponse.json(order, { status: 201 });

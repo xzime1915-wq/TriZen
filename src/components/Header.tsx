@@ -17,6 +17,7 @@ const links = [
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
+  { href: "/track-order", label: "Track Your Order" },
 ];
 
 const iconClass = "h-[18px] w-[18px]";

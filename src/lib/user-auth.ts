@@ -145,6 +145,11 @@ export function createGoogleOAuthState() {
   return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
 }
 
+export function safeRedirectPath(path: string | null | undefined, fallback = "/") {
+  if (!path || !path.startsWith("/") || path.startsWith("//")) return fallback;
+  return path;
+}
+
 export function getGoogleAuthUrl(origin: string, state: string) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   if (!clientId) throw new Error("GOOGLE_CLIENT_ID is not set");

@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { findOrCreateGoogleUser } from "@/lib/user-auth";
+import { findOrCreateGoogleUser, safeRedirectPath } from "@/lib/user-auth";
 import { getRequestOrigin } from "@/lib/env";
 
 const STATE_COOKIE = "google_oauth_state";
+const NEXT_COOKIE = "google_oauth_next";
 
 export async function GET(req: NextRequest) {
   const appUrl = getRequestOrigin(req);
@@ -84,8 +85,10 @@ export async function GET(req: NextRequest) {
       picture: profile.picture,
     });
 
-    const res = NextResponse.redirect(new URL("/", appUrl));
+    const nextPath = safeRedirectPath(req.cookies.get(NEXT_COOKIE)?.value, "/");
+    const res = NextResponse.redirect(new URL(nextPath, appUrl));
     res.cookies.delete(STATE_COOKIE);
+    res.cookies.delete(NEXT_COOKIE);
     return res;
   } catch (err) {
     console.error("[google oauth] callback error", err);

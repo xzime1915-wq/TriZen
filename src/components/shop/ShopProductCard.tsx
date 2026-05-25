@@ -50,14 +50,14 @@ export function ShopProductCard({
           className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_70%_at_50%_40%,rgba(255,255,255,0.04)_0%,transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           aria-hidden
         />
-        <div className="relative z-10 h-full w-full">
+        <div className="relative z-10 h-full w-full max-md:pt-12">
           <ProductImage
             src={product.image}
             alt={product.name}
             sizes="(max-width: 768px) 100vw, 50vw"
             className={
               showGlide
-                ? "p-6 sm:p-10 object-contain object-top pb-14 transition duration-700 group-hover:scale-[1.03]"
+                ? "max-md:object-[50%_62%] p-6 pb-14 pt-2 object-contain object-top transition duration-700 group-hover:scale-[1.03] sm:p-10 sm:pt-10"
                 : "p-2 sm:p-4 object-contain transition duration-700 group-hover:scale-[1.03]"
             }
           />
@@ -89,35 +89,39 @@ export function ShopProductCard({
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-6 sm:p-8 lg:p-10 border-t border-[var(--color-border)]">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-1 flex-col border-t border-[var(--color-border)] p-4 sm:p-8 lg:p-10">
+        <div className="flex flex-wrap items-center gap-1.5 md:gap-2">
           {editionLabel && (
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 border border-[var(--color-border)] px-2.5 py-1">
+            <span className="border border-[var(--color-border)] px-2 py-0.5 text-[8px] font-bold uppercase tracking-[0.18em] text-zinc-400 md:px-2.5 md:py-1 md:text-xs md:tracking-[0.2em]">
               {editionLabel}
             </span>
           )}
-          <p className="trizen-eyebrow text-zinc-600">{product.category}</p>
+          {!editionLabel && (
+            <p className="trizen-eyebrow text-[8px] tracking-[0.28em] text-zinc-600 md:text-xs">
+              {product.category}
+            </p>
+          )}
         </div>
-        <h2 className="mt-4 text-xl sm:text-2xl font-bold uppercase tracking-tight text-white leading-snug group-hover:underline">
+        <h2 className="mt-2 text-[1.05rem] font-bold uppercase leading-[1.15] tracking-tight text-white group-hover:underline md:mt-4 md:text-2xl md:leading-snug">
           {product.name}
         </h2>
-        <p className="mt-4 text-base text-zinc-400 line-clamp-3 leading-relaxed">
+        <p className="mt-2 line-clamp-3 text-[0.7rem] leading-[1.5] text-zinc-400 md:mt-4 md:text-base md:leading-relaxed">
           {product.description}
         </p>
-        <p className="mt-4 text-base sm:text-lg text-white/90 line-clamp-4 leading-relaxed flex-1">
+        <p className="mt-2 line-clamp-4 flex-1 text-[0.7rem] leading-[1.5] text-white/90 md:mt-4 md:text-base md:leading-relaxed lg:text-lg">
           {previewText(product)}
         </p>
-        <div className="mt-6 pt-6 border-t border-[var(--color-border)] flex items-end justify-between gap-4">
+        <div className="mt-4 flex items-end justify-between gap-4 border-t border-[var(--color-border)] pt-4 md:mt-6 md:pt-6">
           {shouldShowProductPrice(product.tag) ? (
             <div>
-              <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
+              <p className="mb-0.5 text-[9px] uppercase tracking-[0.2em] text-zinc-600 md:mb-1 md:text-[10px] md:tracking-widest">
                 Price
               </p>
-              <p className="text-xl font-semibold text-white tabular-nums">
+              <p className="text-[1rem] font-semibold tabular-nums text-white md:text-xl">
                 {formatCurrency(product.price)}
               </p>
               {product.compareAt && product.compareAt > product.price && (
-                <p className="text-xs text-zinc-600 line-through mt-1">
+                <p className="mt-0.5 text-[10px] text-zinc-600 line-through md:mt-1 md:text-xs">
                   {formatCurrency(product.compareAt)}
                 </p>
               )}

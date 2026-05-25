@@ -46,45 +46,28 @@ export const SHOP_GEAR_COPY: Record<
     eyebrow: string;
     title: string;
     titleLine2?: string;
-    intro: string[];
     statusLabel: string;
   }
 > = {
   "glass-mouse-pad": {
     eyebrow: "In stock",
     title: "Glass Mouse Pad",
-    intro: [
-      "TriPad tempered glass — ultra-smooth glide, stable base, and black or white editions built for ranked play.",
-      "V1 ships now across Bangladesh. V2 editions are coming soon with refreshed vertical TriZen branding.",
-    ],
     statusLabel: "Grab Now",
   },
   "soft-mouse-pad": {
     eyebrow: "Upcoming",
     title: "Soft Mouse Pad",
     titleLine2: "",
-    intro: [
-      "A softer surface line for players who want cushioned control without giving up precision.",
-      "Launching soon at TriZen Store — check back for dates and editions.",
-    ],
     statusLabel: "Upcoming",
   },
   skates: {
     eyebrow: "Lineup",
     title: "Skates",
-    intro: [
-      "Low-friction mouse feet tuned for consistent glide on glass and hard pads.",
-      "Browse compatible sets for your mouse when stock is live.",
-    ],
     statusLabel: "Grab Now",
   },
   "hand-sleeves": {
     eyebrow: "Upcoming",
     title: "Hand Sleeves",
-    intro: [
-      "Compression sleeves that cut sleeve drag and keep your aim steady through long sessions.",
-      "Coming soon to TriZen Store.",
-    ],
     statusLabel: "Upcoming",
   },
 };

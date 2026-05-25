@@ -30,6 +30,10 @@ function SignInForm() {
   const [loading, setLoading] = useState(false);
 
   const urlError = searchParams.get("error");
+  const nextPath = searchParams.get("next");
+  const redirectTo =
+    nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//") ? nextPath : "/";
+  const isCheckout = redirectTo === "/checkout";
   const displayError = error || (urlError ? ERROR_MESSAGES[urlError] || "Sign in failed" : "");
 
   async function handleSubmit(e: React.FormEvent) {
@@ -51,7 +55,7 @@ function SignInForm() {
       return;
     }
 
-    router.push("/");
+    router.push(redirectTo);
     router.refresh();
   }
 
@@ -63,10 +67,10 @@ function SignInForm() {
       <TrizenLogo variant="on-dark" width={48} height={48} className="mx-auto mb-4" />
       <h1 className="text-center text-lg font-bold uppercase tracking-wide mb-2">Sign In</h1>
       <p className="text-center text-sm text-[var(--color-muted)] mb-6">
-        Welcome back to TriZen Store
+        {isCheckout ? "Sign in to complete your order" : "Welcome back to TriZen Store"}
       </p>
 
-      <GoogleSignInButton label="Sign in with Google" />
+      <GoogleSignInButton label="Sign in with Google" nextPath={redirectTo} />
 
       <AuthDivider />
 
@@ -97,7 +101,14 @@ function SignInForm() {
 
       <p className="text-center text-sm text-[var(--color-muted)] mt-6">
         Don&apos;t have an account?{" "}
-        <Link href="/register" className="text-white hover:underline">
+        <Link
+          href={
+            redirectTo !== "/"
+              ? `/register?next=${encodeURIComponent(redirectTo)}`
+              : "/register"
+          }
+          className="text-white hover:underline"
+        >
           Create account
         </Link>
       </p>

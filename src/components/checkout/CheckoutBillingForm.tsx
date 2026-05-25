@@ -10,7 +10,6 @@ export type BillingFormState = {
   streetAddress: string;
   district: string;
   country: string;
-  createAccount: boolean;
   shipToDifferent: boolean;
   notes: string;
 };
@@ -18,9 +17,10 @@ export type BillingFormState = {
 type Props = {
   form: BillingFormState;
   onChange: (form: BillingFormState) => void;
+  emailReadOnly?: boolean;
 };
 
-export function CheckoutBillingForm({ form, onChange }: Props) {
+export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: Props) {
   const set = (patch: Partial<BillingFormState>) => onChange({ ...form, ...patch });
 
   return (
@@ -76,20 +76,12 @@ export function CheckoutBillingForm({ form, onChange }: Props) {
         label="Email address"
         type="email"
         required
+        readOnly={emailReadOnly}
         value={form.customerEmail}
         onChange={(e) => set({ customerEmail: e.target.value })}
       />
 
-      <div className="space-y-2 pt-1">
-        <label className="flex cursor-pointer items-center gap-2 text-sm text-[var(--color-muted)]">
-          <input
-            type="checkbox"
-            checked={form.createAccount}
-            onChange={(e) => set({ createAccount: e.target.checked })}
-            className="h-4 w-4 accent-white"
-          />
-          Create an account?
-        </label>
+      <div className="pt-1">
         <label className="flex cursor-pointer items-center gap-2 text-sm text-[var(--color-muted)]">
           <input
             type="checkbox"

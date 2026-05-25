@@ -227,12 +227,14 @@ export function HomeGlideFeature() {
             />
           </EditionCarousel>
 
-          <div className="mt-20 md:mt-28">
-            <p className="trizen-eyebrow text-center mb-2">Upcoming</p>
-            <h3 className="text-center text-2xl sm:text-3xl font-bold uppercase tracking-tight text-white mb-8 md:mb-10">
+          <div className="mt-12 md:mt-28">
+            <p className="trizen-eyebrow mb-1.5 text-center text-[8px] tracking-[0.28em] max-md:mb-2 md:text-xs">
+              Upcoming
+            </p>
+            <h3 className="mb-4 text-center text-[1.15rem] font-bold uppercase leading-tight tracking-tight text-white sm:text-3xl md:mb-10">
               TriPad V2
             </h3>
-            <p className="trizen-body text-center max-w-xl mx-auto mb-10 md:mb-12 -mt-4">
+            <p className="mx-auto mb-6 max-w-md text-center text-[0.7rem] leading-[1.55] text-zinc-500 sm:max-w-xl sm:text-base sm:leading-relaxed md:mb-12">
               Same glass glide you trust — refreshed vertical TriZen branding in
               black and white.
             </p>

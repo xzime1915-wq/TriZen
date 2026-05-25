@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { ProductImage } from "@/components/ProductImage";
 import { useCart } from "@/lib/cart-store";
 import { formatCurrency } from "@/lib/utils";
@@ -9,6 +10,14 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 
 export default function CartPage() {
   const { items, updateQuantity, removeItem, subtotal } = useCart();
+  const [signedIn, setSignedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/me")
+      .then((r) => r.json())
+      .then(({ user }) => setSignedIn(!!user))
+      .catch(() => setSignedIn(false));
+  }, []);
 
   if (items.length === 0) {
     return (
@@ -92,8 +101,13 @@ export default function CartPage() {
           <p className="text-xs text-[var(--color-muted)] mb-6">
             ৳120 delivery charge added at checkout (COD)
           </p>
-          <Link href="/checkout" className="block">
-            <Button className="w-full">Proceed to Checkout</Button>
+          <p className="mb-4 text-xs text-[var(--color-muted)]">
+            Sign in required to place an order.
+          </p>
+          <Link href={signedIn ? "/checkout" : "/sign-in?next=/checkout"} className="block">
+            <Button className="w-full">
+              {signedIn === false ? "Sign in to Checkout" : "Proceed to Checkout"}
+            </Button>
           </Link>
           <Link href="/shop" className="block mt-3 text-center text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-white">
             Continue Shopping

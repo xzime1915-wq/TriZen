@@ -35,20 +35,21 @@ export default function CheckoutPage() {
     streetAddress: "",
     district: "Dhaka",
     country: "Bangladesh",
-    createAccount: false,
     shipToDifferent: false,
     notes: "",
   });
+  const [signedIn, setSignedIn] = useState(false);
 
   useEffect(() => {
     fetch("/api/auth/me")
       .then((r) => r.json())
       .then(({ user }) => {
         if (!user) return;
+        setSignedIn(true);
         setForm((prev) => ({
           ...prev,
           fullName: prev.fullName || user.name || "",
-          customerEmail: prev.customerEmail || user.email || "",
+          customerEmail: user.email || "",
         }));
       })
       .catch(() => {});
@@ -131,22 +132,7 @@ export default function CheckoutPage() {
       if (!res.ok) throw new Error(data.error || "Order failed");
 
       clearCart();
-
-      const me = await fetch("/api/auth/me").then((r) => r.json()).catch(() => ({}));
-
-      if (form.createAccount && !me?.user) {
-        router.push(`/register?email=${encodeURIComponent(form.customerEmail)}`);
-        return;
-      }
-
-      if (me?.user) {
-        router.push("/account");
-        return;
-      }
-
-      router.push(
-        `/order-confirmation/${data.orderNumber}?email=${encodeURIComponent(form.customerEmail)}`
-      );
+      router.push(`/order-confirmation/${data.orderNumber}?email=${encodeURIComponent(form.customerEmail)}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -169,7 +155,7 @@ export default function CheckoutPage() {
           {/* Billing — left */}
           <div className="border border-[var(--color-border)] bg-[var(--color-surface-elevated)] p-6 sm:p-8">
             <h2 className="mb-6 text-sm font-bold uppercase tracking-widest">Billing details</h2>
-            <CheckoutBillingForm form={form} onChange={setForm} />
+            <CheckoutBillingForm form={form} onChange={setForm} emailReadOnly={signedIn} />
           </div>
 
           {/* Order — right */}

@@ -2,14 +2,25 @@
 
 import { Button } from "@/components/Button";
 
-export function GoogleSignInButton({ label = "Continue with Google" }: { label?: string }) {
+export function GoogleSignInButton({
+  label = "Continue with Google",
+  nextPath,
+}: {
+  label?: string;
+  nextPath?: string;
+}) {
+  const href =
+    nextPath && nextPath !== "/"
+      ? `/api/auth/google?next=${encodeURIComponent(nextPath)}`
+      : "/api/auth/google";
+
   return (
     <Button
       type="button"
       variant="secondary"
       className="w-full gap-3"
       onClick={() => {
-        window.location.href = "/api/auth/google";
+        window.location.href = href;
       }}
     >
       <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" aria-hidden>
