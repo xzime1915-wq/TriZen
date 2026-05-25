@@ -4,13 +4,25 @@ const WEAK_SECRETS = new Set([
   "secret",
 ]);
 
+function isLocalDevUrl(url: string): boolean {
+  return /localhost|127\.0\.0\.1/i.test(url);
+}
+
 export function getAppUrl(fallbackOrigin?: string): string {
-  const url =
+  const envUrl = (
     process.env.APP_URL?.trim() ||
     process.env.NEXT_PUBLIC_APP_URL?.trim() ||
-    fallbackOrigin?.trim() ||
-    "";
-  return url.replace(/\/$/, "");
+    ""
+  ).replace(/\/$/, "");
+  const fallback = (fallbackOrigin?.trim() || "").replace(/\/$/, "");
+
+  // VPS .env sometimes still has localhost — prefer the real request host in production.
+  if (process.env.NODE_ENV === "production") {
+    if (envUrl && !isLocalDevUrl(envUrl)) return envUrl;
+    if (fallback && !isLocalDevUrl(fallback)) return fallback;
+  }
+
+  return envUrl || fallback;
 }
 
 export function validateProductionEnv(): void {
