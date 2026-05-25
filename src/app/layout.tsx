@@ -10,7 +10,14 @@ export const metadata: Metadata = {
   title: "TriZen Store | Premium Esports Gear",
   description:
     "Shop premium esports gear — glass mouse pads, hand sleeves, and mouse skates. Built for competitive play at TriZen Store.",
-  icons: { icon: "/logo.png" },
+  icons: {
+    icon: [
+      { url: "/logo.png", type: "image/png", sizes: "500x500" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/logo.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default async function RootLayout({
