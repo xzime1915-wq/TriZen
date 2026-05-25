@@ -12,6 +12,10 @@ import { AuthDivider } from "@/components/AuthDivider";
 const ERROR_MESSAGES: Record<string, string> = {
   google_cancelled: "Google sign-in was cancelled.",
   google_failed: "Google sign-in failed. Please try again.",
+  google_token:
+    "Google sign-in failed (wrong client secret or redirect URI). Copy the newest secret from Google Console into VPS .env, then restart.",
+  google_profile: "Google sign-in failed while reading your profile. Please try again.",
+  google_db: "Google sign-in failed while saving your account. Check VPS database (pm2 logs).",
   google_state_invalid: "Google sign-in expired. Please try again.",
   google_not_configured:
     "Google sign-in is not set up. Add GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET to .env, then restart the server.",

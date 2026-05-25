@@ -25,8 +25,8 @@ export async function GET(req: NextRequest) {
     return fail("/sign-in?error=google_state_invalid");
   }
 
-  const clientId = process.env.GOOGLE_CLIENT_ID;
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const clientId = process.env.GOOGLE_CLIENT_ID?.trim();
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
   if (!clientId || !clientSecret) {
     return fail("/sign-in?error=google_not_configured");
   }
@@ -46,18 +46,35 @@ export async function GET(req: NextRequest) {
       }),
     });
 
-    const tokenData = await tokenRes.json();
+    const tokenData = (await tokenRes.json()) as {
+      access_token?: string;
+      error?: string;
+      error_description?: string;
+    };
+
     if (!tokenRes.ok || !tokenData.access_token) {
-      return fail("/sign-in?error=google_failed");
+      console.error("[google oauth] token exchange failed", {
+        redirectUri,
+        error: tokenData.error,
+        description: tokenData.error_description,
+      });
+      return fail("/sign-in?error=google_token");
     }
 
     const profileRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
       headers: { Authorization: `Bearer ${tokenData.access_token}` },
     });
 
-    const profile = await profileRes.json();
-    if (!profileRes.ok || !profile.email) {
-      return fail("/sign-in?error=google_failed");
+    const profile = (await profileRes.json()) as {
+      sub?: string;
+      email?: string;
+      name?: string;
+      picture?: string;
+    };
+
+    if (!profileRes.ok || !profile.email || !profile.sub) {
+      console.error("[google oauth] profile fetch failed", profile);
+      return fail("/sign-in?error=google_profile");
     }
 
     await findOrCreateGoogleUser({
@@ -70,7 +87,8 @@ export async function GET(req: NextRequest) {
     const res = NextResponse.redirect(new URL("/", appUrl));
     res.cookies.delete(STATE_COOKIE);
     return res;
-  } catch {
-    return fail("/sign-in?error=google_failed");
+  } catch (err) {
+    console.error("[google oauth] callback error", err);
+    return fail("/sign-in?error=google_db");
   }
 }
