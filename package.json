@@ -13,6 +13,7 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:upsert-v2": "tsx prisma/upsert-tripad-v2.ts",
     "db:setup-safe": "prisma db push && tsx prisma/seed-safe.ts",
+    "db:backup": "bash scripts/vps-backup-db.sh",
     "admin:reset": "tsx scripts/reset-admin.ts",
     "db:migrate-sqlite": "tsx scripts/migrate-sqlite-to-postgres.ts"
   },
