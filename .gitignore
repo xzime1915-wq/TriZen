@@ -6,6 +6,7 @@ node_modules
 .env.local
 *.db
 *.db-journal
+backups/
 public/uploads/chat/**
 !public/uploads/.gitkeep
 .DS_Store
