@@ -8,6 +8,31 @@ function isLocalDevUrl(url: string): boolean {
   return /localhost|127\.0\.0\.1/i.test(url);
 }
 
+/** Live site URL from proxy headers — avoids localhost from misconfigured APP_URL on VPS. */
+export function getRequestOrigin(req: {
+  headers: { get(name: string): string | null };
+  nextUrl: { origin: string };
+}): string {
+  const proto =
+    req.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ||
+    (process.env.NODE_ENV === "production" ? "https" : "http");
+  const host =
+    req.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
+    req.headers.get("host")?.trim();
+
+  if (host && !isLocalDevUrl(host)) {
+    return `${proto}://${host}`;
+  }
+
+  const fromEnv = getAppUrl();
+  if (fromEnv && !isLocalDevUrl(fromEnv)) return fromEnv;
+
+  const origin = req.nextUrl.origin;
+  if (origin && !isLocalDevUrl(origin)) return origin;
+
+  return fromEnv || origin;
+}
+
 export function getAppUrl(fallbackOrigin?: string): string {
   const envUrl = (
     process.env.APP_URL?.trim() ||

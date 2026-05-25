@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { findOrCreateGoogleUser } from "@/lib/user-auth";
-import { getAppUrl } from "@/lib/env";
+import { getRequestOrigin } from "@/lib/env";
 
 const STATE_COOKIE = "google_oauth_state";
 
 export async function GET(req: NextRequest) {
-  const origin = req.nextUrl.origin;
-  const appUrl = getAppUrl(origin) || origin;
+  const appUrl = getRequestOrigin(req);
   const code = req.nextUrl.searchParams.get("code");
   const error = req.nextUrl.searchParams.get("error");
   const state = req.nextUrl.searchParams.get("state");

@@ -149,7 +149,10 @@ export function getGoogleAuthUrl(origin: string, state: string) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   if (!clientId) throw new Error("GOOGLE_CLIENT_ID is not set");
 
-  const base = getAppUrl(origin) || origin;
+  const base =
+    origin && !/localhost|127\.0\.0\.1/i.test(origin)
+      ? origin.replace(/\/$/, "")
+      : getAppUrl(origin) || origin;
   const redirectUri = `${base}/api/auth/google/callback`;
   const params = new URLSearchParams({
     client_id: clientId,
