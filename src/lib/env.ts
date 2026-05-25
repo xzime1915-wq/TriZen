@@ -8,11 +8,31 @@ function isLocalDevUrl(url: string): boolean {
   return /localhost|127\.0\.0\.1/i.test(url);
 }
 
+/** One canonical host for OAuth — www vs non-www mismatch causes invalid_grant. */
+function normalizeProductionOrigin(url: string): string {
+  try {
+    const u = new URL(url.startsWith("http") ? url : `https://${url}`);
+    if (u.hostname === "www.trizenstore.com.bd") {
+      u.hostname = "trizenstore.com.bd";
+    }
+    return u.origin;
+  } catch {
+    return url.replace(/\/$/, "");
+  }
+}
+
 /** Live site URL from proxy headers — avoids localhost from misconfigured APP_URL on VPS. */
 export function getRequestOrigin(req: {
   headers: { get(name: string): string | null };
   nextUrl: { origin: string };
 }): string {
+  if (process.env.NODE_ENV === "production") {
+    const fromEnv = getAppUrl();
+    if (fromEnv && !isLocalDevUrl(fromEnv)) {
+      return normalizeProductionOrigin(fromEnv);
+    }
+  }
+
   const proto =
     req.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ||
     (process.env.NODE_ENV === "production" ? "https" : "http");
@@ -21,16 +41,20 @@ export function getRequestOrigin(req: {
     req.headers.get("host")?.trim();
 
   if (host && !isLocalDevUrl(host)) {
-    return `${proto}://${host}`;
+    return normalizeProductionOrigin(`${proto}://${host}`);
   }
 
   const fromEnv = getAppUrl();
-  if (fromEnv && !isLocalDevUrl(fromEnv)) return fromEnv;
+  if (fromEnv && !isLocalDevUrl(fromEnv)) {
+    return normalizeProductionOrigin(fromEnv);
+  }
 
   const origin = req.nextUrl.origin;
-  if (origin && !isLocalDevUrl(origin)) return origin;
+  if (origin && !isLocalDevUrl(origin)) {
+    return normalizeProductionOrigin(origin);
+  }
 
-  return fromEnv || origin;
+  return normalizeProductionOrigin(fromEnv || origin);
 }
 
 export function getAppUrl(fallbackOrigin?: string): string {
