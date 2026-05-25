@@ -2,7 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
-import { getAppUrl } from "./env";
+import { getOAuthOrigin } from "./env";
 import { useSecureCookies } from "./auth";
 
 const COOKIE = "trizen_user_session";
@@ -149,10 +149,7 @@ export function getGoogleAuthUrl(origin: string, state: string) {
   const clientId = process.env.GOOGLE_CLIENT_ID;
   if (!clientId) throw new Error("GOOGLE_CLIENT_ID is not set");
 
-  const base =
-    origin && !/localhost|127\.0\.0\.1/i.test(origin)
-      ? origin.replace(/\/$/, "")
-      : getAppUrl(origin) || origin;
+  const base = getOAuthOrigin(origin);
   const redirectUri = `${base}/api/auth/google/callback`;
   const params = new URLSearchParams({
     client_id: clientId,

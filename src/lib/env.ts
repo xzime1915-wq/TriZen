@@ -8,6 +8,22 @@ function isLocalDevUrl(url: string): boolean {
   return /localhost|127\.0\.0\.1/i.test(url);
 }
 
+/** Canonical site URL for Google OAuth (always non-www in production). */
+export function getOAuthOrigin(fallbackOrigin?: string): string {
+  if (process.env.NODE_ENV === "production") {
+    const fromEnv = getAppUrl();
+    if (fromEnv && !isLocalDevUrl(fromEnv)) {
+      return normalizeProductionOrigin(fromEnv);
+    }
+    return "https://trizenstore.com.bd";
+  }
+  const origin = (fallbackOrigin || getAppUrl() || "http://localhost:3000").replace(
+    /\/$/,
+    ""
+  );
+  return isLocalDevUrl(origin) ? "http://localhost:3000" : origin;
+}
+
 /** One canonical host for OAuth — www vs non-www mismatch causes invalid_grant. */
 function normalizeProductionOrigin(url: string): string {
   try {
@@ -26,35 +42,7 @@ export function getRequestOrigin(req: {
   headers: { get(name: string): string | null };
   nextUrl: { origin: string };
 }): string {
-  if (process.env.NODE_ENV === "production") {
-    const fromEnv = getAppUrl();
-    if (fromEnv && !isLocalDevUrl(fromEnv)) {
-      return normalizeProductionOrigin(fromEnv);
-    }
-  }
-
-  const proto =
-    req.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() ||
-    (process.env.NODE_ENV === "production" ? "https" : "http");
-  const host =
-    req.headers.get("x-forwarded-host")?.split(",")[0]?.trim() ||
-    req.headers.get("host")?.trim();
-
-  if (host && !isLocalDevUrl(host)) {
-    return normalizeProductionOrigin(`${proto}://${host}`);
-  }
-
-  const fromEnv = getAppUrl();
-  if (fromEnv && !isLocalDevUrl(fromEnv)) {
-    return normalizeProductionOrigin(fromEnv);
-  }
-
-  const origin = req.nextUrl.origin;
-  if (origin && !isLocalDevUrl(origin)) {
-    return normalizeProductionOrigin(origin);
-  }
-
-  return normalizeProductionOrigin(fromEnv || origin);
+  return getOAuthOrigin(req.nextUrl.origin);
 }
 
 export function getAppUrl(fallbackOrigin?: string): string {
