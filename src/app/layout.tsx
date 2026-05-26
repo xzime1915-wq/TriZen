@@ -32,6 +32,7 @@ export const metadata: Metadata = {
         width: 512,
         height: 512,
         alt: SITE_NAME,
+        type: "image/png",
       },
     ],
   },
