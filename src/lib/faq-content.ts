@@ -7,19 +7,19 @@ export const HOME_SEO_TITLE =
   "Premium Glass Mouse Pad Shop in Bangladesh — TriZen Store";
 
 export const HOME_SEO_SUBTITLE =
-  "TriPad glass mouse pads for esports — V1 in stock, V2 coming soon";
+  "Glass pads, soft pads, skates & sleeves — built for competitive play";
 
 export const HOME_SEO_PARAGRAPHS = [
-  "TriZen Store is built for competitive players who care about glide, control, and consistency. Our TriPad line uses tempered glass tuned for low-friction tracking — ideal for FPS, MOBA, and long ranked sessions.",
-  "Order TriPad V1 in black or white with Cash on Delivery, bKash, Nagad, or bank transfer. We ship across Bangladesh with order tracking on every purchase.",
-  "Whether you are upgrading from a cloth pad or building a new battlestation, TriPad gives you predictable speed without sacrificing stability thanks to a non-slip base.",
+  "TriZen Store is Bangladesh's esports gear shop for players who care about glide, control, and consistency. Browse glass mouse pads (TriPad V1), soft mouse pads, mouse skates, and hand sleeves.",
+  "Order in-stock items with Cash on Delivery, bKash, Nagad, or bank transfer. Sign in to checkout and track your order anytime from our website.",
+  "Whether you are upgrading from a cloth pad or building a new battlestation, TriZen gear is tuned for FPS, MOBA, and long ranked sessions.",
 ];
 
 export const HOME_FAQS: FaqItem[] = [
   {
     question: "What does TriZen Store sell?",
     answer:
-      "TriZen Store specializes in premium esports gear. Our flagship products are TriPad V1 and TriPad V2 glass mouse pads, with hand sleeves and mouse skates coming to the catalog.",
+      "TriZen Store sells premium esports gear — glass mouse pads (TriPad V1), soft mouse pads, mouse skates, and hand sleeves. New items are added to the shop as they launch.",
   },
   {
     question: "Which payment options are available?",

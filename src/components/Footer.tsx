@@ -9,9 +9,10 @@ import { SocialLinks } from "@/components/SocialLinks";
 
 const SHOP_LINKS = [
   { href: "/shop", label: "All Products" },
-  { href: "/shop?category=Mouse Pads", label: "Mouse Pads" },
-  { href: "/shop?category=Hand Sleeves", label: "Hand Sleeves" },
-  { href: "/shop?category=Mouse Skates", label: "Mouse Skates" },
+  { href: "/shop?gear=glass-mouse-pad", label: "Glass Mouse Pad" },
+  { href: "/shop?gear=soft-mouse-pad", label: "Soft Mouse Pad" },
+  { href: "/shop?gear=skates", label: "Mouse Skates" },
+  { href: "/shop?gear=hand-sleeves", label: "Hand Sleeves" },
   { href: "/cart", label: "Cart" },
 ] as const;
 

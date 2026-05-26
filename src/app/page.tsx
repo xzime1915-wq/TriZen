@@ -10,6 +10,7 @@ import { HomeReviews } from "@/components/home/HomeReviews";
 import { HomeCta } from "@/components/home/HomeCta";
 import { HomeOurGears } from "@/components/home/HomeOurGears";
 import { HomeFaqSection } from "@/components/home/HomeFaqSection";
+import { HomeFaqJsonLd } from "@/components/seo/HomeFaqJsonLd";
 import { parseFeatures, averageRating } from "@/lib/product-data";
 
 export const dynamic = "force-dynamic";
@@ -90,6 +91,7 @@ export default async function HomePage() {
           productName: r.product.name,
         }))}
       />
+      <HomeFaqJsonLd />
       <HomeFaqSection />
       <HomeCta />
     </>
