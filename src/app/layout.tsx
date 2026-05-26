@@ -12,7 +12,7 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site-config";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} | Premium Esports Gear`,
+    default: `${SITE_NAME} | Esports Mouse Pad Bangladesh`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,

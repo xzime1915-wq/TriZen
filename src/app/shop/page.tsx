@@ -13,8 +13,34 @@ import {
   isShopGearLine,
   type ShopGearLine,
 } from "@/lib/shop-gears";
+import type { Metadata } from "next";
+import {
+  esportsMousePadShopMetadata,
+  glassMousePadShopMetadata,
+} from "@/lib/seo-metadata";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ category?: string; gear?: string; q?: string }>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+
+  if (params.gear === "glass-mouse-pad") {
+    return glassMousePadShopMetadata();
+  }
+
+  if (params.q) {
+    return {
+      title: `Search: ${params.q}`,
+      robots: { index: false, follow: true },
+    };
+  }
+
+  return esportsMousePadShopMetadata();
+}
 
 export default async function ShopPage({
   searchParams,

@@ -12,8 +12,11 @@ import { HomeOurGears } from "@/components/home/HomeOurGears";
 import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 import { HomeFaqJsonLd } from "@/components/seo/HomeFaqJsonLd";
 import { parseFeatures, averageRating } from "@/lib/product-data";
+import { homePageMetadata } from "@/lib/seo-metadata";
 
 export const dynamic = "force-dynamic";
+
+export const metadata = homePageMetadata();
 
 const HERO_SLUG = "trizen-tripad-v1-black";
 

@@ -9,7 +9,7 @@ export function ShopHero({ count, activeGearLabel, query }: Props) {
     ? `Results for “${query}”`
     : activeGearLabel
       ? activeGearLabel
-      : "Glass pads, soft pads, skates & sleeves";
+      : "Esports mouse pad in Bangladesh — glass TriPad, soft pads, skates & sleeves";
 
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-black">

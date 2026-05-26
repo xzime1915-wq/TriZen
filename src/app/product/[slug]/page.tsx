@@ -11,8 +11,41 @@ import {
   averageRating,
   getTripadDescriptionSlides,
 } from "@/lib/product-data";
+import type { Metadata } from "next";
+import { SITE_NAME, SITE_URL } from "@/lib/site-config";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await prisma.product.findUnique({
+    where: { slug },
+    select: { name: true, description: true, image: true },
+  });
+  if (!product) return { title: "Product" };
+
+  const isGlass =
+    slug.includes("tripad") || product.description.toLowerCase().includes("glass");
+  const title = isGlass
+    ? `${product.name} — Esports Glass Mouse Pad Bangladesh`
+    : `${product.name} — Esports Gear Bangladesh`;
+
+  return {
+    title,
+    description: product.description.slice(0, 160),
+    alternates: { canonical: `${SITE_URL}/product/${slug}` },
+    openGraph: {
+      title: `${title} | ${SITE_NAME}`,
+      description: product.description.slice(0, 160),
+      url: `${SITE_URL}/product/${slug}`,
+      images: product.image ? [{ url: product.image }] : undefined,
+    },
+  };
+}
 
 export default async function ProductPage({
   params,

@@ -4,13 +4,13 @@ export type FaqItem = {
 };
 
 export const HOME_SEO_TITLE =
-  "Premium Glass Mouse Pad Shop in Bangladesh — TriZen Store";
+  "Esports Mouse Pad in Bangladesh — Glass TriPad & Gaming Gear";
 
 export const HOME_SEO_SUBTITLE =
-  "Glass pads, soft pads, skates & sleeves — built for competitive play";
+  "Esports mouse pads, glass TriPad, soft pads, skates & sleeves";
 
 export const HOME_SEO_PARAGRAPHS = [
-  "TriZen Store is Bangladesh's esports gear shop for players who care about glide, control, and consistency. Browse glass mouse pads (TriPad V1), soft mouse pads, mouse skates, and hand sleeves.",
+  "TriZen Store is Bangladesh's shop for esports mouse pad buyers who want glide, control, and consistency. Browse glass mouse pads (TriPad V1 & V2), soft mouse pads, mouse skates, and hand sleeves — shipped nationwide.",
   "Order in-stock items with Cash on Delivery, bKash, Nagad, or bank transfer. Sign in to checkout and track your order anytime from our website.",
   "Whether you are upgrading from a cloth pad or building a new battlestation, TriZen gear is tuned for FPS, MOBA, and long ranked sessions.",
 ];
