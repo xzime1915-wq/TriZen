@@ -21,18 +21,25 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: `${SITE_NAME} | Premium Esports Gear`,
-    description:
-      "Glass mouse pads, soft pads, skates & sleeves for competitive play. Shop TriPad V1 with COD and mobile wallet checkout.",
+    description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
     locale: "en_BD",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 512,
+        height: 512,
+        alt: SITE_NAME,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `${SITE_NAME} | Premium Esports Gear`,
-    description:
-      "Glass mouse pads, soft pads, skates & sleeves. TriPad V1 in stock — COD, bKash & Nagad across Bangladesh.",
+    description: SITE_DESCRIPTION,
+    images: ["/og-image.png"],
   },
   icons: {
     icon: [
