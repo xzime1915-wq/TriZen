@@ -2,13 +2,13 @@ import Link from "next/link";
 
 export function HomeCta() {
   return (
-    <section className="relative overflow-hidden bg-black border-b border-[var(--color-border)] min-h-[50vh] flex items-center">
+    <section className="relative overflow-hidden bg-[var(--color-surface)] border-b border-[var(--color-border)] min-h-[50vh] flex items-center">
       <div
         className="trizen-glow-orb pointer-events-none absolute left-1/2 top-1/2 h-[min(80vw,520px)] w-[min(90vw,640px)] -translate-x-1/2 -translate-y-1/2"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-zinc-100/80 to-transparent"
         aria-hidden
       />
 

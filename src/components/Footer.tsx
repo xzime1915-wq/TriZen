@@ -73,7 +73,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-16 border-t border-[var(--color-border)] bg-black overflow-hidden max-lg:mb-[calc(4rem+env(safe-area-inset-bottom))]">
+    <footer className="relative mt-16 border-t border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden max-lg:mb-[calc(4rem+env(safe-area-inset-bottom))]">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-600/40 to-transparent"
         aria-hidden

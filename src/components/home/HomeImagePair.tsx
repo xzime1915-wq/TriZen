@@ -3,7 +3,7 @@ import { HOME_HERO_IMAGE, HOME_GLIDE_IMAGE } from "@/lib/home-assets";
 
 export function HomeImagePair() {
   return (
-    <section className="bg-black border-b border-[var(--color-border)]">
+    <section className="bg-[var(--color-surface)] border-b border-[var(--color-border)]">
       <div className="grid md:grid-cols-2 min-h-[50vh]">
         <div className="relative min-h-[320px] md:min-h-[50vh] border-b md:border-b-0 md:border-r border-[var(--color-border)]">
           <Image

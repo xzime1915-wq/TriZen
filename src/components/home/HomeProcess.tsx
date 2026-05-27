@@ -57,7 +57,7 @@ export function HomeProcess() {
   return (
     <section
       ref={sectionRef}
-      className={`trizen-process-section relative overflow-hidden border-b border-[var(--color-border)] bg-black ${
+      className={`trizen-process-section relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)] ${
         inView ? "trizen-process-inview" : ""
       }`}
     >
@@ -105,7 +105,7 @@ export function HomeProcess() {
                   className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-600/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   aria-hidden
                 />
-                <span className="trizen-process-num relative z-[1] inline-flex h-14 w-14 items-center justify-center border border-[var(--color-border)] bg-black text-lg font-bold tabular-nums text-white transition-colors duration-500 group-hover:border-zinc-500">
+                <span className="trizen-process-num relative z-[1] inline-flex h-14 w-14 items-center justify-center border border-[var(--color-border)] bg-[var(--color-surface)] text-lg font-bold tabular-nums text-white transition-colors duration-500 group-hover:border-zinc-500">
                   {s.n}
                 </span>
                 <h3 className="relative z-[1] mt-6 text-sm font-bold uppercase tracking-[0.18em] text-white">

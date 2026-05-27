@@ -147,7 +147,7 @@ function TripadV1Card() {
 
 function GlideActionBanner() {
   return (
-    <div className="relative min-h-[40vh] sm:min-h-[44vh] md:min-h-[58vh] overflow-hidden bg-black">
+    <div className="relative min-h-[40vh] sm:min-h-[44vh] md:min-h-[58vh] overflow-hidden bg-[var(--color-surface)]">
       <Image
         src={HOME_GLIDE_IMAGE}
         alt="Mouse gliding at speed on TriZen glass surface"
@@ -188,9 +188,9 @@ function GlideActionBanner() {
 
 export function HomeGlideFeature() {
   return (
-    <section className="bg-black">
+    <section className="bg-[var(--color-surface)]">
       <GlideActionBanner />
-      <div className="relative bg-black pt-12 sm:pt-16 md:pt-20">
+      <div className="relative bg-[var(--color-surface)] pt-12 sm:pt-16 md:pt-20">
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-[5] h-14 bg-gradient-to-b from-black/70 via-black/25 to-transparent sm:h-16 md:h-20"
           aria-hidden
@@ -198,7 +198,7 @@ export function HomeGlideFeature() {
         <GlideEditionBridge />
       </div>
 
-      <div className="relative bg-black">
+      <div className="relative bg-[var(--color-surface)]">
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-[5] h-14 bg-gradient-to-b from-black/70 via-black/25 to-transparent sm:h-16 md:h-20"
           aria-hidden

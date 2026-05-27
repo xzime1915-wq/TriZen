@@ -27,8 +27,8 @@ function HeroCopy({ productSlug }: { productSlug: string }) {
 
 export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Props) {
   return (
-    <section className="relative isolate min-h-[62dvh] sm:min-h-[72dvh] md:min-h-[calc(100dvh-4rem)] overflow-hidden bg-black">
-      <div className="absolute inset-0 bg-black">
+    <section className="relative isolate min-h-[62dvh] sm:min-h-[72dvh] md:min-h-[calc(100dvh-4rem)] overflow-hidden bg-[var(--color-surface)]">
+      <div className="absolute inset-0 bg-[var(--color-surface)]">
         <Image
           src={HOME_HERO_IMAGE}
           alt="TriZen TriPad V1 black and white editions with gaming mouse"
@@ -39,7 +39,7 @@ export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Prop
           quality={95}
         />
         <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black from-0% via-black/92 via-[38%] to-transparent to-100% sm:via-black/85 sm:via-35% md:via-30%"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white from-0% via-white/95 via-[38%] to-transparent to-100% sm:via-white/90 sm:via-35% md:via-30%"
           aria-hidden
         />
         <div
@@ -47,7 +47,7 @@ export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Prop
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black via-black/50 to-transparent sm:h-28"
+          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white via-white/50 to-transparent sm:h-28"
           aria-hidden
         />
         <div className="trizen-hero-fade-bottom-glow" aria-hidden />

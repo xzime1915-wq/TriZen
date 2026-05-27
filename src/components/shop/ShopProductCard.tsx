@@ -42,7 +42,7 @@ export function ShopProductCard({
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="trizen-card-hover group relative flex flex-col border border-[var(--color-border)] bg-black"
+      className="trizen-card-hover group relative flex flex-col border border-[var(--color-border)] bg-[var(--color-surface)] shadow-sm hover:shadow-md"
     >
       <div className="relative aspect-[4/5] sm:aspect-square overflow-hidden bg-transparent">
         {showGlide && <ProductGlideBackground />}
@@ -71,20 +71,20 @@ export function ShopProductCard({
           )}
         </div>
         {upcoming && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center bg-white/75 backdrop-blur-[2px] pointer-events-none">
             <span className="text-xs font-bold uppercase tracking-widest text-white">
               Upcoming
             </span>
           </div>
         )}
         {!upcoming && !inStock && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/70">
+          <div className="absolute inset-0 flex items-center justify-center bg-white/70">
             <span className="text-xs font-bold uppercase tracking-widest text-zinc-400">
               Out of Stock
             </span>
           </div>
         )}
-        <span className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center border border-[var(--color-border)] bg-black/80 text-zinc-400 transition group-hover:border-white group-hover:text-white">
+        <span className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center border border-[var(--color-border)] bg-white/90 text-zinc-500 transition group-hover:border-zinc-400 group-hover:text-[var(--color-foreground)]">
           <ArrowUpRight className="h-4 w-4" />
         </span>
       </div>
@@ -102,13 +102,13 @@ export function ShopProductCard({
             </p>
           )}
         </div>
-        <h2 className="mt-2 text-[1.05rem] font-bold uppercase leading-[1.15] tracking-tight text-white group-hover:underline md:mt-4 md:text-2xl md:leading-snug">
+        <h2 className="mt-2 text-[1.05rem] font-bold uppercase leading-[1.15] tracking-tight text-[var(--color-foreground)] group-hover:underline md:mt-4 md:text-2xl md:leading-snug">
           {product.name}
         </h2>
-        <p className="mt-2 line-clamp-3 text-[0.7rem] leading-[1.5] text-zinc-400 md:mt-4 md:text-base md:leading-relaxed">
+        <p className="mt-2 line-clamp-3 text-[0.7rem] leading-[1.5] text-zinc-500 md:mt-4 md:text-base md:leading-relaxed">
           {product.description}
         </p>
-        <p className="mt-2 line-clamp-4 flex-1 text-[0.7rem] leading-[1.5] text-white/90 md:mt-4 md:text-base md:leading-relaxed lg:text-lg">
+        <p className="mt-2 line-clamp-4 flex-1 text-[0.7rem] leading-[1.5] text-zinc-600 md:mt-4 md:text-base md:leading-relaxed lg:text-lg">
           {previewText(product)}
         </p>
         <div className="mt-4 flex items-end justify-between gap-4 border-t border-[var(--color-border)] pt-4 md:mt-6 md:pt-6">
@@ -117,7 +117,7 @@ export function ShopProductCard({
               <p className="mb-0.5 text-[9px] uppercase tracking-[0.2em] text-zinc-600 md:mb-1 md:text-[10px] md:tracking-widest">
                 Price
               </p>
-              <p className="text-[1rem] font-semibold tabular-nums text-white md:text-xl">
+              <p className="text-[1rem] font-semibold tabular-nums text-[var(--color-foreground)] md:text-xl">
                 {formatCurrency(product.price)}
               </p>
               {product.compareAt && product.compareAt > product.price && (
@@ -131,7 +131,7 @@ export function ShopProductCard({
               Price at launch
             </p>
           )}
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-white transition">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition group-hover:text-[var(--color-foreground)]">
             View
           </span>
         </div>

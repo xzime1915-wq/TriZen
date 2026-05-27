@@ -53,15 +53,15 @@ export function Header({ user = null }: { user?: HeaderUser }) {
       className={cn(
         "sticky top-0 z-50 border-b transition-all duration-300",
         scrolled
-          ? "border-white/[0.06] bg-black/90 backdrop-blur-xl"
-          : "border-transparent bg-black/40 backdrop-blur-sm"
+          ? "border-[var(--color-border)] bg-white/95 backdrop-blur-xl"
+          : "border-transparent bg-white/80 backdrop-blur-sm"
       )}
     >
       <div className="container-trizen relative flex h-14 items-center justify-between gap-6 lg:gap-6">
         {/* Mobile: MENU (left) */}
         <button
           type="button"
-          className="hidden h-8 w-8 shrink-0 items-center justify-center text-white transition-colors hover:text-white/80 max-lg:flex"
+          className="hidden h-8 w-8 shrink-0 items-center justify-center text-[var(--color-foreground)] transition-colors hover:text-zinc-600 max-lg:flex"
           onClick={() => setOpen(!open)}
           aria-label="Menu"
           aria-expanded={open}
@@ -78,7 +78,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           href="/"
           className="group absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 transition-opacity hover:opacity-80 lg:static lg:translate-x-0 lg:shrink-0"
         >
-          <AnimatedLogo size="sm" variant="on-dark" className="shrink-0" />
+          <AnimatedLogo size="sm" variant="on-light" className="shrink-0" />
         </Link>
 
         <nav className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:flex">
@@ -98,7 +98,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
         <div className="ml-auto hidden items-center max-lg:flex">
           <Link
             href="/cart"
-            className="trizen-header-icon relative text-white"
+            className="trizen-header-icon relative"
             aria-label="Cart"
           >
             <ShoppingCart className={iconClass} strokeWidth={iconStroke} />

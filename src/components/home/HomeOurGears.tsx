@@ -24,7 +24,7 @@ function GearCard({ gear }: { gear: OurGearCard }) {
       href={gear.href}
       className={cn(
         "our-gear-card group relative block aspect-[9/16] w-[78vw] max-w-[280px] shrink-0 snap-center overflow-hidden",
-        "min-h-[400px] max-h-[520px] border border-[var(--color-border)] bg-black",
+        "min-h-[400px] max-h-[520px] border border-[var(--color-border)] bg-[var(--color-surface)]",
         "transition-colors duration-300 hover:border-zinc-600",
         "sm:min-h-[440px] md:min-h-[480px] md:max-h-none md:w-full md:max-w-none"
       )}
@@ -93,7 +93,7 @@ function GearCard({ gear }: { gear: OurGearCard }) {
 
 export function HomeOurGears() {
   return (
-    <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-black">
+    <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)]">
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(255,255,255,0.03)_0%,transparent_60%)]"
         aria-hidden

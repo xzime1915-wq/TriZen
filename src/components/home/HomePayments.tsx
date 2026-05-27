@@ -7,7 +7,7 @@ export function HomePayments() {
   ];
 
   return (
-    <section className="bg-black border-b border-[var(--color-border)]">
+    <section className="bg-[var(--color-surface)] border-b border-[var(--color-border)]">
       <div className="container-trizen py-20 md:py-24">
         <p className="text-[10px] uppercase tracking-[0.35em] text-zinc-600 mb-4 text-center">
           Checkout

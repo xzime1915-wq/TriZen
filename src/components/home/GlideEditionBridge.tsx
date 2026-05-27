@@ -41,10 +41,10 @@ export function GlideEditionBridge() {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden bg-black">
+    <div className="relative w-full overflow-hidden bg-[var(--color-surface)]">
       <div
         ref={frameRef}
-        className={`glide-bridge-frame relative w-full aspect-[1024/577] min-h-[200px] overflow-hidden bg-black ${
+        className={`glide-bridge-frame relative w-full aspect-[1024/577] min-h-[200px] overflow-hidden bg-[var(--color-surface)] ${
           inView ? "glide-bridge-inview" : ""
         }`}
       >

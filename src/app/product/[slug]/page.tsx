@@ -83,7 +83,7 @@ export default async function ProductPage({
   const related = await getRelatedProducts(product.id, product.category);
 
   return (
-    <div className="bg-black min-h-screen border-t border-[var(--color-border)] w-full">
+    <div className="bg-[var(--color-surface)] min-h-screen border-t border-[var(--color-border)] w-full">
       <ProductDetailView
         product={{
           id: product.id,

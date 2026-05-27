@@ -27,7 +27,7 @@ export function ShopFilters() {
   }
 
   return (
-    <div className="border-b border-[var(--color-border)] bg-black">
+    <div className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
       <div className="container-trizen py-3 md:py-5">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-5">
           <div className="flex flex-wrap gap-2">
@@ -57,7 +57,7 @@ export function ShopFilters() {
         </div>
       </div>
 
-      <div className="sticky top-14 z-40 border-t border-[var(--color-border)] bg-black/95 backdrop-blur-md lg:hidden">
+      <div className="sticky top-14 z-40 border-t border-[var(--color-border)] bg-[var(--color-surface)]/95 backdrop-blur-md lg:hidden">
         <div className="container-trizen py-2">
           <SearchField q={q} onChange={setQ} onSubmit={handleSearch} />
         </div>
