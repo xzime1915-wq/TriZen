@@ -108,7 +108,7 @@ export function ChatComposer({
   const busy = sending || uploading;
 
   return (
-    <div className="border-t border-[var(--color-border)] bg-black p-3">
+    <div className="border-t border-[var(--color-border)] bg-[var(--color-surface)] p-3">
       {(recording || uploading) && (
         <p className="mb-2 text-xs uppercase tracking-wider text-zinc-500">
           {recording ? "Recording… tap stop when done" : "Uploading…"}

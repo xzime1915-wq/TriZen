@@ -87,7 +87,7 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
   return (
     <h2
       ref={rootRef}
-      className={`font-bold uppercase tracking-tight text-white md:mt-3 md:text-3xl md:leading-[1.15] lg:text-4xl ${className}`}
+      className={`font-bold uppercase tracking-tight text-[var(--color-foreground)] md:mt-3 md:text-3xl md:leading-[1.15] lg:text-4xl ${className}`}
       aria-label={TITLE}
     >
       <span className="relative inline-block min-h-[1.2em] max-w-full text-center">

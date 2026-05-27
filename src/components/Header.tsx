@@ -53,7 +53,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
       className={cn(
         "sticky top-0 z-50 border-b transition-all duration-300",
         scrolled
-          ? "border-[var(--color-border)] bg-white/95 backdrop-blur-xl"
+          ? "border-[var(--color-border)] bg-white/95 backdrop-blur-xl shadow-sm"
           : "border-transparent bg-white/80 backdrop-blur-sm"
       )}
     >
@@ -61,7 +61,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
         {/* Mobile: MENU (left) */}
         <button
           type="button"
-          className="hidden h-8 w-8 shrink-0 items-center justify-center text-[var(--color-foreground)] transition-colors hover:text-zinc-600 max-lg:flex"
+          className="hidden h-8 w-8 shrink-0 items-center justify-center text-zinc-900 transition-colors hover:text-zinc-600 max-lg:flex"
           onClick={() => setOpen(!open)}
           aria-label="Menu"
           aria-expanded={open}
@@ -98,12 +98,12 @@ export function Header({ user = null }: { user?: HeaderUser }) {
         <div className="ml-auto hidden items-center max-lg:flex">
           <Link
             href="/cart"
-            className="trizen-header-icon relative"
+            className="trizen-header-icon relative text-zinc-900"
             aria-label="Cart"
           >
             <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
             {mounted && totalItems > 0 && (
-              <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-black">
+              <span className="absolute -right-0.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-zinc-100 px-1 text-[9px] font-bold text-[var(--color-foreground)]">
                 {totalItems > 99 ? "99+" : totalItems}
               </span>
             )}
@@ -130,21 +130,21 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           <Link href="/cart" className="trizen-header-icon relative" aria-label="Cart">
             <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
             {mounted && totalItems > 0 && (
-              <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-white ring-2 ring-black" />
+              <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-zinc-100 ring-2 ring-white" />
             )}
           </Link>
         </div>
       </div>
 
       {open && (
-        <nav className="lg:hidden border-t border-white/[0.06] bg-black/95 backdrop-blur-xl px-4 py-3">
+        <nav className="lg:hidden border-t border-[var(--color-border)] bg-white/98 backdrop-blur-xl px-4 py-3">
           <button
             type="button"
             onClick={() => {
               useChatStore.getState().toggle();
               setOpen(false);
             }}
-            className="flex w-full items-center gap-3 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 hover:text-white transition-colors"
+            className="flex w-full items-center gap-3 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-900 transition-colors"
           >
             <MessageCircle className={iconClass} strokeWidth={iconStroke} />
             Live Chat
@@ -156,7 +156,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
               onClick={() => setOpen(false)}
               className={cn(
                 "block py-3 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors",
-                pathname === l.href ? "text-white" : "text-zinc-500 hover:text-zinc-300"
+                pathname === l.href ? "text-zinc-900" : "text-zinc-500 hover:text-zinc-800"
               )}
             >
               {l.label}

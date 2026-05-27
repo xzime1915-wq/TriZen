@@ -143,7 +143,7 @@ export default function CheckoutPage() {
   return (
     <div className="container-trizen py-10 pb-16">
       <nav className="mb-8 text-sm">
-        <Link href="/" className="text-white hover:underline">
+        <Link href="/" className="text-[var(--color-foreground)] hover:underline">
           Home
         </Link>
         <span className="mx-2 text-[var(--color-muted)]">&gt;</span>

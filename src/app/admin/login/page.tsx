@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
         onSubmit={handleSubmit}
         className="w-full max-w-sm border border-[var(--color-border)] p-8 bg-[var(--color-surface-elevated)]"
       >
-        <TrizenLogo variant="on-dark" width={48} height={48} className="mx-auto mb-4" />
+        <TrizenLogo variant="on-light" width={48} height={48} className="mx-auto mb-4" />
         <h1 className="text-center text-lg font-bold uppercase tracking-wide mb-6">
           Admin Login
         </h1>

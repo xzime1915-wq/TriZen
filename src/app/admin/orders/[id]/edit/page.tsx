@@ -31,7 +31,7 @@ export default async function AdminEditOrderPage({
     <div className="ml-56 p-8 max-w-4xl">
       <Link
         href={`/admin/orders/${order.id}`}
-        className="inline-flex items-center gap-2 text-sm text-[var(--color-muted)] hover:text-white mb-6"
+        className="inline-flex items-center gap-2 text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] mb-6"
       >
         <ArrowLeft className="h-4 w-4" /> Back to Order
       </Link>

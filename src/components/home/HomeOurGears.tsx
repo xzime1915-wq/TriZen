@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 function GearCardMark() {
   return (
     <span
-      className="our-gear-card-mark block h-3.5 w-3.5 shrink-0 border border-white/30"
+      className="our-gear-card-mark block h-3.5 w-3.5 shrink-0 border border-zinc-900/30"
       aria-hidden
     />
   );
@@ -95,7 +95,7 @@ export function HomeOurGears() {
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)]">
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(255,255,255,0.03)_0%,transparent_60%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(0,0,0,0.03)_0%,transparent_60%)]"
         aria-hidden
       />
       <div className="container-trizen relative py-10 md:py-24 lg:py-28">

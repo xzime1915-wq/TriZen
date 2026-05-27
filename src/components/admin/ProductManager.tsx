@@ -291,7 +291,7 @@ export function ProductManager({ products }: { products: Product[] }) {
 
       <div className="mt-10 border border-[var(--color-border)] overflow-x-auto">
         <table className="w-full text-sm min-w-[700px]">
-          <thead className="bg-zinc-900 text-left text-xs uppercase tracking-wider">
+          <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wider">
             <tr>
               <th className="p-3">Name</th>
               <th className="p-3">Category</th>
@@ -312,7 +312,7 @@ export function ProductManager({ products }: { products: Product[] }) {
                     <button
                       type="button"
                       onClick={() => startEdit(p)}
-                      className="text-[var(--color-muted)] hover:text-white"
+                      className="text-[var(--color-muted)] hover:text-[var(--color-foreground)]"
                       title="Edit"
                     >
                       <Pencil className="h-4 w-4" />

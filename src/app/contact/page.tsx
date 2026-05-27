@@ -16,7 +16,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-[var(--color-surface)] min-h-screen">
       <PageHero
         eyebrow="Support"
         title="Contact us"
@@ -43,7 +43,7 @@ export default function ContactPage() {
                 <Icon className="h-5 w-5 shrink-0 mt-0.5 text-zinc-400" />
                 <div>
                   <p className="trizen-eyebrow text-zinc-600">{label}</p>
-                  <p className="mt-2 text-sm text-white">{value}</p>
+                  <p className="mt-2 text-sm text-[var(--color-foreground)]">{value}</p>
                 </div>
               </div>
             ))}
@@ -51,7 +51,7 @@ export default function ContactPage() {
 
           {sent ? (
             <div className="trizen-panel flex flex-col items-center justify-center p-10 md:p-12 text-center border-emerald-900/40 bg-emerald-950/20">
-              <p className="text-lg font-bold uppercase tracking-wide text-white mb-2">
+              <p className="text-lg font-bold uppercase tracking-wide text-[var(--color-foreground)] mb-2">
                 Message sent
               </p>
               <p className="trizen-body">

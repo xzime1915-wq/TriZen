@@ -24,11 +24,11 @@ export function HomeReviews({ reviews }: { reviews: Review[] }) {
           {reviews.map((r) => (
             <blockquote
               key={r.id}
-              className="trizen-card-hover border border-[var(--color-border)] bg-zinc-950/60 p-8 min-h-[220px] flex flex-col"
+              className="trizen-card-hover border border-[var(--color-border)] bg-zinc-50/60 p-8 min-h-[220px] flex flex-col"
             >
               <StarRating value={r.rating} size="sm" />
               {r.title && (
-                <p className="mt-4 text-sm font-semibold text-white">{r.title}</p>
+                <p className="mt-4 text-sm font-semibold text-[var(--color-foreground)]">{r.title}</p>
               )}
               <p className="mt-3 text-sm text-zinc-500 leading-relaxed flex-1 line-clamp-5">
                 {r.body}
@@ -41,12 +41,14 @@ export function HomeReviews({ reviews }: { reviews: Review[] }) {
             </blockquote>
           ))}
         </div>
-        <p className="mt-12 text-center text-xs text-zinc-600">
-          Ordered something?{" "}
-          <Link href="/shop" className="text-zinc-400 hover:text-white underline">
-            Leave a review on the product page
+        <div className="mt-12 flex flex-col items-center gap-4 text-center">
+          <p className="text-xs text-zinc-600">
+            Ordered something? Leave a review on the product page.
+          </p>
+          <Link href="/shop" className="trizen-btn-primary">
+            Shop now
           </Link>
-        </p>
+        </div>
       </div>
     </section>
   );

@@ -11,7 +11,7 @@ export function ProductFeaturesList({
 
   return (
     <div>
-      <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-white mb-4">
+      <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-foreground)] mb-4">
         {title}
       </h3>
       <ul className="space-y-3">

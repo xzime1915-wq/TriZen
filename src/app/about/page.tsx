@@ -4,7 +4,7 @@ import { PageHero } from "@/components/PageHero";
 
 export default function AboutPage() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-[var(--color-surface)] min-h-screen">
       <PageHero
         eyebrow="About"
         title="TriZen Store"
@@ -14,7 +14,7 @@ export default function AboutPage() {
       <section className="border-b border-[var(--color-border)]">
         <div className="container-trizen py-16 md:py-20 max-w-3xl">
           <div className="flex items-center gap-5 mb-12">
-            <TrizenLogo variant="on-dark" width={56} height={56} className="shrink-0" />
+            <TrizenLogo variant="on-light" width={56} height={56} className="shrink-0" />
             <p className="trizen-body md:text-base">
               Designed for competitive play — from ranked queues to long practice
               sessions.
@@ -34,7 +34,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-b border-[var(--color-border)] bg-zinc-950/30">
+      <section className="border-b border-[var(--color-border)] bg-zinc-50/30">
         <div className="container-trizen py-16 md:py-20">
           <p className="trizen-eyebrow mb-4">Our gear</p>
           <h2 className="trizen-headline text-2xl md:text-3xl mb-10">What we build</h2>
@@ -54,7 +54,7 @@ export default function AboutPage() {
               },
             ].map((item) => (
               <li key={item.title} className="trizen-panel p-6 trizen-card-hover">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-white">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-foreground)]">
                   {item.title}
                 </h3>
                 <p className="trizen-body mt-3">{item.body}</p>

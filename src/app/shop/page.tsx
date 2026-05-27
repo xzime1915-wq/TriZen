@@ -85,7 +85,7 @@ export default async function ShopPage({
   const showAllGearSections = !activeGear && !params.q;
 
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-[var(--color-surface)] min-h-screen">
       <ShopHero
         count={productCount}
         activeGearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}

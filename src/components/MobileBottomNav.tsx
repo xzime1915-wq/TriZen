@@ -33,7 +33,7 @@ export function MobileBottomNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-white/[0.08] bg-black/95 backdrop-blur-xl pb-[env(safe-area-inset-bottom)] lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--color-border)] bg-white/95 backdrop-blur-xl shadow-[0_-4px_24px_rgba(0,0,0,0.06)] pb-[env(safe-area-inset-bottom)] lg:hidden"
       aria-label="Mobile navigation"
     >
       <div className="grid h-16 grid-cols-4">
@@ -46,13 +46,13 @@ export function MobileBottomNav() {
               href={href}
               className={cn(
                 "relative flex flex-col items-center justify-center gap-1 px-1 transition-colors",
-                active ? "text-white" : "text-zinc-500"
+                active ? "text-zinc-900" : "text-zinc-500"
               )}
             >
               <span className="relative">
                 <Icon className="h-5 w-5" strokeWidth={iconStroke} />
                 {isCart && mounted && totalItems > 0 && (
-                  <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-white px-1 text-[9px] font-bold text-black">
+                  <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-zinc-100 px-1 text-[9px] font-bold text-[var(--color-foreground)]">
                     {totalItems > 99 ? "99+" : totalItems}
                   </span>
                 )}

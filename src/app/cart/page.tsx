@@ -41,7 +41,7 @@ export default function CartPage() {
               key={`${item.productId}${item.color ? `-${item.color}` : ""}`}
               className="flex gap-4 border border-[var(--color-border)] p-4 bg-[var(--color-surface-elevated)]"
             >
-              <div className="relative h-28 w-28 sm:h-32 sm:w-32 shrink-0 bg-black border border-[var(--color-border)]">
+              <div className="relative h-28 w-28 sm:h-32 sm:w-32 shrink-0 bg-[var(--color-surface)] border border-[var(--color-border)]">
                 <ProductImage
                   src={item.image}
                   alt={item.name}
@@ -109,7 +109,7 @@ export default function CartPage() {
               {signedIn === false ? "Sign in to Checkout" : "Proceed to Checkout"}
             </Button>
           </Link>
-          <Link href="/shop" className="block mt-3 text-center text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-white">
+          <Link href="/shop" className="block mt-3 text-center text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-[var(--color-foreground)]">
             Continue Shopping
           </Link>
         </div>

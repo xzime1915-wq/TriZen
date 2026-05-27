@@ -45,7 +45,7 @@ export function ProductTabs({
       className="w-full border-t border-[var(--color-border)]"
     >
       <nav
-        className="flex w-full justify-center sm:justify-stretch flex-wrap gap-0 border-b border-[var(--color-border)] bg-zinc-950/30"
+        className="flex w-full justify-center sm:justify-stretch flex-wrap gap-0 border-b border-[var(--color-border)] bg-zinc-50/30"
         aria-label="Product information"
       >
         {tabs.map((t) => {
@@ -82,7 +82,7 @@ export function ProductTabs({
               {productName}
             </h2>
 
-            <div className="mt-6 max-w-2xl space-y-4 text-[0.75rem] leading-relaxed text-white md:mt-10 md:space-y-6 md:text-base">
+            <div className="mt-6 max-w-2xl space-y-4 text-[0.75rem] leading-relaxed text-[var(--color-foreground)] md:mt-10 md:space-y-6 md:text-base">
               {paragraphs.map((para) => (
                 <p key={para.slice(0, 40)}>{para}</p>
               ))}
@@ -98,7 +98,7 @@ export function ProductTabs({
 
         {tab === "specifications" && (
           <div className="mx-auto w-full max-w-2xl text-center">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-8">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--color-foreground)] mb-8">
               Technical Specifications
             </h3>
             {specifications.length === 0 ? (
@@ -113,11 +113,11 @@ export function ProductTabs({
                       key={row.label}
                       className={
                         i % 2 === 0
-                          ? "bg-black/30"
+                          ? "bg-white/30"
                           : "bg-[var(--color-surface-elevated)]"
                       }
                     >
-                      <th className="py-4 px-4 font-semibold text-white w-[38%] border-b border-[var(--color-border)]">
+                      <th className="py-4 px-4 font-semibold text-[var(--color-foreground)] w-[38%] border-b border-[var(--color-border)]">
                         {row.label}
                       </th>
                       <td className="py-4 px-4 text-[var(--color-muted)] border-b border-[var(--color-border)]">
@@ -133,7 +133,7 @@ export function ProductTabs({
 
         {tab === "reviews" && (
           <div className="mx-auto w-full max-w-3xl text-center">
-            <h3 className="text-xs font-bold uppercase tracking-widest text-white mb-8">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--color-foreground)] mb-8">
               Customer Reviews
             </h3>
             <div className="text-left">{reviewsPanel}</div>

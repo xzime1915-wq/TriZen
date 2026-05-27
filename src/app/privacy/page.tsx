@@ -2,7 +2,7 @@ import { PageHero } from "@/components/PageHero";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-[var(--color-surface)] min-h-screen">
       <PageHero
         eyebrow="Legal"
         title="Privacy Policy"

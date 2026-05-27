@@ -36,12 +36,12 @@ export function ProductCard({ product }: { product: Product }) {
           <StockBadge inStock={inStock} upcoming={upcoming} />
         </div>
         {!upcoming && !inStock && (
-          <span className="absolute inset-0 flex items-center justify-center bg-black/60 text-sm font-semibold uppercase">
+          <span className="absolute inset-0 flex items-center justify-center bg-white/60 text-sm font-semibold uppercase">
             Out of Stock
           </span>
         )}
         {upcoming && (
-          <span className="absolute inset-0 flex items-center justify-center bg-black/50 text-sm font-semibold uppercase">
+          <span className="absolute inset-0 flex items-center justify-center bg-white/50 text-sm font-semibold uppercase">
             Upcoming
           </span>
         )}

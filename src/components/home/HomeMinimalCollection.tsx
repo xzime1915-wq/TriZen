@@ -25,13 +25,13 @@ export function HomeMinimalCollection({ products }: { products: Product[] }) {
             <p className="text-[10px] uppercase tracking-[0.35em] text-zinc-600">
               Collection
             </p>
-            <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-white">
+            <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-[var(--color-foreground)]">
               More from TriZen
             </h2>
           </div>
           <Link
             href="/shop"
-            className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 hover:text-white shrink-0"
+            className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 hover:text-[var(--color-foreground)] shrink-0"
           >
             Shop all
           </Link>
@@ -44,7 +44,7 @@ export function HomeMinimalCollection({ products }: { products: Product[] }) {
                 href={`/product/${p.slug}`}
                 className="group grid grid-cols-[100px_1fr] sm:grid-cols-[140px_1fr_auto] gap-6 sm:gap-10 py-10 md:py-12 items-center"
               >
-                <div className="relative aspect-square bg-zinc-950 border border-[var(--color-border)] overflow-hidden">
+                <div className="relative aspect-square bg-zinc-50 border border-[var(--color-border)] overflow-hidden">
                   <ProductImage
                     src={p.image}
                     alt={p.name}
@@ -54,14 +54,14 @@ export function HomeMinimalCollection({ products }: { products: Product[] }) {
                 </div>
                 <div className="min-w-0">
                   <StockBadge inStock={isInStock(p.stock)} className="mb-3" />
-                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-wide text-white group-hover:underline">
+                  <h3 className="text-sm sm:text-base font-bold uppercase tracking-wide text-[var(--color-foreground)] group-hover:underline">
                     {p.name}
                   </h3>
                   <p className="mt-2 text-xs sm:text-sm text-zinc-500 line-clamp-2 leading-relaxed">
                     {p.description}
                   </p>
                 </div>
-                <p className="hidden sm:block text-base font-medium text-white tabular-nums shrink-0">
+                <p className="hidden sm:block text-base font-medium text-[var(--color-foreground)] tabular-nums shrink-0">
                   {formatCurrency(p.price)}
                 </p>
               </Link>

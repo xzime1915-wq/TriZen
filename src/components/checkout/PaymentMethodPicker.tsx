@@ -42,7 +42,7 @@ export function PaymentMethodPicker({
               onChange={() => onMethodChange(m.id)}
               className="h-4 w-4 accent-white"
             />
-            <span className="text-sm font-medium text-white">{m.label}</span>
+            <span className="text-sm font-medium text-[var(--color-foreground)]">{m.label}</span>
           </label>
 
           {method === m.id && (
@@ -53,20 +53,20 @@ export function PaymentMethodPicker({
                   <>
                     {" "}
                     Total amount:{" "}
-                    <strong className="text-white">{formatCheckoutPrice(total)}</strong>
+                    <strong className="text-[var(--color-foreground)]">{formatCheckoutPrice(total)}</strong>
                   </>
                 )}
               </p>
 
               {m.id === "cod" && (
-                <p className="text-sm text-white">
+                <p className="text-sm text-[var(--color-foreground)]">
                   Order total on delivery:{" "}
                   <strong>{formatCheckoutPrice(total)}</strong>
                 </p>
               )}
 
               {m.id === "bank" && bankSettings && (
-                <div className="space-y-2 rounded border border-[var(--color-border)] bg-black p-4 text-sm">
+                <div className="space-y-2 rounded border border-[var(--color-border)] bg-[var(--color-surface)] p-4 text-sm">
                   <p>
                     <span className="text-[var(--color-muted)]">Bank: </span>
                     {bankSettings.bankName}
@@ -117,7 +117,7 @@ export function PaymentMethodPicker({
               {isMobileWallet(m.id) && m.personalNumber && (
                 <>
                   <p className="text-sm text-[var(--color-muted)]">
-                    <span className="font-medium text-white">{m.label} Personal Number:</span>{" "}
+                    <span className="font-medium text-[var(--color-foreground)]">{m.label} Personal Number:</span>{" "}
                     {m.personalNumber}
                   </p>
                   <div className="grid gap-4 sm:grid-cols-2">

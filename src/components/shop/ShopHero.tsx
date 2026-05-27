@@ -14,7 +14,7 @@ export function ShopHero({ count, activeGearLabel, query }: Props) {
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)]">
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_20%_0%,rgba(255,255,255,0.04)_0%,transparent_55%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_20%_0%,rgba(0,0,0,0.03)_0%,transparent_55%)]"
         aria-hidden
       />
       <div className="container-trizen relative pt-20 pb-8 md:pt-32 md:pb-20">

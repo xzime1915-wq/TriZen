@@ -359,7 +359,7 @@ export function ChatWidget() {
   const panel = panelMounted ? (
     <div
       className={cn(
-        "trizen-chat-panel w-[min(100vw-2rem,380px)] border border-[var(--color-border)] bg-black shadow-[0_24px_80px_-24px_rgba(0,0,0,0.95)]",
+        "trizen-chat-panel w-[min(100vw-2rem,380px)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[0_24px_80px_-24px_rgba(0,0,0,0.95)]",
         panelEntered ? "trizen-chat-panel--open" : "trizen-chat-panel--closed"
       )}
       role="dialog"
@@ -371,12 +371,12 @@ export function ChatWidget() {
           <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
             TriZen Support
           </p>
-          <p className="text-sm font-semibold text-white">Live Chat</p>
+          <p className="text-sm font-semibold text-[var(--color-foreground)]">Live Chat</p>
         </div>
         <button
           type="button"
           onClick={closeChat}
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-[var(--color-border)] bg-black/70 text-zinc-400 transition-colors hover:border-zinc-500 hover:bg-zinc-900 hover:text-white"
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border border-[var(--color-border)] bg-white/70 text-zinc-400 transition-colors hover:border-zinc-500 hover:bg-zinc-100 hover:text-[var(--color-foreground)]"
           aria-label="Close chat"
         >
           <X className="h-4 w-4" strokeWidth={2} />
@@ -449,11 +449,11 @@ export function ChatWidget() {
             <div ref={bottomRef} />
           </div>
           {otherTyping && (
-            <div className="shrink-0 border-t border-[var(--color-border)] bg-black px-4 py-2">
+            <div className="shrink-0 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2">
               <ChatTypingIndicator text="typing....." />
             </div>
           )}
-          <div className="shrink-0 border-t border-[var(--color-border)] bg-black pointer-events-auto">
+          <div className="shrink-0 border-t border-[var(--color-border)] bg-[var(--color-surface)] pointer-events-auto">
             <ChatComposer
               disabled={!conversationId}
               onSendText={sendText}
@@ -512,7 +512,7 @@ export function ChatWidget() {
             priority
           />
           {unreadCount > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1 text-[10px] font-bold text-black ring-2 ring-black">
+            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-zinc-900 px-1 text-[10px] font-bold text-white ring-2 ring-white">
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}

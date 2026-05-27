@@ -57,7 +57,7 @@ export function ShopFilters() {
         </div>
       </div>
 
-      <div className="sticky top-14 z-40 border-t border-[var(--color-border)] bg-[var(--color-surface)]/95 backdrop-blur-md lg:hidden">
+      <div className="sticky top-14 z-40 border-t border-[var(--color-border)] bg-white/95 backdrop-blur-md lg:hidden">
         <div className="container-trizen py-2">
           <SearchField q={q} onChange={setQ} onSubmit={handleSearch} />
         </div>
@@ -85,7 +85,7 @@ function SearchField({
         placeholder="Search..."
         value={q}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full border border-[var(--color-border)] bg-zinc-950 py-2.5 pl-10 pr-4 text-sm text-white placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none md:py-3"
+        className="w-full border border-[var(--color-border)] bg-zinc-50 py-2.5 pl-10 pr-4 text-sm text-[var(--color-foreground)] placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none md:py-3"
       />
     </form>
   );
@@ -106,8 +106,8 @@ function FilterPill({
       onClick={onClick}
       className={`border px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] transition-all duration-300 md:px-4 md:py-2.5 ${
         active
-          ? "border-white bg-white text-black shadow-[0_0_24px_rgba(255,255,255,0.08)]"
-          : "border-[var(--color-border)] text-zinc-500 hover:border-zinc-500 hover:text-white"
+          ? "border-zinc-900 bg-zinc-900 text-white shadow-[0_4px_16px_rgba(0,0,0,0.1)]"
+          : "border-[var(--color-border)] bg-zinc-50 text-zinc-600 hover:border-zinc-400 hover:text-[var(--color-foreground)]"
       }`}
     >
       {children}

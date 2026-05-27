@@ -54,7 +54,7 @@ function ContactRow({
   return (
     <a
       href={href}
-      className="group flex items-start gap-3 text-sm text-[var(--color-muted)] transition-colors hover:text-white"
+      className="group flex items-start gap-3 text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-foreground)]"
     >
       <span className="trizen-footer-contact-icon">
         <Icon className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden />
@@ -75,7 +75,7 @@ export function Footer() {
   return (
     <footer className="relative mt-16 border-t border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden max-lg:mb-[calc(4rem+env(safe-area-inset-bottom))]">
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-600/40 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-300/60 to-transparent"
         aria-hidden
       />
       <div
@@ -87,8 +87,8 @@ export function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
           <div className="sm:col-span-2 lg:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <TrizenLogo variant="on-dark" width={44} height={44} />
-              <span className="text-sm font-semibold tracking-[0.22em] uppercase text-white">
+              <TrizenLogo variant="on-light" width={44} height={44} />
+              <span className="text-sm font-semibold tracking-[0.22em] uppercase text-[var(--color-foreground)]">
                 TriZen Store
               </span>
             </div>
@@ -111,14 +111,14 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-3 lg:col-start-7">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white mb-5">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-foreground)] mb-5">
               Categories
             </h4>
             <FooterLinkList items={SHOP_LINKS} />
           </div>
 
           <div className="lg:col-span-3">
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-white mb-5">
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-foreground)] mb-5">
               Important Links
             </h4>
             <FooterLinkList items={IMPORTANT_LINKS} />
@@ -126,11 +126,11 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-[var(--color-border)] bg-zinc-950/30">
+      <div className="border-t border-[var(--color-border)] bg-zinc-50/80">
         <div className="container-trizen py-6 md:py-8 text-center">
           <p className="text-xs text-zinc-500">
             Copyright © {year}{" "}
-            <span className="text-white font-medium">TriZen Store</span>. All
+            <span className="text-[var(--color-foreground)] font-medium">TriZen Store</span>. All
             rights reserved.
           </p>
           <p className="mt-2 text-[10px] text-zinc-600 opacity-80">

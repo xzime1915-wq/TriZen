@@ -33,7 +33,7 @@ export function RelatedProducts({
         </div>
         <Link
           href={`/shop?category=${encodeURIComponent(category)}`}
-          className="text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-white hover:underline"
+          className="text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:underline"
         >
           View all
         </Link>

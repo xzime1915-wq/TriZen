@@ -13,7 +13,7 @@ type AnimatedLogoProps = {
 
 export function AnimatedLogo({
   size = "hero",
-  variant = "on-dark",
+  variant = "on-light",
   className,
   priority = false,
 }: AnimatedLogoProps) {
@@ -24,7 +24,11 @@ export function AnimatedLogo({
         alt="TriZen Store"
         width={40}
         height={40}
-        className={cn("logo-intro-sm h-10 w-10 object-contain", className)}
+        className={cn(
+          "logo-intro-sm h-10 w-10 object-contain",
+          variant === "on-light" && "invert",
+          className
+        )}
       />
     );
   }

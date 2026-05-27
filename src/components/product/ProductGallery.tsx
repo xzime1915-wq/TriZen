@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ProductImage } from "@/components/ProductImage";
-import { ProductGlideBackground } from "./ProductGlideBackground";
 
 export function ProductGallery({
   images,
   productName,
-  showGlideBackground = false,
 }: {
   images: string[];
   productName: string;
@@ -18,27 +17,23 @@ export function ProductGallery({
   if (!active) return null;
 
   return (
-    <div>
-      <div className="relative aspect-square min-h-[320px] overflow-hidden mb-3">
-        {showGlideBackground && <ProductGlideBackground />}
-        <div className="relative z-10 h-full min-h-[320px] w-full">
+    <div className="w-full min-w-0">
+      {/* Large hero image — no border box, soft gray backdrop (reference-style) */}
+      <div className="relative w-full overflow-hidden bg-zinc-100 min-h-[min(92vw,520px)] sm:min-h-[560px] lg:min-h-[min(72vh,720px)] lg:max-h-[min(82vh,820px)]">
+        <div className="absolute inset-0 sm:inset-[1%] lg:inset-[0.5%]">
           <ProductImage
             src={active}
             alt={productName}
             priority
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            className={
-              showGlideBackground
-                ? "p-6 sm:p-10 object-contain object-top pb-20"
-                : "p-0 sm:p-2 object-contain"
-            }
+            sizes="(max-width: 1024px) 100vw, 58vw"
+            className="!p-0 object-contain object-center"
           />
         </div>
       </div>
 
       {images.length > 1 && (
-        <div>
-          <p className="text-[10px] uppercase tracking-widest text-[var(--color-muted)] mb-2">
+        <div className="mt-4 lg:mt-6">
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-[var(--color-muted)]">
             More photos
           </p>
           <div className="flex gap-2 overflow-x-auto pb-1">
@@ -47,14 +42,22 @@ export function ProductGallery({
                 key={`${src}-${i}`}
                 type="button"
                 onClick={() => setActive(src)}
-                className={`relative h-20 w-20 shrink-0 border bg-black transition ${
+                className={`relative h-[72px] w-[72px] shrink-0 overflow-hidden bg-zinc-100 transition sm:h-20 sm:w-20 ${
                   active === src
-                    ? "border-white ring-1 ring-white"
-                    : "border-[var(--color-border)] hover:border-zinc-500"
+                    ? "ring-2 ring-zinc-900 ring-offset-2 ring-offset-white"
+                    : "opacity-70 hover:opacity-100"
                 }`}
                 aria-label={`View photo ${i + 1}`}
+                aria-current={active === src ? "true" : undefined}
               >
-                <ProductImage src={src} alt="" sizes="80px" className="p-2" />
+                <Image
+                  src={src}
+                  alt=""
+                  width={160}
+                  height={160}
+                  unoptimized
+                  className="h-full w-full object-contain object-center p-1"
+                />
               </button>
             ))}
           </div>

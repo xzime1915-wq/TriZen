@@ -69,9 +69,7 @@ export function HomeProductShowcase({
               : "lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]"
           }`}
         >
-          <div
-            className={`flex min-h-[min(88vw,460px)] min-w-0 sm:min-h-[520px] lg:min-h-[min(72vh,740px)] ${padCol}`}
-          >
+          <div className={`flex min-w-0 min-h-[min(88vw,460px)] sm:min-h-[520px] lg:min-h-[min(72vh,740px)] ${padCol}`}>
             <Link
               href={`/product/${product.slug}`}
               className="group relative flex w-full flex-1"
@@ -89,6 +87,7 @@ export function HomeProductShowcase({
             </Link>
           </div>
 
+          {/* Copy — opposite side of pad */}
           <div className={`flex min-w-0 flex-col justify-center py-2 lg:py-4 ${copyCol}`}>
             <div className="mb-4">
               <StockBadge

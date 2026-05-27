@@ -2,9 +2,9 @@ import Link from "next/link";
 
 export function ShopEmpty() {
   return (
-    <div className="flex flex-col items-center justify-center py-32 md:py-40 text-center border border-[var(--color-border)] bg-zinc-950/50">
+    <div className="flex flex-col items-center justify-center py-32 md:py-40 text-center border border-[var(--color-border)] bg-zinc-50/50">
       <p className="text-[10px] uppercase tracking-[0.35em] text-zinc-600">No results</p>
-      <h2 className="mt-4 text-xl font-bold uppercase tracking-tight text-white">
+      <h2 className="mt-4 text-xl font-bold uppercase tracking-tight text-[var(--color-foreground)]">
         Nothing found
       </h2>
       <p className="mt-3 text-sm text-zinc-500 max-w-sm">

@@ -82,7 +82,7 @@ export function ProductReviewSection({
             {reviews.map((r) => (
               <li
                 key={r.id}
-                className="border border-[var(--color-border)] p-5 bg-black/30"
+                className="border border-[var(--color-border)] p-5 bg-white/30"
               >
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2">
@@ -94,7 +94,7 @@ export function ProductReviewSection({
                   </span>
                 </div>
                 {r.title && (
-                  <p className="font-semibold text-sm mb-2 text-white">{r.title}</p>
+                  <p className="font-semibold text-sm mb-2 text-[var(--color-foreground)]">{r.title}</p>
                 )}
                 <p className="text-sm text-[var(--color-muted)] leading-relaxed">{r.body}</p>
               </li>

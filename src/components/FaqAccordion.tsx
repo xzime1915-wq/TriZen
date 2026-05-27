@@ -28,21 +28,21 @@ export function FaqAccordion({ items, title = "FAQs", className }: Props) {
           return (
             <div
               key={item.question}
-              className="border-b border-[var(--color-border)] bg-black/20"
+              className="border-b border-[var(--color-border)] bg-zinc-50/50"
             >
               <button
                 type="button"
                 onClick={() => setOpenIndex(open ? null : index)}
-                className="flex w-full items-center justify-between gap-4 py-4 sm:py-5 px-1 text-left transition-colors hover:text-zinc-200"
+                className="flex w-full items-center justify-between gap-4 py-4 sm:py-5 px-1 text-left transition-colors hover:text-[var(--color-foreground)]"
                 aria-expanded={open}
               >
-                <span className="text-sm sm:text-base font-bold uppercase tracking-wide text-white">
+                <span className="text-sm sm:text-base font-bold uppercase tracking-wide text-[var(--color-foreground)]">
                   {item.question}
                 </span>
                 <ChevronDown
                   className={cn(
                     "h-5 w-5 shrink-0 text-zinc-500 transition-transform duration-300",
-                    open && "rotate-180 text-white"
+                    open && "rotate-180 text-[var(--color-foreground)]"
                   )}
                   aria-hidden
                 />

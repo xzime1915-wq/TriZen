@@ -47,7 +47,7 @@ export function ShopProductCard({
       <div className="relative aspect-[4/5] sm:aspect-square overflow-hidden bg-transparent">
         {showGlide && <ProductGlideBackground />}
         <div
-          className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_70%_at_50%_40%,rgba(255,255,255,0.04)_0%,transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_70%_at_50%_40%,rgba(0,0,0,0.03)_0%,transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
           aria-hidden
         />
         <div className="relative z-10 h-full w-full max-md:pt-12">
@@ -57,8 +57,8 @@ export function ShopProductCard({
             sizes="(max-width: 768px) 100vw, 50vw"
             className={
               showGlide
-                ? "max-md:object-[50%_62%] p-6 pb-14 pt-2 object-contain object-top transition duration-700 group-hover:scale-[1.03] sm:p-10 sm:pt-10"
-                : "p-2 sm:p-4 object-contain transition duration-700 group-hover:scale-[1.03]"
+                ? "max-md:object-[50%_62%] p-2 pb-4 pt-1 object-contain object-center transition duration-700 group-hover:scale-[1.02] sm:p-3 sm:pb-6"
+                : "p-2 sm:p-3 object-contain transition duration-700 group-hover:scale-[1.02]"
             }
           />
         </div>
@@ -72,7 +72,7 @@ export function ShopProductCard({
         </div>
         {upcoming && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/75 backdrop-blur-[2px] pointer-events-none">
-            <span className="text-xs font-bold uppercase tracking-widest text-white">
+            <span className="text-xs font-bold uppercase tracking-widest text-zinc-800">
               Upcoming
             </span>
           </div>
@@ -84,7 +84,7 @@ export function ShopProductCard({
             </span>
           </div>
         )}
-        <span className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center border border-[var(--color-border)] bg-white/90 text-zinc-500 transition group-hover:border-zinc-400 group-hover:text-[var(--color-foreground)]">
+        <span className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center border border-[var(--color-border)] bg-white/90 text-zinc-500 transition group-hover:border-zinc-400 group-hover:bg-zinc-50 group-hover:text-[var(--color-foreground)]">
           <ArrowUpRight className="h-4 w-4" />
         </span>
       </div>
@@ -105,10 +105,7 @@ export function ShopProductCard({
         <h2 className="mt-2 text-[1.05rem] font-bold uppercase leading-[1.15] tracking-tight text-[var(--color-foreground)] group-hover:underline md:mt-4 md:text-2xl md:leading-snug">
           {product.name}
         </h2>
-        <p className="mt-2 line-clamp-3 text-[0.7rem] leading-[1.5] text-zinc-500 md:mt-4 md:text-base md:leading-relaxed">
-          {product.description}
-        </p>
-        <p className="mt-2 line-clamp-4 flex-1 text-[0.7rem] leading-[1.5] text-zinc-600 md:mt-4 md:text-base md:leading-relaxed lg:text-lg">
+        <p className="mt-2 line-clamp-4 flex-1 text-[0.7rem] leading-[1.5] text-zinc-500 md:mt-4 md:text-base md:leading-relaxed lg:text-lg">
           {previewText(product)}
         </p>
         <div className="mt-4 flex items-end justify-between gap-4 border-t border-[var(--color-border)] pt-4 md:mt-6 md:pt-6">
@@ -131,7 +128,7 @@ export function ShopProductCard({
               Price at launch
             </p>
           )}
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition group-hover:text-[var(--color-foreground)]">
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-[var(--color-foreground)] transition">
             View
           </span>
         </div>

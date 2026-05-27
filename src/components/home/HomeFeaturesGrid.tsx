@@ -39,7 +39,7 @@ export function HomeFeaturesGrid() {
               key={f.title}
               className="group border-t border-[var(--color-border)] pt-8 transition-colors duration-300 hover:border-zinc-600"
             >
-              <h3 className="text-sm font-bold uppercase tracking-widest text-white transition-colors group-hover:text-zinc-200">
+              <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--color-foreground)] transition-colors group-hover:text-zinc-200">
                 {f.title}
               </h3>
               <p className="trizen-body mt-4">{f.body}</p>

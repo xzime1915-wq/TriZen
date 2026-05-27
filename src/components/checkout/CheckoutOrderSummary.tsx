@@ -89,7 +89,7 @@ export function CheckoutOrderSummary({
           />
           <span>
             Delivery charge:{" "}
-            <strong className="text-white">{formatCheckoutPrice(deliveryCharge)}</strong>
+            <strong className="text-[var(--color-foreground)]">{formatCheckoutPrice(deliveryCharge)}</strong>
           </span>
         </label>
       </div>
@@ -118,11 +118,11 @@ export function CheckoutOrderSummary({
               </label>
 
               {paymentMethod === m.id && (
-                <div className="mt-3 ml-6 space-y-3 rounded border border-[var(--color-border)] bg-black/50 p-4 text-sm text-[var(--color-muted)]">
+                <div className="mt-3 ml-6 space-y-3 rounded border border-[var(--color-border)] bg-white/50 p-4 text-sm text-[var(--color-muted)]">
                   <p>{m.instructions}</p>
 
                   {m.id === "cod" && (
-                    <p className="text-white">
+                    <p className="text-[var(--color-foreground)]">
                       Pay <strong>{formatCheckoutPrice(total)}</strong> on delivery.
                     </p>
                   )}
@@ -151,7 +151,7 @@ export function CheckoutOrderSummary({
                   {isMobileWallet(m.id) && m.personalNumber && (
                     <>
                       <p>
-                        <span className="text-white">{m.label} Number:</span> {m.personalNumber}
+                        <span className="text-[var(--color-foreground)]">{m.label} Number:</span> {m.personalNumber}
                       </p>
                       <CheckoutInput
                         label={`${m.label} Number`}
@@ -188,15 +188,15 @@ export function CheckoutOrderSummary({
         />
         <span>
           I have read and agree to the website{" "}
-          <Link href="/contact" className="font-semibold text-white hover:underline">
+          <Link href="/contact" className="font-semibold text-[var(--color-foreground)] hover:underline">
             Terms & Conditions
           </Link>
           ,{" "}
-          <Link href="/contact" className="font-semibold text-white hover:underline">
+          <Link href="/contact" className="font-semibold text-[var(--color-foreground)] hover:underline">
             Privacy Policy
           </Link>
           , and{" "}
-          <Link href="/contact" className="font-semibold text-white hover:underline">
+          <Link href="/contact" className="font-semibold text-[var(--color-foreground)] hover:underline">
             Refund Policy
           </Link>
           <span className="text-red-400"> *</span>

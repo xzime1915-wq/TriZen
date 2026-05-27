@@ -8,12 +8,12 @@ type Props = {
 
 function HeroCopy({ productSlug }: { productSlug: string }) {
   return (
-    <div className="flex w-full max-w-[11.5rem] flex-col items-start sm:max-w-md md:max-w-lg">
-      <h1 className="trizen-headline trizen-fade-in max-w-[11rem] text-[0.9rem] leading-[1.1] tracking-tight sm:max-w-none sm:text-2xl md:text-3xl lg:text-4xl">
+    <div className="flex w-full max-w-xl flex-col items-start">
+      <h1 className="trizen-headline trizen-fade-in text-[0.9rem] leading-[1.1] tracking-tight sm:text-2xl md:text-3xl lg:text-4xl">
         Maximum glide for only pros.
       </h1>
 
-      <div className="trizen-fade-in-delay-1 mt-4 sm:mt-10">
+      <div className="trizen-fade-in-delay-1 mt-4 sm:mt-8 md:mt-10">
         <Link
           href={`/product/${productSlug}`}
           className="trizen-btn-primary max-md:!px-5 max-md:!py-2 max-md:text-[10px] max-md:tracking-[0.16em] sm:!px-10 sm:!py-4 sm:text-sm md:!px-12 md:!py-5 md:text-base"
@@ -27,36 +27,26 @@ function HeroCopy({ productSlug }: { productSlug: string }) {
 
 export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Props) {
   return (
-    <section className="relative isolate min-h-[62dvh] sm:min-h-[72dvh] md:min-h-[calc(100dvh-4rem)] overflow-hidden bg-[var(--color-surface)]">
-      <div className="absolute inset-0 bg-[var(--color-surface)]">
-        <Image
-          src={HOME_HERO_IMAGE}
-          alt="TriZen TriPad V1 black and white editions with gaming mouse"
-          fill
-          priority
-          className="object-contain object-right-top md:object-[72%_50%]"
-          sizes="100vw"
-          quality={95}
-        />
-        <div
-          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white from-0% via-white/95 via-[38%] to-transparent to-100% sm:via-white/90 sm:via-35% md:via-30%"
-          aria-hidden
-        />
-        <div
-          className="trizen-glow-orb pointer-events-none absolute left-0 top-1/2 hidden h-80 w-96 -translate-y-1/2 opacity-80 md:block"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white via-white/50 to-transparent sm:h-28"
-          aria-hidden
-        />
-        <div className="trizen-hero-fade-bottom-glow" aria-hidden />
-        <div className="trizen-hero-fade-bottom" aria-hidden />
-      </div>
+    <section className="relative isolate overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+      <div className="container-trizen relative">
+        <div className="grid items-center gap-6 py-10 sm:gap-8 sm:py-12 md:min-h-[calc(100dvh-4rem)] md:grid-cols-2 md:gap-10 lg:gap-14 md:py-14 lg:py-16">
+          <div className="relative z-10 flex flex-col justify-center md:max-w-lg md:pr-4 lg:pr-8">
+            <HeroCopy productSlug={productSlug} />
+          </div>
 
-      <div className="container-trizen relative z-10 flex min-h-[62dvh] flex-col justify-center pb-8 sm:min-h-[72dvh] sm:pb-10 md:min-h-[calc(100dvh-4rem)] md:pb-14">
-        <div className="px-4 md:absolute md:inset-x-0 md:top-[34%] md:-translate-y-1/2 md:px-0">
-          <HeroCopy productSlug={productSlug} />
+          <div className="relative z-0 mx-auto w-full max-w-[min(100%,520px)] md:max-w-none md:justify-self-end">
+            <div className="relative aspect-[5/4] w-full sm:aspect-[16/12] md:aspect-[4/3] md:max-h-[min(68vh,560px)] lg:max-h-[min(72vh,620px)]">
+              <Image
+                src={HOME_HERO_IMAGE}
+                alt="TriZen TriPad V1 black and white editions with gaming mouse"
+                fill
+                priority
+                className="object-contain object-center md:object-right"
+                sizes="(max-width: 768px) 90vw, 45vw"
+                quality={95}
+              />
+            </div>
+          </div>
         </div>
       </div>
 

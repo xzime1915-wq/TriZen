@@ -14,7 +14,7 @@ export function ProductFaqSection({
   const items = getProductFaqs(productName, isUpcoming(tag));
 
   return (
-    <section className="w-full border-t border-[var(--color-border)] bg-black">
+    <section className="w-full border-t border-[var(--color-border)] bg-[var(--color-surface)]">
       <div className="product-page-pad py-12 sm:py-16 max-w-3xl mx-auto">
         <FaqAccordion items={items} />
       </div>

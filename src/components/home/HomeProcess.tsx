@@ -92,7 +92,7 @@ export function HomeProcess() {
               <article
                 key={s.n}
                 className={[
-                  "trizen-process-card trizen-process-item group relative flex flex-col border border-[var(--color-border)] bg-zinc-950/50 p-7 md:p-8 transition-all duration-500 hover:border-zinc-600 hover:bg-zinc-950/80 hover:shadow-[0_20px_50px_-24px_rgba(0,0,0,0.9)]",
+                  "trizen-process-card trizen-process-item group relative flex flex-col border border-[var(--color-border)] bg-zinc-50/50 p-7 md:p-8 transition-all duration-500 hover:border-zinc-600 hover:bg-zinc-50/80 hover:shadow-[0_20px_50px_-24px_rgba(0,0,0,0.9)]",
                   i === 0 && "trizen-process-item-delay-2",
                   i === 1 && "trizen-process-item-delay-3",
                   i === 2 && "trizen-process-item-delay-4",
@@ -105,10 +105,10 @@ export function HomeProcess() {
                   className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-600/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                   aria-hidden
                 />
-                <span className="trizen-process-num relative z-[1] inline-flex h-14 w-14 items-center justify-center border border-[var(--color-border)] bg-[var(--color-surface)] text-lg font-bold tabular-nums text-white transition-colors duration-500 group-hover:border-zinc-500">
+                <span className="trizen-process-num relative z-[1] inline-flex h-14 w-14 items-center justify-center border border-[var(--color-border)] bg-[var(--color-surface)] text-lg font-bold tabular-nums text-[var(--color-foreground)] transition-colors duration-500 group-hover:border-zinc-500">
                   {s.n}
                 </span>
-                <h3 className="relative z-[1] mt-6 text-sm font-bold uppercase tracking-[0.18em] text-white">
+                <h3 className="relative z-[1] mt-6 text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-foreground)]">
                   {s.title}
                 </h3>
                 <p className="trizen-body relative z-[1] mt-3 flex-1">{s.body}</p>

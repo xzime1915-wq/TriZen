@@ -18,13 +18,13 @@ export function HomeFaqSection() {
         <h2 className="trizen-headline text-center text-2xl sm:text-3xl md:text-4xl leading-tight">
           {HOME_SEO_TITLE}
         </h2>
-        <p className="mt-6 text-center text-sm font-bold uppercase tracking-wide text-zinc-600 sm:text-base">
+        <p className="mt-6 text-center text-sm sm:text-base font-bold uppercase tracking-wide text-zinc-600">
           {HOME_SEO_SUBTITLE}
         </p>
 
         <div className="relative mt-8 md:mt-10">
           <div
-            className={`space-y-5 text-center text-sm leading-relaxed text-zinc-500 sm:text-base ${
+            className={`space-y-5 text-sm sm:text-base leading-relaxed text-zinc-400 text-center ${
               expanded ? "" : "max-h-[11rem] sm:max-h-[13rem] overflow-hidden"
             }`}
           >

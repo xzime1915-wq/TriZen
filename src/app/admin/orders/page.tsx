@@ -62,7 +62,7 @@ export default async function AdminOrdersPage({
 
       <div className="border border-[var(--color-border)] overflow-x-auto">
         <table className="w-full text-sm min-w-[800px]">
-          <thead className="bg-zinc-900 text-left text-xs uppercase tracking-wider">
+          <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wider">
             <tr>
               <th className="p-3">Order #</th>
               <th className="p-3">Customer</th>
@@ -75,7 +75,7 @@ export default async function AdminOrdersPage({
           </thead>
           <tbody>
             {orders.map((o) => (
-              <tr key={o.id} className="border-t border-[var(--color-border)] hover:bg-zinc-900/50">
+              <tr key={o.id} className="border-t border-[var(--color-border)] hover:bg-zinc-100/50">
                 <td className="p-3 font-mono">{o.orderNumber}</td>
                 <td className="p-3">
                   <p>{o.customerName}</p>

@@ -34,10 +34,10 @@ export function AdminNav({ admin }: { admin: { name: string; email: string } }) 
   }
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-56 border-r border-[var(--color-border)] bg-black flex flex-col">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-56 border-r border-[var(--color-border)] bg-[var(--color-surface)] flex flex-col">
       <div className="p-4 border-b border-[var(--color-border)]">
         <Link href="/admin" className="flex items-center gap-2">
-          <TrizenLogo variant="on-dark" alt="TriZen" width={32} height={32} />
+          <TrizenLogo variant="on-light" alt="TriZen" width={32} height={32} />
           <span className="text-xs font-semibold uppercase tracking-widest">Admin</span>
         </Link>
       </div>
@@ -50,7 +50,7 @@ export function AdminNav({ admin }: { admin: { name: string; email: string } }) 
               "flex items-center gap-3 px-3 py-2.5 text-sm rounded-sm transition",
               pathname === href || (href !== "/admin" && pathname.startsWith(href + "/"))
                 ? "bg-white text-black"
-                : "text-[var(--color-muted)] hover:text-white hover:bg-zinc-900"
+                : "text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:bg-zinc-100"
             )}
           >
             <Icon className="h-4 w-4" />

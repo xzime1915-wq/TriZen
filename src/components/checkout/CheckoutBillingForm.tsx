@@ -56,7 +56,7 @@ export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: P
           required
           value={form.district}
           onChange={(e) => set({ district: e.target.value })}
-          className="w-full border border-[var(--color-border)] bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-white"
+          className="w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-white"
         >
           {BANGLADESH_DISTRICTS.map((d) => (
             <option key={d} value={d}>

@@ -28,7 +28,7 @@ export function ProductColorPicker({
             className={`px-4 py-2 text-xs font-medium uppercase tracking-wider border transition ${
               selected.name === c.name
                 ? "border-white bg-white text-black"
-                : "border-[var(--color-border)] text-[var(--color-muted)] hover:border-zinc-500 hover:text-white"
+                : "border-[var(--color-border)] text-[var(--color-muted)] hover:border-zinc-500 hover:text-[var(--color-foreground)]"
             }`}
           >
             {c.name}

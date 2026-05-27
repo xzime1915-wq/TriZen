@@ -35,7 +35,7 @@ export function ShopGearSection({
       id={`gear-${gear}`}
       className="scroll-mt-28 border-t border-[var(--color-border)] first:border-t-0"
     >
-      <div className="border-b border-[var(--color-border)] bg-zinc-950/20 py-8 md:py-20 lg:py-24">
+      <div className="border-b border-[var(--color-border)] bg-zinc-50/20 py-8 md:py-20 lg:py-24">
         <p className="trizen-eyebrow text-[8px] tracking-[0.28em] md:text-xs">{copy.eyebrow}</p>
         <h2 className="trizen-headline mt-2 max-w-[12rem] text-[1.25rem] leading-[1.1] md:mt-4 md:max-w-none md:text-5xl sm:text-4xl">
           {copy.title}

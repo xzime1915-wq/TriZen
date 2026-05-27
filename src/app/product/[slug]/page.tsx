@@ -33,14 +33,15 @@ export async function generateMetadata({
   const title = isGlass
     ? `${product.name} — Esports Glass Mouse Pad Bangladesh`
     : `${product.name} — Esports Gear Bangladesh`;
+  const description = product.description.slice(0, 160);
 
   return {
     title,
-    description: product.description.slice(0, 160),
+    description,
     alternates: { canonical: `${SITE_URL}/product/${slug}` },
     openGraph: {
       title: `${title} | ${SITE_NAME}`,
-      description: product.description.slice(0, 160),
+      description,
       url: `${SITE_URL}/product/${slug}`,
       images: product.image ? [{ url: product.image }] : undefined,
     },

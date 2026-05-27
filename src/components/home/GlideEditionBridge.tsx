@@ -61,7 +61,7 @@ export function GlideEditionBridge() {
           aria-hidden
         />
         <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-12 bg-gradient-to-t from-black/60 via-black/20 to-transparent sm:h-16"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-16 bg-gradient-to-t from-[var(--color-surface)] via-[var(--color-surface)]/70 to-transparent sm:h-24"
           aria-hidden
         />
         <div

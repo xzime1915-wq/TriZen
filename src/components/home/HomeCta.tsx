@@ -8,7 +8,7 @@ export function HomeCta() {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-zinc-100/80 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-zinc-100/80 to-transparent"
         aria-hidden
       />
 
@@ -26,7 +26,7 @@ export function HomeCta() {
           <Link href="/shop" className="trizen-btn-primary">
             Shop now
           </Link>
-          <Link href="/contact" className="trizen-btn-outline">
+          <Link href="/contact" className="trizen-btn-primary">
             Contact us
           </Link>
         </div>

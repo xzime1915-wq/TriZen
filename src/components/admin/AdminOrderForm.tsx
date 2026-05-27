@@ -153,7 +153,7 @@ export function AdminOrderForm({
           <button
             type="button"
             onClick={addLine}
-            className="text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-white"
+            className="text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-[var(--color-foreground)]"
           >
             + Add product
           </button>
@@ -168,7 +168,7 @@ export function AdminOrderForm({
                 <select
                   value={line.productId}
                   onChange={(e) => updateLine(i, { productId: e.target.value })}
-                  className="w-full border border-[var(--color-border)] bg-black px-4 py-3 text-sm outline-none focus:border-white"
+                  className="w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm outline-none focus:border-white"
                   required
                 >
                   {products.map((p) => (
@@ -187,7 +187,7 @@ export function AdminOrderForm({
                   min={1}
                   value={line.quantity}
                   onChange={(e) => updateLine(i, { quantity: Number(e.target.value) })}
-                  className="w-full border border-[var(--color-border)] bg-black px-3 py-3 text-sm outline-none focus:border-white"
+                  className="w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-3 text-sm outline-none focus:border-white"
                   required
                 />
               </label>
@@ -215,7 +215,7 @@ export function AdminOrderForm({
             <select
               value={form.status}
               onChange={(e) => setForm({ ...form, status: e.target.value })}
-              className="w-full border border-[var(--color-border)] bg-black px-4 py-3 text-sm outline-none focus:border-white"
+              className="w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm outline-none focus:border-white"
             >
               {ORDER_STATUSES.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -231,7 +231,7 @@ export function AdminOrderForm({
             <select
               value={form.paymentMethod}
               onChange={(e) => setForm({ ...form, paymentMethod: e.target.value })}
-              className="w-full border border-[var(--color-border)] bg-black px-4 py-3 text-sm outline-none focus:border-white"
+              className="w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm outline-none focus:border-white"
             >
               <option value="cod">Cash on Delivery</option>
               <option value="bank">Bank Payment</option>

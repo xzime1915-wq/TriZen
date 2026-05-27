@@ -64,7 +64,7 @@ function SignInForm() {
       onSubmit={handleSubmit}
       className="w-full max-w-sm border border-[var(--color-border)] p-8 bg-[var(--color-surface-elevated)]"
     >
-      <TrizenLogo variant="on-dark" width={48} height={48} className="mx-auto mb-4" />
+      <TrizenLogo variant="on-light" width={48} height={48} className="mx-auto mb-4" />
       <h1 className="text-center text-lg font-bold uppercase tracking-wide mb-2">Sign In</h1>
       <p className="text-center text-sm text-[var(--color-muted)] mb-6">
         {isCheckout ? "Sign in to complete your order" : "Welcome back to TriZen Store"}
@@ -107,7 +107,7 @@ function SignInForm() {
               ? `/register?next=${encodeURIComponent(redirectTo)}`
               : "/register"
           }
-          className="text-white hover:underline"
+          className="text-[var(--color-foreground)] hover:underline"
         >
           Create account
         </Link>

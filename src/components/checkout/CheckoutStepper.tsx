@@ -8,7 +8,7 @@ export function CheckoutStepper({ active = 0 }: { active?: number }) {
           <div key={step} className="flex flex-1 flex-col items-center">
             <span
               className={`text-center text-xs font-medium uppercase tracking-wide sm:text-sm ${
-                i <= active ? "text-white" : "text-[var(--color-muted)]"
+                i <= active ? "text-[var(--color-foreground)]" : "text-[var(--color-muted)]"
               }`}
             >
               {step}

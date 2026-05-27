@@ -2,7 +2,7 @@ export function HomeStatement() {
   return (
     <section className="relative overflow-hidden bg-[var(--color-surface)] border-b border-[var(--color-border)]">
       <div
-        className="pointer-events-none absolute right-0 top-1/2 h-[min(60vw,400px)] w-[min(50vw,320px)] -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)]"
+        className="pointer-events-none absolute right-0 top-1/2 h-[min(60vw,400px)] w-[min(50vw,320px)] -translate-y-1/2 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.04)_0%,transparent_70%)]"
         aria-hidden
       />
       <div className="container-trizen relative flex flex-col justify-center py-16 md:py-32 lg:py-40 md:min-h-[70vh]">

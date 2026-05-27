@@ -15,12 +15,18 @@ const AUTO_MS = 4500;
 type Props = {
   children: ReactNode;
   desktopCols?: 2 | 3;
+  /** Break out to full viewport width on desktop */
+  fullWidth?: boolean;
+  /** Minimal full-bleed grid (reference storefront layout) */
+  variant?: "default" | "showcase";
   className?: string;
 };
 
 export function EditionCarousel({
   children,
   desktopCols = 3,
+  fullWidth = false,
+  variant = "default",
   className,
 }: Props) {
   const slides = Children.toArray(children);
@@ -55,17 +61,38 @@ export function EditionCarousel({
     return () => window.clearInterval(id);
   }, [count]);
 
+  const isShowcase = variant === "showcase";
+
   const shellClass = cn(
-    "border border-[var(--color-border)] shadow-[0_32px_80px_-40px_rgba(0,0,0,0.9)]",
+    isShowcase
+      ? "edition-showcase-grid border-[var(--color-border)] max-sm:border-y sm:border-y"
+      : "border-y border-[var(--color-border)] bg-[var(--color-surface)] shadow-[0_24px_64px_-32px_rgba(0,0,0,0.1)] sm:border",
     className
   );
 
   const desktopGrid =
     desktopCols === 3
-      ? "hidden sm:grid sm:grid-cols-3 sm:divide-x divide-[var(--color-border)]"
-      : "hidden sm:grid sm:grid-cols-2 sm:divide-x divide-[var(--color-border)]";
+      ? cn(
+          "hidden sm:grid sm:grid-cols-3 sm:divide-x sm:divide-[var(--color-border)] [&>*]:min-h-0 [&>*]:h-full",
+          isShowcase
+            ? "sm:min-h-[min(64vh,740px)] lg:min-h-[min(70vh,820px)]"
+            : "sm:min-h-[min(58vh,640px)] lg:min-h-[min(62vh,720px)]"
+        )
+      : cn(
+          "hidden sm:grid sm:grid-cols-2 sm:divide-x sm:divide-[var(--color-border)] [&>*]:min-h-0 [&>*]:h-full",
+          isShowcase
+            ? "sm:min-h-[min(58vh,680px)] lg:min-h-[min(62vh,740px)]"
+            : "sm:min-h-[min(52vh,580px)] lg:min-h-[min(56vh,660px)]"
+        );
 
-  return (
+  const wrap = (node: React.ReactNode) =>
+    fullWidth ? (
+      <div className="trizen-viewport-bleed w-full overflow-x-clip">{node}</div>
+    ) : (
+      node
+    );
+
+  return wrap(
     <>
       {/* Mobile — auto slideshow, one slide at a time */}
       <div
@@ -120,8 +147,8 @@ export function EditionCarousel({
                 className={cn(
                   "h-1.5 rounded-full transition-all duration-300",
                   i === index
-                    ? "w-6 bg-white"
-                    : "w-1.5 bg-zinc-600 hover:bg-zinc-400"
+                    ? "w-6 bg-zinc-900"
+                    : "w-1.5 bg-zinc-400 hover:bg-zinc-600"
                 )}
               />
             ))}

@@ -27,8 +27,8 @@ export function ChatMessageBubble({
         className={cn(
           "rounded-sm px-3 py-2 text-sm leading-relaxed border",
           isOwn
-            ? "bg-white text-black border-white"
-            : "bg-[var(--color-surface-elevated)] text-zinc-100 border-[var(--color-border)]"
+            ? "bg-zinc-900 text-white border-zinc-900"
+            : "bg-[var(--color-surface-elevated)] text-[var(--color-foreground)] border-[var(--color-border)]"
         )}
       >
         {message.attachmentType === "image" && message.attachmentUrl && (

@@ -4,7 +4,7 @@ export function ShopMarquee() {
 
   return (
     <section
-      className="relative border-y border-[var(--color-border)] bg-black py-4 sm:py-7 overflow-hidden"
+      className="relative border-y border-[var(--color-border)] bg-[var(--color-surface)] py-4 sm:py-7 overflow-hidden"
       aria-hidden
     >
       <div

@@ -36,7 +36,7 @@ export function CheckoutInput({
         {props.required && <span className="text-red-400"> *</span>}
       </span>
       <input
-        className="w-full border border-[var(--color-border)] bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-white"
+        className="w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-white"
         {...props}
       />
     </label>
@@ -54,7 +54,7 @@ export function CheckoutTextarea({
         {label}
       </span>
       <textarea
-        className="min-h-[100px] w-full resize-y border border-[var(--color-border)] bg-black px-4 py-3 text-sm text-white outline-none transition focus:border-white"
+        className="min-h-[100px] w-full resize-y border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-white"
         {...props}
       />
     </label>

@@ -43,22 +43,22 @@ export function AddToCartButton({
   }
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-      <div className="flex items-center border border-[var(--color-border)]">
+    <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+      <div className="flex items-center border border-zinc-900 bg-zinc-900 text-white">
         <button
           type="button"
-          className="p-3 hover:bg-zinc-900"
+          className="p-3 text-white transition hover:bg-zinc-800"
           onClick={() => setQty(Math.max(1, qty - 1))}
           aria-label="Decrease"
         >
           <Minus className="h-4 w-4" />
         </button>
-        <span className="px-6 py-3 text-sm font-medium min-w-[3rem] text-center">
+        <span className="min-w-[3rem] border-x border-zinc-700 px-6 py-3 text-center text-sm font-medium tabular-nums">
           {qty}
         </span>
         <button
           type="button"
-          className="p-3 hover:bg-zinc-900"
+          className="p-3 text-white transition hover:bg-zinc-800"
           onClick={() => setQty(Math.min(product.stock, qty + 1))}
           aria-label="Increase"
         >

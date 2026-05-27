@@ -110,7 +110,7 @@ export function CustomerSearch() {
                   )}
                 </h2>
                 <p className="text-sm text-[var(--color-muted)] mt-1">
-                  <span className="text-white font-mono">{c.phone}</span> · {c.email}
+                  <span className="text-[var(--color-foreground)] font-mono">{c.phone}</span> · {c.email}
                 </p>
                 {(c.shippingAddress || c.city) && (
                   <p className="text-sm text-[var(--color-muted)] mt-1">
@@ -130,7 +130,7 @@ export function CustomerSearch() {
 
             <div className="overflow-x-auto">
               <table className="w-full text-sm min-w-[600px]">
-                <thead className="bg-zinc-900 text-left text-xs uppercase tracking-wider">
+                <thead className="bg-zinc-100 text-left text-xs uppercase tracking-wider">
                   <tr>
                     <th className="p-3">Order #</th>
                     <th className="p-3">Date</th>

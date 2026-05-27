@@ -13,7 +13,6 @@ import { ProductColorPicker } from "./ProductColorPicker";
 import { StockBadge, isInStock } from "@/components/StockBadge";
 import { isUpcoming } from "@/lib/product-status";
 import { ProductPrice } from "./ProductPrice";
-import { usesTripadGlideBackground } from "@/lib/product-visuals";
 import type { ProductColor, ProductSpec } from "@/lib/product-data";
 
 export type ProductReviewData = {
@@ -77,29 +76,27 @@ export function ProductDetailView({
     <div className="w-full">
       <div className="product-page-pad py-6 md:py-14">
       <nav className="mb-4 text-[0.65rem] text-[var(--color-muted)] md:mb-8 md:text-sm">
-        <Link href="/" className="hover:text-white">
+        <Link href="/" className="hover:text-[var(--color-foreground)]">
           Home
         </Link>
         <span className="mx-2">/</span>
-        <Link href="/shop" className="hover:text-white">
+        <Link href="/shop" className="hover:text-[var(--color-foreground)]">
           Shop
         </Link>
         <span className="mx-2">/</span>
-        <Link href={`/shop?category=${encodeURIComponent(product.category)}`} className="hover:text-white">
+        <Link href={`/shop?category=${encodeURIComponent(product.category)}`} className="hover:text-[var(--color-foreground)]">
           {product.category}
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-white">{product.name}</span>
+        <span className="text-[var(--color-foreground)]">{product.name}</span>
       </nav>
 
-      <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 2xl:gap-20">
-        <ProductGallery
-          images={gallery}
-          productName={product.name}
-          showGlideBackground={usesTripadGlideBackground(product.slug)}
-        />
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:gap-14 xl:gap-20">
+        <div className="min-w-0 w-full">
+          <ProductGallery images={gallery} productName={product.name} />
+        </div>
 
-        <div>
+        <div className="min-w-0 w-full lg:sticky lg:top-[4.5rem] lg:max-w-md lg:justify-self-end xl:max-w-lg">
           {product.tag && (
             <span className="inline-block text-[10px] font-bold uppercase tracking-widest bg-white text-black px-2 py-0.5 mb-3">
               {product.tag}
@@ -113,7 +110,7 @@ export function ProductDetailView({
             <StarRating value={avgRating} />
             <span className="text-sm text-[var(--color-muted)]">
               {reviews.length > 0 ? (
-                <a href="#reviews" className="hover:text-white hover:underline">
+                <a href="#reviews" className="hover:text-[var(--color-foreground)] hover:underline">
                   ({reviews.length} customer review{reviews.length !== 1 ? "s" : ""})
                 </a>
               ) : (
@@ -135,7 +132,7 @@ export function ProductDetailView({
               price={product.price}
               compareAt={product.compareAt}
               tag={product.tag}
-              className="text-[1.1rem] font-semibold text-emerald-400 md:text-2xl"
+              className="text-[1.1rem] font-semibold text-emerald-600 md:text-2xl"
               compareClassName="text-[0.75rem] text-[var(--color-muted)] line-through md:text-lg"
             />
           </div>
@@ -153,7 +150,7 @@ export function ProductDetailView({
               {features.length > 5 && (
                 <a
                   href="#product-details"
-                  className="inline-block mt-3 text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-white hover:underline"
+                  className="inline-block mt-3 text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:underline"
                 >
                   See all features & details
                 </a>

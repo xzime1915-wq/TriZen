@@ -19,7 +19,7 @@ export function Input({
       )}
       <input
         className={cn(
-          "w-full border border-[var(--color-border)] bg-black px-4 py-3 text-sm outline-none transition focus:border-white",
+          "w-full border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-zinc-400",
           error && "border-red-500",
           className
         )}

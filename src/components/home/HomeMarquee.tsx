@@ -8,7 +8,7 @@ export function HomeMarquee() {
       aria-hidden
     >
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-800/40 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-300/80 to-transparent"
         aria-hidden
       />
       <div className="home-marquee-track flex whitespace-nowrap">

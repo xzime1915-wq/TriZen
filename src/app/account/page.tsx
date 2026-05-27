@@ -25,7 +25,7 @@ export default async function AccountPage() {
               className="rounded-full border border-[var(--color-border)]"
             />
           ) : (
-            <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--color-border)] bg-black text-lg font-bold uppercase">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-lg font-bold uppercase">
               {(user.name || user.email)[0]}
             </div>
           )}

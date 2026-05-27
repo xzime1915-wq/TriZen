@@ -237,10 +237,10 @@ export function AdminChat() {
   }
 
   return (
-    <div className="grid lg:grid-cols-[300px_1fr] gap-0 border border-[var(--color-border)] min-h-[calc(100vh-8rem)] bg-black">
+    <div className="grid lg:grid-cols-[300px_1fr] gap-0 border border-[var(--color-border)] min-h-[calc(100vh-8rem)] bg-[var(--color-surface)]">
       <aside className="border-b lg:border-b-0 lg:border-r border-[var(--color-border)] flex flex-col max-h-[40vh] lg:max-h-none">
         <div className="p-4 border-b border-[var(--color-border)]">
-          <h2 className="text-sm font-bold uppercase tracking-wide text-white">
+          <h2 className="text-sm font-bold uppercase tracking-wide text-[var(--color-foreground)]">
             Inbox
           </h2>
           {totalUnread > 0 && (
@@ -268,7 +268,7 @@ export function AdminChat() {
                 "w-full text-left px-4 py-3 border-b border-[var(--color-border)] transition-colors",
                 selectedId === c.id
                   ? "bg-white text-black"
-                  : "hover:bg-zinc-900 text-zinc-300"
+                  : "hover:bg-zinc-100 text-zinc-300"
               )}
             >
               <div className="flex items-center justify-between gap-2">
@@ -277,7 +277,7 @@ export function AdminChat() {
                   <span
                     className={cn(
                       "shrink-0 text-[10px] font-bold px-1.5 py-0.5 rounded-sm",
-                      selectedId === c.id ? "bg-black text-white" : "bg-white text-black"
+                      selectedId === c.id ? "bg-[var(--color-surface)] text-[var(--color-foreground)]" : "bg-white text-black"
                     )}
                   >
                     {c.unreadAdmin}
@@ -318,7 +318,7 @@ export function AdminChat() {
           <>
             <header className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--color-border)] px-4 py-3">
               <div>
-                <p className="font-semibold text-white">{selected?.visitorName}</p>
+                <p className="font-semibold text-[var(--color-foreground)]">{selected?.visitorName}</p>
                 {selected?.visitorEmail && (
                   <p className="text-xs text-zinc-500">{selected.visitorEmail}</p>
                 )}
@@ -326,7 +326,7 @@ export function AdminChat() {
               <button
                 type="button"
                 onClick={() => void toggleStatus()}
-                className="text-xs uppercase tracking-wider border border-[var(--color-border)] px-3 py-1.5 hover:bg-zinc-900"
+                className="text-xs uppercase tracking-wider border border-[var(--color-border)] px-3 py-1.5 hover:bg-zinc-100"
               >
                 {selected?.status === "open" ? "Close chat" : "Reopen chat"}
               </button>
@@ -347,13 +347,13 @@ export function AdminChat() {
             </div>
 
             {otherTyping && (
-              <div className="shrink-0 border-t border-[var(--color-border)] bg-black px-4 py-2">
+              <div className="shrink-0 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2">
                 <ChatTypingIndicator
                   text={`${selected?.visitorName ?? "Customer"} is typing.....`}
                 />
               </div>
             )}
-            <div className="shrink-0 relative z-10 bg-black border-t border-[var(--color-border)]">
+            <div className="shrink-0 relative z-10 bg-[var(--color-surface)] border-t border-[var(--color-border)]">
               <ChatComposer
                 disabled={selected?.status === "closed"}
                 placeholder={

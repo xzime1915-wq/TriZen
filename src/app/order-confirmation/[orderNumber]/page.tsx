@@ -62,7 +62,7 @@ export default async function OrderConfirmationPage({
           <Truck className="h-4 w-4" /> Cash on Delivery
         </h3>
         <p className="text-sm text-[var(--color-muted)]">
-          Pay <strong className="text-white">{formatCurrency(order.total)}</strong> in cash when
+          Pay <strong className="text-[var(--color-foreground)]">{formatCurrency(order.total)}</strong> in cash when
           your order is delivered. We will contact you at {order.customerPhone} to confirm
           delivery.
         </p>
