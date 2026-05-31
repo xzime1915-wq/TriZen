@@ -144,6 +144,22 @@ model User {
   reviews      ProductReview[]
 }
 
+model BlogPost {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  excerpt    String   @default("")
+  content    String   @default("")
+  coverImage String   @default("")
+  category   String   @default("News")
+  author     String   @default("TriZen Store")
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([published, createdAt])
+}
+
 model ChatConversation {
   id                String        @id @default(cuid())
   visitorSessionId  String        @unique

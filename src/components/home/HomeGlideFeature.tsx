@@ -8,7 +8,7 @@ import { HOME_GLIDE_IMAGE } from "@/lib/home-assets";
 
 function GlideActionBanner() {
   return (
-    <div className="relative min-h-[40vh] sm:min-h-[44vh] md:min-h-[58vh] overflow-hidden bg-black">
+    <div className="relative min-h-[30vh] sm:min-h-[40vh] md:min-h-[58vh] overflow-hidden bg-black">
       <Image
         src={HOME_GLIDE_IMAGE}
         alt="Mouse gliding at speed on TriZen glass surface"
@@ -19,9 +19,9 @@ function GlideActionBanner() {
         quality={90}
       />
 
-      <div className="container-trizen relative z-10 flex min-h-[40vh] sm:min-h-[44vh] md:min-h-[58vh] items-end justify-center px-4 pb-7 sm:pb-8 md:px-0 md:pb-16">
+      <div className="container-trizen relative z-10 flex min-h-[30vh] sm:min-h-[40vh] md:min-h-[58vh] items-end justify-center px-4 pb-5 sm:pb-8 md:px-0 md:pb-16">
         <div className="glide-performance-block max-w-2xl w-full text-center text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)]">
-          <p className="glide-performance-eyebrow text-[10px] uppercase tracking-[0.38em] text-white">
+          <p className="glide-performance-eyebrow text-[10px] uppercase tracking-[0.28em] text-white">
             Performance
           </p>
           <GlideAnimatedTitle className="glide-performance-title !text-white" />

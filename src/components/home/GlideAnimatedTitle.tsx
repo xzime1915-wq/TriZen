@@ -3,23 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 
 const TITLE = "Engineered for glide";
-const TYPE_MS = 50;
+const TYPE_MS = 55;
 
 type Props = {
   className?: string;
 };
-
-function resetRun(setLength: (n: number) => void, setDone: (d: boolean) => void) {
-  setLength(0);
-  setDone(false);
-}
 
 export function GlideAnimatedTitle({ className = "" }: Props) {
   const rootRef = useRef<HTMLHeadingElement>(null);
   const wasInViewRef = useRef(false);
   const [inView, setInView] = useState(false);
   const [length, setLength] = useState(0);
-  const [done, setDone] = useState(false);
   const [runId, setRunId] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
 
@@ -33,10 +27,10 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
         setInView(visible);
 
         if (visible && !wasInViewRef.current) {
-          resetRun(setLength, setDone);
+          setLength(0);
           setRunId((id) => id + 1);
         } else if (!visible) {
-          resetRun(setLength, setDone);
+          setLength(0);
         }
 
         wasInViewRef.current = visible;
@@ -60,57 +54,40 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
     if (!inView) return;
     if (reduceMotion) {
       setLength(TITLE.length);
-      setDone(true);
-    }
-  }, [inView, reduceMotion, runId]);
-
-  useEffect(() => {
-    if (reduceMotion || !inView) return;
-
-    if (length >= TITLE.length) {
-      setDone(true);
       return;
     }
+    if (length >= TITLE.length) return;
 
     const id = window.setTimeout(() => setLength((n) => n + 1), TYPE_MS);
     return () => window.clearTimeout(id);
   }, [length, reduceMotion, inView, runId]);
 
-  const showText = inView;
-  const typing = inView && !reduceMotion && !done && length < TITLE.length;
-  const visible = !showText
+  const visible = !inView
     ? ""
-    : reduceMotion || done
+    : reduceMotion
       ? TITLE
       : TITLE.slice(0, length);
 
   return (
     <h2
       ref={rootRef}
-      className={`font-bold uppercase tracking-tight text-[var(--color-foreground)] md:mt-3 md:text-3xl md:leading-[1.15] lg:text-4xl ${className}`}
+      className={`font-black uppercase tracking-[-0.01em] text-[var(--color-foreground)] md:mt-3 md:text-4xl md:leading-[1.1] lg:text-5xl ${className}`}
       aria-label={TITLE}
     >
       <span className="relative inline-block min-h-[1.2em] max-w-full text-center">
+        {/* Invisible full text reserves space so typing never shifts layout */}
         <span
-          className="invisible mx-auto block max-w-[16.5rem] px-1 text-center text-[1.0625rem] leading-[1.2] break-words sm:max-w-none sm:text-inherit md:whitespace-nowrap"
+          className="invisible mx-auto block whitespace-nowrap px-1 text-center text-[clamp(1rem,5.1vw,1.75rem)] leading-[1.15] sm:text-inherit"
           aria-hidden
         >
           {TITLE}
         </span>
         <span
-          className={`absolute inset-0 flex items-center justify-center px-1 text-center text-[1.0625rem] leading-[1.2] break-words sm:text-inherit sm:whitespace-nowrap md:whitespace-nowrap transition-opacity duration-300 ${
-            showText ? "opacity-100" : "opacity-0"
+          className={`absolute inset-0 flex items-center justify-center whitespace-nowrap px-1 text-center text-[clamp(1rem,5.1vw,1.75rem)] leading-[1.15] sm:text-inherit transition-opacity duration-300 ${
+            inView ? "opacity-100" : "opacity-0"
           }`}
         >
           {visible}
-          {typing ? (
-            <span
-              className="glide-typewriter-cursor ml-0.5 inline-block font-light text-zinc-400"
-              aria-hidden
-            >
-              |
-            </span>
-          ) : null}
         </span>
       </span>
     </h2>

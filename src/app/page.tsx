@@ -9,6 +9,7 @@ import { HomeProcess } from "@/components/home/HomeProcess";
 import { HomeReviews } from "@/components/home/HomeReviews";
 import { HomeCta } from "@/components/home/HomeCta";
 import { HomeOurGears } from "@/components/home/HomeOurGears";
+import { HomeBlog } from "@/components/home/HomeBlog";
 import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 import { HomeFaqJsonLd } from "@/components/seo/HomeFaqJsonLd";
 import { parseFeatures, averageRating } from "@/lib/product-data";
@@ -25,7 +26,7 @@ function stripEditionSuffix(name: string) {
 }
 
 export default async function HomePage() {
-  const [products, reviews] = await Promise.all([
+  const [products, reviews, blogPosts] = await Promise.all([
     prisma.product.findMany({
       where: { featured: true },
       orderBy: { name: "asc" },
@@ -38,6 +39,11 @@ export default async function HomePage() {
       take: 6,
       orderBy: { createdAt: "desc" },
       include: { product: { select: { name: true } } },
+    }),
+    prisma.blogPost.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+      take: 3,
     }),
   ]);
 
@@ -84,6 +90,18 @@ export default async function HomePage() {
 
       <HomeFeaturesGrid />
       <HomeProcess />
+      <HomeBlog
+        posts={blogPosts.map((p) => ({
+          id: p.id,
+          title: p.title,
+          slug: p.slug,
+          excerpt: p.excerpt,
+          content: p.content,
+          coverImage: p.coverImage,
+          category: p.category,
+          createdAt: p.createdAt.toISOString(),
+        }))}
+      />
       <HomeReviews
         reviews={reviews.map((r) => ({
           id: r.id,

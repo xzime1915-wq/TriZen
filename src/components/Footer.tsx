@@ -17,6 +17,7 @@ const SHOP_LINKS = [
 ] as const;
 
 const IMPORTANT_LINKS = [
+  { href: "/blog", label: "Blog" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/track-order", label: "Track Your Order" },
   { href: "/terms", label: "Terms & Conditions" },

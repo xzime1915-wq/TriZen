@@ -9,5 +9,7 @@ node_modules
 backups/
 public/uploads/chat/**
 !public/uploads/.gitkeep
+public/blog/**
+!public/blog/.gitkeep
 .DS_Store
 tsconfig.tsbuildinfo

@@ -11,6 +11,7 @@ import {
   Settings,
   LogOut,
   MessageCircle,
+  Newspaper,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +21,7 @@ const links = [
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/chat", label: "Live Chat", icon: MessageCircle },
   { href: "/admin/products", label: "Products", icon: Package },
+  { href: "/admin/blog", label: "Blog", icon: Newspaper },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

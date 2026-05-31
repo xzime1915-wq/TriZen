@@ -46,13 +46,13 @@ export function MobileBottomNav() {
               href={href}
               className={cn(
                 "relative flex flex-col items-center justify-center gap-1 px-1 transition-colors",
-                active ? "text-zinc-900" : "text-zinc-500"
+                active ? "text-black" : "text-zinc-800"
               )}
             >
               <span className="relative">
                 <Icon className="h-5 w-5" strokeWidth={iconStroke} />
                 {isCart && mounted && totalItems > 0 && (
-                  <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-zinc-100 px-1 text-[9px] font-bold text-[var(--color-foreground)]">
+                  <span className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] font-bold text-white">
                     {totalItems > 99 ? "99+" : totalItems}
                   </span>
                 )}

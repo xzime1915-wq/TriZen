@@ -17,7 +17,7 @@ export function TrizenLogo({
     <Image
       src={getLogoSrc(variant)}
       alt={alt}
-      className={cn("object-contain", variant === "on-light" && "invert", className)}
+      className={cn("object-contain", className)}
       {...props}
     />
   );

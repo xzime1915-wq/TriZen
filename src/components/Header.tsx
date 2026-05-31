@@ -78,7 +78,9 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           href="/"
           className="group absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 transition-opacity hover:opacity-80 lg:static lg:translate-x-0 lg:shrink-0"
         >
-          <AnimatedLogo size="sm" variant="on-light" className="shrink-0" />
+          <span className="logo-3d inline-block shrink-0">
+            <AnimatedLogo size="sm" variant="on-light" />
+          </span>
         </Link>
 
         <nav className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:flex">
@@ -103,7 +105,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           >
             <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
             {mounted && totalItems > 0 && (
-              <span className="absolute -right-0.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-zinc-100 px-1 text-[9px] font-bold text-[var(--color-foreground)]">
+              <span className="absolute -right-0.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] font-bold text-white">
                 {totalItems > 99 ? "99+" : totalItems}
               </span>
             )}
@@ -130,7 +132,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           <Link href="/cart" className="trizen-header-icon relative" aria-label="Cart">
             <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
             {mounted && totalItems > 0 && (
-              <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-zinc-100 ring-2 ring-white" />
+              <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-black ring-2 ring-white" />
             )}
           </Link>
         </div>
