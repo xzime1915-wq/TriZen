@@ -20,10 +20,12 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage() {
-  const posts = await prisma.blogPost.findMany({
-    where: { published: true },
-    orderBy: { createdAt: "desc" },
-  });
+  const posts = await prisma.blogPost
+    .findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+    })
+    .catch(() => []);
 
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">

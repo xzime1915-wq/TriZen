@@ -26,7 +26,7 @@ function stripEditionSuffix(name: string) {
 }
 
 export default async function HomePage() {
-  const [products, reviews, blogPosts] = await Promise.all([
+  const [products, reviews] = await Promise.all([
     prisma.product.findMany({
       where: { featured: true },
       orderBy: { name: "asc" },
@@ -40,12 +40,16 @@ export default async function HomePage() {
       orderBy: { createdAt: "desc" },
       include: { product: { select: { name: true } } },
     }),
-    prisma.blogPost.findMany({
+  ]);
+
+  // Resilient: never crash the homepage if the blog table is not migrated yet.
+  const blogPosts = await prisma.blogPost
+    .findMany({
       where: { published: true },
       orderBy: { createdAt: "desc" },
       take: 3,
-    }),
-  ]);
+    })
+    .catch(() => []);
 
   const heroProduct =
     products.find((p) => p.slug === HERO_SLUG) ||
