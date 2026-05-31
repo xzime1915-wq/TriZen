@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { ProductImage } from "@/components/ProductImage";
 import { StockBadge, isInStock } from "@/components/StockBadge";
 import { StarRating } from "@/components/product/StarRating";
+import { ProductVisualFrame } from "@/components/product/ProductVisualFrame";
 import { HomeProductActions } from "./HomeProductActions";
 import { shouldShowProductPrice } from "@/lib/product-status";
 import { formatCurrency } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
 import { isUpcoming } from "@/lib/product-status";
+import { getLargeProductImageScale } from "@/lib/product-visual-scale";
 
 type Props = {
   product: {
@@ -49,47 +50,44 @@ export function HomeProductShowcase({
   const highlightFeatures = features.slice(0, 3);
   const upcoming = isUpcoming(product.tag);
   const mainVisual = visualImage || product.image;
-
-  const padCol = reverse
-    ? "lg:col-start-2 lg:row-start-1"
-    : "lg:col-start-1 lg:row-start-1";
-  const copyCol = reverse
-    ? "lg:col-start-1 lg:row-start-1"
-    : "lg:col-start-2 lg:row-start-1";
+  const featuredScale = getLargeProductImageScale(mainVisual);
 
   return (
     <section className="relative overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-surface)]">
-      <div className="product-page-pad relative py-12 md:py-16 lg:py-20">
-        <p className="trizen-eyebrow mb-6 md:mb-10">Featured</p>
+      <div className="product-page-pad relative py-10 sm:py-12 md:py-16 lg:py-20">
+        <p className="trizen-eyebrow mb-4 text-[8px] tracking-[0.28em] sm:mb-6 sm:text-xs md:mb-10">
+          Featured
+        </p>
 
         <div
-          className={`grid grid-cols-1 items-stretch gap-10 lg:gap-12 xl:gap-16 ${
+          className={`product-split-grid ${
             reverse
-              ? "lg:grid-cols-[minmax(280px,0.88fr)_minmax(0,1.12fr)]"
-              : "lg:grid-cols-[minmax(0,1.12fr)_minmax(280px,0.88fr)]"
+              ? "product-split-grid--featured-reverse"
+              : "product-split-grid--featured"
           }`}
         >
-          <div className={`flex min-w-0 min-h-[min(88vw,460px)] sm:min-h-[520px] lg:min-h-[min(72vh,740px)] ${padCol}`}>
+          <div className={reverse ? "min-w-0 lg:order-2" : "min-w-0"}>
             <Link
               href={`/product/${product.slug}`}
-              className="group relative flex w-full flex-1"
+              className="group block w-full"
             >
-              <div className="relative h-full min-h-[inherit] w-full overflow-hidden bg-zinc-100">
-                <div className="absolute inset-0 p-2 sm:p-3">
-                  <ProductImage
-                    src={mainVisual}
-                    alt={headline}
-                    sizes="(max-width: 1024px) 100vw, 56vw"
-                    className="object-contain object-center transition-transform duration-500 group-hover:scale-[1.01]"
-                  />
-                </div>
-              </div>
+              <ProductVisualFrame
+                src={mainVisual}
+                alt={headline}
+                variant="large"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                imageScale={featuredScale}
+                interactive
+              />
             </Link>
           </div>
 
-          {/* Copy — opposite side of pad */}
-          <div className={`flex min-w-0 flex-col justify-center py-2 lg:py-4 ${copyCol}`}>
-            <div className="mb-4">
+          <div
+            className={`flex min-w-0 flex-col py-2 md:py-4 ${
+              reverse ? "lg:order-1" : ""
+            }`}
+          >
+            <div className="mb-3 sm:mb-4">
               <StockBadge
                 inStock={isInStock(product.stock)}
                 upcoming={upcoming}
@@ -98,13 +96,13 @@ export function HomeProductShowcase({
             </div>
 
             <Link href={`/product/${product.slug}`}>
-              <h2 className="trizen-headline text-2xl transition-colors hover:text-zinc-600 sm:text-3xl lg:text-[2rem]">
+              <h2 className="trizen-headline text-xl transition-colors hover:text-zinc-600 sm:text-2xl md:text-3xl lg:text-[2rem]">
                 {headline}
               </h2>
             </Link>
 
             {shouldShowProductPrice(product.tag) && (
-              <p className="mt-3 text-lg font-medium tabular-nums text-[var(--color-foreground)]">
+              <p className="mt-2 text-base font-medium tabular-nums text-[var(--color-foreground)] sm:mt-3 sm:text-lg">
                 {formatCurrency(product.price)}
                 {product.compareAt && product.compareAt > product.price && (
                   <span className="ml-2 text-sm font-normal text-zinc-600 line-through">
@@ -114,29 +112,29 @@ export function HomeProductShowcase({
               </p>
             )}
 
-            <div className="trizen-body mt-6 max-w-xl space-y-4 text-left">
+            <div className="trizen-body mt-4 max-w-xl space-y-3 text-left text-xs !text-[var(--color-foreground)] sm:mt-6 sm:space-y-4 sm:text-base">
               {paragraphs.map((para) => (
                 <p key={para.slice(0, 48)}>{para}</p>
               ))}
             </div>
 
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-5 flex items-center gap-3 sm:mt-6">
               <StarRating value={avgRating || 5} />
               <span className="text-xs text-zinc-600">
                 {reviewCount > 0 ? `(${avgRating})` : "(New)"}
               </span>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-6 sm:mt-8">
               <HomeProductActions slug={product.slug} tag={product.tag} />
             </div>
 
             {highlightFeatures.length > 0 && (
-              <ul className="mt-10 max-w-xl space-y-3 border-t border-[var(--color-border)] pt-8">
+              <ul className="mt-7 max-w-xl space-y-2.5 border-t border-[var(--color-border)] pt-6 sm:mt-10 sm:space-y-3 sm:pt-8">
                 {highlightFeatures.map((f) => (
                   <li
                     key={f}
-                    className="flex items-start gap-3 text-sm text-zinc-500"
+                    className="flex items-start gap-3 text-xs text-zinc-500 sm:text-sm"
                   >
                     <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-zinc-400" />
                     <span>{f}</span>

@@ -164,6 +164,38 @@ textarea {
     @apply w-full px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-16;
   }
 
+  /* Pad image base — object-contain, no crop */
+  .product-visual-frame {
+    @apply relative w-full overflow-hidden bg-transparent;
+    aspect-ratio: 1 / 1;
+    max-height: min(92vw, 560px);
+  }
+
+  /* Large pad — height follows image (no square box / empty sides) */
+  .product-visual-frame--large {
+    aspect-ratio: auto;
+    max-height: none;
+    height: auto;
+  }
+
+  /* Image + copy side-by-side from lg; stacks on smaller screens */
+  .product-split-grid {
+    @apply grid grid-cols-1 items-start gap-8 md:gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16;
+  }
+
+  .product-split-grid--wide-visual {
+    @apply lg:grid-cols-[minmax(0,1.38fr)_minmax(240px,0.62fr)] xl:gap-12;
+  }
+
+  .product-split-grid--featured {
+    @apply lg:grid-cols-[minmax(0,1.35fr)_minmax(240px,0.65fr)] xl:gap-12;
+  }
+
+  /* Reverse layout: keep the wide column for the image (which sits 2nd). */
+  .product-split-grid--featured-reverse {
+    @apply lg:grid-cols-[minmax(240px,0.65fr)_minmax(0,1.35fr)] xl:gap-12;
+  }
+
   .trizen-full-bleed {
     width: 100%;
     max-width: 100%;
@@ -193,35 +225,6 @@ textarea {
 
   .edition-carousel-cell--showcase:hover {
     @apply bg-white;
-  }
-
-  .edition-showcase-bar {
-    position: relative;
-    height: 2rem;
-    background: #0a0a0a;
-  }
-
-  @media (min-width: 768px) {
-    .edition-showcase-bar {
-      height: 2.75rem;
-    }
-  }
-
-  .edition-showcase-bar::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    height: 1.25rem;
-    background: linear-gradient(
-      to bottom,
-      #0a0a0a 0%,
-      rgba(10, 10, 10, 0.45) 35%,
-      rgba(10, 10, 10, 0.08) 70%,
-      transparent 100%
-    );
-    pointer-events: none;
   }
 
   .edition-showcase-title {
@@ -308,22 +311,22 @@ textarea {
   }
 
   .trizen-pay-with-logo {
-    @apply block w-auto object-contain object-center opacity-[0.92] transition-opacity duration-300 hover:opacity-100;
-    height: 0.8125rem;
-    max-height: 0.8125rem;
+    @apply block object-contain object-center opacity-[0.92] transition-opacity duration-300 hover:opacity-100;
+    width: 2.25rem;
+    height: 1.25rem;
   }
 
   @media (min-width: 640px) {
     .trizen-pay-with-logo {
-      height: 1.375rem;
-      max-height: 1.375rem;
+      width: 3.5rem;
+      height: 2rem;
     }
   }
 
   @media (min-width: 768px) {
     .trizen-pay-with-logo {
-      height: 2rem;
-      max-height: 2rem;
+      width: 4rem;
+      height: 2.25rem;
     }
   }
 
@@ -419,6 +422,32 @@ textarea {
     background: radial-gradient(
       ellipse 55% 45% at 50% 50%,
       rgba(0, 0, 0, 0.04) 0%,
+      transparent 70%
+    );
+  }
+
+  /* Dark theme scope — override surface tokens for dark sections */
+  .trizen-footer-dark,
+  .trizen-section-dark {
+    --color-surface: #000000;
+    --color-surface-elevated: #0d0d0d;
+    --color-foreground: #fafafa;
+    --color-border: #1f1f1f;
+    --color-muted: #a3a3a3;
+  }
+
+  .trizen-section-dark .trizen-eyebrow {
+    @apply text-zinc-400;
+  }
+
+  .trizen-footer-dark .trizen-footer-contact-icon {
+    @apply border-[var(--color-border)] bg-white/5 text-zinc-300;
+  }
+
+  .trizen-footer-dark .trizen-glow-orb {
+    background: radial-gradient(
+      ellipse 55% 45% at 50% 50%,
+      rgba(255, 255, 255, 0.06) 0%,
       transparent 70%
     );
   }
@@ -688,7 +717,7 @@ textarea {
   }
 
   .home-marquee-track {
-    animation: home-marquee 50s linear infinite;
+    animation: home-marquee 5s linear infinite;
   }
 
   @media (max-width: 767px) {

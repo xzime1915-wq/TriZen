@@ -6,7 +6,7 @@ export function PayWithLogos({ className }: { className?: string }) {
   return (
     <ul
       className={cn(
-        "flex flex-nowrap items-center justify-center gap-1 min-w-0 sm:gap-2 md:gap-2.5",
+        "flex flex-wrap items-center justify-start gap-1.5 min-w-0 sm:gap-2 md:gap-2.5",
         className
       )}
     >

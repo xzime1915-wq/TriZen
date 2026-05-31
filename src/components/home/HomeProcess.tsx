@@ -57,7 +57,7 @@ export function HomeProcess() {
   return (
     <section
       ref={sectionRef}
-      className={`trizen-process-section relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)] ${
+      className={`trizen-section-dark trizen-process-section relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)] ${
         inView ? "trizen-process-inview" : ""
       }`}
     >
@@ -92,7 +92,7 @@ export function HomeProcess() {
               <article
                 key={s.n}
                 className={[
-                  "trizen-process-card trizen-process-item group relative flex flex-col border border-[var(--color-border)] bg-zinc-50/50 p-7 md:p-8 transition-all duration-500 hover:border-zinc-600 hover:bg-zinc-50/80 hover:shadow-[0_20px_50px_-24px_rgba(0,0,0,0.9)]",
+                  "trizen-process-card trizen-process-item group relative flex flex-col border border-[var(--color-border)] bg-white/[0.03] p-7 md:p-8 transition-all duration-500 hover:border-zinc-500 hover:bg-white/[0.06] hover:shadow-[0_20px_50px_-24px_rgba(0,0,0,0.9)]",
                   i === 0 && "trizen-process-item-delay-2",
                   i === 1 && "trizen-process-item-delay-3",
                   i === 2 && "trizen-process-item-delay-4",

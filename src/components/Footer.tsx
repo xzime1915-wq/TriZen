@@ -73,7 +73,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-16 border-t border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden max-lg:mb-[calc(4rem+env(safe-area-inset-bottom))]">
+    <footer className="trizen-footer-dark relative mt-16 border-t border-[var(--color-border)] bg-[var(--color-surface)] overflow-hidden max-lg:mb-[calc(4rem+env(safe-area-inset-bottom))]">
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-300/60 to-transparent"
         aria-hidden
@@ -87,7 +87,7 @@ export function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-10">
           <div className="sm:col-span-2 lg:col-span-5">
             <div className="flex items-center gap-3 mb-5">
-              <TrizenLogo variant="on-light" width={44} height={44} />
+              <TrizenLogo variant="on-dark" width={44} height={44} />
               <span className="text-sm font-semibold tracking-[0.22em] uppercase text-[var(--color-foreground)]">
                 TriZen Store
               </span>
@@ -126,26 +126,42 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-[var(--color-border)] bg-zinc-50/80">
-        <div className="container-trizen py-6 md:py-8 text-center">
-          <p className="text-xs text-zinc-500">
-            Copyright © {year}{" "}
-            <span className="text-[var(--color-foreground)] font-medium">TriZen Store</span>. All
-            rights reserved.
-          </p>
-          <p className="mt-2 text-[10px] text-zinc-600 opacity-80">
-            Typeface: New Academy by Gustavo Paz L. (CC BY-SA 4.0)
-          </p>
+      <div className="border-t border-[var(--color-border)] overflow-hidden">
+        <div className="flex justify-center py-6 md:py-10">
+          <span
+            className="block w-full select-none whitespace-nowrap text-center font-black leading-[0.8] tracking-[0.04em] text-[var(--color-foreground)] text-[21vw]"
+            style={{
+              WebkitTextStroke: "0.02em var(--color-foreground)",
+            }}
+          >
+            TriZen
+          </span>
         </div>
       </div>
 
       <div className="border-t border-[var(--color-border)]">
-        <div className="container-trizen py-6 md:py-7">
-          <div className="flex flex-col items-center justify-center gap-4">
+        <div className="container-trizen py-4 text-center">
+          <p className="text-[11px] text-[var(--color-muted)]">
+            © {year} <span className="text-[var(--color-foreground)]">TriZen Store</span>
+          </p>
+        </div>
+      </div>
+
+      <div
+        className="border-t border-[var(--color-border)] bg-white"
+        style={
+          {
+            "--color-surface": "#ffffff",
+            "--color-foreground": "#171717",
+            "--color-border": "#e5e5e5",
+            "--color-muted": "#525252",
+          } as React.CSSProperties
+        }
+      >
+        <div className="container-trizen py-3 md:py-3.5">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
             <span className="trizen-pay-with-label shrink-0">Pay with</span>
-            <div className="w-full max-w-full px-1 sm:px-0">
-              <PayWithLogos className="mx-auto" />
-            </div>
+            <PayWithLogos />
           </div>
         </div>
       </div>

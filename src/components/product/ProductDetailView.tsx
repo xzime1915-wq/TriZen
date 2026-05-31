@@ -91,7 +91,7 @@ export function ProductDetailView({
         <span className="text-[var(--color-foreground)]">{product.name}</span>
       </nav>
 
-      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:gap-14 xl:gap-20">
+      <div className="product-split-grid product-split-grid--wide-visual">
         <div className="min-w-0 w-full">
           <ProductGallery images={gallery} productName={product.name} />
         </div>

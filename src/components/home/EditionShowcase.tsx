@@ -18,12 +18,9 @@ const padImgClass =
 
 function ShowcaseHeader({ title }: { title: string }) {
   return (
-    <>
-      <div className="edition-showcase-bar" aria-hidden />
-      <div className="bg-white px-4 pb-6 pt-9 md:pb-8 md:pt-12">
-        <h2 className="edition-showcase-title">{title}</h2>
-      </div>
-    </>
+    <div className="bg-white px-4 pb-4 pt-6 md:pb-8 md:pt-12">
+      <h2 className="edition-showcase-title">{title}</h2>
+    </div>
   );
 }
 
@@ -43,7 +40,7 @@ function EditionCell({
   return (
     <Link
       href={href}
-      className="group flex flex-col items-center bg-white px-2 py-5 sm:px-3 sm:py-6 md:px-4 md:py-8"
+      className="group flex flex-col items-center bg-white px-1.5 py-4 sm:px-3 sm:py-6 md:px-4 md:py-8"
     >
       <div className="relative w-full">
         {badge && (
@@ -77,7 +74,7 @@ function EditionCell({
           />
         )}
       </div>
-      <span className="mt-3 text-center text-[10px] font-bold uppercase tracking-[0.34em] text-[var(--color-foreground)] sm:mt-4 md:text-[11px] md:tracking-[0.38em]">
+      <span className="mt-2 text-center text-[7px] font-bold uppercase tracking-[0.16em] text-[var(--color-foreground)] sm:mt-4 sm:text-[10px] sm:tracking-[0.34em] md:text-[11px] md:tracking-[0.38em]">
         {label}
       </span>
     </Link>
@@ -88,7 +85,7 @@ export function EditionShowcaseV1() {
   return (
     <div className="edition-showcase-section">
       <ShowcaseHeader title="Choose your edition" />
-      <div className="grid border-y border-[var(--color-border)] bg-white sm:grid-cols-3 sm:divide-x sm:divide-[var(--color-border)]">
+      <div className="grid grid-cols-3 divide-x divide-[var(--color-border)] border-y border-[var(--color-border)] bg-white">
         <EditionCell
           href={`/product/${V1_BLACK_SLUG}`}
           label="TriPad V1"
@@ -128,15 +125,15 @@ export function EditionShowcaseV1() {
 
 export function EditionShowcaseV2() {
   return (
-    <div className="edition-showcase-section mt-14 md:mt-24">
+    <div className="edition-showcase-section mt-8 md:mt-24">
       <ShowcaseHeader title="Upcoming · TriPad V2" />
-      <div className="border-b border-[var(--color-border)] bg-white px-4 pb-6 pt-6 md:pb-8">
-        <p className="mx-auto max-w-xl text-center text-sm leading-relaxed text-zinc-500">
+      <div className="border-b border-[var(--color-border)] bg-white px-4 pb-3 pt-2 md:pb-8 md:pt-6">
+        <p className="mx-auto max-w-xl text-center text-[10px] leading-snug text-zinc-500 sm:text-sm sm:leading-relaxed">
           Same glass glide you trust — refreshed vertical TriZen branding in black
           and white.
         </p>
       </div>
-      <div className="grid border-y border-[var(--color-border)] bg-white sm:grid-cols-2 sm:divide-x sm:divide-[var(--color-border)]">
+      <div className="grid grid-cols-2 divide-x divide-[var(--color-border)] border-y border-[var(--color-border)] bg-white">
         <EditionCell
           href={`/product/${V2_BLACK_SLUG}`}
           label="V2 Black — upcoming"

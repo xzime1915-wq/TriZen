@@ -12,17 +12,17 @@ export function HomeCta() {
         aria-hidden
       />
 
-      <div className="container-trizen relative py-20 md:py-28 w-full text-center">
-        <p className="trizen-eyebrow">Ready</p>
-        <h2 className="trizen-headline mt-6 text-3xl sm:text-4xl md:text-5xl max-w-3xl mx-auto leading-tight">
+      <div className="container-trizen relative py-14 sm:py-20 md:py-28 w-full text-center">
+        <p className="trizen-eyebrow text-[8px] tracking-[0.28em] sm:text-xs">Ready</p>
+        <h2 className="trizen-headline mt-3 sm:mt-6 text-lg sm:text-4xl md:text-5xl max-w-3xl mx-auto leading-tight">
           Upgrade your desk.
           <br />
           Upgrade your aim.
         </h2>
-        <p className="trizen-body mt-6 max-w-md mx-auto">
+        <p className="trizen-body mt-3 sm:mt-6 max-w-md mx-auto text-xs sm:text-base">
           Premium esports gear — shipped across Bangladesh.
         </p>
-        <div className="mt-12 flex flex-wrap justify-center gap-4">
+        <div className="mt-7 sm:mt-12 flex flex-wrap justify-center gap-3 sm:gap-4">
           <Link href="/shop" className="trizen-btn-primary">
             Shop now
           </Link>

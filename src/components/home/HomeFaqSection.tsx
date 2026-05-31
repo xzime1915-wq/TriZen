@@ -15,17 +15,17 @@ export function HomeFaqSection() {
   return (
     <section className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
       <div className="container-trizen py-14 md:py-20 lg:py-24 max-w-4xl mx-auto">
-        <h2 className="trizen-headline text-center text-2xl sm:text-3xl md:text-4xl leading-tight">
+        <h2 className="trizen-headline text-center text-base sm:text-2xl md:text-4xl leading-tight">
           {HOME_SEO_TITLE}
         </h2>
-        <p className="mt-6 text-center text-sm sm:text-base font-bold uppercase tracking-wide text-zinc-600">
+        <p className="mt-3 sm:mt-6 text-center text-[11px] sm:text-sm md:text-base font-bold uppercase tracking-wide text-zinc-600">
           {HOME_SEO_SUBTITLE}
         </p>
 
-        <div className="relative mt-8 md:mt-10">
+        <div className="relative mt-6 sm:mt-8 md:mt-10">
           <div
-            className={`space-y-5 text-sm sm:text-base leading-relaxed text-zinc-400 text-center ${
-              expanded ? "" : "max-h-[11rem] sm:max-h-[13rem] overflow-hidden"
+            className={`space-y-4 sm:space-y-5 text-xs sm:text-sm md:text-base leading-relaxed text-zinc-400 text-center ${
+              expanded ? "" : "max-h-[9rem] sm:max-h-[13rem] overflow-hidden"
             }`}
           >
             {HOME_SEO_PARAGRAPHS.map((para) => (
