@@ -352,29 +352,20 @@ textarea {
   }
 
   .trizen-pay-with-logo {
-    @apply block object-contain object-center opacity-[0.92] transition-opacity duration-300 hover:opacity-100;
-    width: 1.875rem;
-    height: 1.125rem;
-  }
-
-  @media (min-width: 400px) {
-    .trizen-pay-with-logo {
-      width: 2.125rem;
-      height: 1.2rem;
-    }
+    @apply block h-auto max-h-[1.125rem] w-full max-w-[2.75rem] object-contain object-center opacity-[0.92] transition-opacity duration-300 hover:opacity-100;
   }
 
   @media (min-width: 640px) {
     .trizen-pay-with-logo {
-      width: 3.5rem;
-      height: 2rem;
+      max-h-[2rem];
+      max-w-[3.5rem];
     }
   }
 
   @media (min-width: 768px) {
     .trizen-pay-with-logo {
-      width: 4rem;
-      height: 2.25rem;
+      max-h-[2.25rem];
+      max-w-[4rem];
     }
   }
 

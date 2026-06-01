@@ -162,7 +162,7 @@ export function Footer() {
         <div className="container-trizen py-3 md:py-3.5">
           <div className="flex flex-col items-center gap-2">
             <span className="trizen-pay-with-label shrink-0">Pay with</span>
-            <PayWithLogos className="w-full justify-center px-1" />
+            <PayWithLogos className="mx-auto px-2" />
           </div>
         </div>
       </div>
