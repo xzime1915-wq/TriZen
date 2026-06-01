@@ -6,7 +6,8 @@ export function PayWithLogos({ className }: { className?: string }) {
   return (
     <ul
       className={cn(
-        "flex flex-wrap items-center justify-start gap-1.5 min-w-0 sm:gap-2 md:gap-2.5",
+        "flex max-w-full flex-nowrap items-center justify-center gap-1 min-w-0 overflow-x-auto sm:gap-2 md:gap-2.5",
+        "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
         className
       )}
     >
