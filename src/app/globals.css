@@ -761,6 +761,20 @@ textarea {
     animation: home-marquee 5s linear infinite;
   }
 
+  .home-marquee-text--dark {
+    background: linear-gradient(
+      165deg,
+      #ffffff 0%,
+      #d4d4d4 40%,
+      #fafafa 52%,
+      #a3a3a3 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.85));
+  }
+
   @media (max-width: 767px) {
     .home-marquee-text {
       font-size: 0.8125rem;
