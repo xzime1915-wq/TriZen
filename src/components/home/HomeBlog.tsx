@@ -17,7 +17,7 @@ export function HomeBlog({ posts }: { posts: Post[] }) {
   if (posts.length === 0) return null;
 
   return (
-    <section className="relative overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-surface)]">
+    <section className="trizen-section-dark relative overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-surface)]">
       <div className="container-trizen py-14 md:py-20 lg:py-24">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4 md:mb-12">
           <div>
@@ -36,7 +36,7 @@ export function HomeBlog({ posts }: { posts: Post[] }) {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
-            <BlogCard key={post.id} post={post} />
+            <BlogCard key={post.id} post={post} variant="dark" />
           ))}
         </div>
       </div>

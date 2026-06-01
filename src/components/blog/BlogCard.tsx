@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { formatBlogDate, readingMinutes } from "@/lib/blog";
+import { cn } from "@/lib/utils";
 
 type Props = {
+  variant?: "light" | "dark";
   post: {
     title: string;
     slug: string;
@@ -15,13 +17,23 @@ type Props = {
   };
 };
 
-export function BlogCard({ post }: Props) {
+export function BlogCard({ post, variant = "light" }: Props) {
+  const dark = variant === "dark";
+
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="trizen-card-hover group flex flex-col overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] shadow-sm hover:shadow-md"
+      className={cn(
+        "trizen-card-hover group flex flex-col overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] shadow-sm hover:shadow-md",
+        dark && "hover:shadow-lg hover:shadow-black/30"
+      )}
     >
-      <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+      <div
+        className={cn(
+          "relative aspect-[16/10] overflow-hidden",
+          dark ? "bg-zinc-900" : "bg-zinc-100"
+        )}
+      >
         {post.coverImage ? (
           <Image
             src={post.coverImage}
@@ -36,13 +48,25 @@ export function BlogCard({ post }: Props) {
             TriZen
           </div>
         )}
-        <span className="absolute left-3 top-3 border border-[var(--color-border)] bg-white px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[var(--color-foreground)]">
+        <span
+          className={cn(
+            "absolute left-3 top-3 border px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest",
+            dark
+              ? "border-zinc-700 bg-black text-zinc-100"
+              : "border-[var(--color-border)] bg-white text-[var(--color-foreground)]"
+          )}
+        >
           {post.category}
         </span>
       </div>
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-zinc-500">
+        <div
+          className={cn(
+            "flex items-center gap-2 text-[10px] uppercase tracking-[0.2em]",
+            dark ? "text-zinc-500" : "text-zinc-500"
+          )}
+        >
           <span>{formatBlogDate(post.createdAt)}</span>
           <span aria-hidden>·</span>
           <span>{readingMinutes(post.content)} min read</span>
@@ -51,7 +75,12 @@ export function BlogCard({ post }: Props) {
           {post.title}
         </h3>
         {post.excerpt && (
-          <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-zinc-500">
+          <p
+            className={cn(
+              "mt-2 line-clamp-3 flex-1 text-sm leading-relaxed",
+              dark ? "text-zinc-400" : "text-zinc-500"
+            )}
+          >
             {post.excerpt}
           </p>
         )}
