@@ -42,6 +42,11 @@ html {
   overflow-x: clip;
 }
 
+html.lenis,
+html.lenis body {
+  scroll-behavior: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
