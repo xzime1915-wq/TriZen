@@ -34,7 +34,10 @@ export function ProductGallery({
           <p className="mb-2 text-[10px] uppercase tracking-widest text-[var(--color-muted)]">
             More photos
           </p>
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div
+            className="flex gap-2 overflow-x-auto pb-1"
+            data-lenis-prevent-wheel
+          >
             {images.map((src, i) => (
               <button
                 key={`${src}-${i}`}

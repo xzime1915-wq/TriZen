@@ -124,6 +124,7 @@ export function ProductDescriptionCarousel({
             className="flex justify-center gap-2 overflow-x-auto pb-1"
             role="tablist"
             aria-label="Feature highlights"
+            data-lenis-prevent-wheel
           >
             {items.map((src, i) => (
               <button

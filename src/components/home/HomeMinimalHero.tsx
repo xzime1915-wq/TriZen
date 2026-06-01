@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { HOME_HERO_IMAGE } from "@/lib/home-assets";
+import { HeroProductVisual } from "@/components/home/HeroProductVisual";
 
 type Props = {
   productSlug?: string;
@@ -27,7 +26,7 @@ function HeroCopy({ productSlug }: { productSlug: string }) {
 
 export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Props) {
   return (
-    <section className="relative isolate overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+    <section className="relative isolate overflow-x-clip border-b border-[var(--color-border)] bg-[var(--color-surface)]">
       <div className="container-trizen relative">
         <div className="grid grid-cols-2 items-center gap-3 py-10 sm:gap-8 sm:py-12 md:min-h-[calc(100dvh-4rem)] md:gap-10 lg:gap-14 md:py-14 lg:py-16">
           <div className="relative z-10 flex flex-col justify-center md:max-w-lg md:pr-4 lg:pr-8">
@@ -35,17 +34,7 @@ export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Prop
           </div>
 
           <div className="relative z-0 w-full max-w-[min(100%,520px)] md:max-w-none md:justify-self-end">
-            <div className="relative aspect-[4/5] w-full sm:aspect-[16/12] md:aspect-[4/3] md:max-h-[min(68vh,560px)] lg:max-h-[min(72vh,620px)]">
-              <Image
-                src={HOME_HERO_IMAGE}
-                alt="TriZen TriPad V1 black and white editions with gaming mouse"
-                fill
-                priority
-                className="object-contain object-center md:object-right"
-                sizes="(max-width: 768px) 90vw, 45vw"
-                quality={95}
-              />
-            </div>
+            <HeroProductVisual />
           </div>
         </div>
       </div>

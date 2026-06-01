@@ -4,6 +4,7 @@ import {
   HOME_GLIDE_TRIPAD_IMAGE,
   HOME_GLIDE_WHITE_IMAGE,
   HOME_GLIDE_BLACK_IMAGE,
+  HOME_GLIDE_V2_TRIPAD_IMAGE,
   HOME_GLIDE_V2_BLACK_IMAGE,
   HOME_GLIDE_V2_WHITE_IMAGE,
 } from "@/lib/home-assets";
@@ -60,7 +61,7 @@ function EditionCell({
               : padImgClass
           }
           sizes="(max-width: 640px) 100vw, 33vw"
-          priority={label === "TriPad V1"}
+          priority={label === "TriPad V1" || label === "TriPad V2"}
         />
         {hoverImage && (
           <Image
@@ -133,21 +134,38 @@ export function EditionShowcaseV2() {
           and white.
         </p>
       </div>
-      <div className="grid grid-cols-2 divide-x divide-[var(--color-border)] border-y border-[var(--color-border)] bg-white">
+      <div className="grid grid-cols-3 divide-x divide-[var(--color-border)] border-y border-[var(--color-border)] bg-white">
         <EditionCell
           href={`/product/${V2_BLACK_SLUG}`}
-          label="V2 Black — upcoming"
+          label="TriPad V2"
           badge="Upcoming"
           image={{
+            src: HOME_GLIDE_V2_TRIPAD_IMAGE,
+            alt: "TriZen TriPad V2 black and silver editions",
+          }}
+        />
+        <EditionCell
+          href={`/product/${V2_WHITE_SLUG}`}
+          label="White Edition"
+          badge="Upcoming"
+          image={{
+            src: HOME_GLIDE_V2_WHITE_IMAGE,
+            alt: "TriZen TriPad V2 white edition",
+          }}
+          hoverImage={{
             src: HOME_GLIDE_V2_BLACK_IMAGE,
             alt: "TriZen TriPad V2 black edition",
           }}
         />
         <EditionCell
-          href={`/product/${V2_WHITE_SLUG}`}
-          label="V2 White — upcoming"
+          href={`/product/${V2_BLACK_SLUG}`}
+          label="Black Edition"
           badge="Upcoming"
           image={{
+            src: HOME_GLIDE_V2_BLACK_IMAGE,
+            alt: "TriZen TriPad V2 black edition",
+          }}
+          hoverImage={{
             src: HOME_GLIDE_V2_WHITE_IMAGE,
             alt: "TriZen TriPad V2 white edition",
           }}

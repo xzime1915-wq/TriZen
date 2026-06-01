@@ -393,6 +393,7 @@ export function ChatWidget() {
         <form
           onSubmit={startConversation}
           className="flex flex-1 min-h-0 flex-col gap-3 overflow-y-auto p-4"
+          data-lenis-prevent
         >
           <p className="text-sm text-zinc-400">
             Start a conversation with our team. We typically reply during business
@@ -430,7 +431,10 @@ export function ChatWidget() {
         </form>
       ) : (
         <>
-          <div className="trizen-chat-messages flex-1 min-h-0 overflow-y-auto p-4 space-y-3 trizen-chat-scroll">
+          <div
+            className="trizen-chat-messages flex-1 min-h-0 overflow-y-auto p-4 space-y-3 trizen-chat-scroll"
+            data-lenis-prevent
+          >
             {loading && messages.length === 0 && (
               <p className="text-sm text-zinc-500 text-center py-8">Loading…</p>
             )}

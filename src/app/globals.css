@@ -37,9 +37,15 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   font-size: 106.25%;
   overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -1027,6 +1033,192 @@ textarea {
 }
 .hero-mixed-delay-4 {
   animation-delay: 0.9s;
+}
+
+/* Home hero — product visual (TriPad + mouse) */
+.hero-visual-stage {
+  opacity: 1;
+}
+
+.hero-visual-parallax {
+  will-change: transform;
+}
+
+.hero-visual-glow {
+  position: absolute;
+  inset: 8% 0 12%;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 72% 58% at 58% 48%,
+    rgba(0, 0, 0, 0.07) 0%,
+    rgba(0, 0, 0, 0.02) 42%,
+    transparent 72%
+  );
+  animation: hero-visual-glow-pulse 6s ease-in-out 1.2s infinite;
+  pointer-events: none;
+}
+
+.hero-visual-coin-wrap {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+  opacity: 0;
+  animation: hero-visual-enter 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.08s forwards;
+}
+
+.hero-coin-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: clamp(680px, 48vw, 1180px);
+  transform-style: preserve-3d;
+}
+
+.hero-coin-flip {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  animation: hero-product-coinflip 8.5s cubic-bezier(0.65, 0, 0.35, 1) 1.35s infinite;
+}
+
+@media (hover: hover) {
+  .hero-visual-stage:hover .hero-coin-flip {
+    animation-play-state: paused;
+  }
+}
+
+.hero-coin-face {
+  position: absolute;
+  inset: 0;
+  background: #ffffff;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.hero-coin-scene,
+.hero-visual-coin-wrap {
+  background: transparent;
+}
+
+.hero-coin-face--front {
+  transform: rotateY(0deg) translateZ(2px);
+}
+
+.hero-coin-face--back {
+  transform: rotateY(180deg) translateZ(2px);
+}
+
+.hero-coin-face-img {
+  display: block;
+  max-width: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  transform: translateZ(0.001px);
+  image-rendering: auto;
+}
+
+.hero-visual-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-visual-shine::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -70%;
+  width: 38%;
+  height: 120%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0.05) 60%,
+    transparent 100%
+  );
+  transform: skewX(-14deg);
+  animation: hero-visual-shine 9s ease-in-out 2.2s infinite;
+}
+
+@keyframes hero-visual-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-product-coinflip {
+  0%,
+  12% {
+    transform: rotateY(0deg);
+  }
+  46%,
+  54% {
+    transform: rotateY(180deg);
+  }
+  88%,
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes hero-visual-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes hero-visual-shine {
+  0%,
+  76% {
+    left: -70%;
+    opacity: 0;
+  }
+  86% {
+    opacity: 0.85;
+  }
+  100% {
+    left: 130%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual-coin-wrap {
+    opacity: 1;
+    animation: none;
+  }
+
+  .hero-coin-flip,
+  .hero-visual-glow,
+  .hero-visual-shine::after {
+    animation: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .hero-coin-face--back {
+    display: none;
+  }
 }
 
 @keyframes hero-banner-in {
