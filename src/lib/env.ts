@@ -76,15 +76,6 @@ export function validateProductionEnv(): void {
   if (!databaseUrl) {
     throw new Error("DATABASE_URL is required in production.");
   }
-  if (
-    process.env.NETLIFY === "true" &&
-    (databaseUrl.startsWith("file:") || databaseUrl.includes("sqlite"))
-  ) {
-    throw new Error(
-      "Netlify does not support SQLite. Use a PostgreSQL URL from Neon — see NETLIFY-SETUP.md."
-    );
-  }
-
   const adminPassword = process.env.ADMIN_PASSWORD?.trim();
   if (adminPassword && (adminPassword.length < 12 || adminPassword === "TriZen@2026")) {
     throw new Error("ADMIN_PASSWORD must be a strong unique password in production.");

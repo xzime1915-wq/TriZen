@@ -1,19 +1,8 @@
-import { Inter } from "next/font/google";
-
-const invoiceFont = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-invoice",
-});
-
+/** Invoice layout — system fonts only (no Google Fonts fetch at build; VPS-safe). */
 export default function InvoiceLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className={`${invoiceFont.variable} ${invoiceFont.className}`}>
-      {children}
-    </div>
-  );
+  return children;
 }
