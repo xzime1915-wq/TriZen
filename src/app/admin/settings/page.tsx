@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { SettingsForm } from "@/components/admin/SettingsForm";
+import { WhatsAppAlertsCard } from "@/components/admin/WhatsAppAlertsCard";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,7 @@ export default async function AdminSettingsPage() {
         Configure bank payment details, shipping, and store information.
       </p>
       {settings && <SettingsForm settings={settings} />}
+      <WhatsAppAlertsCard />
     </div>
   );
 }

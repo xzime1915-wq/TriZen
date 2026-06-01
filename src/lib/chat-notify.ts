@@ -49,7 +49,8 @@ export async function requestChatNotificationPermission(): Promise<boolean> {
 export function showChatNotification(
   title: string,
   body: string,
-  onClick?: () => void
+  onClick?: () => void,
+  tag = "trizen-chat"
 ) {
   if (typeof window === "undefined" || !("Notification" in window)) return;
   if (Notification.permission !== "granted") return;
@@ -59,7 +60,7 @@ export function showChatNotification(
     const n = new Notification(title, {
       body,
       icon: "/logo.png",
-      tag: "trizen-chat",
+      tag,
     });
     n.onclick = () => {
       window.focus();

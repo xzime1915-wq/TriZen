@@ -1,4 +1,5 @@
 import { getAdminSession } from "@/lib/auth";
+import { AdminAlerts } from "@/components/admin/AdminAlerts";
 import { AdminNav } from "@/components/admin/AdminNav";
 
 export default async function AdminLayout({
@@ -10,7 +11,12 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-[var(--color-surface)]">
-      {admin && <AdminNav admin={admin} />}
+      {admin && (
+        <>
+          <AdminNav admin={admin} />
+          <AdminAlerts />
+        </>
+      )}
       <div className="relative z-10">{children}</div>
     </div>
   );

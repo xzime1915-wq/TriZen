@@ -1,6 +1,7 @@
 import { prisma } from "./prisma";
 import { normalizePhone, upsertCustomerFromOrder } from "./customers";
 import { isUpcoming } from "./product-status";
+import { notifyAdminNewOrder } from "./admin-notify";
 import {
   DELIVERY_CHARGE,
   generateInvoiceNumber,
@@ -115,6 +116,15 @@ export async function createOrder(data: {
         });
       }
     }
+
+    notifyAdminNewOrder({
+      id: created.id,
+      orderNumber: created.orderNumber,
+      customerName: created.customerName,
+      customerPhone: created.customerPhone,
+      total: created.total,
+      paymentMethod: created.paymentMethod,
+    });
 
     return created;
   });

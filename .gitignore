@@ -4,6 +4,7 @@ node_modules
 *.zip
 .env
 .env.local
+.env.vps
 *.db
 *.db-journal
 backups/

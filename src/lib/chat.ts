@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { useSecureCookies } from "./auth";
 import { prisma } from "./prisma";
 import { applySeenToMessages, isTypingActive } from "./chat-presence";
+import { notifyAdminChatMessage } from "./admin-notify";
 
 export const CHAT_VISITOR_COOKIE = "trizen_chat_visitor";
 export const CHAT_POLL_MS = 3000;
@@ -155,7 +156,7 @@ export async function createChatMessage(input: {
     },
   });
 
-  await prisma.chatConversation.update({
+  const conversation = await prisma.chatConversation.update({
     where: { id: input.conversationId },
     data: {
       lastMessageAt: message.createdAt,
@@ -164,6 +165,16 @@ export async function createChatMessage(input: {
         : { unreadAdmin: 0 }),
     },
   });
+
+  if (input.sender === "visitor") {
+    const preview =
+      body ||
+      (hasAttachment ? "Customer sent an attachment" : "New message");
+    notifyAdminChatMessage({
+      visitorName: conversation.visitorName,
+      preview,
+    });
+  }
 
   return message;
 }
