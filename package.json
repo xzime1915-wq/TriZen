@@ -15,7 +15,8 @@
     "db:setup-safe": "prisma db push && tsx prisma/seed-safe.ts",
     "db:backup": "bash scripts/vps-backup-db.sh",
     "admin:reset": "tsx scripts/reset-admin.ts",
-    "db:migrate-sqlite": "tsx scripts/migrate-sqlite-to-postgres.ts"
+    "db:migrate-sqlite": "tsx scripts/migrate-sqlite-to-postgres.ts",
+    "icons:generate": "node scripts/generate-favicons.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
@@ -33,12 +34,13 @@
     "@netlify/plugin-nextjs": "^5.15.11",
     "@tailwindcss/postcss": "^4.1.7",
     "@types/bcryptjs": "^2.4.6",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^22.15.21",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "better-sqlite3": "^11.10.0",
-    "@types/better-sqlite3": "^7.6.13",
     "prisma": "^6.8.2",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.1.7",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
