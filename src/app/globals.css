@@ -61,6 +61,36 @@ body {
   overflow-x: clip;
 }
 
+/* Deter image/banner/icon select, drag, and long-press save (casual users). */
+body.site-media-protect img,
+body.site-media-protect picture,
+body.site-media-protect video,
+body.site-media-protect svg,
+body.site-media-protect [data-protected-media] {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -moz-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+body.site-media-protect a img,
+body.site-media-protect a picture {
+  pointer-events: none;
+}
+
+body.site-media-protect [data-protected-media] {
+  position: relative;
+}
+
+body.site-media-protect [data-protected-media]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: transparent;
+}
+
 body::before {
   content: "";
   position: fixed;

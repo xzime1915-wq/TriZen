@@ -6,6 +6,7 @@ import { CartProvider } from "@/components/CartProvider";
 import { ChatWidgetHost } from "@/components/chat/ChatWidgetHost";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { SiteJsonLd } from "@/components/seo/SiteJsonLd";
+import { MediaProtect } from "@/components/MediaProtect";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { getUserSession } from "@/lib/user-auth";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site-config";
@@ -67,6 +68,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className="min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)] overflow-x-clip">
         <SmoothScroll />
+        <MediaProtect />
         <SiteJsonLd />
         <CartProvider>
           <Header user={user ? { name: user.name, email: user.email } : null} />
