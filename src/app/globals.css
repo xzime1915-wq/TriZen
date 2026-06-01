@@ -404,22 +404,6 @@ textarea {
     transform: translateY(0) scale(1);
   }
 
-  .trizen-chat-fab {
-    transition:
-      opacity 0.25s ease,
-      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .trizen-chat-fab--hidden {
-    @apply pointer-events-none opacity-0;
-    transform: scale(0.85);
-  }
-
-  .trizen-chat-fab--visible {
-    @apply opacity-100;
-    transform: scale(1);
-  }
-
   .trizen-chat-messages {
     min-height: 0;
   }

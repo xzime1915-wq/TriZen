@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import { X } from "lucide-react";
 import { ChatMessageBubble } from "./ChatMessageBubble";
 import { ChatComposer } from "./ChatComposer";
@@ -46,11 +45,6 @@ export function ChatWidget() {
   openRef.current = open;
 
   const closeChat = useCallback(() => setOpen(false), [setOpen]);
-
-  const openChat = useCallback(() => {
-    void requestChatNotificationPermission();
-    setOpen(true);
-  }, [setOpen]);
 
   const notifyIncomingAdmin = useCallback(
     (incoming: ChatMessageDto[]) => {
@@ -487,41 +481,12 @@ export function ChatWidget() {
               aria-label="Close chat"
               onClick={closeChat}
             />
-            <div className="pointer-events-none fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[9999] flex flex-col items-end sm:right-6 lg:bottom-5">
+            <div className="pointer-events-none fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[9999] flex flex-col items-end sm:right-6 lg:bottom-auto lg:top-[4.75rem] lg:right-6">
               {panel}
             </div>
           </>,
           document.body
         )}
-
-      <button
-        type="button"
-        onClick={() => (open ? closeChat() : openChat())}
-        className={cn(
-          "trizen-chat-fab fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[9999] border-0 bg-transparent p-0 sm:right-6 lg:bottom-5",
-          "hover:scale-110 active:scale-95",
-          open ? "trizen-chat-fab--hidden" : "trizen-chat-fab--visible"
-        )}
-        aria-label={
-          unreadCount > 0 ? `Open chat, ${unreadCount} new messages` : "Open chat"
-        }
-      >
-        <span className="relative block">
-          <Image
-            src="/chat-icon.png"
-            alt=""
-            width={52}
-            height={52}
-            className="h-[52px] w-[52px] object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
-            priority
-          />
-          {unreadCount > 0 && (
-            <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-zinc-900 px-1 text-[10px] font-bold text-white ring-2 ring-white">
-              {unreadCount > 9 ? "9+" : unreadCount}
-            </span>
-          )}
-        </span>
-      </button>
     </>
   );
 }
