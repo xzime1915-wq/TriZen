@@ -13,6 +13,10 @@ git reset --hard origin/main
 git log -1 --oneline
 echo ""
 
+echo ">>> Install dependencies (package.json / lockfile)..."
+npm ci 2>/dev/null || npm install
+echo ""
+
 echo ">>> Sync database schema (Prisma)..."
 npx prisma generate
 npx prisma db push --accept-data-loss
