@@ -24,8 +24,10 @@ export function BlogCard({ post, variant = "light" }: Props) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        "trizen-card-hover group flex flex-col overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface)] shadow-sm hover:shadow-md",
-        dark && "hover:shadow-lg hover:shadow-black/30"
+        "trizen-card-hover group flex flex-col overflow-hidden border shadow-sm hover:shadow-md",
+        dark
+          ? "border-zinc-800 bg-black hover:shadow-lg hover:shadow-black/40"
+          : "border-[var(--color-border)] bg-[var(--color-surface)]"
       )}
     >
       <div
@@ -71,7 +73,12 @@ export function BlogCard({ post, variant = "light" }: Props) {
           <span aria-hidden>·</span>
           <span>{readingMinutes(post.content)} min read</span>
         </div>
-        <h3 className="mt-3 text-base font-bold uppercase leading-snug tracking-tight text-[var(--color-foreground)] group-hover:underline sm:text-lg">
+        <h3
+          className={cn(
+            "mt-3 text-base font-bold uppercase leading-snug tracking-tight group-hover:underline sm:text-lg",
+            dark ? "text-white" : "text-[var(--color-foreground)]"
+          )}
+        >
           {post.title}
         </h3>
         {post.excerpt && (
@@ -84,7 +91,12 @@ export function BlogCard({ post, variant = "light" }: Props) {
             {post.excerpt}
           </p>
         )}
-        <span className="mt-4 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--color-foreground)]">
+        <span
+          className={cn(
+            "mt-4 inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.2em]",
+            dark ? "text-white" : "text-[var(--color-foreground)]"
+          )}
+        >
           Read more <ArrowUpRight className="h-3.5 w-3.5" />
         </span>
       </div>
