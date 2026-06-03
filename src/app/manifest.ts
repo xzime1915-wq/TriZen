@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Bangladesh's premium esports gear — glass mouse pads, soft pads, skates & sleeves.",
     start_url: "/",
     display: "standalone",
-    background_color: "#ffffff",
-    theme_color: "#ffffff",
+    background_color: "#000000",
+    theme_color: "#000000",
     orientation: "portrait",
     categories: ["shopping", "sports"],
     icons: [
