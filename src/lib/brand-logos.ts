@@ -1,5 +1,5 @@
 /** White logo — use on dark/black backgrounds */
-export const LOGO_ON_DARK = "/logo.png";
+export const LOGO_ON_DARK = "/icon.png";
 
 /** Black logo on transparent — use on light backgrounds (no invert needed) */
 export const LOGO_ON_LIGHT = "/logo_b.png";

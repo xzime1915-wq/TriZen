@@ -59,7 +59,7 @@ export function showChatNotification(
   try {
     const n = new Notification(title, {
       body,
-      icon: "/logo.png",
+      icon: "/icon.png",
       tag,
     });
     n.onclick = () => {

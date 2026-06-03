@@ -46,7 +46,7 @@ export function SiteJsonLd() {
       "@id": `${SITE_URL}/#store`,
       name: SITE_NAME,
       url: SITE_URL,
-      image: `${SITE_URL}/logo.png`,
+      image: `${SITE_URL}/icon.png`,
       telephone: SITE_CONTACT.phone,
       email: SITE_CONTACT.email,
       priceRange: "৳৳",
