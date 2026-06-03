@@ -1,5 +1,6 @@
 /**
- * Google Search favicons need dark logo on light background (not white-on-black).
+ * Favicons for Google Search: black square + white logo (fills frame).
+ * White-background icons look like a blank white circle in SERP at 16px.
  * Run: node scripts/generate-favicons.mjs
  */
 import sharp from "sharp";
@@ -8,15 +9,15 @@ import { fileURLToPath } from "url";
 import { writeFile } from "fs/promises";
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
-const src = path.join(root, "public", "logo_b.png");
-const bg = { r: 255, g: 255, b: 255, alpha: 1 };
+const src = path.join(root, "public", "logo.png");
+const bg = { r: 0, g: 0, b: 0, alpha: 1 };
 
 async function renderIcon(size) {
+  const logoSize = Math.round(size * 0.9);
   const logo = await sharp(src)
-    .flatten({ background: "#ffffff" })
-    .resize(Math.round(size * 0.82), Math.round(size * 0.82), {
+    .resize(logoSize, logoSize, {
       fit: "contain",
-      background: "#ffffff",
+      background: { r: 0, g: 0, b: 0, alpha: 1 },
     })
     .png()
     .toBuffer();
@@ -47,6 +48,7 @@ async function makeIco() {
 }
 
 await make(48, "favicon-48.png");
+await make(96, "favicon-96.png");
 await make(192, "icon-192.png");
 await make(180, "apple-touch-icon.png");
 await make(512, "icon.png");
