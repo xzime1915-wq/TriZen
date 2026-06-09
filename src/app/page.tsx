@@ -15,7 +15,7 @@ import { HomeFaqJsonLd } from "@/components/seo/HomeFaqJsonLd";
 import { parseFeatures, averageRating } from "@/lib/product-data";
 import { homePageMetadata } from "@/lib/seo-metadata";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export const metadata = homePageMetadata();
 
@@ -70,6 +70,7 @@ export default async function HomePage() {
         <HomeProductShowcase
           key={p.id}
           reverse={index % 2 === 1}
+          priority={index === 0}
           displayName={
             p.slug === HERO_SLUG ? stripEditionSuffix(p.name) : undefined
           }

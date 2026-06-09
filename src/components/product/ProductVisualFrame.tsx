@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ProductImage } from "@/components/ProductImage";
+import { displayImageSrc } from "@/lib/image-path";
 import { cn } from "@/lib/utils";
-
 type Props = {
   src: string;
   alt: string;
@@ -26,8 +26,7 @@ export function ProductVisualFrame({
   variant = "default",
 }: Props) {
   const large = variant === "large";
-  const unoptimized =
-    src.startsWith("/products/") || src.startsWith("/uploads/");
+  const resolved = displayImageSrc(src);
 
   if (large) {
     return (
@@ -42,13 +41,13 @@ export function ProductVisualFrame({
           style={imageScale !== 1 ? { transform: `scale(${imageScale})` } : undefined}
         >
           <Image
-            src={src}
+            src={resolved}
             alt={alt}
             width={1600}
             height={1400}
             priority={priority}
             sizes={sizes}
-            unoptimized={unoptimized}
+            quality={85}
             className={cn(
               "mx-auto block h-auto w-full max-w-full object-contain object-center",
               "max-h-[min(108vw,820px)] sm:max-h-[min(100vw,900px)] lg:max-h-[min(85vh,1000px)]",

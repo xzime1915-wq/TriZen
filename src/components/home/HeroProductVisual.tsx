@@ -41,6 +41,7 @@ export function HeroProductVisual() {
                   width={2400}
                   height={2100}
                   decoding="async"
+                  loading="lazy"
                 />
               </div>
             </div>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { displayImageSrc } from "@/lib/image-path";
 import { cn } from "@/lib/utils";
 
 type ProductImageProps = {
@@ -16,19 +17,16 @@ export function ProductImage({
   className,
   sizes = "(max-width: 768px) 100vw, 50vw",
 }: ProductImageProps) {
-  // Large local PNGs (20MB+) fail Next image optimizer on VPS — serve directly.
-  const unoptimized =
-    src.startsWith("/products/") || src.startsWith("/uploads/");
+  const resolved = displayImageSrc(src);
 
   return (
     <Image
-      src={src}
+      src={resolved}
       alt={alt}
       fill
       priority={priority}
-      quality={95}
+      quality={85}
       sizes={sizes}
-      unoptimized={unoptimized}
       className={cn("object-contain object-center", className)}
     />
   );

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { displayImageSrc } from "@/lib/image-path";
 import { OUR_GEARS, OUR_GEARS_FALLBACK_IMAGES, type OurGearCard } from "@/lib/our-gears";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +17,7 @@ function GearCardMark() {
 }
 
 function GearCard({ gear }: { gear: OurGearCard }) {
-  const [imgSrc, setImgSrc] = useState(gear.image);
+  const [imgSrc, setImgSrc] = useState(displayImageSrc(gear.image));
   const titleLine2 = gear.titleLine2.trim();
 
   return (
@@ -33,13 +34,16 @@ function GearCard({ gear }: { gear: OurGearCard }) {
         src={imgSrc}
         alt={`${gear.titleLine1} ${gear.titleLine2}`.trim()}
         fill
-        unoptimized
+        quality={85}
         priority={gear.id === "glass-mouse-pad"}
         className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         sizes="(max-width: 768px) 78vw, 25vw"
         onError={() => {
           const fallback = OUR_GEARS_FALLBACK_IMAGES[gear.id];
-          if (fallback && imgSrc !== fallback) setImgSrc(fallback);
+          if (fallback) {
+            const resolved = displayImageSrc(fallback);
+            if (imgSrc !== resolved) setImgSrc(resolved);
+          }
         }}
       />
 

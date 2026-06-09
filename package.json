@@ -15,7 +15,8 @@
     "db:backup": "bash scripts/vps-backup-db.sh",
     "admin:reset": "tsx scripts/reset-admin.ts",
     "db:migrate-sqlite": "tsx scripts/migrate-sqlite-to-postgres.ts",
-    "icons:generate": "node scripts/generate-favicons.mjs"
+    "icons:generate": "node scripts/generate-favicons.mjs",
+    "images:compress": "node scripts/compress-product-images.mjs"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",

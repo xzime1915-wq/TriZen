@@ -13,10 +13,9 @@ function GlideActionBanner() {
         src={HOME_GLIDE_IMAGE}
         alt="Mouse gliding at speed on TriZen glass surface"
         fill
-        unoptimized
-        className="object-cover object-center"
         sizes="100vw"
-        quality={90}
+        quality={85}
+        className="object-cover object-center"
       />
 
       <div className="container-trizen relative z-10 flex min-h-[30vh] sm:min-h-[40vh] md:min-h-[58vh] items-end justify-center px-4 pb-5 sm:pb-8 md:px-0 md:pb-16">

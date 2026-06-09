@@ -29,6 +29,7 @@ type Props = {
   visualImage?: string;
   reverse?: boolean;
   displayName?: string;
+  priority?: boolean;
 };
 
 export function HomeProductShowcase({
@@ -39,6 +40,7 @@ export function HomeProductShowcase({
   visualImage,
   reverse = false,
   displayName,
+  priority = false,
 }: Props) {
   const headline = displayName ?? product.name;
   const paragraphs = (product.longDescription || product.description)
@@ -78,6 +80,7 @@ export function HomeProductShowcase({
                 sizes="(max-width: 1024px) 100vw, 60vw"
                 imageScale={featuredScale}
                 interactive
+                priority={priority}
               />
             </Link>
           </div>

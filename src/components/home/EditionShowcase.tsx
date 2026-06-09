@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { displayImageSrc } from "@/lib/image-path";
 import {
   HOME_GLIDE_TRIPAD_IMAGE,
   HOME_GLIDE_WHITE_IMAGE,
@@ -50,28 +51,28 @@ function EditionCell({
           </span>
         )}
         <Image
-          src={image.src}
+          src={displayImageSrc(image.src)}
           alt={image.alt}
           width={1200}
           height={960}
-          unoptimized
           className={
             hoverImage
               ? `${padImgClass} transition-opacity duration-500 group-hover:opacity-0`
               : padImgClass
           }
           sizes="(max-width: 640px) 100vw, 33vw"
+          quality={85}
           priority={label === "TriPad V1" || label === "TriPad V2"}
         />
         {hoverImage && (
           <Image
-            src={hoverImage.src}
+            src={displayImageSrc(hoverImage.src)}
             alt={hoverImage.alt}
             width={1200}
             height={960}
-            unoptimized
             className={`${padImgClass} absolute inset-x-0 top-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
             sizes="(max-width: 640px) 100vw, 33vw"
+            quality={85}
           />
         )}
       </div>
