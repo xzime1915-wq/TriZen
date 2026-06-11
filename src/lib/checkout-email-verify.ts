@@ -25,6 +25,54 @@ export function generateCheckoutEmailCode() {
   return String(randomInt(0, 1_000_000)).padStart(6, "0");
 }
 
+function buildCheckoutVerifyEmailHtml(email: string, code: string) {
+  return `<!DOCTYPE html>
+<html lang="en">
+  <body style="margin:0;padding:48px 20px;background:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:420px;margin:0 auto">
+      <tr>
+        <td align="center" style="padding-bottom:28px">
+          <span style="font-size:24px;font-weight:700;letter-spacing:-0.03em;color:#18181b">Trizen</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="border-top:1px solid #e4e4e7;padding-top:32px">
+          <p style="margin:0 0 6px;font-size:15px;line-height:1.6;color:#71717a;text-align:center">
+            Continue checkout as
+          </p>
+          <p style="margin:0 0 28px;font-size:15px;line-height:1.6;color:#18181b;text-align:center;font-weight:500">
+            ${email}
+          </p>
+          <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#71717a;text-align:center">
+            Enter this code to verify:
+          </p>
+          <p style="margin:0 0 32px;font-size:40px;line-height:1;font-weight:700;letter-spacing:0.14em;color:#18181b;text-align:center;font-variant-numeric:tabular-nums">
+            ${code}
+          </p>
+          <p style="margin:0;font-size:13px;line-height:1.5;color:#a1a1aa;text-align:center">
+            Expires in 10 minutes
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function buildCheckoutVerifyEmailText(email: string, code: string) {
+  return [
+    "Trizen",
+    "",
+    `Continue checkout as ${email}`,
+    "",
+    "Enter this code to verify:",
+    "",
+    code,
+    "",
+    "Expires in 10 minutes.",
+  ].join("\n");
+}
+
 export async function sendCheckoutEmailCode(userId: string, email: string) {
   const normalized = email.trim().toLowerCase();
   const code = generateCheckoutEmailCode();
@@ -40,26 +88,12 @@ export async function sendCheckoutEmailCode(userId: string, email: string) {
     },
   });
 
-  const appUrl = process.env.APP_URL?.trim() || "https://trizenstore.com.bd";
-
   await sendEmail({
     to: normalized,
-    subject: "TriZen Store - Verify your email",
+    subject: "Your TriZen checkout code",
     replyTo: "support@trizenstore.com.bd",
-    text: [
-      "TriZen Store",
-      "",
-      "Your checkout verification code is:",
-      "",
-      code,
-      "",
-      "Enter this code on the checkout page to continue your order.",
-      "This code expires in 10 minutes.",
-      "",
-      "If you did not request this email, you can ignore it.",
-      "",
-      appUrl,
-    ].join("\n"),
+    text: buildCheckoutVerifyEmailText(normalized, code),
+    html: buildCheckoutVerifyEmailHtml(normalized, code),
   });
 
   return {
