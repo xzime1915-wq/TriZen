@@ -29,7 +29,7 @@ export function MobileBottomNav() {
 
   useEffect(() => setMounted(true), []);
 
-  if (pathname.startsWith("/admin")) return null;
+  if (pathname.startsWith("/admin") || pathname.startsWith("/checkout")) return null;
 
   return (
     <nav

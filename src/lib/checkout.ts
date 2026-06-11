@@ -1,9 +1,7 @@
-export type PaymentMethodId = "cod" | "bank" | "bkash" | "nagad";
+export type PaymentMethodId = "cod" | "bkash" | "bank";
 
-export const MOBILE_WALLETS: PaymentMethodId[] = ["bkash", "nagad"];
-
-export function isMobileWallet(id: PaymentMethodId) {
-  return MOBILE_WALLETS.includes(id);
+export function isBkashPayment(id: PaymentMethodId) {
+  return id === "bkash";
 }
 
 export type BankSettings = {
@@ -16,11 +14,11 @@ export type BankSettings = {
   paymentInstructions: string;
 };
 
+/** Checkout: COD + bKash merchant checkout */
 export const PAYMENT_METHODS: {
   id: PaymentMethodId;
   label: string;
   instructions: string;
-  personalNumber?: string;
 }[] = [
   {
     id: "cod",
@@ -29,31 +27,22 @@ export const PAYMENT_METHODS: {
       "Pay with cash when your order is delivered. No advance payment required.",
   },
   {
-    id: "bank",
-    label: "Bank Payment",
-    instructions:
-      "Transfer the total amount to our bank account below. Use your order number as the payment reference.",
-  },
-  {
     id: "bkash",
     label: "bKash",
-    personalNumber: process.env.NEXT_PUBLIC_BKASH_NUMBER || "",
     instructions:
-      "To pay, use the 'Send Money' option in bKash, then fill in your bKash number and transaction ID below.",
-  },
-  {
-    id: "nagad",
-    label: "Nagad",
-    personalNumber: process.env.NEXT_PUBLIC_NAGAD_NUMBER || "",
-    instructions:
-      "Send payment via Nagad, then fill in your Nagad number and transaction ID below.",
+      "Pay securely with bKash. You will be redirected to the bKash app or website to complete payment.",
   },
 ];
 
+export function getPaymentMethodLabel(id: PaymentMethodId) {
+  if (id === "bank") return "Bank Payment";
+  return PAYMENT_METHODS.find((m) => m.id === id)?.label ?? id;
+}
+
 export function formatCheckoutPrice(amount: number) {
-  return `${amount.toLocaleString("en-BD", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+  return `${Math.round(amount).toLocaleString("en-BD", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   })}৳`;
 }
 
@@ -61,18 +50,12 @@ export function buildPaymentRef(
   methodId: PaymentMethodId,
   data: { payerNumber?: string; transactionId?: string }
 ) {
-  const method = PAYMENT_METHODS.find((m) => m.id === methodId)!;
-
   if (methodId === "cod") return null;
 
   if (methodId === "bank") {
     return data.transactionId?.trim()
       ? `Bank Transfer | Ref: ${data.transactionId.trim()}`
       : null;
-  }
-
-  if (isMobileWallet(methodId) && data.payerNumber?.trim() && data.transactionId?.trim()) {
-    return `${method.label}: ${data.payerNumber.trim()} | TXN: ${data.transactionId.trim()}`;
   }
 
   return null;

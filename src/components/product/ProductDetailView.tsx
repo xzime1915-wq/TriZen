@@ -178,10 +178,12 @@ export function ProductDetailView({
                 id: product.id,
                 name: product.name,
                 price: product.price,
-                image: product.image,
+                compareAt: product.compareAt,
+                image: selectedColor?.image ?? product.image,
                 stock: product.stock,
               }}
               color={selectedColor?.name}
+              colors={colors}
               comingSoon={upcoming}
             />
 

@@ -39,7 +39,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (pathname.startsWith("/admin")) return null;
+  if (pathname.startsWith("/admin") || pathname.startsWith("/checkout")) return null;
 
   const authLinks = user
     ? [{ href: "/account", label: user.name || "Account" }]

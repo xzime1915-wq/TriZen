@@ -49,6 +49,9 @@ export function parseCreateOrderPayload(body: unknown): CreateOrderPayload | str
 
   const paymentMethod =
     typeof b.paymentMethod === "string" ? b.paymentMethod : "cod";
+  if (paymentMethod !== "cod" && paymentMethod !== "bkash") {
+    return "Invalid payment method";
+  }
 
   return {
     customerName,

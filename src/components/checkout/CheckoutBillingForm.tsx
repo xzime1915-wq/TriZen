@@ -1,7 +1,12 @@
 "use client";
 
 import { BANGLADESH_DISTRICTS } from "@/lib/bangladesh-districts";
-import { CheckoutInput, CheckoutTextarea } from "./CheckoutField";
+import {
+  CheckoutInput,
+  CheckoutSelect,
+  CheckoutSection,
+  CheckoutTextarea,
+} from "./CheckoutField";
 
 export type BillingFormState = {
   fullName: string;
@@ -24,81 +29,84 @@ export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: P
   const set = (patch: Partial<BillingFormState>) => onChange({ ...form, ...patch });
 
   return (
-    <div className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
+    <>
+      <CheckoutSection title="Contact">
         <CheckoutInput
-          label="Full Name"
+          label="Email"
+          type="email"
           required
-          value={form.fullName}
-          onChange={(e) => set({ fullName: e.target.value })}
+          autoComplete="email"
+          readOnly={emailReadOnly}
+          value={form.customerEmail}
+          onChange={(e) => set({ customerEmail: e.target.value })}
         />
         <CheckoutInput
           label="Phone"
           type="tel"
           required
+          autoComplete="tel"
+          placeholder="Phone"
           value={form.customerPhone}
           onChange={(e) => set({ customerPhone: e.target.value })}
         />
-      </div>
+      </CheckoutSection>
 
-      <CheckoutInput
-        label="Address"
-        required
-        value={form.streetAddress}
-        onChange={(e) => set({ streetAddress: e.target.value })}
-      />
+      <CheckoutSection title="Delivery">
+        <CheckoutSelect
+          label="Country / Region"
+          value={form.country}
+          onChange={(e) => set({ country: e.target.value })}
+        >
+          <option value="Bangladesh">Bangladesh</option>
+        </CheckoutSelect>
 
-      <label className="block">
-        <span className="mb-1.5 block text-xs uppercase tracking-wider text-[var(--color-muted)]">
-          District <span className="text-red-400">*</span>
-        </span>
-        <select
+        <CheckoutInput
+          label="Name"
+          placeholder="Name"
+          required
+          autoComplete="name"
+          value={form.fullName}
+          onChange={(e) => set({ fullName: e.target.value })}
+        />
+
+        <CheckoutInput
+          label="Address"
+          placeholder="Address"
+          required
+          autoComplete="street-address"
+          value={form.streetAddress}
+          onChange={(e) => set({ streetAddress: e.target.value })}
+        />
+
+        <CheckoutSelect
+          label="District"
           required
           value={form.district}
           onChange={(e) => set({ district: e.target.value })}
-          className="w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-white"
         >
           {BANGLADESH_DISTRICTS.map((d) => (
             <option key={d} value={d}>
               {d}
             </option>
           ))}
-        </select>
-      </label>
+        </CheckoutSelect>
 
-      <CheckoutInput
-        label="Country (optional)"
-        value={form.country}
-        onChange={(e) => set({ country: e.target.value })}
-      />
-
-      <CheckoutInput
-        label="Email address"
-        type="email"
-        required
-        readOnly={emailReadOnly}
-        value={form.customerEmail}
-        onChange={(e) => set({ customerEmail: e.target.value })}
-      />
-
-      <div className="pt-1">
-        <label className="flex cursor-pointer items-center gap-2 text-sm text-[var(--color-muted)]">
+        <label className="flex cursor-pointer items-center gap-2.5 text-sm text-zinc-600">
           <input
             type="checkbox"
             checked={form.shipToDifferent}
             onChange={(e) => set({ shipToDifferent: e.target.checked })}
-            className="h-4 w-4 accent-white"
+            className="h-4 w-4 rounded border-zinc-300 accent-black"
           />
           Ship to a different address?
         </label>
-      </div>
 
-      <CheckoutTextarea
-        label="Order notes (optional)"
-        placeholder="Notes about your order, e.g. special notes for delivery."
-        value={form.notes}
-        onChange={(e) => set({ notes: e.target.value })}
-      />
-    </div>
+        <CheckoutTextarea
+          label="Order notes (optional)"
+          value={form.notes}
+          onChange={(e) => set({ notes: e.target.value })}
+        />
+      </CheckoutSection>
+    </>
   );
 }

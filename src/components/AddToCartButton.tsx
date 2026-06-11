@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/lib/cart-store";
+import type { ProductColor } from "@/lib/product-data";
 import { Button } from "./Button";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 
@@ -9,6 +10,7 @@ type Product = {
   id: string;
   name: string;
   price: number;
+  compareAt?: number | null;
   image: string;
   stock: number;
 };
@@ -16,10 +18,12 @@ type Product = {
 export function AddToCartButton({
   product,
   color,
+  colors = [],
   comingSoon = false,
 }: {
   product: Product;
   color?: string;
+  colors?: ProductColor[];
   comingSoon?: boolean;
 }) {
   const addItem = useCart((s) => s.addItem);
@@ -71,11 +75,15 @@ export function AddToCartButton({
           addItem({
             productId: product.id,
             name: color ? `${product.name} — ${color}` : product.name,
+            baseName: product.name,
             price: product.price,
-            image: product.image,
+            compareAt: product.compareAt ?? null,
+            image:
+              colors.find((c) => c.name === color)?.image ?? product.image,
             stock: product.stock,
             quantity: qty,
             color,
+            variantOptions: colors.length > 1 ? colors : undefined,
           });
           setAdded(true);
           setTimeout(() => setAdded(false), 2000);

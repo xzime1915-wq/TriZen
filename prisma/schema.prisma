@@ -181,6 +181,18 @@ model ChatConversation {
   @@index([unreadAdmin])
 }
 
+model CheckoutEmailCode {
+  id        String   @id @default(cuid())
+  userId    String
+  email     String
+  codeHash  String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId, email])
+  @@index([expiresAt])
+}
+
 model ChatMessage {
   id             String           @id @default(cuid())
   conversationId String

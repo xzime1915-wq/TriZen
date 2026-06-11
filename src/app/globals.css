@@ -1554,6 +1554,376 @@ textarea {
   color: #000;
 }
 
+/* Checkout — Shopify-style split layout */
+.checkout-page {
+  @apply text-zinc-900;
+}
+
+.checkout-email-verify {
+  @apply mx-auto flex w-full max-w-[540px] flex-col items-center space-y-8 pt-2 text-center lg:max-w-[580px];
+}
+
+.checkout-email-verify-title {
+  @apply w-full text-[1.75rem] font-semibold leading-tight text-zinc-900;
+}
+
+.checkout-email-verify-subtitle {
+  @apply w-full max-w-sm text-sm leading-relaxed text-zinc-500 text-balance sm:max-w-md;
+}
+
+.checkout-email-verify-subtitle strong {
+  @apply font-semibold text-zinc-900;
+}
+
+.checkout-email-verify-form {
+  @apply w-full space-y-4;
+}
+
+.checkout-email-verify-digits {
+  @apply flex items-center justify-center gap-3 sm:gap-4;
+}
+
+.checkout-email-verify-group {
+  @apply flex items-center gap-2 sm:gap-2.5;
+}
+
+.checkout-email-verify-sep {
+  @apply h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-300;
+}
+
+.checkout-email-verify-digit {
+  @apply h-12 w-12 rounded-xl border border-zinc-200 bg-zinc-100 text-center text-lg font-semibold text-zinc-900 shadow-[0_2px_8px_rgba(0,0,0,0.08)] outline-none transition sm:h-14 sm:w-14 sm:text-xl;
+}
+
+.checkout-email-verify-digit:focus {
+  @apply border-zinc-900 bg-white shadow-[0_3px_12px_rgba(0,0,0,0.12)];
+}
+
+.checkout-email-verify-digit--filled {
+  @apply border-zinc-300 bg-white;
+}
+
+.checkout-email-verify-status {
+  @apply text-center text-sm text-zinc-500;
+}
+
+.checkout-email-verify-error {
+  @apply rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-center text-sm text-red-600;
+}
+
+.checkout-email-verify-dev {
+  @apply text-center text-xs text-amber-700;
+}
+
+.checkout-email-verify-links {
+  @apply flex flex-col items-center gap-4 pt-2 text-center;
+}
+
+.checkout-email-verify-link-primary {
+  @apply text-sm font-semibold text-zinc-900 transition hover:opacity-70;
+}
+
+.checkout-email-verify-link-secondary {
+  @apply text-sm text-zinc-500 transition hover:text-zinc-800;
+}
+
+.checkout-layout {
+  @apply grid min-h-[calc(100vh-3.5rem)] lg:min-h-screen lg:grid-cols-[minmax(0,1fr)_min(480px,42vw)];
+}
+
+.checkout-top-zone {
+  @apply mx-auto mb-8 w-full max-w-[540px] space-y-3 lg:max-w-[580px];
+}
+
+.checkout-form-fields {
+  @apply flex flex-col gap-8;
+}
+
+.checkout-bottom-zone {
+  @apply flex flex-col gap-4 pt-2;
+}
+
+.checkout-upsell {
+  @apply space-y-3;
+}
+
+.checkout-upsell-list {
+  @apply space-y-3;
+}
+
+.checkout-upsell-box {
+  @apply space-y-4 rounded-lg border border-zinc-300 bg-white p-4;
+}
+
+.checkout-upsell-lead {
+  @apply text-sm leading-relaxed text-zinc-600;
+}
+
+.checkout-upsell-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 5.5rem;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.checkout-action-box {
+  @apply min-h-[3.25rem] rounded-md border border-zinc-300 bg-white;
+}
+
+.checkout-style-select {
+  @apply relative flex min-w-0 flex-col justify-center px-3 py-2 pr-9;
+}
+
+.checkout-style-select-label {
+  @apply block text-[11px] leading-none text-zinc-500;
+}
+
+.checkout-style-select-input {
+  @apply mt-1 w-full cursor-pointer appearance-none truncate bg-transparent text-sm leading-tight text-zinc-900 outline-none;
+}
+
+.checkout-style-select-icon {
+  @apply pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500;
+}
+
+.checkout-upsell-add-box {
+  @apply flex items-center justify-center p-0;
+}
+
+.checkout-upsell-add {
+  @apply flex h-full w-full items-center justify-center bg-transparent text-sm font-normal text-zinc-900 transition hover:text-zinc-600 disabled:cursor-default disabled:opacity-60;
+}
+
+.checkout-cart-section {
+  @apply space-y-3;
+}
+
+.checkout-cart-qty-row {
+  @apply flex flex-col gap-2 border-b border-zinc-100 py-3 last:border-b-0 last:pb-0;
+}
+
+.checkout-cart-collapsible {
+  @apply overflow-hidden rounded-lg border border-zinc-300 bg-white;
+}
+
+.checkout-cart-collapsible-toggle {
+  @apply flex w-full items-center justify-between gap-3 px-4 py-3.5 text-left transition hover:bg-zinc-50;
+}
+
+.checkout-cart-collapsible-body {
+  @apply border-t border-zinc-200 p-3;
+}
+
+.checkout-mobile-cart {
+  @apply space-y-3;
+}
+
+.checkout-mobile-cart-item {
+  @apply rounded-lg border border-zinc-300 bg-white p-4;
+}
+
+.checkout-discount-badge {
+  @apply inline-flex shrink-0 items-center rounded-md bg-emerald-600 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white;
+}
+
+.checkout-discount-badge--inline {
+  @apply ml-2 inline-flex items-center rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-bold leading-none normal-case tracking-normal text-white;
+}
+
+.checkout-item-price {
+  @apply space-y-0.5;
+}
+
+.checkout-item-price-row {
+  @apply flex flex-wrap items-baseline gap-2;
+}
+
+.checkout-item-price-sale {
+  @apply font-semibold text-zinc-900;
+}
+
+.checkout-item-price-compare {
+  @apply text-xs text-zinc-400 line-through;
+}
+
+.checkout-variant-select {
+  @apply relative block w-full;
+}
+
+.checkout-variant-select-input {
+  @apply w-full appearance-none rounded-md border border-zinc-300 bg-white py-2.5 pl-3 pr-9 text-sm text-zinc-800 transition focus:border-zinc-500 focus:outline-none;
+}
+
+.checkout-variant-select-icon {
+  @apply pointer-events-none absolute right-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500;
+}
+
+.checkout-qty-stepper {
+  @apply inline-flex items-center rounded-md border border-zinc-300 bg-white;
+}
+
+.checkout-qty-btn {
+  @apply flex h-9 w-9 items-center justify-center text-zinc-700 transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40;
+}
+
+.checkout-qty-value {
+  @apply min-w-[2rem] border-x border-zinc-300 px-2 text-center text-sm font-medium tabular-nums text-zinc-900;
+}
+
+.checkout-order-summary-panel {
+  @apply w-full;
+}
+
+.checkout-order-summary-title {
+  @apply mb-5 text-lg font-semibold text-zinc-900;
+}
+
+.checkout-mobile-order-summary {
+  @apply -mx-5 border-t border-zinc-200 bg-zinc-50 px-5 py-6 sm:-mx-8 sm:px-8;
+}
+
+.checkout-main {
+  @apply order-2 px-5 py-8 sm:px-8 lg:order-1 lg:py-12;
+}
+
+.checkout-main-header {
+  @apply mx-auto mb-8 flex max-w-[540px] items-center justify-between lg:max-w-[580px];
+}
+
+.checkout-brand-wordmark {
+  @apply inline-block font-black text-zinc-900 leading-none;
+  font-family: "New Academy", var(--font-sans);
+  font-size: clamp(2.25rem, 7vw, 2.875rem);
+  font-synthesis: weight;
+  letter-spacing: 0.04em;
+  -webkit-text-stroke: 0.025em currentColor;
+  paint-order: stroke fill;
+}
+
+.checkout-form {
+  @apply mx-auto flex max-w-[540px] flex-col gap-8 lg:max-w-[580px];
+}
+
+.checkout-sidebar {
+  @apply hidden border-b border-zinc-200 bg-zinc-50 px-5 py-6 sm:px-8 lg:order-2 lg:block lg:border-b-0 lg:border-l lg:px-10 lg:py-12;
+}
+
+.checkout-sidebar-inner {
+  @apply mx-auto w-full max-w-[480px] lg:sticky lg:top-8;
+}
+
+.checkout-sidebar-items {
+  @apply space-y-4;
+}
+
+.checkout-sidebar-item {
+  @apply flex items-start gap-4;
+}
+
+.checkout-sidebar-thumb-wrap {
+  @apply relative shrink-0 p-0;
+}
+
+.checkout-sidebar-thumb {
+  @apply relative h-[3.75rem] w-[3.75rem] overflow-hidden rounded-[8px] border border-zinc-300 bg-white shadow-[0_1px_4px_rgba(0,0,0,0.1)];
+}
+
+.checkout-sidebar-qty {
+  @apply absolute -right-[11px] -top-[11px] z-10 flex h-6 min-w-6 items-center justify-center rounded-[6px] border-[4px] border-white bg-zinc-900 px-0.5 text-xs font-semibold leading-none text-white;
+}
+
+.checkout-sidebar-totals {
+  @apply mt-6 space-y-3 border-t border-zinc-200 pt-6;
+}
+
+.checkout-sidebar-row {
+  @apply flex items-center justify-between text-sm text-zinc-600;
+}
+
+.checkout-sidebar-total {
+  @apply flex items-center justify-between border-t border-zinc-200 pt-4;
+}
+
+.checkout-sidebar-total-label,
+.checkout-sidebar-total-amount {
+  @apply text-xl font-black text-black;
+  -webkit-text-stroke: 0.025em currentColor;
+  paint-order: stroke fill;
+}
+
+.checkout-sidebar-total-currency {
+  @apply text-xs font-normal text-zinc-500;
+}
+
+.checkout-section {
+  @apply space-y-4;
+}
+
+.checkout-section-head {
+  @apply space-y-1;
+}
+
+.checkout-section-title {
+  @apply text-lg font-semibold text-zinc-900;
+}
+
+.checkout-section-subtitle {
+  @apply text-sm text-zinc-500;
+}
+
+.checkout-section-body {
+  @apply space-y-3;
+}
+
+.checkout-field-label {
+  @apply mb-1.5 block text-xs text-zinc-600;
+}
+
+.checkout-field-input {
+  @apply w-full rounded-md border border-zinc-300 bg-white px-3.5 py-3.5 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 focus:placeholder:text-transparent focus:ring-1 focus:ring-zinc-900;
+}
+
+.checkout-field-select {
+  @apply appearance-none bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23717171' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+}
+
+.checkout-delivery-method {
+  @apply flex items-center justify-between rounded-md border border-zinc-300 bg-zinc-50 px-4 py-3.5;
+}
+
+.checkout-payment-box {
+  @apply overflow-hidden rounded-md border border-zinc-300 bg-white;
+}
+
+.checkout-payment-row {
+  @apply flex cursor-pointer items-center gap-3 px-4 py-3.5 transition hover:bg-zinc-50;
+}
+
+.checkout-payment-row--active {
+  @apply bg-zinc-50;
+}
+
+.checkout-payment-radio {
+  @apply h-4 w-4 shrink-0 accent-black;
+}
+
+.checkout-payment-expand {
+  @apply border-t border-zinc-200 bg-zinc-50 px-4 py-4;
+}
+
+.checkout-submit-btn {
+  @apply w-full rounded-md bg-zinc-900 px-4 py-4 text-sm font-semibold text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.checkout-footer-links {
+  @apply flex flex-wrap gap-x-4 gap-y-2 pt-2 text-xs text-zinc-500;
+}
+
+.checkout-footer-links a {
+  @apply underline underline-offset-2 hover:text-zinc-800;
+}
+
 @media print {
   .no-print,
   nav,

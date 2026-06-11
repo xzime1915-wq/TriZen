@@ -1,13 +1,13 @@
-const STEPS = ["Customer Details", "Review & Pay", "Confirmation"] as const;
+const STEPS = ["Delivery", "Review", "Payment", "Confirm"] as const;
 
 export function CheckoutStepper({ active = 0 }: { active?: number }) {
   return (
-    <div className="checkout-stepper mx-auto mb-10 max-w-3xl">
-      <div className="flex items-center justify-between">
+    <div className="checkout-stepper mx-auto mb-8 max-w-3xl md:mb-10">
+      <div className="grid grid-cols-4 gap-2">
         {STEPS.map((step, i) => (
-          <div key={step} className="flex flex-1 flex-col items-center">
+          <div key={step} className="text-center">
             <span
-              className={`text-center text-xs font-medium uppercase tracking-wide sm:text-sm ${
+              className={`block text-[10px] font-semibold uppercase tracking-[0.16em] sm:text-xs ${
                 i <= active ? "text-[var(--color-foreground)]" : "text-[var(--color-muted)]"
               }`}
             >
@@ -29,7 +29,7 @@ export function CheckoutStepper({ active = 0 }: { active?: number }) {
               className={`h-2.5 w-2.5 rounded-full border-2 ${
                 i <= active
                   ? "border-white bg-white"
-                  : "border-[var(--color-border)] bg-[var(--color-surface)]"
+                  : "border-[var(--color-border)] bg-[var(--color-surface-elevated)]"
               }`}
             />
           ))}

@@ -63,6 +63,7 @@ export async function createOrder(data: {
   shippingCost?: number;
   items: OrderItemInput[];
   decrementStock?: boolean;
+  notifyAdmin?: boolean;
 }) {
   const { subtotal, orderItems } = await buildOrderItems(data.items);
   const shippingCost = data.shippingCost ?? DELIVERY_CHARGE;
@@ -117,14 +118,16 @@ export async function createOrder(data: {
       }
     }
 
-    notifyAdminNewOrder({
-      id: created.id,
-      orderNumber: created.orderNumber,
-      customerName: created.customerName,
-      customerPhone: created.customerPhone,
-      total: created.total,
-      paymentMethod: created.paymentMethod,
-    });
+    if (data.notifyAdmin !== false) {
+      notifyAdminNewOrder({
+        id: created.id,
+        orderNumber: created.orderNumber,
+        customerName: created.customerName,
+        customerPhone: created.customerPhone,
+        total: created.total,
+        paymentMethod: created.paymentMethod,
+      });
+    }
 
     return created;
   });

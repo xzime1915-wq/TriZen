@@ -1,42 +1,28 @@
 import { cn } from "@/lib/utils";
 import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 
-export function CheckoutLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="checkout-label pt-1 text-sm font-semibold uppercase tracking-widest text-[var(--color-muted)] sm:min-w-[180px] lg:min-w-[200px]">
-      {children}
-    </div>
-  );
-}
-
-export function CheckoutRow({
-  label,
-  children,
-}: {
-  label: React.ReactNode;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="checkout-row flex flex-col gap-4 border-b border-[var(--color-border)] py-8 sm:flex-row sm:gap-10">
-      <CheckoutLabel>{label}</CheckoutLabel>
-      <div className="checkout-row-content min-w-0 flex-1">{children}</div>
-    </div>
-  );
-}
-
 export function CheckoutInput({
   label,
+  hideLabel = true,
   className,
+  placeholder,
   ...props
-}: InputHTMLAttributes<HTMLInputElement> & { label: string }) {
+}: InputHTMLAttributes<HTMLInputElement> & { label: string; hideLabel?: boolean }) {
+  const fieldPlaceholder =
+    placeholder ?? (hideLabel ? `${label}${props.required ? " *" : ""}` : undefined);
+
   return (
     <label className={cn("block", className)}>
-      <span className="mb-1.5 block text-xs uppercase tracking-wider text-[var(--color-muted)]">
-        {label}
-        {props.required && <span className="text-red-400"> *</span>}
-      </span>
+      {!hideLabel && (
+        <span className="checkout-field-label">
+          {label}
+          {props.required && <span className="text-red-500"> *</span>}
+        </span>
+      )}
       <input
-        className="w-full border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-white"
+        className="checkout-field-input"
+        placeholder={fieldPlaceholder}
+        aria-label={hideLabel ? label : undefined}
         {...props}
       />
     </label>
@@ -45,18 +31,68 @@ export function CheckoutInput({
 
 export function CheckoutTextarea({
   label,
+  hideLabel = true,
   className,
+  placeholder,
   ...props
-}: TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string }) {
+}: TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; hideLabel?: boolean }) {
+  const fieldPlaceholder = placeholder ?? (hideLabel ? label : undefined);
+
   return (
     <label className={cn("block", className)}>
-      <span className="mb-1.5 block text-xs uppercase tracking-wider text-[var(--color-muted)]">
-        {label}
-      </span>
+      {!hideLabel && <span className="checkout-field-label">{label}</span>}
       <textarea
-        className="min-h-[100px] w-full resize-y border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-white"
+        className={cn("checkout-field-input min-h-[88px] resize-y")}
+        placeholder={fieldPlaceholder}
+        aria-label={hideLabel ? label : undefined}
         {...props}
       />
     </label>
+  );
+}
+
+export function CheckoutSelect({
+  label,
+  hideLabel = true,
+  children,
+  className,
+  ...props
+}: React.SelectHTMLAttributes<HTMLSelectElement> & { label: string; hideLabel?: boolean }) {
+  return (
+    <label className={cn("block", className)}>
+      {!hideLabel && (
+        <span className="checkout-field-label">
+          {label}
+          {props.required && <span className="text-red-500"> *</span>}
+        </span>
+      )}
+      <select
+        className="checkout-field-input checkout-field-select"
+        aria-label={hideLabel ? label : undefined}
+        {...props}
+      >
+        {children}
+      </select>
+    </label>
+  );
+}
+
+export function CheckoutSection({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="checkout-section">
+      <div className="checkout-section-head">
+        <h2 className="checkout-section-title">{title}</h2>
+        {subtitle ? <p className="checkout-section-subtitle">{subtitle}</p> : null}
+      </div>
+      <div className="checkout-section-body">{children}</div>
+    </section>
   );
 }
