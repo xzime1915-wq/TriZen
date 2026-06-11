@@ -42,12 +42,13 @@ export default function CheckoutPage() {
   const [emailVerified, setEmailVerified] = useState<boolean | null>(null);
 
   useEffect(() => {
-    Promise.all([
-      fetch("/api/auth/me").then((r) => r.json()),
-      fetch("/api/checkout/verify-email/status").then((r) => r.json()),
-    ])
-      .then(([{ user }, status]) => {
-        if (user) {
+    let cancelled = false;
+
+    async function initCheckout() {
+      try {
+        const meRes = await fetch("/api/auth/me");
+        const { user } = await meRes.json();
+        if (user && !cancelled) {
           setSignedIn(true);
           setForm((prev) => ({
             ...prev,
@@ -55,9 +56,23 @@ export default function CheckoutPage() {
             customerEmail: user.email || "",
           }));
         }
-        setEmailVerified(Boolean(status?.verified));
-      })
-      .catch(() => setEmailVerified(false));
+      } catch {
+        /* ignore */
+      }
+
+      try {
+        await fetch("/api/checkout/verify-email/reset", { method: "POST" });
+      } catch {
+        /* ignore */
+      }
+
+      if (!cancelled) setEmailVerified(false);
+    }
+
+    void initCheckout();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {

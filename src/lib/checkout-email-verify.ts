@@ -121,6 +121,11 @@ export async function confirmCheckoutEmailCode(
   return { ok: true as const };
 }
 
+export async function clearCheckoutEmailVerifiedCookie() {
+  const jar = await cookies();
+  jar.delete(COOKIE);
+}
+
 export async function setCheckoutEmailVerifiedCookie(userId: string, email: string) {
   const token = await new SignJWT({
     sub: userId,
