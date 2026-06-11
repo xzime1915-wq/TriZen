@@ -1560,23 +1560,24 @@ textarea {
 }
 
 .checkout-email-verify {
-  @apply mx-auto flex w-full max-w-[540px] flex-col items-center space-y-8 pt-2 text-center lg:max-w-[580px];
+  @apply mx-auto flex w-full max-w-[540px] flex-col items-center space-y-7 pt-2 text-center normal-case lg:max-w-[580px];
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 .checkout-email-verify-title {
-  @apply w-full text-[1.75rem] font-semibold leading-tight text-zinc-900;
+  @apply w-full text-[1.625rem] font-semibold leading-tight tracking-tight text-zinc-900 sm:text-[1.75rem];
 }
 
 .checkout-email-verify-subtitle {
-  @apply w-full max-w-sm text-sm leading-relaxed text-zinc-500 text-balance sm:max-w-md;
+  @apply w-full max-w-sm text-[15px] leading-relaxed text-zinc-500 text-balance sm:max-w-md;
 }
 
 .checkout-email-verify-subtitle strong {
-  @apply font-semibold text-zinc-900;
+  @apply font-medium text-zinc-900;
 }
 
 .checkout-email-verify-spam-hint {
-  @apply -mt-4 text-sm text-zinc-500;
+  @apply -mt-5 text-xs text-zinc-400;
 }
 
 .checkout-email-verify-form {
@@ -1620,15 +1621,23 @@ textarea {
 }
 
 .checkout-email-verify-links {
-  @apply flex flex-col items-center gap-4 pt-2 text-center;
+  @apply flex flex-col items-center gap-3 pt-1 text-center;
+}
+
+.checkout-email-verify-link-row {
+  @apply flex items-center gap-2;
+}
+
+.checkout-email-verify-link-dot {
+  @apply text-zinc-300;
 }
 
 .checkout-email-verify-link-primary {
-  @apply text-sm font-semibold text-zinc-900 transition hover:opacity-70;
+  @apply text-sm font-medium text-zinc-900 transition hover:opacity-70;
 }
 
 .checkout-email-verify-link-secondary {
-  @apply text-sm text-zinc-500 transition hover:text-zinc-800;
+  @apply text-sm text-zinc-400 transition hover:text-zinc-700;
 }
 
 .checkout-layout {

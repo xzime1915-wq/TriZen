@@ -129,11 +129,9 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
     <div className="checkout-email-verify">
       <h1 className="checkout-email-verify-title">Verify your email</h1>
       <p className="checkout-email-verify-subtitle">
-        Enter code sent to <strong>{email}</strong>
+        Code sent to <strong>{email}</strong>
       </p>
-      <p className="checkout-email-verify-spam-hint">
-        Can&apos;t find it? Check your spam or promotions folder.
-      </p>
+      <p className="checkout-email-verify-spam-hint">Check spam if you don&apos;t see it.</p>
 
       <div className="checkout-email-verify-form">
         <div className="checkout-email-verify-digits">
@@ -174,7 +172,7 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
         </div>
 
         {verifying ? (
-          <p className="checkout-email-verify-status">Verifying...</p>
+          <p className="checkout-email-verify-status">Verifying…</p>
         ) : null}
 
         {error ? (
@@ -188,19 +186,24 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
 
       <div className="checkout-email-verify-links">
         <Link href="/account" className="checkout-email-verify-link-primary">
-          Change email address
+          Change email
         </Link>
-        <button
-          type="button"
-          onClick={sendCode}
-          disabled={sending}
-          className="checkout-email-verify-link-secondary"
-        >
-          {sending ? "Sending..." : "Resend code"}
-        </button>
-        <Link href="/cart" className="checkout-email-verify-link-secondary">
-          Back
-        </Link>
+        <div className="checkout-email-verify-link-row">
+          <button
+            type="button"
+            onClick={sendCode}
+            disabled={sending}
+            className="checkout-email-verify-link-secondary"
+          >
+            {sending ? "Sending…" : "Resend"}
+          </button>
+          <span className="checkout-email-verify-link-dot" aria-hidden>
+            ·
+          </span>
+          <Link href="/cart" className="checkout-email-verify-link-secondary">
+            Back
+          </Link>
+        </div>
       </div>
     </div>
   );
