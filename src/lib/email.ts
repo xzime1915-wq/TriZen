@@ -1,12 +1,18 @@
 import nodemailer from "nodemailer";
+import { randomUUID } from "crypto";
 
 type SendEmailInput = {
   to: string;
   subject: string;
-  html: string;
   text: string;
+  html?: string;
   replyTo?: string;
 };
+
+function senderDomain(from: string) {
+  const match = from.match(/@([^>]+)>?$|@(\S+)$/);
+  return match?.[1] || match?.[2] || "trizenstore.com.bd";
+}
 
 function getSmtpConfig() {
   const host = process.env.SMTP_HOST?.trim();
@@ -36,6 +42,7 @@ export async function sendEmail({ to, subject, html, text, replyTo }: SendEmailI
     process.env.EMAIL_REPLY_TO?.trim() ||
     smtp?.auth.user ||
     from;
+  const domain = senderDomain(from);
 
   if (smtp) {
     const transporter = nodemailer.createTransport(smtp);
@@ -44,12 +51,9 @@ export async function sendEmail({ to, subject, html, text, replyTo }: SendEmailI
       to: to.trim(),
       replyTo: reply,
       subject,
-      html,
       text,
-      headers: {
-        "X-Priority": "3",
-        Precedence: "normal",
-      },
+      ...(html ? { html } : {}),
+      messageId: `<${randomUUID()}@${domain}>`,
     });
     return;
   }

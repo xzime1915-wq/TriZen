@@ -1575,6 +1575,10 @@ textarea {
   @apply font-semibold text-zinc-900;
 }
 
+.checkout-email-verify-spam-hint {
+  @apply -mt-4 text-sm text-zinc-500;
+}
+
 .checkout-email-verify-form {
   @apply w-full space-y-4;
 }

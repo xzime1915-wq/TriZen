@@ -44,52 +44,22 @@ export async function sendCheckoutEmailCode(userId: string, email: string) {
 
   await sendEmail({
     to: normalized,
-    subject: "Verify your email — TriZen Store",
+    subject: "TriZen Store - Verify your email",
     replyTo: "support@trizenstore.com.bd",
     text: [
-      "TriZen Store — Verify your email",
+      "TriZen Store",
       "",
-      `Your verification code is: ${code}`,
+      "Your checkout verification code is:",
+      "",
+      code,
       "",
       "Enter this code on the checkout page to continue your order.",
       "This code expires in 10 minutes.",
       "",
-      `If you did not request this, you can ignore this email.`,
+      "If you did not request this email, you can ignore it.",
       "",
-      `TriZen Store`,
       appUrl,
     ].join("\n"),
-    html: `
-      <!DOCTYPE html>
-      <html lang="en">
-        <body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f4f4f5;padding:32px 16px">
-            <tr>
-              <td align="center">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:520px;background:#ffffff;border-radius:16px;padding:32px 28px">
-                  <tr>
-                    <td>
-                      <p style="margin:0 0 8px;font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#71717a">TriZen Store</p>
-                      <h1 style="margin:0 0 12px;font-size:24px;line-height:1.3;color:#18181b">Verify your email</h1>
-                      <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#52525b">
-                        Enter this code on the checkout page to continue your order.
-                      </p>
-                      <p style="margin:0 0 24px;font-size:34px;font-weight:700;letter-spacing:0.35em;color:#18181b">${code}</p>
-                      <p style="margin:0 0 24px;font-size:14px;line-height:1.6;color:#71717a">
-                        This code expires in 10 minutes. If you did not request this email, you can safely ignore it.
-                      </p>
-                      <p style="margin:0;font-size:14px;line-height:1.6;color:#71717a">
-                        <a href="${appUrl}/checkout" style="color:#18181b;font-weight:600;text-decoration:underline">Continue checkout</a>
-                      </p>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </body>
-      </html>
-    `,
   });
 
   return {
