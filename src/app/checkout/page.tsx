@@ -170,9 +170,8 @@ export default function CheckoutPage() {
       <div className="checkout-layout">
         <main className="checkout-main">
           <header className="checkout-main-header">
-            <Link href="/" className="checkout-brand-wordmark" aria-label="Trizen home">
-              <span className="checkout-brand-wordmark-t">T</span>
-              <span className="checkout-brand-wordmark-rest">rizen</span>
+            <Link href="/" className="checkout-brand-wordmark">
+              Trizen
             </Link>
             <button
               type="button"
