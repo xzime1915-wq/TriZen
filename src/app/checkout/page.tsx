@@ -18,6 +18,7 @@ import { CheckoutMobileCart } from "@/components/checkout/CheckoutMobileCart";
 import { CheckoutUpsell } from "@/components/checkout/CheckoutUpsell";
 import { CheckoutMobileOrderSummary } from "@/components/checkout/CheckoutMobileOrderSummary";
 import { CheckoutSidebar } from "@/components/checkout/CheckoutSidebar";
+import { CheckoutSidebarEmpty } from "@/components/checkout/CheckoutSidebarEmpty";
 import { PaymentMethodPicker } from "@/components/checkout/PaymentMethodPicker";
 import {
   CheckoutEmailVerification,
@@ -166,9 +167,8 @@ export default function CheckoutPage() {
 
   return (
     <div className="checkout-page bg-white">
-      <div className="checkout-shell">
       <div className="checkout-layout">
-        <main className="checkout-main checkout-main--split">
+        <main className="checkout-main">
           <header className="checkout-main-header">
             <Link href="/" className="checkout-brand-wordmark">
               Trizen
@@ -202,13 +202,14 @@ export default function CheckoutPage() {
                 subtotal={sub}
                 deliveryCharge={DELIVERY_CHARGE}
                 total={total}
+                empty
                 showBack
               />
               <CheckoutVerifyFooter />
             </div>
           ) : (
             <>
-          <div className="checkout-top-zone lg:hidden">
+          <div className="checkout-top-zone">
             <CheckoutUpsell />
             <CheckoutMobileCart />
           </div>
@@ -334,15 +335,18 @@ export default function CheckoutPage() {
           )}
         </main>
 
-        <aside className="checkout-sidebar checkout-sidebar--split">
-          <CheckoutSidebar
-            items={items}
-            subtotal={sub}
-            deliveryCharge={DELIVERY_CHARGE}
-            total={total}
-          />
+        <aside className="checkout-sidebar">
+          {emailVerified ? (
+            <CheckoutSidebar
+              items={items}
+              subtotal={sub}
+              deliveryCharge={DELIVERY_CHARGE}
+              total={total}
+            />
+          ) : (
+            <CheckoutSidebarEmpty />
+          )}
         </aside>
-      </div>
       </div>
     </div>
   );

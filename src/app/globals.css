@@ -1559,12 +1559,8 @@ textarea {
   @apply overflow-x-hidden text-zinc-900;
 }
 
-.checkout-shell {
-  @apply mx-auto w-full px-5 sm:px-8 lg:max-w-[min(88vw,80rem)] lg:px-8 xl:px-12;
-}
-
 .checkout-email-verify {
-  @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 overflow-x-hidden px-0 pt-2 text-center normal-case lg:mx-0 lg:max-w-none lg:items-stretch lg:pt-6;
+  @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 overflow-x-hidden px-0 pt-2 text-center normal-case lg:max-w-[580px];
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -1605,7 +1601,7 @@ textarea {
 }
 
 .checkout-email-verify-footer {
-  @apply mt-auto w-full max-w-[540px] justify-center px-1 pb-2 pt-10 text-center sm:pb-4 lg:mx-0 lg:max-w-none lg:pb-0;
+  @apply mt-auto justify-center px-1 pb-2 pt-10 text-center sm:pb-4 lg:max-w-[580px] lg:mx-auto lg:w-full;
 }
 
 .checkout-email-verify-title {
@@ -1681,7 +1677,7 @@ textarea {
 }
 
 .checkout-layout {
-  @apply grid min-h-screen w-full lg:grid-cols-2;
+  @apply grid min-h-[calc(100vh-3.5rem)] lg:min-h-screen lg:grid-cols-2;
 }
 
 .checkout-top-zone {
@@ -1832,7 +1828,7 @@ textarea {
 }
 
 .checkout-verify-flow {
-  @apply flex min-h-[calc(100dvh-11rem)] w-full min-w-0 flex-col overflow-x-hidden sm:min-h-[calc(100dvh-10rem)] lg:min-h-0 lg:flex-1;
+  @apply flex min-h-[calc(100dvh-11rem)] w-full min-w-0 flex-col overflow-x-hidden sm:min-h-[calc(100dvh-10rem)] lg:mx-auto lg:min-h-0 lg:max-w-[580px] lg:flex-1;
 }
 
 .checkout-mobile-order-summary {
@@ -1868,27 +1864,15 @@ textarea {
 }
 
 .checkout-main {
-  @apply order-2 min-w-0 overflow-x-hidden bg-white py-8 sm:px-0 lg:py-12 lg:pr-6 xl:pr-8;
-}
-
-.checkout-main--split {
-  @apply lg:flex lg:min-h-screen lg:flex-col;
-}
-
-.checkout-main--split .checkout-brand-wordmark {
-  font-size: clamp(2rem, 2.2vw, 2.75rem);
-}
-
-.checkout-main--split .checkout-verify-flow {
-  @apply lg:flex lg:w-full lg:flex-1 lg:flex-col;
+  @apply order-2 min-w-0 overflow-x-hidden px-5 py-8 sm:px-8 lg:order-1 lg:flex lg:flex-col lg:py-12;
 }
 
 .checkout-main-header {
-  @apply mb-8 flex w-full items-center justify-between lg:mb-10;
+  @apply mx-auto mb-8 flex max-w-[540px] items-center justify-between lg:max-w-[580px];
 }
 
 .checkout-brand-wordmark {
-  @apply inline-block shrink-0 font-black text-zinc-900 leading-none;
+  @apply inline-block font-black text-zinc-900 leading-none;
   font-family: "New Academy", var(--font-sans);
   font-size: clamp(2.25rem, 7vw, 2.875rem);
   font-synthesis: weight;
@@ -1898,23 +1882,19 @@ textarea {
 }
 
 .checkout-form {
-  @apply mx-auto flex w-full max-w-[540px] flex-col gap-8 lg:mx-0 lg:max-w-none;
+  @apply mx-auto flex max-w-[540px] flex-col gap-8 lg:max-w-[580px];
 }
 
 .checkout-sidebar {
-  @apply hidden border-b border-zinc-200 bg-zinc-100/60 py-6 lg:block lg:min-h-screen lg:border-b-0 lg:border-l lg:border-zinc-200 lg:bg-zinc-100 lg:py-12 lg:pl-8 lg:pr-6 xl:pl-10 xl:pr-8;
-}
-
-.checkout-sidebar--split .checkout-sidebar-inner {
-  @apply w-full lg:sticky lg:top-12;
+  @apply hidden border-b border-zinc-200 bg-zinc-50 px-5 py-6 sm:px-8 lg:order-2 lg:block lg:min-h-screen lg:border-b-0 lg:border-l lg:border-zinc-200 lg:bg-white lg:px-10 lg:py-12;
 }
 
 .checkout-sidebar-inner {
-  @apply w-full lg:sticky lg:top-8;
+  @apply mx-auto w-full max-w-[480px] lg:sticky lg:top-12;
 }
 
 .checkout-sidebar-empty {
-  @apply min-h-[120px] pt-1 lg:pt-0;
+  @apply w-full text-left;
 }
 
 .checkout-sidebar-empty-text {
@@ -1946,23 +1926,22 @@ textarea {
 }
 
 .checkout-sidebar-row {
-  @apply flex items-center justify-between text-sm normal-case text-zinc-600;
+  @apply flex items-center justify-between text-sm text-zinc-600;
 }
 
 .checkout-sidebar-total {
   @apply flex items-center justify-between border-t border-zinc-200 pt-4;
 }
 
-.checkout-sidebar-total-label {
-  @apply text-base font-semibold text-zinc-900;
-}
-
+.checkout-sidebar-total-label,
 .checkout-sidebar-total-amount {
-  @apply text-base font-semibold tabular-nums text-zinc-900;
+  @apply text-xl font-black text-black;
+  -webkit-text-stroke: 0.025em currentColor;
+  paint-order: stroke fill;
 }
 
 .checkout-sidebar-total-currency {
-  @apply text-sm font-normal text-zinc-500;
+  @apply text-xs font-normal text-zinc-500;
 }
 
 .checkout-section {
@@ -2027,11 +2006,11 @@ textarea {
 }
 
 .checkout-footer-links {
-  @apply flex flex-wrap gap-x-4 gap-y-2 pt-2 text-xs normal-case text-zinc-500;
+  @apply flex flex-wrap gap-x-4 gap-y-2 pt-2 text-xs text-zinc-500;
 }
 
 .checkout-footer-links a {
-  @apply normal-case underline underline-offset-2 hover:text-zinc-800;
+  @apply underline underline-offset-2 hover:text-zinc-800;
 }
 
 /* Cart drawer — Wallhack-style side panel */
