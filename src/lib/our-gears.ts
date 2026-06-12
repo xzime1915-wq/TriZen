@@ -45,7 +45,7 @@ export const OUR_GEARS: OurGearCard[] = [
     statusLabel: "Grab Now",
     taglineLine1: "Low friction.",
     taglineLine2: "Max performance.",
-    image: "/products/our-gears/skates.png",
+    image: "/products/our-gears/skates.webp",
     href: "/shop?gear=skates",
   },
   {

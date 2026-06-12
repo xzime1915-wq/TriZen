@@ -43,6 +43,9 @@ for (const pngPath of pngs) {
   const base = path.basename(pngPath);
   if (SKIP_BASENAMES.has(base)) continue;
 
+  const relFromProducts = path.relative(productsDir, pngPath);
+  if (relFromProducts.startsWith(`our-gears${path.sep}`)) continue;
+
   const pngStat = await stat(pngPath);
   if (pngStat.size < MIN_PNG_BYTES) continue;
 
