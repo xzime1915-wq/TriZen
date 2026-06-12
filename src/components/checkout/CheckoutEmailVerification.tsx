@@ -271,9 +271,25 @@ export function CheckoutEmailVerification({
       </div>
 
       <div className="checkout-email-verify-links">
-        <Link href="/account" className="checkout-email-verify-link-primary">
-          Change email
-        </Link>
+        {signedIn ? (
+          <Link href="/account" className="checkout-email-verify-link-primary">
+            Change email
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={() => {
+              setStep("confirm");
+              setError("");
+              setDevCode(null);
+              submittedRef.current = "";
+              setDigits(["", "", "", "", "", ""]);
+            }}
+            className="checkout-email-verify-link-primary"
+          >
+            Change email
+          </button>
+        )}
         <div className="checkout-email-verify-link-row">
           <button
             type="button"
