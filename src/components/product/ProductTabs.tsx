@@ -82,9 +82,11 @@ export function ProductTabs({
               {productName}
             </h2>
 
-            <div className="mt-6 max-w-2xl space-y-4 text-[0.75rem] leading-relaxed text-[var(--color-foreground)] md:mt-10 md:space-y-6 md:text-base">
+            <div className="trizen-body mt-6 max-w-2xl space-y-4 text-[0.8125rem] md:mt-10 md:space-y-6">
               {paragraphs.map((para) => (
-                <p key={para.slice(0, 40)}>{para}</p>
+                <p key={para.slice(0, 40)} className="font-normal">
+                  {para}
+                </p>
               ))}
             </div>
 

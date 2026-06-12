@@ -99,7 +99,7 @@ export function Footer() {
                 TriZen Store
               </span>
             </div>
-            <p className="text-sm text-[var(--color-muted)] max-w-md leading-relaxed">
+            <p className="trizen-detail max-w-md text-[var(--color-muted)]">
               Premium esports gear — glass mouse pads, hand sleeves, and mouse
               skates. Built for competitive play across Bangladesh.
             </p>
@@ -161,7 +161,7 @@ export function Footer() {
             "--color-surface": "#ffffff",
             "--color-foreground": "#171717",
             "--color-border": "#e5e5e5",
-            "--color-muted": "#525252",
+            "--color-muted": "#3f3f46",
           } as React.CSSProperties
         }
       >

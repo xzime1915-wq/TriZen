@@ -150,7 +150,7 @@ export function ProductDetailView({
               )}
             </div>
 
-            <p className="mb-5 text-sm leading-relaxed text-[var(--color-muted)] normal-case">
+            <p className="trizen-detail mb-5 normal-case">
               {product.description}
             </p>
 

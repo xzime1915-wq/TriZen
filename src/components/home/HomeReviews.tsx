@@ -30,7 +30,7 @@ export function HomeReviews({ reviews }: { reviews: Review[] }) {
               {r.title && (
                 <p className="mt-4 text-sm font-semibold text-[var(--color-foreground)]">{r.title}</p>
               )}
-              <p className="mt-3 text-sm text-zinc-500 leading-relaxed flex-1 line-clamp-5">
+              <p className="trizen-detail mt-3 flex-1 line-clamp-5">
                 {r.body}
               </p>
               <footer className="mt-6 pt-6 border-t border-[var(--color-border)] text-xs text-zinc-600">

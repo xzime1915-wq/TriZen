@@ -54,7 +54,7 @@ export function FaqAccordion({ items, title = "FAQs", className }: Props) {
                 )}
               >
                 <div className="overflow-hidden">
-                  <p className="pb-5 pr-8 text-sm sm:text-[0.9375rem] leading-relaxed text-zinc-400">
+                  <p className="trizen-detail pb-5 pr-8 sm:text-[0.9375rem]">
                     {item.answer}
                   </p>
                 </div>

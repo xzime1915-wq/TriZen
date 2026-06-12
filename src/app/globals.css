@@ -31,7 +31,7 @@
   --color-surface: #ffffff;
   --color-surface-elevated: #f5f5f5;
   --color-border: #e5e5e5;
-  --color-muted: #525252;
+  --color-muted: #3f3f46;
   --color-in-stock: #34d399;
   --color-out-of-stock: #f87171;
 }
@@ -57,7 +57,11 @@ body {
   background: var(--color-surface);
   color: var(--color-foreground);
   font-family: var(--font-sans);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
 }
 
@@ -295,7 +299,21 @@ textarea {
   }
 
   .trizen-body {
-    @apply text-base text-zinc-500 leading-relaxed;
+    @apply text-[0.9375rem] font-normal leading-[1.65] text-zinc-700 md:text-base;
+    letter-spacing: 0.004em;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .trizen-detail {
+    @apply text-sm font-normal leading-[1.65] text-zinc-700;
+    letter-spacing: 0.004em;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
   }
 
   .trizen-btn-primary {
@@ -457,7 +475,7 @@ textarea {
     --color-surface-elevated: #0d0d0d;
     --color-foreground: #fafafa;
     --color-border: #1f1f1f;
-    --color-muted: #a3a3a3;
+    --color-muted: #b0b0b0;
   }
 
   .trizen-section-dark .trizen-eyebrow {
@@ -1611,7 +1629,7 @@ textarea {
 }
 
 .checkout-email-verify-subtitle {
-  @apply w-full max-w-sm text-[15px] leading-relaxed text-zinc-500 text-balance sm:max-w-md;
+  @apply w-full max-w-sm text-[15px] font-normal leading-[1.65] text-zinc-600 text-balance sm:max-w-md;
 }
 
 .checkout-email-verify-subtitle strong {
@@ -1707,7 +1725,7 @@ textarea {
 }
 
 .checkout-upsell-lead {
-  @apply text-sm leading-relaxed text-zinc-600;
+  @apply text-sm font-normal leading-[1.65] text-zinc-600;
 }
 
 .checkout-upsell-actions {
@@ -1965,7 +1983,7 @@ textarea {
 }
 
 .checkout-section-subtitle {
-  @apply text-sm text-zinc-500;
+  @apply text-sm font-normal text-zinc-600;
 }
 
 .checkout-section-body {
@@ -1973,7 +1991,7 @@ textarea {
 }
 
 .checkout-field-label {
-  @apply mb-1.5 block text-xs text-zinc-600;
+  @apply mb-1.5 block text-xs font-normal text-zinc-600;
 }
 
 .checkout-field-input {
@@ -2046,7 +2064,7 @@ textarea {
 }
 
 .checkout-policy-modal-body {
-  @apply overflow-y-auto px-5 py-4 text-sm leading-relaxed text-zinc-600;
+  @apply overflow-y-auto px-5 py-4 text-sm font-normal leading-[1.65] text-zinc-700;
 }
 
 .checkout-policy-modal-body p + p {
