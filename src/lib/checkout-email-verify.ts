@@ -4,6 +4,10 @@ import { cookies } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import { sendEmail } from "@/lib/email";
 import { useSecureCookies } from "@/lib/auth";
+import {
+  buildTrizenVerificationEmailHtml,
+  buildTrizenVerificationEmailText,
+} from "@/lib/trizen-email-template";
 
 const COOKIE = "trizen_checkout_email_verified";
 const CODE_TTL_MS = 10 * 60 * 1000;
@@ -42,51 +46,23 @@ export function generateCheckoutEmailCode() {
 }
 
 function buildCheckoutVerifyEmailHtml(email: string, code: string) {
-  return `<!DOCTYPE html>
-<html lang="en">
-  <body style="margin:0;padding:48px 20px;background:#ffffff;font family:-apple system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans serif">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:420px;margin:0 auto">
-      <tr>
-        <td align="center" style="padding bottom:28px">
-          <span style="font size:24px;font weight:700;letter spacing:-0.03em;color:#18181b">TRIZEN</span>
-        </td>
-      </tr>
-      <tr>
-        <td style="border top:1px solid #e4e4e7;padding top:32px">
-          <p style="margin:0 0 6px;font size:15px;line height:1.6;color:#71717a;text align:center">
-            Continue checkout as
-          </p>
-          <p style="margin:0 0 28px;font size:15px;line height:1.6;color:#18181b;text align:center;font weight:500">
-            ${email}
-          </p>
-          <p style="margin:0 0 24px;font size:15px;line height:1.6;color:#71717a;text align:center">
-            Enter this code to verify:
-          </p>
-          <p style="margin:0 0 32px;font size:40px;line height:1;font weight:700;letter spacing:0.14em;color:#18181b;text align:center;font variant numeric:tabular nums">
-            ${code}
-          </p>
-          <p style="margin:0;font size:13px;line height:1.5;color:#a1a1aa;text align:center">
-            Expires in 10 minutes
-          </p>
-        </td>
-      </tr>
-    </table>
-  </body>
-</html>`;
+  return buildTrizenVerificationEmailHtml({
+    eyebrow: "Checkout verification",
+    intro: "Continue checkout with the code below.",
+    email,
+    codeLabel: "Your verification code",
+    code,
+  });
 }
 
 function buildCheckoutVerifyEmailText(email: string, code: string) {
-  return [
-    "TRIZEN",
-    "",
-    `Continue checkout as ${email}`,
-    "",
-    "Enter this code to verify:",
-    "",
+  return buildTrizenVerificationEmailText({
+    eyebrow: "Checkout verification",
+    intro: "Continue checkout with the code below.",
+    email,
+    codeLabel: "Your verification code",
     code,
-    "",
-    "Expires in 10 minutes.",
-  ].join("\n");
+  });
 }
 
 export async function sendCheckoutEmailCode(userId: string, email: string) {
