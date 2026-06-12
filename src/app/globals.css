@@ -1874,7 +1874,13 @@ textarea {
 }
 
 .checkout-brand-wordmark {
-  @apply inline-block text-[1.35rem] font-bold uppercase leading-none tracking-tight text-zinc-900 sm:text-2xl;
+  @apply inline-block font-black text-zinc-900 leading-none;
+  font-family: "New Academy", var(--font-sans);
+  font-size: clamp(2.25rem, 7vw, 2.875rem);
+  font-synthesis: weight;
+  letter-spacing: 0.04em;
+  -webkit-text-stroke: 0.025em currentColor;
+  paint-order: stroke fill;
 }
 
 .checkout-header-cart {
