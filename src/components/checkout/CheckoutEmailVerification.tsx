@@ -131,7 +131,6 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
       <p className="checkout-email-verify-subtitle">
         Code sent to <strong>{email}</strong>
       </p>
-      <p className="checkout-email-verify-spam-hint">Check spam if you don&apos;t see it.</p>
 
       <div className="checkout-email-verify-form">
         <div className="checkout-email-verify-digits">
