@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
-import { cn, DELIVERY_CHARGE, formatCurrency } from "@/lib/utils";
+import { DELIVERY_CHARGE, formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/Button";
 import { PaymentMethodId, buildPaymentRef, isBkashPayment } from "@/lib/checkout";
 import {
@@ -90,7 +90,6 @@ export default function CheckoutPage() {
   const sub = subtotal();
   const total = sub + DELIVERY_CHARGE;
   const checkingEmail = emailVerified === null;
-  const verifyPhase = !checkingEmail && !emailVerified;
 
   if (items.length === 0) {
     return (
@@ -167,8 +166,8 @@ export default function CheckoutPage() {
 
   return (
     <div className="checkout-page bg-white">
-      <div className={cn("checkout-layout", verifyPhase && "checkout-layout--verify")}>
-        <main className={cn("checkout-main", verifyPhase && "checkout-main--verify")}>
+      <div className="checkout-layout">
+        <main className="checkout-main checkout-main--split">
           <header className="checkout-main-header">
             <Link href="/" className="checkout-brand-wordmark">
               Trizen
@@ -209,7 +208,7 @@ export default function CheckoutPage() {
             </div>
           ) : (
             <>
-          <div className="checkout-top-zone">
+          <div className="checkout-top-zone lg:hidden">
             <CheckoutUpsell />
             <CheckoutMobileCart />
           </div>
@@ -335,7 +334,7 @@ export default function CheckoutPage() {
           )}
         </main>
 
-        <aside className={cn("checkout-sidebar", verifyPhase && "checkout-sidebar--verify")}>
+        <aside className="checkout-sidebar checkout-sidebar--split">
           {emailVerified ? (
             <CheckoutSidebar
               items={items}
@@ -345,7 +344,6 @@ export default function CheckoutPage() {
             />
           ) : (
             <div className="checkout-sidebar-inner checkout-sidebar-empty">
-              <h2 className="checkout-sidebar-empty-heading">Order summary</h2>
               <p className="checkout-sidebar-empty-text">Your cart is empty</p>
             </div>
           )}
