@@ -7,6 +7,8 @@ import { LogIn } from "lucide-react";
 type Props = {
   email: string;
   onVerified: () => void;
+  onEmailChange?: (email: string) => void;
+  signedIn?: boolean;
 };
 
 type Step = "confirm" | "code";
@@ -55,7 +57,12 @@ export function CheckoutVerifyFooter() {
   );
 }
 
-export function CheckoutEmailVerification({ email, onVerified }: Props) {
+export function CheckoutEmailVerification({
+  email,
+  onVerified,
+  onEmailChange,
+  signedIn = false,
+}: Props) {
   const [step, setStep] = useState<Step>("confirm");
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
@@ -71,7 +78,11 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
     submittedRef.current = "";
     setDigits(["", "", "", "", "", ""]);
     try {
-      const res = await fetch("/api/checkout/verify-email/send", { method: "POST" });
+      const res = await fetch("/api/checkout/verify-email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim() }),
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to send code");
       if (data.devCode) setDevCode(String(data.devCode));
@@ -98,7 +109,7 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
       const res = await fetch("/api/checkout/verify-email/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code }),
+        body: JSON.stringify({ code, email: email.trim() }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Verification failed");
@@ -151,10 +162,26 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
     return (
       <div className="checkout-email-verify checkout-email-verify--confirm">
         <div className="checkout-email-confirm">
-          <div className="checkout-email-confirm-avatar" aria-hidden>
-            {email.charAt(0).toUpperCase() || "?"}
-          </div>
-          <p className="checkout-email-confirm-email">{email}</p>
+          {signedIn ? (
+            <>
+              <div className="checkout-email-confirm-avatar" aria-hidden>
+                {email.charAt(0).toUpperCase() || "?"}
+              </div>
+              <p className="checkout-email-confirm-email">{email}</p>
+            </>
+          ) : (
+            <label className="checkout-email-guest-field">
+              <span className="sr-only">Email address</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => onEmailChange?.(e.target.value)}
+                placeholder="Email address"
+                autoComplete="email"
+                className="checkout-email-guest-input"
+              />
+            </label>
+          )}
 
           {error ? (
             <p className="checkout-email-verify-error checkout-email-confirm-error">{error}</p>
@@ -169,10 +196,17 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
             {sending ? "Sending…" : "Continue"}
           </button>
 
-          <Link href="/account" className="checkout-email-confirm-alt">
-            <LogIn className="h-4 w-4" strokeWidth={1.75} aria-hidden />
-            Use a different account
-          </Link>
+          {signedIn ? (
+            <Link href="/account" className="checkout-email-confirm-alt">
+              <LogIn className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+              Use a different account
+            </Link>
+          ) : (
+            <Link href="/sign-in?next=/checkout" className="checkout-email-confirm-alt">
+              <LogIn className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+              Sign in
+            </Link>
+          )}
         </div>
       </div>
     );

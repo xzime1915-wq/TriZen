@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { ProductImage } from "@/components/ProductImage";
 import { useCart } from "@/lib/cart-store";
 import { formatCurrency } from "@/lib/utils";
@@ -9,21 +8,13 @@ import { Button } from "@/components/Button";
 import { Minus, Plus, Trash2 } from "lucide-react";
 
 export default function CartPage() {
-  const { items, updateQuantity, removeItem, subtotal } = useCart();
-  const [signedIn, setSignedIn] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    fetch("/api/auth/me")
-      .then((r) => r.json())
-      .then(({ user }) => setSignedIn(!!user))
-      .catch(() => setSignedIn(false));
-  }, []);
+  const { items, updateQuantity, removeItem } = useCart();
 
   if (items.length === 0) {
     return (
       <div className="container-trizen py-20 text-center">
-        <h1 className="text-2xl font-bold uppercase mb-4">Your Cart</h1>
-        <p className="text-[var(--color-muted)] mb-8">Your cart is empty.</p>
+        <h1 className="mb-4 text-2xl font-bold uppercase">Your Cart</h1>
+        <p className="mb-8 text-[var(--color-muted)]">Your cart is empty.</p>
         <Link href="/shop">
           <Button>Continue Shopping</Button>
         </Link>
@@ -35,8 +26,8 @@ export default function CartPage() {
     <div className="overflow-x-hidden">
       <div className="container-trizen max-w-full py-8 sm:py-12">
         <h1 className="mb-6 text-2xl font-bold uppercase tracking-wide sm:mb-8">Your Cart</h1>
-        <div className="grid min-w-0 gap-6 lg:grid-cols-3 lg:gap-10">
-          <div className="min-w-0 space-y-4 lg:col-span-2">
+        <div className="mx-auto max-w-2xl space-y-6">
+          <div className="space-y-4">
             {items.map((item) => (
               <div
                 key={`${item.productId}${item.color ? `-${item.color}` : ""}`}
@@ -52,14 +43,12 @@ export default function CartPage() {
                     />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-start justify-between gap-3">
-                      <h3 className="min-w-0 text-sm font-medium leading-snug sm:text-base">
-                        {item.name}
-                      </h3>
-                      <p className="shrink-0 text-sm font-semibold tabular-nums">
-                        {formatCurrency(item.price * item.quantity)}
-                      </p>
-                    </div>
+                    <h3 className="break-words text-sm font-medium leading-snug sm:text-base">
+                      {item.name}
+                    </h3>
+                    <p className="mt-2 text-sm font-semibold tabular-nums">
+                      {formatCurrency(item.price * item.quantity)}
+                    </p>
                     <p className="mt-1 text-xs text-[var(--color-muted)] sm:text-sm">
                       {formatCurrency(item.price)} each
                     </p>
@@ -99,31 +88,16 @@ export default function CartPage() {
               </div>
             ))}
           </div>
-          <div className="min-w-0 h-fit overflow-hidden border border-[var(--color-border)] bg-[var(--color-surface-elevated)] p-4 sm:p-6">
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-widest">
-              Order Summary
-            </h2>
-            <div className="mb-2 flex items-center justify-between gap-3 text-sm">
-              <span className="text-[var(--color-muted)]">Subtotal</span>
-              <span className="shrink-0 tabular-nums">{formatCurrency(subtotal())}</span>
-            </div>
-            <p className="mb-6 text-xs leading-relaxed text-[var(--color-muted)]">
-              ৳120 delivery charge added at checkout (COD)
-            </p>
-            <p className="mb-4 text-xs leading-relaxed text-[var(--color-muted)]">
-              Sign in required to place an order.
-            </p>
-            <Link
-              href={signedIn ? "/checkout" : "/sign-in?next=/checkout"}
-              className="block min-w-0"
-            >
+
+          <div className="space-y-3 pt-2">
+            <Link href="/checkout" className="block min-w-0">
               <Button className="w-full max-w-full whitespace-normal px-4 leading-snug tracking-wide">
-                {signedIn === false ? "Sign in to Checkout" : "Proceed to Checkout"}
+                Proceed to Checkout
               </Button>
             </Link>
             <Link
               href="/shop"
-              className="mt-3 block text-center text-xs uppercase tracking-wide text-[var(--color-muted)] hover:text-[var(--color-foreground)]"
+              className="block text-center text-xs uppercase tracking-wide text-[var(--color-muted)] hover:text-[var(--color-foreground)]"
             >
               Continue Shopping
             </Link>

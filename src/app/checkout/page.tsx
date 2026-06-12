@@ -187,6 +187,10 @@ export default function CheckoutPage() {
             <div className="checkout-verify-flow">
               <CheckoutEmailVerification
                 email={form.customerEmail}
+                signedIn={signedIn}
+                onEmailChange={(customerEmail) =>
+                  setForm((prev) => ({ ...prev, customerEmail }))
+                }
                 onVerified={() => setEmailVerified(true)}
               />
               <CheckoutMobileOrderSummary
@@ -208,7 +212,11 @@ export default function CheckoutPage() {
 
           <form onSubmit={handleSubmit} className="checkout-form">
             <div className="checkout-form-fields">
-              <CheckoutBillingForm form={form} onChange={setForm} emailReadOnly={signedIn} />
+              <CheckoutBillingForm
+                form={form}
+                onChange={setForm}
+                emailReadOnly={signedIn || emailVerified === true}
+              />
 
               <CheckoutSection title="Delivery method">
                 <div className="checkout-delivery-method">

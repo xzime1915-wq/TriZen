@@ -1592,6 +1592,14 @@ textarea {
   @apply inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-zinc-800;
 }
 
+.checkout-email-guest-field {
+  @apply w-full;
+}
+
+.checkout-email-guest-input {
+  @apply w-full rounded-full border border-zinc-200 bg-white px-5 py-4 text-center text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900;
+}
+
 .checkout-email-verify-footer {
   @apply mt-auto justify-center px-1 pb-2 pt-10 text-center sm:pb-4;
 }

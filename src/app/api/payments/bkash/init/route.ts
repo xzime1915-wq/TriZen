@@ -2,7 +2,11 @@ import { NextResponse } from "next/server";
 import { createBkashPayment, isBkashConfigured } from "@/lib/bkash";
 import { createOrder } from "@/lib/orders";
 import { parseCreateOrderPayload } from "@/lib/order-validation";
-import { requireCheckoutEmailVerified } from "@/lib/checkout-email-verify";
+import {
+  checkoutVerifyUserId,
+  normalizeCheckoutEmail,
+  requireCheckoutEmailVerified,
+} from "@/lib/checkout-email-verify";
 import { getUserSession } from "@/lib/user-auth";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
 import { prisma } from "@/lib/prisma";
@@ -33,12 +37,15 @@ export async function POST(request: Request) {
     }
 
     const session = await getUserSession();
-    if (!session) {
-      return NextResponse.json({ error: "Sign in required." }, { status: 401 });
-    }
+    const customerEmail = normalizeCheckoutEmail(
+      session?.email ?? parsed.customerEmail
+    );
 
     try {
-      await requireCheckoutEmailVerified(session.id, session.email);
+      await requireCheckoutEmailVerified(
+        checkoutVerifyUserId(session?.id, customerEmail),
+        customerEmail
+      );
     } catch {
       return NextResponse.json(
         { error: "Please verify your email before placing an order." },
@@ -47,9 +54,9 @@ export async function POST(request: Request) {
     }
 
     const order = await createOrder({
-      userId: session.id,
+      userId: session?.id ?? null,
       ...parsed,
-      customerEmail: session.email,
+      customerEmail,
       paymentMethod: "bkash",
       paymentRef: null,
       status: "pending_payment",

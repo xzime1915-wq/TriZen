@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createOrder } from "@/lib/orders";
-import { requireCheckoutEmailVerified } from "@/lib/checkout-email-verify";
+import {
+  checkoutVerifyUserId,
+  normalizeCheckoutEmail,
+  requireCheckoutEmailVerified,
+} from "@/lib/checkout-email-verify";
 import { getUserSession } from "@/lib/user-auth";
 import { parseCreateOrderPayload } from "@/lib/order-validation";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
@@ -24,15 +28,15 @@ export async function POST(request: Request) {
     }
 
     const session = await getUserSession();
-    if (!session) {
-      return NextResponse.json(
-        { error: "Sign in required to place an order." },
-        { status: 401 }
-      );
-    }
+    const customerEmail = normalizeCheckoutEmail(
+      session?.email ?? parsed.customerEmail
+    );
 
     try {
-      await requireCheckoutEmailVerified(session.id, session.email);
+      await requireCheckoutEmailVerified(
+        checkoutVerifyUserId(session?.id, customerEmail),
+        customerEmail
+      );
     } catch {
       return NextResponse.json(
         { error: "Please verify your email before placing an order." },
@@ -41,9 +45,9 @@ export async function POST(request: Request) {
     }
 
     const order = await createOrder({
-      userId: session.id,
+      userId: session?.id ?? null,
       ...parsed,
-      customerEmail: session.email,
+      customerEmail,
     });
 
     return NextResponse.json(order, { status: 201 });

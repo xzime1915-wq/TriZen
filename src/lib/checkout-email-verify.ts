@@ -9,6 +9,22 @@ const COOKIE = "trizen_checkout_email_verified";
 const CODE_TTL_MS = 10 * 60 * 1000;
 const SESSION_TTL_SEC = 30 * 60;
 
+export function normalizeCheckoutEmail(email: string) {
+  return email.trim().toLowerCase();
+}
+
+export function isCheckoutEmailAddress(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizeCheckoutEmail(email));
+}
+
+export function guestCheckoutUserId(email: string) {
+  return `guest:${normalizeCheckoutEmail(email)}`;
+}
+
+export function checkoutVerifyUserId(userId: string | null | undefined, email: string) {
+  return userId ?? guestCheckoutUserId(email);
+}
+
 function getSecret() {
   const secret = process.env.JWT_SECRET;
   if (!secret) throw new Error("JWT_SECRET is not set");
