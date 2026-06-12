@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { LogIn } from "lucide-react";
+import { CheckoutFooterLinks } from "@/components/checkout/CheckoutFooterLinks";
 
 type Props = {
   email: string;
@@ -46,15 +47,7 @@ function DigitInput({
 }
 
 export function CheckoutVerifyFooter() {
-  return (
-    <footer className="checkout-footer-links checkout-email-verify-footer">
-      <Link href="/terms">Refund policy</Link>
-      <Link href="/contact">Shipping</Link>
-      <Link href="/privacy">Privacy policy</Link>
-      <Link href="/terms">Terms of service</Link>
-      <Link href="/contact">Contact</Link>
-    </footer>
-  );
+  return <CheckoutFooterLinks className="checkout-email-verify-footer" />;
 }
 
 export function CheckoutEmailVerification({

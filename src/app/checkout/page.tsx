@@ -24,6 +24,7 @@ import {
   CheckoutEmailVerification,
   CheckoutVerifyFooter,
 } from "@/components/checkout/CheckoutEmailVerification";
+import { CheckoutFooterLinks } from "@/components/checkout/CheckoutFooterLinks";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -322,13 +323,7 @@ export default function CheckoutPage() {
                     : "Place order"}
               </button>
 
-              <footer className="checkout-footer-links lg:hidden">
-                <Link href="/terms">Refund policy</Link>
-                <Link href="/contact">Shipping</Link>
-                <Link href="/privacy">Privacy policy</Link>
-                <Link href="/terms">Terms of service</Link>
-                <Link href="/contact">Contact</Link>
-              </footer>
+              <CheckoutFooterLinks className="lg:hidden" />
             </div>
           </form>
             </>
