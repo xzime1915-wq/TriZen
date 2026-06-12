@@ -14,6 +14,7 @@
     Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
+  --font-brand: "New Academy", "Arial Narrow", sans-serif;
   /* Site-wide: one step larger type scale */
   --text-xs: 0.875rem;
   --text-sm: 1rem;
@@ -290,6 +291,16 @@ textarea {
     width: 100vw;
     max-width: 100vw;
     margin-inline: calc(50% - 50vw);
+  }
+
+  .trizen-brand-wordmark {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    font-synthesis: none;
+    letter-spacing: 0.04em;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   .trizen-eyebrow {
@@ -1892,15 +1903,9 @@ textarea {
 }
 
 .checkout-brand-wordmark {
-  @apply inline-block shrink-0 leading-none text-black;
-  font-family: var(--font-sans);
+  @apply trizen-brand-wordmark inline-block shrink-0 leading-none text-black;
   font-size: clamp(2rem, 6vw, 2.5rem);
-  font-weight: 700;
-  font-synthesis: none;
-  letter-spacing: 0.02em;
-  text-rendering: geometricPrecision;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.05em;
 }
 
 .checkout-header-cart {

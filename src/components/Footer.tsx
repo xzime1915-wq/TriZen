@@ -136,9 +136,10 @@ export function Footer() {
       <div className="border-t border-[var(--color-border)] overflow-hidden">
         <div className="flex justify-center py-6 md:py-10">
           <span
-            className="block w-full select-none whitespace-nowrap text-center font-black leading-[0.8] tracking-[0.04em] text-[var(--color-foreground)] text-[21vw]"
+            className="trizen-brand-wordmark block w-full select-none whitespace-nowrap text-center leading-[0.8] text-[var(--color-foreground)] text-[21vw]"
             style={{
               WebkitTextStroke: "0.02em var(--color-foreground)",
+              paintOrder: "stroke fill",
             }}
           >
             TriZen
