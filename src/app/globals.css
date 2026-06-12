@@ -1820,7 +1820,7 @@ textarea {
 }
 
 .checkout-verify-flow {
-  @apply flex w-full flex-col;
+  @apply flex w-full min-w-0 flex-col overflow-x-hidden;
 }
 
 .checkout-mobile-order-summary {
@@ -1856,7 +1856,7 @@ textarea {
 }
 
 .checkout-main {
-  @apply order-2 px-5 py-8 sm:px-8 lg:order-1 lg:py-12;
+  @apply order-2 min-w-0 overflow-x-hidden px-5 py-8 sm:px-8 lg:order-1 lg:py-12;
 }
 
 .checkout-main-header {
