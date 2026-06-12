@@ -96,7 +96,7 @@ export function Footer() {
             <div className="flex items-center gap-3 mb-5">
               <TrizenLogo variant="on-dark" width={44} height={44} />
               <span className="text-sm font-semibold tracking-[0.22em] uppercase text-[var(--color-foreground)]">
-                TriZen Store
+                Trizen Store
               </span>
             </div>
             <p className="trizen-detail max-w-md text-[var(--color-muted)]">
@@ -142,7 +142,7 @@ export function Footer() {
               paintOrder: "stroke fill",
             }}
           >
-            TriZen
+            Trizen
           </span>
         </div>
       </div>
@@ -150,7 +150,7 @@ export function Footer() {
       <div className="border-t border-[var(--color-border)]">
         <div className="container-trizen py-4 text-center">
           <p className="text-[11px] text-[var(--color-muted)]">
-            © {year} <span className="text-[var(--color-foreground)]">TriZen Store</span>
+            © {year} <span className="text-[var(--color-foreground)]">Trizen Store</span>
           </p>
         </div>
       </div>
