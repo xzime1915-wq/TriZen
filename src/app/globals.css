@@ -1881,7 +1881,6 @@ textarea {
   @apply h-auto w-auto max-w-none;
   height: clamp(1.75rem, 5.5vw, 2.25rem);
   width: auto;
-  filter: brightness(0);
 }
 
 .checkout-header-cart {
