@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
-import { DELIVERY_CHARGE, formatCurrency } from "@/lib/utils";
+import { cn, DELIVERY_CHARGE, formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/Button";
 import { PaymentMethodId, buildPaymentRef, isBkashPayment } from "@/lib/checkout";
 import {
@@ -90,6 +90,7 @@ export default function CheckoutPage() {
   const sub = subtotal();
   const total = sub + DELIVERY_CHARGE;
   const checkingEmail = emailVerified === null;
+  const verifyPhase = !checkingEmail && !emailVerified;
 
   if (items.length === 0) {
     return (
@@ -166,8 +167,8 @@ export default function CheckoutPage() {
 
   return (
     <div className="checkout-page bg-white">
-      <div className="checkout-layout">
-        <main className="checkout-main">
+      <div className={cn("checkout-layout", verifyPhase && "checkout-layout--verify")}>
+        <main className={cn("checkout-main", verifyPhase && "checkout-main--verify")}>
           <header className="checkout-main-header">
             <Link href="/" className="checkout-brand-wordmark">
               Trizen
@@ -334,7 +335,7 @@ export default function CheckoutPage() {
           )}
         </main>
 
-        <aside className="checkout-sidebar">
+        <aside className={cn("checkout-sidebar", verifyPhase && "checkout-sidebar--verify")}>
           {emailVerified ? (
             <CheckoutSidebar
               items={items}
@@ -344,7 +345,8 @@ export default function CheckoutPage() {
             />
           ) : (
             <div className="checkout-sidebar-inner checkout-sidebar-empty">
-              <p>Your cart is empty</p>
+              <h2 className="checkout-sidebar-empty-heading">Order summary</h2>
+              <p className="checkout-sidebar-empty-text">Your cart is empty</p>
             </div>
           )}
         </aside>
