@@ -1560,7 +1560,7 @@ textarea {
 }
 
 .checkout-email-verify {
-  @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 overflow-x-hidden px-0 pt-2 text-center normal-case lg:ml-auto lg:mr-0 lg:max-w-[400px];
+  @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 px-0 pt-2 text-center normal-case lg:ml-auto lg:mr-0 lg:w-full lg:max-w-[400px];
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -1621,19 +1621,19 @@ textarea {
 }
 
 .checkout-email-verify-digits {
-  @apply flex w-full min-w-0 max-w-full items-center justify-center gap-2 sm:gap-4;
+  @apply flex w-full max-w-full items-center justify-center gap-1.5 sm:gap-3 lg:gap-2;
 }
 
 .checkout-email-verify-group {
-  @apply flex items-center gap-1.5 sm:gap-2.5;
+  @apply flex shrink-0 items-center gap-1.5 sm:gap-2 lg:gap-1.5;
 }
 
 .checkout-email-verify-sep {
-  @apply h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-300;
+  @apply mx-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-300;
 }
 
 .checkout-email-verify-digit {
-  @apply h-10 w-10 rounded-lg border border-zinc-200 bg-zinc-100 p-0 text-center text-base font-semibold text-zinc-900 shadow-[0_2px_8px_rgba(0,0,0,0.08)] outline-none transition sm:h-14 sm:w-14 sm:rounded-xl sm:text-xl;
+  @apply h-10 w-10 shrink-0 rounded-lg border border-zinc-200 bg-zinc-100 p-0 text-center text-base font-semibold text-zinc-900 shadow-[0_2px_8px_rgba(0,0,0,0.08)] outline-none transition sm:h-11 sm:w-11 lg:h-10 lg:w-10 lg:text-base;
 }
 
 .checkout-email-verify-digit:focus {
@@ -1828,7 +1828,7 @@ textarea {
 }
 
 .checkout-verify-flow {
-  @apply flex min-h-[calc(100dvh-11rem)] w-full min-w-0 flex-col overflow-x-hidden sm:min-h-[calc(100dvh-10rem)] lg:ml-auto lg:mr-0 lg:min-h-0 lg:max-w-[400px] lg:flex-1;
+  @apply flex min-h-[calc(100dvh-11rem)] w-full min-w-0 flex-col sm:min-h-[calc(100dvh-10rem)] lg:ml-auto lg:mr-0 lg:min-h-0 lg:w-full lg:max-w-[400px] lg:flex-1;
 }
 
 .checkout-mobile-order-summary {
@@ -1864,7 +1864,7 @@ textarea {
 }
 
 .checkout-main {
-  @apply order-2 min-w-0 overflow-x-hidden px-5 py-8 sm:px-8 lg:order-1 lg:flex lg:flex-col lg:items-end lg:py-12 lg:pl-10 lg:pr-8;
+  @apply order-2 min-w-0 px-5 py-8 sm:px-8 lg:order-1 lg:flex lg:flex-col lg:items-end lg:overflow-visible lg:py-12 lg:pl-10 lg:pr-6;
 }
 
 .checkout-main-header {
