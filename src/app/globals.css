@@ -1593,7 +1593,7 @@ textarea {
 }
 
 .checkout-email-verify-footer {
-  @apply mt-10 justify-center pb-6 text-center;
+  @apply mt-auto justify-center px-1 pb-2 pt-10 text-center sm:pb-4;
 }
 
 .checkout-email-verify-title {
@@ -1820,7 +1820,7 @@ textarea {
 }
 
 .checkout-verify-flow {
-  @apply flex w-full min-w-0 flex-col overflow-x-hidden;
+  @apply flex min-h-[calc(100dvh-11rem)] w-full min-w-0 flex-col overflow-x-hidden sm:min-h-[calc(100dvh-10rem)] lg:min-h-[calc(100dvh-9rem)];
 }
 
 .checkout-mobile-order-summary {

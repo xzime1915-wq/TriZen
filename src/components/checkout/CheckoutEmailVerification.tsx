@@ -45,7 +45,7 @@ function DigitInput({
 
 export function CheckoutVerifyFooter() {
   return (
-    <footer className="checkout-footer-links checkout-email-verify-footer lg:hidden">
+    <footer className="checkout-footer-links checkout-email-verify-footer">
       <Link href="/terms">Refund policy</Link>
       <Link href="/contact">Shipping</Link>
       <Link href="/privacy">Privacy policy</Link>
