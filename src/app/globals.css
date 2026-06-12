@@ -1565,7 +1565,7 @@ textarea {
 }
 
 .checkout-email-verify--confirm {
-  @apply min-h-[calc(100vh-12rem)] justify-between space-y-10 pb-4 pt-10 sm:min-h-[calc(100vh-10rem)] sm:pt-16;
+  @apply min-h-0 justify-start space-y-0 pb-0 pt-10 sm:pt-16;
 }
 
 .checkout-email-confirm {
@@ -1593,7 +1593,7 @@ textarea {
 }
 
 .checkout-email-verify-footer {
-  @apply justify-center;
+  @apply relative left-1/2 mt-10 w-screen max-w-none -translate-x-1/2 justify-center px-5 pb-6 sm:px-8;
 }
 
 .checkout-email-verify-title {
@@ -1819,20 +1819,40 @@ textarea {
   @apply mb-5 text-lg font-semibold text-zinc-900;
 }
 
+.checkout-verify-flow {
+  @apply w-full;
+}
+
 .checkout-mobile-order-summary {
   @apply -mx-5 border-t border-zinc-200 bg-zinc-50 px-5 py-6 sm:-mx-8 sm:px-8;
 }
 
+.checkout-mobile-order-summary--verify {
+  @apply relative left-1/2 mt-10 w-screen max-w-none -translate-x-1/2 border-t border-zinc-200 bg-white px-5 py-8 text-left sm:px-8;
+}
+
 .checkout-order-summary-accordion {
-  @apply w-full;
+  @apply mx-auto w-full max-w-[540px] sm:max-w-[580px];
 }
 
 .checkout-order-summary-accordion-toggle {
-  @apply flex w-full items-center justify-between gap-3 py-1 text-left;
+  @apply flex w-full items-center justify-between gap-4 py-2 text-left;
+}
+
+.checkout-order-summary-accordion-label {
+  @apply text-base font-medium text-zinc-900;
 }
 
 .checkout-order-summary-accordion-body {
-  @apply pt-4;
+  @apply space-y-8 pt-8 text-center;
+}
+
+.checkout-order-summary-empty-text {
+  @apply text-sm text-zinc-400;
+}
+
+.checkout-order-summary-back {
+  @apply inline-block text-sm text-zinc-400 transition hover:text-zinc-700;
 }
 
 .checkout-main {

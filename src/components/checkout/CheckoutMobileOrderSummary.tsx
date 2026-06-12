@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import type { CartItem } from "@/lib/cart-store";
 import { CheckoutOrderSummaryPanel } from "./CheckoutOrderSummaryPanel";
@@ -11,6 +12,7 @@ type Props = {
   deliveryCharge: number;
   total: number;
   empty?: boolean;
+  showBack?: boolean;
 };
 
 export function CheckoutMobileOrderSummary({
@@ -19,12 +21,13 @@ export function CheckoutMobileOrderSummary({
   deliveryCharge,
   total,
   empty = false,
+  showBack = false,
 }: Props) {
   const [open, setOpen] = useState(true);
 
   if (empty) {
     return (
-      <div className="checkout-mobile-order-summary lg:hidden">
+      <div className="checkout-mobile-order-summary checkout-mobile-order-summary--verify lg:hidden">
         <div className="checkout-order-summary-accordion">
           <button
             type="button"
@@ -32,16 +35,21 @@ export function CheckoutMobileOrderSummary({
             className="checkout-order-summary-accordion-toggle"
             aria-expanded={open}
           >
-            <span className="text-sm font-medium text-zinc-900">Order summary</span>
+            <span className="checkout-order-summary-accordion-label">Order summary</span>
             <ChevronDown
-              className={`h-4 w-4 text-zinc-500 transition-transform ${open ? "rotate-180" : ""}`}
+              className={`h-5 w-5 shrink-0 text-zinc-500 transition-transform ${open ? "rotate-180" : ""}`}
               strokeWidth={2}
               aria-hidden
             />
           </button>
           {open ? (
             <div className="checkout-order-summary-accordion-body">
-              <p className="text-sm text-zinc-400">Your cart is empty</p>
+              <p className="checkout-order-summary-empty-text">Your cart is empty</p>
+              {showBack ? (
+                <Link href="/cart" className="checkout-order-summary-back">
+                  Back
+                </Link>
+              ) : null}
             </div>
           ) : null}
         </div>

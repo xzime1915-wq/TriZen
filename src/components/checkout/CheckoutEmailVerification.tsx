@@ -178,12 +178,6 @@ export function CheckoutEmailVerification({ email, onVerified, children }: Props
 
         {children}
 
-        <div className="checkout-email-confirm">
-          <Link href="/cart" className="checkout-email-verify-link-secondary">
-            Back
-          </Link>
-        </div>
-
         <VerifyFooterLinks />
       </div>
     );

@@ -181,7 +181,7 @@ export default function CheckoutPage() {
               Loading checkout...
             </div>
           ) : !emailVerified ? (
-            <div className="checkout-form">
+            <div className="checkout-verify-flow">
               <CheckoutEmailVerification
                 email={form.customerEmail}
                 onVerified={() => setEmailVerified(true)}
@@ -192,6 +192,7 @@ export default function CheckoutPage() {
                   deliveryCharge={DELIVERY_CHARGE}
                   total={total}
                   empty
+                  showBack
                 />
               </CheckoutEmailVerification>
             </div>
