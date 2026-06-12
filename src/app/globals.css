@@ -1874,12 +1874,12 @@ textarea {
 }
 
 .checkout-brand-wordmark {
-  @apply inline-block shrink-0 uppercase leading-none text-black;
+  @apply inline-block shrink-0 leading-none text-black;
   font-family: "New Academy", sans-serif;
   font-size: clamp(2rem, 6vw, 2.5rem);
   font-weight: 700;
   font-synthesis: none;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
