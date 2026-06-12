@@ -1559,6 +1559,10 @@ textarea {
   @apply overflow-x-hidden text-zinc-900;
 }
 
+.checkout-shell {
+  @apply mx-auto w-full px-5 sm:px-8 lg:max-w-[min(88vw,80rem)] lg:px-8 xl:px-12;
+}
+
 .checkout-email-verify {
   @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 overflow-x-hidden px-0 pt-2 text-center normal-case lg:mx-0 lg:max-w-none lg:items-stretch lg:pt-6;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -1677,7 +1681,7 @@ textarea {
 }
 
 .checkout-layout {
-  @apply grid min-h-screen w-full lg:grid-cols-4;
+  @apply grid min-h-screen w-full lg:grid-cols-2;
 }
 
 .checkout-top-zone {
@@ -1864,7 +1868,7 @@ textarea {
 }
 
 .checkout-main {
-  @apply order-2 min-w-0 overflow-x-hidden bg-white px-5 py-8 sm:px-8 lg:col-start-2 lg:py-12 lg:pl-10 lg:pr-8 xl:pl-12 xl:pr-10;
+  @apply order-2 min-w-0 overflow-x-hidden bg-white py-8 sm:px-0 lg:py-12 lg:pr-6 xl:pr-8;
 }
 
 .checkout-main--split {
@@ -1898,7 +1902,7 @@ textarea {
 }
 
 .checkout-sidebar {
-  @apply hidden border-b border-zinc-200 bg-zinc-100/60 px-5 py-6 sm:px-8 lg:col-start-3 lg:block lg:min-h-screen lg:border-b-0 lg:border-l lg:border-zinc-200 lg:bg-zinc-100 lg:py-12 lg:pl-8 lg:pr-10 xl:pl-10 xl:pr-12;
+  @apply hidden border-b border-zinc-200 bg-zinc-100/60 py-6 lg:block lg:min-h-screen lg:border-b-0 lg:border-l lg:border-zinc-200 lg:bg-zinc-100 lg:py-12 lg:pl-8 lg:pr-6 xl:pl-10 xl:pr-8;
 }
 
 .checkout-sidebar--split .checkout-sidebar-inner {
@@ -1942,22 +1946,23 @@ textarea {
 }
 
 .checkout-sidebar-row {
-  @apply flex items-center justify-between text-sm text-zinc-600;
+  @apply flex items-center justify-between text-sm normal-case text-zinc-600;
 }
 
 .checkout-sidebar-total {
   @apply flex items-center justify-between border-t border-zinc-200 pt-4;
 }
 
-.checkout-sidebar-total-label,
+.checkout-sidebar-total-label {
+  @apply text-base font-semibold text-zinc-900;
+}
+
 .checkout-sidebar-total-amount {
-  @apply text-xl font-black text-black;
-  -webkit-text-stroke: 0.025em currentColor;
-  paint-order: stroke fill;
+  @apply text-base font-semibold tabular-nums text-zinc-900;
 }
 
 .checkout-sidebar-total-currency {
-  @apply text-xs font-normal text-zinc-500;
+  @apply text-sm font-normal text-zinc-500;
 }
 
 .checkout-section {

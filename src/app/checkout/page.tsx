@@ -166,6 +166,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="checkout-page bg-white">
+      <div className="checkout-shell">
       <div className="checkout-layout">
         <main className="checkout-main checkout-main--split">
           <header className="checkout-main-header">
@@ -341,6 +342,7 @@ export default function CheckoutPage() {
             total={total}
           />
         </aside>
+      </div>
       </div>
     </div>
   );
