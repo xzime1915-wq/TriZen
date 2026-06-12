@@ -311,14 +311,16 @@ export default function CheckoutPage() {
           )}
         </main>
 
-        <aside className="checkout-sidebar">
-          <CheckoutSidebar
-            items={items}
-            subtotal={sub}
-            deliveryCharge={DELIVERY_CHARGE}
-            total={total}
-          />
-        </aside>
+        {emailVerified ? (
+          <aside className="checkout-sidebar">
+            <CheckoutSidebar
+              items={items}
+              subtotal={sub}
+              deliveryCharge={DELIVERY_CHARGE}
+              total={total}
+            />
+          </aside>
+        ) : null}
       </div>
     </div>
   );
