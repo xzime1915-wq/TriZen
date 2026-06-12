@@ -18,7 +18,10 @@ import { CheckoutUpsell } from "@/components/checkout/CheckoutUpsell";
 import { CheckoutMobileOrderSummary } from "@/components/checkout/CheckoutMobileOrderSummary";
 import { CheckoutSidebar } from "@/components/checkout/CheckoutSidebar";
 import { PaymentMethodPicker } from "@/components/checkout/PaymentMethodPicker";
-import { CheckoutEmailVerification } from "@/components/checkout/CheckoutEmailVerification";
+import {
+  CheckoutEmailVerification,
+  CheckoutVerifyFooter,
+} from "@/components/checkout/CheckoutEmailVerification";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -185,16 +188,16 @@ export default function CheckoutPage() {
               <CheckoutEmailVerification
                 email={form.customerEmail}
                 onVerified={() => setEmailVerified(true)}
-              >
-                <CheckoutMobileOrderSummary
-                  items={items}
-                  subtotal={sub}
-                  deliveryCharge={DELIVERY_CHARGE}
-                  total={total}
-                  empty
-                  showBack
-                />
-              </CheckoutEmailVerification>
+              />
+              <CheckoutMobileOrderSummary
+                items={items}
+                subtotal={sub}
+                deliveryCharge={DELIVERY_CHARGE}
+                total={total}
+                empty
+                showBack
+              />
+              <CheckoutVerifyFooter />
             </div>
           ) : (
             <>
