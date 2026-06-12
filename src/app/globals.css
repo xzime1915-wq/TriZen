@@ -1557,6 +1557,8 @@ textarea {
 /* Checkout — Shopify-style split layout */
 .checkout-page {
   @apply overflow-x-hidden text-zinc-900;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: normal;
 }
 
 .checkout-email-verify {
@@ -1868,17 +1870,15 @@ textarea {
 }
 
 .checkout-main-header {
-  @apply mx-auto mb-8 flex w-full max-w-[540px] items-center justify-center lg:max-w-none lg:self-stretch;
+  @apply mx-auto mb-8 flex w-full max-w-[540px] items-center justify-between lg:ml-auto lg:mr-0 lg:max-w-[min(560px,calc(50vw-2.5rem))];
 }
 
 .checkout-brand-wordmark {
-  @apply inline-block font-black text-zinc-900 leading-none;
-  font-family: "New Academy", var(--font-sans);
-  font-size: clamp(2.25rem, 7vw, 2.875rem);
-  font-synthesis: weight;
-  letter-spacing: 0.04em;
-  -webkit-text-stroke: 0.025em currentColor;
-  paint-order: stroke fill;
+  @apply inline-block text-[1.35rem] font-bold uppercase leading-none tracking-tight text-zinc-900 sm:text-2xl;
+}
+
+.checkout-header-cart {
+  @apply shrink-0 text-zinc-900 transition hover:text-zinc-600;
 }
 
 .checkout-form {
