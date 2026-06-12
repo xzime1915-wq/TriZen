@@ -69,7 +69,13 @@ function ContactRow({
 
 export function Footer() {
   const pathname = usePathname();
-  if (pathname.startsWith("/admin") || pathname.startsWith("/checkout")) return null;
+  if (
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/checkout") ||
+    pathname === "/cart"
+  ) {
+    return null;
+  }
 
   const year = new Date().getFullYear();
 

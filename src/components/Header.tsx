@@ -7,6 +7,7 @@ import { ShoppingCart, Menu, X, Search, User, MessageCircle } from "lucide-react
 import { useChatStore } from "@/lib/chat-store";
 import { useState, useEffect } from "react";
 import { useCart } from "@/lib/cart-store";
+import { useCartUi } from "@/lib/cart-ui-store";
 import { cn } from "@/lib/utils";
 import { ChatHeaderButton } from "@/components/chat/ChatHeaderButton";
 
@@ -29,6 +30,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const totalItems = useCart((s) => s.totalItems());
+  const openCart = useCartUi((s) => s.openCart);
 
   useEffect(() => setMounted(true), []);
 
@@ -39,7 +41,13 @@ export function Header({ user = null }: { user?: HeaderUser }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  if (pathname.startsWith("/admin") || pathname.startsWith("/checkout")) return null;
+  if (
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/checkout") ||
+    pathname === "/cart"
+  ) {
+    return null;
+  }
 
   const authLinks = user
     ? [{ href: "/account", label: user.name || "Account" }]
@@ -98,8 +106,9 @@ export function Header({ user = null }: { user?: HeaderUser }) {
 
         {/* Mobile: cart only */}
         <div className="ml-auto hidden items-center max-lg:flex">
-          <Link
-            href="/cart"
+          <button
+            type="button"
+            onClick={openCart}
             className="trizen-header-icon relative text-zinc-900"
             aria-label="Cart"
           >
@@ -109,7 +118,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
                 {totalItems > 99 ? "99+" : totalItems}
               </span>
             )}
-          </Link>
+          </button>
         </div>
 
         {/* Desktop: chat, account, search, cart */}
@@ -129,12 +138,17 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           >
             <Search className={iconClass} strokeWidth={iconStroke} />
           </Link>
-          <Link href="/cart" className="trizen-header-icon relative" aria-label="Cart">
+          <button
+            type="button"
+            onClick={openCart}
+            className="trizen-header-icon relative"
+            aria-label="Cart"
+          >
             <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
             {mounted && totalItems > 0 && (
               <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-black ring-2 ring-white" />
             )}
-          </Link>
+          </button>
         </div>
       </div>
 
