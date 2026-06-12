@@ -14,6 +14,16 @@ type Props = {
 
 type Step = "confirm" | "code";
 
+async function readJsonResponse(res: Response) {
+  const text = await res.text();
+  if (!text.trim()) return {};
+  try {
+    return JSON.parse(text) as Record<string, unknown>;
+  } catch {
+    throw new Error("Server error. Please try again.");
+  }
+}
+
 function DigitInput({
   index,
   digit,
@@ -76,8 +86,8 @@ export function CheckoutEmailVerification({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email.trim() }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to send code");
+      const data = await readJsonResponse(res);
+      if (!res.ok) throw new Error(String(data.error || "Failed to send code"));
       if (data.devCode) setDevCode(String(data.devCode));
       return true;
     } catch (err) {
@@ -104,8 +114,8 @@ export function CheckoutEmailVerification({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code, email: email.trim() }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Verification failed");
+      const data = await readJsonResponse(res);
+      if (!res.ok) throw new Error(String(data.error || "Verification failed"));
       onVerified();
     } catch (err) {
       submittedRef.current = "";
