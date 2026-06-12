@@ -1871,18 +1871,16 @@ textarea {
   @apply lg:flex lg:min-h-screen lg:flex-col lg:px-10 lg:py-12 xl:px-14;
 }
 
-.checkout-main--split .checkout-main-header,
-.checkout-main--split .checkout-form,
 .checkout-main--split .checkout-top-zone {
-  @apply lg:mx-0 lg:max-w-none;
+  @apply lg:mx-auto lg:max-w-[580px];
 }
 
 .checkout-main-header {
-  @apply mx-auto mb-8 flex max-w-[540px] items-center justify-between lg:max-w-[580px];
+  @apply mx-auto mb-8 flex w-full max-w-[540px] items-center justify-between lg:max-w-[580px];
 }
 
 .checkout-brand-wordmark {
-  @apply inline-block font-black text-zinc-900 leading-none;
+  @apply inline-block shrink-0 font-black text-zinc-900 leading-none;
   font-family: "New Academy", var(--font-sans);
   font-size: clamp(2.25rem, 7vw, 2.875rem);
   font-synthesis: weight;
