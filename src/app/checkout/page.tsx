@@ -185,7 +185,15 @@ export default function CheckoutPage() {
               <CheckoutEmailVerification
                 email={form.customerEmail}
                 onVerified={() => setEmailVerified(true)}
-              />
+              >
+                <CheckoutMobileOrderSummary
+                  items={items}
+                  subtotal={sub}
+                  deliveryCharge={DELIVERY_CHARGE}
+                  total={total}
+                  empty
+                />
+              </CheckoutEmailVerification>
             </div>
           ) : (
             <>

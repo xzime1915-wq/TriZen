@@ -7,6 +7,7 @@ import { LogIn } from "lucide-react";
 type Props = {
   email: string;
   onVerified: () => void;
+  children?: React.ReactNode;
 };
 
 type Step = "confirm" | "code";
@@ -55,7 +56,7 @@ function VerifyFooterLinks() {
   );
 }
 
-export function CheckoutEmailVerification({ email, onVerified }: Props) {
+export function CheckoutEmailVerification({ email, onVerified, children }: Props) {
   const [step, setStep] = useState<Step>("confirm");
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
@@ -173,7 +174,11 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
             <LogIn className="h-4 w-4" strokeWidth={1.75} aria-hidden />
             Use a different account
           </Link>
+        </div>
 
+        {children}
+
+        <div className="checkout-email-confirm">
           <Link href="/cart" className="checkout-email-verify-link-secondary">
             Back
           </Link>
@@ -271,6 +276,8 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
           </button>
         </div>
       </div>
+
+      {children}
     </div>
   );
 }
