@@ -1560,7 +1560,7 @@ textarea {
 }
 
 .checkout-email-verify {
-  @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 overflow-x-hidden px-0 pt-2 text-center normal-case lg:max-w-[580px];
+  @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 overflow-x-hidden px-0 pt-2 text-center normal-case lg:ml-auto lg:mr-0 lg:max-w-[400px];
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -1601,7 +1601,7 @@ textarea {
 }
 
 .checkout-email-verify-footer {
-  @apply mt-auto justify-center px-1 pb-2 pt-10 text-center sm:pb-4 lg:max-w-[580px] lg:mx-auto lg:w-full;
+  @apply mt-auto w-full justify-center px-1 pb-2 pt-10 text-center uppercase tracking-wide sm:pb-4 lg:ml-auto lg:mr-0 lg:max-w-[400px];
 }
 
 .checkout-email-verify-title {
@@ -1681,7 +1681,7 @@ textarea {
 }
 
 .checkout-top-zone {
-  @apply mx-auto mb-8 w-full max-w-[540px] space-y-3 lg:max-w-[580px];
+  @apply mx-auto mb-8 w-full max-w-[540px] space-y-3 lg:ml-auto lg:mr-0 lg:max-w-[400px];
 }
 
 .checkout-form-fields {
@@ -1824,11 +1824,11 @@ textarea {
 }
 
 .checkout-order-summary-title {
-  @apply mb-5 text-lg font-semibold text-zinc-900;
+  @apply mb-4 text-sm font-semibold uppercase tracking-[0.14em] text-zinc-900;
 }
 
 .checkout-verify-flow {
-  @apply flex min-h-[calc(100dvh-11rem)] w-full min-w-0 flex-col overflow-x-hidden sm:min-h-[calc(100dvh-10rem)] lg:mx-auto lg:min-h-0 lg:max-w-[580px] lg:flex-1;
+  @apply flex min-h-[calc(100dvh-11rem)] w-full min-w-0 flex-col overflow-x-hidden sm:min-h-[calc(100dvh-10rem)] lg:ml-auto lg:mr-0 lg:min-h-0 lg:max-w-[400px] lg:flex-1;
 }
 
 .checkout-mobile-order-summary {
@@ -1864,11 +1864,11 @@ textarea {
 }
 
 .checkout-main {
-  @apply order-2 min-w-0 overflow-x-hidden px-5 py-8 sm:px-8 lg:order-1 lg:flex lg:flex-col lg:py-12;
+  @apply order-2 min-w-0 overflow-x-hidden px-5 py-8 sm:px-8 lg:order-1 lg:flex lg:flex-col lg:items-end lg:py-12 lg:pl-10 lg:pr-8;
 }
 
 .checkout-main-header {
-  @apply mx-auto mb-8 flex max-w-[540px] items-center justify-between lg:max-w-[580px];
+  @apply mx-auto mb-8 flex w-full max-w-[540px] items-center justify-center lg:max-w-none lg:self-stretch;
 }
 
 .checkout-brand-wordmark {
@@ -1882,15 +1882,15 @@ textarea {
 }
 
 .checkout-form {
-  @apply mx-auto flex max-w-[540px] flex-col gap-8 lg:max-w-[580px];
+  @apply mx-auto flex w-full max-w-[540px] flex-col gap-8 lg:ml-auto lg:mr-0 lg:max-w-[400px];
 }
 
 .checkout-sidebar {
-  @apply hidden border-b border-zinc-200 bg-zinc-50 px-5 py-6 sm:px-8 lg:order-2 lg:block lg:min-h-screen lg:border-b-0 lg:border-l lg:border-zinc-200 lg:bg-white lg:px-10 lg:py-12;
+  @apply hidden border-b border-zinc-200 bg-zinc-50 px-5 py-6 sm:px-8 lg:order-2 lg:block lg:min-h-screen lg:border-b-0 lg:border-l lg:border-zinc-200 lg:bg-white lg:py-12 lg:pl-8 lg:pr-10;
 }
 
 .checkout-sidebar-inner {
-  @apply mx-auto w-full max-w-[480px] lg:sticky lg:top-12;
+  @apply w-full max-w-[400px] lg:sticky lg:top-12 lg:mr-auto lg:ml-0;
 }
 
 .checkout-sidebar-empty {
@@ -1898,7 +1898,7 @@ textarea {
 }
 
 .checkout-sidebar-empty-text {
-  @apply text-sm text-zinc-400;
+  @apply text-xs uppercase tracking-[0.12em] text-zinc-400;
 }
 
 .checkout-sidebar-items {

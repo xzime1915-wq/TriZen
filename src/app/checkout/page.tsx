@@ -3,9 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
-import { useCartUi } from "@/lib/cart-ui-store";
 import { DELIVERY_CHARGE, formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/Button";
 import { PaymentMethodId, buildPaymentRef, isBkashPayment } from "@/lib/checkout";
@@ -29,7 +27,6 @@ export default function CheckoutPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { items, subtotal, clearCart } = useCart();
-  const openCart = useCartUi((s) => s.openCart);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethodId>("cod");
@@ -173,14 +170,6 @@ export default function CheckoutPage() {
             <Link href="/" className="checkout-brand-wordmark">
               Trizen
             </Link>
-            <button
-              type="button"
-              onClick={openCart}
-              className="text-zinc-500 transition hover:text-zinc-900"
-              aria-label="Open cart"
-            >
-              <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
-            </button>
           </header>
 
           {checkingEmail ? (
