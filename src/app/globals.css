@@ -1853,6 +1853,10 @@ textarea {
   @apply mx-auto w-full max-w-[480px] lg:sticky lg:top-8;
 }
 
+.checkout-sidebar-empty {
+  @apply min-h-[120px] pt-1 text-sm text-zinc-400;
+}
+
 .checkout-sidebar-items {
   @apply space-y-4;
 }

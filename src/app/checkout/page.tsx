@@ -311,16 +311,20 @@ export default function CheckoutPage() {
           )}
         </main>
 
-        {emailVerified ? (
-          <aside className="checkout-sidebar">
+        <aside className="checkout-sidebar">
+          {emailVerified ? (
             <CheckoutSidebar
               items={items}
               subtotal={sub}
               deliveryCharge={DELIVERY_CHARGE}
               total={total}
             />
-          </aside>
-        ) : null}
+          ) : (
+            <div className="checkout-sidebar-inner checkout-sidebar-empty">
+              <p>Your cart is empty</p>
+            </div>
+          )}
+        </aside>
       </div>
     </div>
   );
