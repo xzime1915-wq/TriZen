@@ -46,7 +46,9 @@ export function CheckoutOrderSummary({
               className="flex items-start justify-between gap-3 rounded-lg border border-[var(--color-border)] bg-zinc-50 px-3 py-3 sm:px-4"
             >
               <div className="min-w-0">
-                <p className="text-sm font-medium text-[var(--color-foreground)]">{item.name}</p>
+                <p className="text-sm font-medium text-[var(--color-foreground)]">
+                  {item.name}
+                </p>
                 <p className="mt-0.5 text-xs text-[var(--color-muted)]">Qty: {item.quantity}</p>
               </div>
               <p className="shrink-0 text-sm font-semibold tabular-nums text-[var(--color-foreground)]">

@@ -26,7 +26,7 @@ export function HomeMinimalCollection({ products }: { products: Product[] }) {
               Collection
             </p>
             <h2 className="mt-3 text-xl font-bold uppercase tracking-tight text-[var(--color-foreground)]">
-              More from TriZen
+              More from TRIZEN
             </h2>
           </div>
           <Link

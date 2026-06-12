@@ -42,7 +42,16 @@ export function SmoothScroll() {
 
     lenisRef.current = lenis;
 
+    function onScrollLock(event: Event) {
+      const locked = Boolean((event as CustomEvent<boolean>).detail);
+      if (locked) lenis.stop();
+      else lenis.start();
+    }
+
+    window.addEventListener("trizen:scroll-lock", onScrollLock);
+
     return () => {
+      window.removeEventListener("trizen:scroll-lock", onScrollLock);
       lenis.destroy();
       lenisRef.current = null;
     };

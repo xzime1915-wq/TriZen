@@ -20,7 +20,7 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Support"
         title="Contact us"
-        description="Questions about TriPad, orders, or shipping — we're here to help."
+        description="Questions about TRIPAD, orders, or shipping, we're here to help."
       />
 
       <div className="container-trizen py-14 md:py-20">
@@ -33,7 +33,7 @@ export default function ContactPage() {
               {
                 icon: MapPin,
                 label: "Location",
-                value: "Bangladesh — nationwide shipping",
+                value: "Bangladesh, nationwide shipping",
               },
             ].map(({ icon: Icon, label, value }) => (
               <div

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { HOME_GLIDE_BRIDGE_IMAGE } from "@/lib/home-assets";
+import { IMAGE_QUALITY } from "@/lib/image-quality";
 
 export function GlideEditionBridge() {
   const frameRef = useRef<HTMLDivElement>(null);
@@ -14,7 +15,7 @@ export function GlideEditionBridge() {
     const el = frameRef.current;
     if (!el) return;
 
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mq = window.matchMedia("(prefers reduced motion: reduce)");
     if (mq.matches) {
       setInView(true);
       return;
@@ -45,16 +46,16 @@ export function GlideEditionBridge() {
       <div
         ref={frameRef}
         className={`glide-bridge-frame relative w-full aspect-[1024/577] min-h-[200px] overflow-hidden bg-[var(--color-surface)] ${
-          inView ? "glide-bridge-inview" : ""
+          inView ? "glide bridge inview" : ""
         }`}
       >
         <Image
           src={HOME_GLIDE_BRIDGE_IMAGE}
-          alt="TriZen TriPad V1 — ultimate esports solutions"
+          alt="TRIZEN TRIPAD V1, ultimate esports solutions"
           fill
           className="glide-bridge-img object-cover object-[50%_42%] scale-100"
           sizes="100vw"
-          quality={92}
+          quality={IMAGE_QUALITY}
         />
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-[2] h-10 bg-gradient-to-b from-black/60 via-black/20 to-transparent sm:h-12"
@@ -84,8 +85,8 @@ export function GlideEditionBridge() {
         <div className="absolute inset-0 z-20 flex items-end pb-6 md:pb-10">
           <div className="container-trizen w-full">
             <div key={runId} className="glide-bridge-copy w-full max-w-md text-left">
-              <h2 className="glide-bridge-metallic glide-bridge-item text-[1.35rem] font-bold uppercase leading-none tracking-tight md:text-4xl lg:text-[2.75rem]">
-                TriPad V1
+              <h2 className="glide-bridge-metallic glide-bridge-item text-[1.35rem] font-bold leading-none tracking-tight md:text-4xl lg:text-[2.75rem]">
+                TRIPAD V1
               </h2>
               <p className="glide-bridge-eyebrow glide-bridge-item glide-bridge-item-delay-1 mt-1.5 text-[9px] font-medium uppercase tracking-[0.3em] text-zinc-300 md:mt-2 md:text-[11px] md:tracking-[0.32em]">
                 Ultimate esports solutions

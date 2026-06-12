@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { displayImageSrc } from "@/lib/image-path";
+import { IMAGE_QUALITY } from "@/lib/image-quality";
 import { OUR_GEARS, OUR_GEARS_FALLBACK_IMAGES, type OurGearCard } from "@/lib/our-gears";
 import { cn } from "@/lib/utils";
 
@@ -34,7 +35,7 @@ function GearCard({ gear }: { gear: OurGearCard }) {
         src={imgSrc}
         alt={`${gear.titleLine1} ${gear.titleLine2}`.trim()}
         fill
-        quality={85}
+        quality={IMAGE_QUALITY}
         priority={gear.id === "glass-mouse-pad"}
         className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         sizes="(max-width: 768px) 78vw, 25vw"
@@ -111,7 +112,7 @@ export function HomeOurGears() {
             Our Gears
           </h2>
           <p className="mx-auto mt-2 max-w-md text-[0.7rem] leading-[1.55] text-[var(--color-muted)] md:mx-0 md:mt-4 md:max-w-xl md:text-base md:leading-relaxed">
-            The full TriZen lineup — glass pads, soft pads, skates, and sleeves built
+            The full TriZen lineup: glass pads, soft pads, skates, and sleeves built
             for competitive play.
           </p>
         </div>

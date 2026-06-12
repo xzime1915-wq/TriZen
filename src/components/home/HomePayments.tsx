@@ -1,7 +1,7 @@
 export function HomePayments() {
   const methods = [
     { name: "Cash on Delivery", desc: "Pay when your order arrives" },
-    { name: "bKash", desc: "Mobile payment — fast & easy" },
+    { name: "bKash", desc: "Mobile payment, fast & easy" },
     { name: "Nagad", desc: "Secure digital payment" },
     { name: "Bank Transfer", desc: "Use order number as reference" },
   ];

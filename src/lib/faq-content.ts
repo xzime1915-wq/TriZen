@@ -4,22 +4,22 @@ export type FaqItem = {
 };
 
 export const HOME_SEO_TITLE =
-  "Esports Mouse Pad in Bangladesh — Glass TriPad & Gaming Gear";
+  "Esports Mouse Pad in Bangladesh, Glass TRIPAD & Gaming Gear";
 
 export const HOME_SEO_SUBTITLE =
-  "Esports mouse pads, glass TriPad, soft pads, skates & sleeves";
+  "Esports mouse pads, glass TRIPAD, soft pads, skates & sleeves";
 
 export const HOME_SEO_PARAGRAPHS = [
-  "TriZen Store is Bangladesh's shop for esports mouse pad buyers who want glide, control, and consistency. Browse glass mouse pads (TriPad V1 & V2), soft mouse pads, mouse skates, and hand sleeves — shipped nationwide.",
+  "TRIZEN Store is Bangladesh's shop for esports mouse pad buyers who want glide, control, and consistency. Browse glass mouse pads (TRIPAD V1 & V2), soft mouse pads, mouse skates, and hand sleeves, shipped nationwide.",
   "Order in-stock items with Cash on Delivery, bKash, Nagad, or bank transfer. Sign in to checkout and track your order anytime from our website.",
-  "Whether you are upgrading from a cloth pad or building a new battlestation, TriZen gear is tuned for FPS, MOBA, and long ranked sessions.",
+  "Whether you are upgrading from a cloth pad or building a new battlestation, TRIZEN gear is tuned for FPS, MOBA, and long ranked sessions.",
 ];
 
 export const HOME_FAQS: FaqItem[] = [
   {
-    question: "What does TriZen Store sell?",
+    question: "What does TRIZEN Store sell?",
     answer:
-      "TriZen Store sells premium esports gear — glass mouse pads (TriPad V1), soft mouse pads, mouse skates, and hand sleeves. New items are added to the shop as they launch.",
+      "TRIZEN Store sells premium esports gear, glass mouse pads (TRIPAD V1), soft mouse pads, mouse skates, and hand sleeves. New items are added to the shop as they launch.",
   },
   {
     question: "Which payment options are available?",
@@ -42,19 +42,19 @@ export const HOME_FAQS: FaqItem[] = [
       "Delivery times depend on your location in Bangladesh. Most orders are processed quickly; allow a few business days for courier delivery outside Dhaka.",
   },
   {
-    question: "What is the difference between TriPad V1 and V2?",
+    question: "What is the difference between TRIPAD V1 and V2?",
     answer:
-      "Both use esports-grade tempered glass with the same pro size (490 × 430 × 3 mm). V1 is in stock now. V2 features refreshed vertical TriZen branding and is marked Upcoming until launch.",
+      "Both use esports grade tempered glass with the same pro size (490 × 430 × 3 mm). V1 is in stock now. V2 features refreshed vertical TRIZEN branding and is marked Upcoming until launch.",
   },
   {
-    question: "How can I contact TriZen Store?",
+    question: "How can I contact TRIZEN Store?",
     answer:
       "Email info@trizenstorebd.com or call 01778741431. You can also use the Contact page for general questions about products and orders.",
   },
   {
-    question: "Is TriPad suitable for all mice?",
+    question: "Is TRIPAD suitable for all mice?",
     answer:
-      "Yes. TriPad works with all gaming mice — wired and wireless — on its ultra-smooth glass surface.",
+      "Yes. TRIPAD works with all gaming mice, wired and wireless, on its ultra smooth glass surface.",
   },
 ];
 
@@ -67,7 +67,7 @@ const PRODUCT_FAQ_COMMON: FaqItem[] = [
   {
     question: "Do you provide Cash on Delivery?",
     answer:
-      "Yes, COD is available for in-stock items shipped within Bangladesh. Select COD during checkout and pay when your parcel arrives.",
+      "Yes, COD is available for in stock items shipped within Bangladesh. Select COD during checkout and pay when your parcel arrives.",
   },
   {
     question: "How do I track my order?",
@@ -75,7 +75,7 @@ const PRODUCT_FAQ_COMMON: FaqItem[] = [
       "Go to Track Your Order on trizenstorebd.com and enter your order number and phone. Status updates appear as we process and ship your item.",
   },
   {
-    question: "How should I clean my TriPad?",
+    question: "How should I clean my TRIPAD?",
     answer:
       "Wipe the glass surface with a soft, dry or slightly damp cloth. Avoid harsh chemicals or abrasive pads to keep the glide consistent.",
   },
@@ -86,18 +86,18 @@ export function getProductFaqs(productName: string, isUpcoming: boolean): FaqIte
     {
       question: `What is ${productName}?`,
       answer: isUpcoming
-        ? `${productName} is an upcoming TriZen TriPad glass mouse pad. It shares the same competitive glass glide as V1 with edition-specific branding. Check back for launch updates.`
-        : `${productName} is a TriZen tempered glass mouse pad built for esports. The surface is ultra-smooth and low-friction for precise tracking, flicks, and long sessions.`,
+        ? `${productName} is an upcoming TRIZEN TRIPAD glass mouse pad. It shares the same competitive glass glide as V1 with edition specific branding. Check back for launch updates.`
+        : `${productName} is a TRIZEN tempered glass mouse pad built for esports. The surface is ultra smooth and low friction for precise tracking, flicks, and long sessions.`,
     },
     {
       question: "What are the dimensions?",
       answer:
-        "TriPad editions measure 490 × 430 × 3 mm (L × W × H) — a generous playing area for wide swipes and arm aiming.",
+        "TRIPAD editions measure 490 × 430 × 3 mm (L × W × H), a generous playing area for wide swipes and arm aiming.",
     },
     {
       question: "Will this pad slip during fast swipes?",
       answer:
-        "TriPad uses a stable non-slip base designed to stay planted during intense matches while the glass top allows free mouse movement.",
+        "TRIPAD uses a stable non slip base designed to stay planted during intense matches while the glass top allows free mouse movement.",
     },
   ];
 

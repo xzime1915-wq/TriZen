@@ -4,18 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { StarRating } from "./StarRating";
-import { ProductTabs } from "./ProductTabs";
 import { ProductFaqSection } from "./ProductFaqSection";
 import { ProductReviewSection } from "./ProductReviewSection";
-import { ProductFeaturesList } from "./ProductFeaturesList";
 import { ProductGallery } from "./ProductGallery";
 import { ProductColorPicker } from "./ProductColorPicker";
-import { StockBadge, isInStock } from "@/components/StockBadge";
+import { ProductSpecShowcase } from "./ProductSpecShowcase";
+import { ProductDescriptionBlock } from "./ProductDescriptionBlock";
+import { ProductReviewsBlock } from "./ProductReviewsBlock";
 import { isUpcoming } from "@/lib/product-status";
 import { ProductPrice } from "./ProductPrice";
-import { ProductPurchaseInfo } from "./ProductPurchaseInfo";
 import type { ProductColor, ProductSpec } from "@/lib/product-data";
 import { getShopGearLine, SHOP_GEAR_COPY } from "@/lib/shop-gears";
+import { discountPercent } from "@/lib/discount";
 
 export type ProductReviewData = {
   id: string;
@@ -68,6 +68,16 @@ export function ProductDetailView({
   const upcoming = isUpcoming(product.tag);
   const gearLine = getShopGearLine(product.slug, product.name, product.category);
   const gearLabel = SHOP_GEAR_COPY[gearLine].title;
+  const savePct = discountPercent(product.price, product.compareAt);
+
+  const introParagraphs = (product.longDescription || product.description)
+    .split("\n\n")
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .slice(0, 2);
+
+  const specFeatureImage =
+    descriptionSlides[0] ?? gallery[1] ?? gallery[0] ?? product.image;
 
   function onReviewAdded(review: ProductReviewData) {
     const next = [review, ...reviews];
@@ -78,93 +88,42 @@ export function ProductDetailView({
 
   return (
     <div className="w-full">
-      <div className="product-page-pad py-6 md:py-14">
-      <nav className="mb-4 text-[0.65rem] text-[var(--color-muted)] md:mb-8 md:text-sm">
-        <Link href="/" className="hover:text-[var(--color-foreground)]">
-          Home
-        </Link>
-        <span className="mx-2">/</span>
-        <Link href="/shop" className="hover:text-[var(--color-foreground)]">
-          Shop
-        </Link>
-        <span className="mx-2">/</span>
-        <Link href={`/shop?gear=${gearLine}`} className="hover:text-[var(--color-foreground)]">
-          {gearLabel}
-        </Link>
-        <span className="mx-2">/</span>
-        <span className="text-[var(--color-foreground)]">{product.name}</span>
-      </nav>
+      <div className="product-page-pad py-6 md:py-10 lg:py-12">
+        <nav className="product-buy-breadcrumb mb-6 text-[10px] uppercase tracking-[0.18em] text-[var(--color-muted)] md:mb-8">
+          <Link href="/" className="hover:text-[var(--color-foreground)]">
+            Home
+          </Link>
+          <span className="mx-2 opacity-40">/</span>
+          <Link href="/shop" className="hover:text-[var(--color-foreground)]">
+            Shop
+          </Link>
+          <span className="mx-2 opacity-40">/</span>
+          <Link
+            href={`/shop?gear=${gearLine}`}
+            className="hover:text-[var(--color-foreground)]"
+          >
+            {gearLabel}
+          </Link>
+        </nav>
 
-      <div className="product-split-grid product-split-grid--wide-visual">
-        <div className="min-w-0 w-full">
-          <ProductGallery images={gallery} productName={product.name} />
-        </div>
+        <div className="product-split-grid product-split-grid--wide-visual">
+          <div className="min-w-0 w-full">
+            <ProductGallery images={gallery} productName={product.name} />
+          </div>
 
-        <div className="min-w-0 w-full lg:sticky lg:top-[4.5rem] lg:max-w-md lg:justify-self-end xl:max-w-lg">
-          <div className="border border-[var(--color-border)] bg-[var(--color-surface-elevated)] p-5 shadow-sm md:p-6">
-            {product.tag && (
-              <span className="inline-block text-[10px] font-bold uppercase tracking-widest bg-zinc-900 text-white px-2.5 py-1 mb-3">
-                {product.tag}
-              </span>
-            )}
-            <h1 className="mb-2 text-[1.15rem] font-bold leading-tight md:mb-3 sm:text-3xl">
-              {product.name}
-            </h1>
+          <div className="product-buy-panel min-w-0 w-full lg:sticky lg:top-[4.75rem] lg:max-w-[26rem] lg:justify-self-end xl:max-w-[30rem]">
+            <h1 className="product-buy-title">{product.name}</h1>
 
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <StarRating value={avgRating} />
-              <span className="text-sm text-[var(--color-muted)]">
-                {reviews.length > 0 ? (
-                  <a
-                    href="#reviews"
-                    className="hover:text-[var(--color-foreground)] hover:underline"
-                  >
-                    ({reviews.length} review{reviews.length !== 1 ? "s" : ""})
-                  </a>
-                ) : (
-                  <span id="reviews">(No reviews yet)</span>
-                )}
-              </span>
-            </div>
-
-            <div className="mb-4">
-              <StockBadge
-                inStock={isInStock(product.stock)}
-                upcoming={upcoming}
-                size="md"
-              />
-            </div>
-
-            <div className="mb-5 rounded-sm border border-emerald-200/80 bg-emerald-50/50 px-4 py-3">
-              <ProductPrice
-                price={product.price}
-                compareAt={product.compareAt}
-                tag={product.tag}
-                className="text-[1.15rem] font-semibold text-emerald-700 md:text-2xl"
-                compareClassName="text-sm text-[var(--color-muted)] line-through md:text-base"
-              />
-              {!upcoming && isInStock(product.stock) && (
-                <p className="mt-1.5 text-[11px] text-emerald-800/80 normal-case">
-                  + ৳120 delivery · COD available
-                </p>
-              )}
-            </div>
-
-            <p className="trizen-detail mb-5 normal-case">
-              {product.description}
-            </p>
-
-            {features.length > 0 && (
-              <div className="mb-5 pb-5 border-b border-[var(--color-border)]">
-                <ProductFeaturesList
-                  features={features.slice(0, 4)}
-                  title="Highlights"
-                />
+            {introParagraphs.length > 0 && (
+              <div className="product-buy-copy mt-5 space-y-4 text-sm leading-[1.75] text-zinc-600 normal-case md:text-[0.9375rem]">
+                {introParagraphs.map((para) => (
+                  <p key={para.slice(0, 48)}>{para}</p>
+                ))}
               </div>
             )}
 
             {selectedColor && colors.length > 0 && (
-              <div className="mb-5">
+              <div className="mt-6">
                 <ProductColorPicker
                   colors={colors}
                   selected={selectedColor}
@@ -173,10 +132,40 @@ export function ProductDetailView({
               </div>
             )}
 
+            <div className="product-buy-reviews mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
+              <StarRating value={avgRating} size="sm" />
+              <a
+                href="#reviews"
+                className="text-[11px] text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:underline"
+              >
+                {reviews.length > 0
+                  ? `${reviews.length} review${reviews.length !== 1 ? "s" : ""}`
+                  : "No reviews yet"}
+              </a>
+            </div>
+
+            <div className="product-buy-price mt-6">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <ProductPrice
+                  price={product.price}
+                  compareAt={product.compareAt}
+                  tag={product.tag}
+                  className="text-xl font-medium tracking-tight text-[var(--color-foreground)] md:text-2xl"
+                  compareClassName="text-base font-normal text-zinc-400 line-through"
+                />
+                {savePct != null && (
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
+                    Save {savePct}%
+                  </span>
+                )}
+              </div>
+            </div>
+
             <AddToCartButton
               product={{
                 id: product.id,
                 name: product.name,
+                slug: product.slug,
                 price: product.price,
                 compareAt: product.compareAt,
                 image: selectedColor?.image ?? product.image,
@@ -186,38 +175,30 @@ export function ProductDetailView({
               colors={colors}
               comingSoon={upcoming}
             />
-
-            <ProductPurchaseInfo
-              specifications={specifications}
-              sku={product.sku}
-              category={product.category}
-              slug={product.slug}
-              name={product.name}
-              stock={product.stock}
-              upcoming={upcoming}
-            />
           </div>
         </div>
       </div>
-      </div>
 
-      <div className="trizen-full-bleed mt-14">
-        <ProductTabs
-          productName={product.name}
-          description={product.longDescription || product.description}
-          descriptionSlides={descriptionSlides}
-          features={features}
-          specifications={specifications}
-          reviewsCount={reviews.length}
-          reviewsPanel={
-            <ProductReviewSection
-              slug={product.slug}
-              reviews={reviews}
-              onReviewAdded={onReviewAdded}
-            />
-          }
+      <ProductSpecShowcase
+        productName={product.name}
+        specifications={specifications}
+        featureImage={specFeatureImage}
+      />
+
+      <ProductDescriptionBlock
+        productName={product.name}
+        description={product.longDescription || product.description}
+        descriptionSlides={descriptionSlides}
+        features={features}
+      />
+
+      <ProductReviewsBlock>
+        <ProductReviewSection
+          slug={product.slug}
+          reviews={reviews}
+          onReviewAdded={onReviewAdded}
         />
-      </div>
+      </ProductReviewsBlock>
 
       <ProductFaqSection productName={product.name} tag={product.tag} />
     </div>

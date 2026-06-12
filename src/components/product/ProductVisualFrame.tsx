@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ProductImage } from "@/components/ProductImage";
 import { displayImageSrc } from "@/lib/image-path";
+import { IMAGE_QUALITY } from "@/lib/image-quality";
 import { cn } from "@/lib/utils";
 type Props = {
   src: string;
@@ -43,11 +44,11 @@ export function ProductVisualFrame({
           <Image
             src={resolved}
             alt={alt}
-            width={1600}
-            height={1400}
+            width={3200}
+            height={2800}
             priority={priority}
             sizes={sizes}
-            quality={85}
+            quality={IMAGE_QUALITY}
             className={cn(
               "mx-auto block h-auto w-full max-w-full object-contain object-center",
               "max-h-[min(108vw,820px)] sm:max-h-[min(100vw,900px)] lg:max-h-[min(85vh,1000px)]",

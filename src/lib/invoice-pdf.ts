@@ -72,7 +72,7 @@ export async function buildInvoicePdf(
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold);
 
-  const storeName = settings?.storeName || "TriZen Store";
+  const storeName = settings?.storeName || "TRIZEN Store";
   const margin = 50;
   const pageWidth = page.getWidth();
   const contentWidth = pageWidth - margin * 2;
@@ -330,7 +330,7 @@ export async function buildInvoicePdf(
   y -= 22;
 
   drawText(
-    `Payment Method: Cash on Delivery (COD) — ${getStatusLabel(order.status)}`,
+    `Payment Method: Cash on Delivery (COD), ${getStatusLabel(order.status)}`,
     margin,
     10
   );

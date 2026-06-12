@@ -172,7 +172,7 @@ export default function CheckoutPage() {
         <main className="checkout-main">
           <header className="checkout-main-header">
             <Link href="/" className="checkout-brand-wordmark">
-              Trizen
+              TRIZEN
             </Link>
             <button
               type="button"

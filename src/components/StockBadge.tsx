@@ -37,8 +37,8 @@ export function StockBadge({
     >
       <span
         className={cn(
-          "h-1.5 w-1.5 shrink-0 rounded-full",
-          inStock ? "bg-emerald-400" : "bg-red-400"
+          "h-1.5 w-1.5 shrink-0 rounded-full bg-current",
+          inStock ? "opacity-90" : "opacity-90"
         )}
         aria-hidden
       />

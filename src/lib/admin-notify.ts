@@ -4,7 +4,7 @@
  * — Telegram (@CallMeBot_txtbot) — no API key, usually works when WhatsApp bot is silent
  */
 
-const STORE_LABEL = "TriZen Store";
+const STORE_LABEL = "TRIZEN Store";
 
 function appBaseUrl() {
   return (

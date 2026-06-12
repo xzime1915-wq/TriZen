@@ -1,6 +1,6 @@
 const WEAK_SECRETS = new Set([
-  "change-this-to-a-long-random-secret-in-production",
-  "dev-secret",
+  "change this to a-long random secret in production",
+  "dev secret",
   "secret",
 ]);
 
@@ -77,7 +77,7 @@ export function validateProductionEnv(): void {
     throw new Error("DATABASE_URL is required in production.");
   }
   const adminPassword = process.env.ADMIN_PASSWORD?.trim();
-  if (adminPassword && (adminPassword.length < 12 || adminPassword === "TriZen@2026")) {
+  if (adminPassword && (adminPassword.length < 12 || adminPassword === "TRIZEN@2026")) {
     throw new Error("ADMIN_PASSWORD must be a strong unique password in production.");
   }
 }

@@ -9,14 +9,16 @@ type TrizenLogoProps = Omit<ImageProps, "src" | "alt"> & {
 
 export function TrizenLogo({
   variant = "on-light",
-  alt = "TriZen Store",
+  alt = "TRIZEN Store",
   className,
+  unoptimized = true,
   ...props
 }: TrizenLogoProps) {
   return (
     <Image
       src={getLogoSrc(variant)}
       alt={alt}
+      unoptimized={unoptimized}
       className={cn("object-contain", className)}
       {...props}
     />

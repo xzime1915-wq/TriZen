@@ -73,7 +73,7 @@ export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: P
           label="Address"
           placeholder="Address"
           required
-          autoComplete="street-address"
+          autoComplete="street address"
           value={form.streetAddress}
           onChange={(e) => set({ streetAddress: e.target.value })}
         />

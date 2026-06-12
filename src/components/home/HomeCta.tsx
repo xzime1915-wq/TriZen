@@ -20,7 +20,7 @@ export function HomeCta() {
           Upgrade your aim.
         </h2>
         <p className="trizen-body mt-3 sm:mt-6 max-w-md mx-auto text-xs sm:text-base">
-          Premium esports gear — shipped across Bangladesh.
+          Premium esports gear, shipped across Bangladesh.
         </p>
         <div className="mt-7 sm:mt-12 flex flex-wrap justify-center gap-3 sm:gap-4">
           <Link href="/shop" className="trizen-btn-primary">

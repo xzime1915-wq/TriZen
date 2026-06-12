@@ -115,7 +115,7 @@ export function HomeProductShowcase({
               </p>
             )}
 
-            <div className="trizen-body mt-4 max-w-xl space-y-3 text-left text-xs !text-[var(--color-foreground)] sm:mt-6 sm:space-y-4 sm:text-base">
+            <div className="home-product-copy mt-4 max-w-md text-left sm:mt-6">
               {paragraphs.map((para) => (
                 <p key={para.slice(0, 48)}>{para}</p>
               ))}
@@ -129,7 +129,11 @@ export function HomeProductShowcase({
             </div>
 
             <div className="mt-6 sm:mt-8">
-              <HomeProductActions slug={product.slug} tag={product.tag} />
+              <HomeProductActions
+                slug={product.slug}
+                productName={headline}
+                tag={product.tag}
+              />
             </div>
 
             {highlightFeatures.length > 0 && (

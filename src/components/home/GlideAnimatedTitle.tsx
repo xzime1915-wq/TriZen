@@ -43,7 +43,7 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
   }, []);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const mq = window.matchMedia("(prefers reduced motion: reduce)");
     const apply = () => setReduceMotion(mq.matches);
     apply();
     mq.addEventListener("change", apply);

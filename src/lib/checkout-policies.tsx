@@ -20,13 +20,13 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
     content: (
       <>
         <p>
-          We want you to be happy with your TriZen order. If something is wrong
+          We want you to be happy with your TRIZEN order. If something is wrong
           with your product, contact us within 7 days of delivery with your order
           number and photos of the issue.
         </p>
         <p>
           Approved refunds are processed to your original payment method or via
-          bKash where applicable. Refunds may take 3–7 business days after approval.
+          bKash where applicable. Refunds may take 3 to 7 business days after approval.
         </p>
         <p>
           Items must be unused and in original packaging unless the product arrived
@@ -47,11 +47,11 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
     content: (
       <>
         <p>
-          TriZen Store ships nationwide across Bangladesh. Orders are packed within
-          1–2 business days after payment confirmation.
+          TRIZEN Store ships nationwide across Bangladesh. Orders are packed within
+          1 to 2 business days after payment confirmation.
         </p>
         <p>
-          Standard delivery typically takes 2–5 business days inside Dhaka and 3–7
+          Standard delivery typically takes 2 to 5 business days inside Dhaka and 3 to 7
           business days outside Dhaka, depending on your area and courier
           availability.
         </p>
@@ -73,7 +73,7 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
     content: (
       <>
         <p>
-          TriZen Store respects your privacy. We collect only the information
+          TRIZEN Store respects your privacy. We collect only the information
           needed to process orders, provide support, and improve our services.
         </p>
         <p>
@@ -99,7 +99,7 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
     content: (
       <>
         <p>
-          By placing an order on TriZen Store, you agree to these terms. Prices and
+          By placing an order on TRIZEN Store, you agree to these terms. Prices and
           availability are subject to change. We reserve the right to cancel orders
           in case of errors or stock issues.
         </p>
@@ -110,11 +110,11 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
         </p>
         <p>
           Delivery times vary by location within Bangladesh. Returns and refunds are
-          handled according to our refund policy — contact us before sending items
+          handled according to our refund policy. Contact us before sending items
           back.
         </p>
         <p>
-          TriZen Store is not liable for delays caused by couriers, weather, or events
+          TRIZEN Store is not liable for delays caused by couriers, weather, or events
           outside our control. Product images are for reference; minor color
           variation may occur.
         </p>
@@ -131,7 +131,7 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
     title: "Contact",
     content: (
       <>
-        <p>Questions about TriPad, orders, or shipping? We are here to help.</p>
+        <p>Questions about TRIPAD, orders, or shipping? We are here to help.</p>
         <p>
           <strong>Email:</strong>{" "}
           <a href="mailto:support@trizenstore.com">support@trizenstore.com</a>
@@ -141,11 +141,11 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
           <a href="tel:+8801778741431">01778741431</a>
         </p>
         <p>
-          <strong>Location:</strong> Bangladesh — nationwide shipping
+          <strong>Location:</strong> Bangladesh, nationwide shipping
         </p>
         <p>
-          Support hours: Sunday–Thursday, 10:00 AM – 6:00 PM (BST). We aim to
-          reply to emails within 1–2 business days.
+          Support hours: Sunday to Thursday, 10:00 AM to 6:00 PM (BST). We aim to
+          reply to emails within 1 to 2 business days.
         </p>
       </>
     ),

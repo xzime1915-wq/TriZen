@@ -61,7 +61,7 @@ export function AdminAlerts() {
       playChatSound();
       showChatNotification(
         "New order",
-        `${o.orderNumber} — ${o.customerName} · ৳${o.total}`,
+        `${o.orderNumber}, ${o.customerName} · ৳${o.total}`,
         () => {
           window.location.href = `/admin/orders/${o.id}`;
         },

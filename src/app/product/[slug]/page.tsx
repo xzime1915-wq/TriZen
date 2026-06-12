@@ -31,8 +31,8 @@ export async function generateMetadata({
   const isGlass =
     slug.includes("tripad") || product.description.toLowerCase().includes("glass");
   const title = isGlass
-    ? `${product.name} — Esports Glass Mouse Pad Bangladesh`
-    : `${product.name} — Esports Gear Bangladesh`;
+    ? `${product.name}, Esports Glass Mouse Pad Bangladesh`
+    : `${product.name}, Esports Gear Bangladesh`;
   const description = product.description.slice(0, 160);
 
   return {

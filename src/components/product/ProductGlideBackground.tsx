@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { HOME_GLIDE_IMAGE } from "@/lib/home-assets";
+import { IMAGE_QUALITY } from "@/lib/image-quality";
 
 /** Glide scene behind TriPad product shots (white/black editions). */
 export function ProductGlideBackground() {
@@ -15,7 +16,7 @@ export function ProductGlideBackground() {
           fill
           className="object-contain object-left opacity-35"
           sizes="(max-width: 1024px) 85vw, 720px"
-          quality={90}
+          quality={IMAGE_QUALITY}
         />
         <div
           className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-[42%] bg-gradient-to-b from-zinc-50 via-zinc-50/60 to-transparent"

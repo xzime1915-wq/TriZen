@@ -1,15 +1,15 @@
 export const SITE_URL = "https://trizenstore.com.bd";
 
-export const SITE_NAME = "TriZen Store";
+export const SITE_NAME = "TRIZEN Store";
 
 export const SITE_DESCRIPTION =
-  "Esports mouse pad in Bangladesh — TriZen Store sells TriPad glass pads, soft pads, skates & sleeves. COD, bKash, Nagad & nationwide delivery.";
+  "Esports mouse pad in Bangladesh, TRIZEN Store sells TRIPAD glass pads, soft pads, skates & sleeves. COD, bKash, Nagad & nationwide delivery.";
 
 export const SEO_GLASS_MOUSE_PAD_BD =
-  "Glass mouse pad in Bangladesh — TriZen TriPad";
+  "Glass mouse pad in Bangladesh, TRIZEN TRIPAD";
 
 export const SEO_ESPORTS_MOUSE_PAD_BD =
-  "Esports mouse pad in Bangladesh — TriZen Store";
+  "Esports mouse pad in Bangladesh, TRIZEN Store";
 
 export const SITE_CONTACT = {
   phone: "+8801778741431",

@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { SHOP_GEAR_COPY, SHOP_GEAR_ORDER, isShopGearLine } from "@/lib/shop-gears";
 
 export function ShopFilters() {
@@ -53,13 +53,14 @@ export function ShopFilters() {
             q={q}
             onChange={setQ}
             onSubmit={handleSearch}
+            onClear={() => updateParams({ q: null })}
           />
         </div>
       </div>
 
       <div className="sticky top-14 z-40 border-t border-[var(--color-border)] bg-white/95 backdrop-blur-md lg:hidden">
         <div className="container-trizen py-2">
-          <SearchField q={q} onChange={setQ} onSubmit={handleSearch} />
+          <SearchField q={q} onChange={setQ} onSubmit={handleSearch} onClear={() => updateParams({ q: null })} />
         </div>
       </div>
     </div>
@@ -70,11 +71,13 @@ function SearchField({
   q,
   onChange,
   onSubmit,
+  onClear,
   className = "",
 }: {
   q: string;
   onChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
+  onClear?: () => void;
   className?: string;
 }) {
   return (
@@ -85,8 +88,21 @@ function SearchField({
         placeholder="Search..."
         value={q}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full border border-[var(--color-border)] bg-zinc-50 py-2.5 pl-10 pr-4 text-sm text-[var(--color-foreground)] placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none md:py-3"
+        className="trizen-search-input w-full border border-[var(--color-border)] bg-zinc-50 py-2.5 pl-10 pr-10 text-sm text-[var(--color-foreground)] placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none md:py-3"
       />
+      {q ? (
+        <button
+          type="button"
+          onClick={() => {
+            onChange("");
+            onClear?.();
+          }}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-black transition-opacity hover:opacity-70"
+          aria-label="Clear search"
+        >
+          <X className="h-4 w-4" strokeWidth={1.75} />
+        </button>
+      ) : null}
     </form>
   );
 }

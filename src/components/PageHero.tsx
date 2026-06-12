@@ -1,7 +1,9 @@
+import type { ReactNode } from "react";
+
 type Props = {
   eyebrow?: string;
   title: string;
-  description?: string;
+  description?: ReactNode;
 };
 
 export function PageHero({ eyebrow, title, description }: Props) {

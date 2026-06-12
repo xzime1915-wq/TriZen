@@ -6,12 +6,12 @@ export default function PrivacyPolicyPage() {
       <PageHero
         eyebrow="Legal"
         title="Privacy Policy"
-        description="How TriZen Store collects, uses, and protects your information."
+        description="How TRIZEN Store collects, uses, and protects your information."
       />
       <section className="border-b border-[var(--color-border)]">
         <div className="container-trizen py-14 md:py-20 max-w-3xl space-y-6 trizen-body md:text-[0.9375rem]">
           <p>
-            TriZen Store respects your privacy. We collect only the information
+            TRIZEN Store respects your privacy. We collect only the information
             needed to process orders, provide support, and improve our services.
           </p>
           <p>

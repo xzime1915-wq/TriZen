@@ -13,11 +13,10 @@ type Props = {
   deliveryCharge: number;
   total: number;
   className?: string;
-  hideTitle?: boolean;
 };
 
 function displayName(item: CartItem) {
-  return item.baseName ?? item.name.split(" — ")[0] ?? item.name;
+  return item.baseName ?? item.name.split(/, | — /)[0] ?? item.name;
 }
 
 function SummaryLine({ item }: { item: CartItem }) {
@@ -66,15 +65,12 @@ export function CheckoutOrderSummaryPanel({
   deliveryCharge,
   total,
   className,
-  hideTitle = false,
 }: Props) {
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <div className={cn("checkout-order-summary-panel", className)}>
-      {hideTitle ? null : (
-        <h2 className="checkout-order-summary-title">Order summary</h2>
-      )}
+      <h2 className="checkout-order-summary-title">Order summary</h2>
 
       <ul className="checkout-sidebar-items">
         {items.map((item) => (
@@ -96,7 +92,7 @@ export function CheckoutOrderSummaryPanel({
           <span className="tabular-nums text-zinc-900">{formatCheckoutPrice(subtotal)}</span>
         </div>
         <div className="checkout-sidebar-row">
-          <span>Shipping</span>
+          <span>Delivery</span>
           <span className="tabular-nums text-zinc-900">{formatCheckoutPrice(deliveryCharge)}</span>
         </div>
         <div className="checkout-sidebar-total">

@@ -5,16 +5,17 @@ import {
   EditionShowcaseV2,
 } from "@/components/home/EditionShowcase";
 import { HOME_GLIDE_IMAGE } from "@/lib/home-assets";
+import { IMAGE_QUALITY } from "@/lib/image-quality";
 
 function GlideActionBanner() {
   return (
     <div className="relative min-h-[30vh] sm:min-h-[40vh] md:min-h-[58vh] overflow-hidden bg-black">
       <Image
         src={HOME_GLIDE_IMAGE}
-        alt="Mouse gliding at speed on TriZen glass surface"
+        alt="Mouse gliding at speed on TRIZEN glass surface"
         fill
         sizes="100vw"
-        quality={85}
+        quality={IMAGE_QUALITY}
         className="object-cover object-center"
       />
 
@@ -26,7 +27,7 @@ function GlideActionBanner() {
           <GlideAnimatedTitle className="glide-performance-title !text-white" />
           <p className="glide-performance-body mx-auto max-w-lg text-center text-zinc-300 md:mt-4 md:text-base md:leading-relaxed">
             Low-friction glass helps your mouse move freely while the pad stays
-            planted — built for ranked play and long sessions.
+            planted, built for ranked play and long sessions.
           </p>
         </div>
       </div>

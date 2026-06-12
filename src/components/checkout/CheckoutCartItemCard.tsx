@@ -23,7 +23,7 @@ type EditionOption = {
 };
 
 function displayName(item: CartItem) {
-  return item.baseName ?? item.name.split(" — ")[0] ?? item.name;
+  return item.baseName ?? item.name.split(/, | — /)[0] ?? item.name;
 }
 
 export function CheckoutCartItemCard({ item }: { item: CartItem }) {

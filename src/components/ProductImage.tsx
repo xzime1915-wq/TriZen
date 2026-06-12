@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { displayImageSrc } from "@/lib/image-path";
+import { IMAGE_QUALITY } from "@/lib/image-quality";
 import { cn } from "@/lib/utils";
 
 type ProductImageProps = {
@@ -25,7 +26,7 @@ export function ProductImage({
       alt={alt}
       fill
       priority={priority}
-      quality={85}
+      quality={IMAGE_QUALITY}
       sizes={sizes}
       className={cn("object-contain object-center", className)}
     />

@@ -14,6 +14,11 @@ import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 import { HomeFaqJsonLd } from "@/components/seo/HomeFaqJsonLd";
 import { parseFeatures, averageRating } from "@/lib/product-data";
 import { homePageMetadata } from "@/lib/seo-metadata";
+import {
+  HOME_HERO_IMAGE,
+  HOME_HERO_IMAGE_SIZES,
+  HOME_HERO_IMAGE_SRC_SET,
+} from "@/lib/home-assets";
 
 export const revalidate = 60;
 
@@ -58,6 +63,14 @@ export default async function HomePage() {
 
   return (
     <>
+      <link
+        rel="preload"
+        as="image"
+        href={HOME_HERO_IMAGE}
+        imageSrcSet={HOME_HERO_IMAGE_SRC_SET}
+        imageSizes={HOME_HERO_IMAGE_SIZES}
+        fetchPriority="high"
+      />
       <HomeMinimalHero productSlug={heroProduct?.slug ?? HERO_SLUG} />
 
       <HomeMarquee />

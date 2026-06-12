@@ -29,6 +29,7 @@ model Product {
   updatedAt        DateTime        @updatedAt
   orderItems       OrderItem[]
   reviews          ProductReview[]
+  notifyRequests   ProductNotifyRequest[]
 }
 
 model ProductReview {
@@ -105,13 +106,13 @@ model OrderItem {
 
 model StoreSettings {
   id              Int    @id @default(1)
-  storeName       String @default("TriZen Store")
+  storeName       String @default("TRIZEN Store")
   tagline         String @default("Premium Tech & Lifestyle")
   email           String @default("support@trizenstore.com")
   phone           String @default("+1 (555) 123-4567")
   address         String @default("123 Innovation Drive, Tech City, TC 10001")
   bankName        String @default("First National Bank")
-  accountName     String @default("TriZen Store LLC")
+  accountName     String @default("TRIZEN Store LLC")
   accountNumber   String @default("****7890")
   routingNumber   String @default("021000021")
   swiftCode       String @default("FNBAUS33")
@@ -142,6 +143,7 @@ model User {
   updatedAt    DateTime @updatedAt
   orders       Order[]
   reviews      ProductReview[]
+  notifyRequests ProductNotifyRequest[]
 }
 
 model BlogPost {
@@ -152,7 +154,7 @@ model BlogPost {
   content    String   @default("")
   coverImage String   @default("")
   category   String   @default("News")
-  author     String   @default("TriZen Store")
+  author     String   @default("TRIZEN Store")
   published  Boolean  @default(true)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -204,4 +206,29 @@ model ChatMessage {
   createdAt      DateTime         @default(now())
 
   @@index([conversationId, createdAt])
+}
+
+model PasswordResetCode {
+  id        String   @id @default(cuid())
+  email     String
+  codeHash  String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([expiresAt])
+}
+
+model ProductNotifyRequest {
+  id         String    @id @default(cuid())
+  productId  String
+  product    Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  email      String
+  userId     String?
+  user       User?     @relation(fields: [userId], references: [id])
+  notifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@unique([productId, email])
+  @@index([productId, notifiedAt])
 }

@@ -74,7 +74,9 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
                 </div>
                 <div className="cart-panel-item-main">
                   <div className="cart-panel-item-top">
-                    <p className="cart-panel-item-name">{item.name}</p>
+                    <p className="cart-panel-item-name">
+                      {item.name}
+                    </p>
                     <p className="cart-panel-item-price">
                       {formatCurrency(item.price * item.quantity)}
                     </p>

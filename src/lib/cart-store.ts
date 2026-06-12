@@ -92,12 +92,12 @@ export const useCart = create<CartState>()(
 
           const toKey = lineKey(productId, newColor);
           const existing = state.items.find((i) => lineKey(i.productId, i.color) === toKey);
-          const base = item.baseName ?? item.name.split(" — ")[0] ?? item.name;
+          const base = item.baseName ?? item.name.split(/, | — /)[0] ?? item.name;
           const nextLine: CartItem = {
             ...item,
             color: newColor,
             baseName: base,
-            name: `${base} — ${newColor}`,
+            name: `${base}, ${newColor}`,
             image: option.image ?? item.image,
           };
 

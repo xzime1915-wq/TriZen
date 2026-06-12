@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
-    locale: "en_BD",
+    locale: "en-BD",
     type: "website",
     images: [
       {

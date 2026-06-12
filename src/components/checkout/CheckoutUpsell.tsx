@@ -33,7 +33,7 @@ function UpsellCard({
         : product.colors[0]?.name;
     addItem({
       productId: product.id,
-      name: color ? `${product.name} — ${color}` : product.name,
+      name: color ? `${product.name}, ${color}` : product.name,
       baseName: product.name,
       price: product.price,
       compareAt: product.compareAt,

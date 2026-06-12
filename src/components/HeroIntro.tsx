@@ -39,7 +39,7 @@ export function HeroIntro() {
             <span className="text-zinc-400">Competitive Play</span>
           </h1>
           <p className="text-[var(--color-muted)] text-base md:text-lg max-w-md mb-8 leading-relaxed hero-mixed-item hero-mixed-delay-3">
-            Glass mouse pads, hand sleeves, and mouse skates — engineered for
+            Glass mouse pads, hand sleeves, and mouse skates, engineered for
             ultimate esports performance and super-fast glide.
           </p>
           <div className="flex flex-wrap gap-4 hero-mixed-item hero-mixed-delay-4">

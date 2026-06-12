@@ -7,7 +7,7 @@ export default function AboutPage() {
     <div className="bg-[var(--color-surface)] min-h-screen">
       <PageHero
         eyebrow="About"
-        title="TriZen Store"
+        title="TRIZEN Store"
         description="Premium esports gear for players who care about glide, control, and consistency."
       />
 
@@ -16,13 +16,13 @@ export default function AboutPage() {
           <div className="flex items-center gap-5 mb-12">
             <TrizenLogo variant="on-light" width={56} height={56} className="shrink-0" />
             <p className="trizen-body md:text-base">
-              Designed for competitive play — from ranked queues to long practice
+              Designed for competitive play, from ranked queues to long practice
               sessions.
             </p>
           </div>
           <div className="space-y-6 trizen-body md:text-[0.9375rem]">
             <p>
-              TriZen Store is dedicated to premium esports gear — glass mouse pads,
+              TRIZEN Store is dedicated to premium esports gear, glass mouse pads,
               hand sleeves, and mouse skates built for players who demand the fastest
               glide and most precise control.
             </p>
@@ -42,7 +42,7 @@ export default function AboutPage() {
             {[
               {
                 title: "Glass mouse pads",
-                body: "Ultra-smooth surface tuned for competitive glide.",
+                body: "Ultra smooth surface tuned for competitive glide.",
               },
               {
                 title: "Hand sleeves",

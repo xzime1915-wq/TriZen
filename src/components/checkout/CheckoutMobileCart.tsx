@@ -57,7 +57,9 @@ export function CheckoutMobileCart() {
                 key={`qty-${item.productId}${item.color ? `-${item.color}` : ""}`}
                 className="checkout-cart-qty-row"
               >
-                <p className="min-w-0 truncate text-sm text-zinc-700">{item.name}</p>
+                <p className="min-w-0 truncate text-sm text-zinc-700">
+                  {item.name}
+                </p>
                 <div className="flex items-center gap-3">
                   <div className="checkout-qty-stepper">
                     <button

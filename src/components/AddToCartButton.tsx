@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { useCart } from "@/lib/cart-store";
 import type { ProductColor } from "@/lib/product-data";
+import { ProductNotifyButton } from "@/components/product/ProductNotifyButton";
 import { Button } from "./Button";
-import { Minus, Plus, ShoppingCart } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 type Product = {
   id: string;
   name: string;
+  slug?: string;
   price: number;
   compareAt?: number | null;
   image: string;
@@ -31,50 +33,39 @@ export function AddToCartButton({
   const [added, setAdded] = useState(false);
 
   if (comingSoon) {
+    if (!product.slug) {
+      return (
+        <Button disabled className="w-full" size="lg">
+          Notify me
+        </Button>
+      );
+    }
+
     return (
-      <Button disabled className="w-full sm:w-auto">
-        Upcoming
-      </Button>
+      <ProductNotifyButton
+        productSlug={product.slug}
+        productName={product.name}
+      />
     );
   }
 
   if (product.stock === 0) {
     return (
-      <Button disabled className="w-full sm:w-auto">
-        Out of Stock
+      <Button disabled className="w-full" size="lg">
+        Out of stock
       </Button>
     );
   }
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-      <div className="flex items-center border border-zinc-900 bg-zinc-900 text-white">
-        <button
-          type="button"
-          className="p-3 text-white transition hover:bg-zinc-800"
-          onClick={() => setQty(Math.max(1, qty - 1))}
-          aria-label="Decrease"
-        >
-          <Minus className="h-4 w-4" />
-        </button>
-        <span className="min-w-[3rem] border-x border-zinc-700 px-6 py-3 text-center text-sm font-medium tabular-nums">
-          {qty}
-        </span>
-        <button
-          type="button"
-          className="p-3 text-white transition hover:bg-zinc-800"
-          onClick={() => setQty(Math.min(product.stock, qty + 1))}
-          aria-label="Increase"
-        >
-          <Plus className="h-4 w-4" />
-        </button>
-      </div>
+    <div className="product-buy-actions w-full">
       <Button
-        className="w-full sm:w-auto"
+        size="lg"
+        className="w-full px-4"
         onClick={() => {
           addItem({
             productId: product.id,
-            name: color ? `${product.name} — ${color}` : product.name,
+            name: color ? `${product.name}, ${color}` : product.name,
             baseName: product.name,
             price: product.price,
             compareAt: product.compareAt ?? null,
@@ -89,9 +80,35 @@ export function AddToCartButton({
           setTimeout(() => setAdded(false), 2000);
         }}
       >
-        <ShoppingCart className="mr-2 h-4 w-4" />
-        {added ? "Added!" : "Add to Cart"}
+        {added ? "Added to cart" : "Add to cart"}
       </Button>
+
+      <div className="mt-4 flex items-center justify-center gap-3">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-zinc-500">
+          Qty
+        </span>
+        <div className="inline-flex items-stretch border border-zinc-300 bg-white text-zinc-900">
+          <button
+            type="button"
+            className="px-3 py-2 transition hover:bg-zinc-100"
+            onClick={() => setQty(Math.max(1, qty - 1))}
+            aria-label="Decrease quantity"
+          >
+            <Minus className="h-3.5 w-3.5" strokeWidth={1.75} />
+          </button>
+          <span className="flex min-w-[2.5rem] items-center justify-center border-x border-zinc-300 px-2 text-sm font-medium tabular-nums">
+            {qty}
+          </span>
+          <button
+            type="button"
+            className="px-3 py-2 transition hover:bg-zinc-100"
+            onClick={() => setQty(Math.min(product.stock, qty + 1))}
+            aria-label="Increase quantity"
+          >
+            <Plus className="h-3.5 w-3.5" strokeWidth={1.75} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

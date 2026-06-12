@@ -237,7 +237,7 @@ export function ProductManager({ products }: { products: Product[] }) {
               label="Features (one per line)"
               value={form.featuresText}
               onChange={(e) => setForm({ ...form, featuresText: e.target.value })}
-              placeholder="Ultra-smooth glass surface&#10;Low-friction glide"
+              placeholder="Ultra smooth glass surface&#10;Low friction glide"
             />
           </div>
           <div className="sm:col-span-2">
@@ -250,7 +250,7 @@ export function ProductManager({ products }: { products: Product[] }) {
           </div>
           <div className="sm:col-span-2">
             <Textarea
-              label="Product photo gallery (one image path per line — thumbnails below main photo)"
+              label="Product photo gallery (one image path per line, thumbnails below main photo)"
               value={form.galleryText}
               onChange={(e) => setForm({ ...form, galleryText: e.target.value })}
               placeholder={"/products/photo-1.png\n/products/photo-2.png\n/products/photo-3.png"}

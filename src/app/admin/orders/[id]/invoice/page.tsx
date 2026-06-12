@@ -23,7 +23,7 @@ export default async function InvoicePage({
   if (!order) notFound();
 
   const settings = await prisma.storeSettings.findFirst();
-  const storeName = settings?.storeName?.trim() || "TriZen Store";
+  const storeName = settings?.storeName?.trim() || "TRIZEN Store";
   const tagline = settings?.tagline?.trim() || "Premium Esports Gear";
 
   return (
@@ -34,7 +34,7 @@ export default async function InvoicePage({
         <div className="invoice-brand">
           <Image
             src="/logo_b.png"
-            alt="TriZen Store"
+            alt="TRIZEN Store"
             width={88}
             height={88}
             className="invoice-brand-logo"
@@ -120,14 +120,14 @@ export default async function InvoicePage({
 
       <footer className="border-t border-gray-300 pt-6">
         <p>
-          <strong>Payment Method:</strong> Cash on Delivery (COD) —{" "}
+          <strong>Payment Method:</strong> Cash on Delivery (COD),{" "}
           {getStatusLabel(order.status)}
         </p>
         <p className="mt-2">
           Collect <strong>{formatCurrency(order.total)}</strong> in cash upon delivery.
         </p>
         <p className="mt-6 text-xs">
-          Thank you for shopping at TriZen Store. For questions contact {settings?.email}
+          Thank you for shopping at TRIZEN Store. For questions contact {settings?.email}
         </p>
       </footer>
     </div>

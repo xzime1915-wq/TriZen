@@ -54,7 +54,7 @@ export function CheckoutFooterLinks({ className }: Props) {
           className="checkout-policy-modal"
           role="dialog"
           aria-modal="true"
-          aria-labelledby="checkout-policy-title"
+          aria-labelledby="checkout policy title"
         >
           <button
             type="button"

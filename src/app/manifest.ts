@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "TriZen Store",
     short_name: "TriZen",
     description:
-      "Bangladesh's premium esports gear — glass mouse pads, soft pads, skates & sleeves.",
+      "Bangladesh's premium esports gear: glass mouse pads, soft pads, skates & sleeves.",
     start_url: "/",
     display: "standalone",
     background_color: "#000000",

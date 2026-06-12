@@ -1,19 +1,19 @@
 const FEATURES = [
   {
     title: "Tempered glass",
-    body: "Ultra-smooth surface tuned for competitive glide and consistent feel.",
+    body: "Ultra smooth surface tuned for competitive glide and consistent feel.",
   },
   {
-    title: "Esports-first",
-    body: "Built for FPS, MOBA, and battle royale — precision flicks and tracking.",
+    title: "Esports first",
+    body: "Built for FPS, MOBA, and battle royale, precision flicks and tracking.",
   },
   {
     title: "Stable base",
-    body: "Non-slip grip keeps your pad locked during intense matches.",
+    body: "Non slip grip keeps your pad locked during intense matches.",
   },
   {
     title: "Easy care",
-    body: "Wipe clean in seconds — no complicated maintenance.",
+    body: "Wipe clean in seconds, no complicated maintenance.",
   },
   {
     title: "All mice",
@@ -29,7 +29,7 @@ export function HomeFeaturesGrid() {
   return (
     <section className="bg-[var(--color-surface)] border-b border-[var(--color-border)]">
       <div className="container-trizen py-20 md:py-28">
-        <p className="trizen-eyebrow mb-4">Why TriPad</p>
+        <p className="trizen-eyebrow mb-4">Why TRIPAD</p>
         <h2 className="trizen-headline text-2xl md:text-3xl mb-14 md:mb-20">
           Built different
         </h2>

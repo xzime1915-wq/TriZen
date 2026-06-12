@@ -64,7 +64,7 @@ export function ShopGearSection({
         </div>
       ) : (
         <p className="py-14 text-center text-sm uppercase tracking-[0.2em] text-zinc-600 md:py-20">
-          Products launching soon — stay tuned
+          Products launching soon, stay tuned
         </p>
       )}
     </section>

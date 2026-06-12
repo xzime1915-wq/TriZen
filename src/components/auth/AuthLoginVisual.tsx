@@ -1,0 +1,36 @@
+const AUTH_LOGIN_WORD_COUNT = 14;
+
+function AuthLoginWords({
+  idPrefix,
+  wordCount = AUTH_LOGIN_WORD_COUNT,
+}: {
+  idPrefix: string;
+  wordCount?: number;
+}) {
+  return Array.from({ length: wordCount }, (_, index) => {
+    const variant = index % 2 === 0 ? "solid" : "hollow";
+    return (
+      <p
+        key={`${idPrefix}-${variant}-${index}`}
+        className={`auth-wallhack-word auth-wallhack-word--${variant}`}
+      >
+        Login
+      </p>
+    );
+  });
+}
+
+export function AuthLoginVisual({ wordCount = AUTH_LOGIN_WORD_COUNT }: { wordCount?: number }) {
+  return (
+    <div className="auth-wallhack-marquee">
+      <div className="auth-wallhack-marquee-track">
+        <div className="auth-wallhack-wordstack">
+          <AuthLoginWords idPrefix="a" wordCount={wordCount} />
+        </div>
+        <div className="auth-wallhack-wordstack" aria-hidden>
+          <AuthLoginWords idPrefix="b" wordCount={wordCount} />
+        </div>
+      </div>
+    </div>
+  );
+}

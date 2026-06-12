@@ -1,4 +1,4 @@
-/** TriPad showcases that use the glide lifestyle background image. */
+/** TRIPAD showcases that use the glide lifestyle background image. */
 export function usesTripadGlideBackground(slug: string): boolean {
   return slug.includes("tripad");
 }

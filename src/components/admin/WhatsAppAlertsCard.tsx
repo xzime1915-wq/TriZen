@@ -30,7 +30,7 @@ export function WhatsAppAlertsCard() {
     setTesting(false);
     setMessage(
       res.ok
-        ? `টেস্ট পাঠানো হয়েছে (${(data.channels as string[])?.join(", ") || "ok"}) — Telegram/WhatsApp চেক করুন।`
+        ? `টেস্ট পাঠানো হয়েছে (${(data.channels as string[])?.join(", ") || "ok"}), Telegram/WhatsApp চেক করুন।`
         : data.error || "পাঠানো যায়নি। .env চেক করে server restart করুন।"
     );
   }

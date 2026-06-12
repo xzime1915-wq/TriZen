@@ -116,7 +116,7 @@ async function downloadImage(
 ): Promise<string | null> {
   try {
     const res = await fetch(imageUrl, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; TriZenBot/1.0)" },
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; TRIZENBot/1.0)" },
       cache: "no-store",
     });
     if (!res.ok) return null;
@@ -157,7 +157,7 @@ export async function POST(request: Request) {
   let html = "";
   try {
     const res = await fetch(url, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; TriZenBot/1.0)" },
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; TRIZENBot/1.0)" },
       cache: "no-store",
     });
     if (!res.ok) {
@@ -243,7 +243,7 @@ export async function POST(request: Request) {
       content,
       coverImage,
       category: (category || "Esports").trim() || "Esports",
-      author: "TriZen Store",
+      author: "TRIZEN Store",
       published: false,
     },
   });

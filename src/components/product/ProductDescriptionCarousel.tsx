@@ -3,18 +3,20 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { displayImageSrc } from "@/lib/image-path";
+import { IMAGE_QUALITY } from "@/lib/image-quality";
 
 const SLIDE_ALTS: Record<string, string> = {
   "/products/tripad-3mm-feature.png":
-    "Lighter and Thinner — Just 3mm for Superior Gaming Experience",
+    "Lighter and Thinner, Just 3mm for Superior Gaming Experience",
   "/products/tripad-scratch-proof.png":
-    "Scratch-Proof and Impact-Resistant TriPad surface",
+    "Scratch Proof and Impact Resistant TRIPAD surface",
   "/products/tripad-anti-slip-base.png":
-    "Stability Rubber Anti-Slip Base — full molded rubber bottom",
+    "Stability Rubber Anti Slip Base, full molded rubber bottom",
 };
 
 function slideAlt(src: string) {
-  return SLIDE_ALTS[src] || "TriPad product feature";
+  return SLIDE_ALTS[src] || "TRIPAD product feature";
 }
 
 function padIndex(n: number, total: number) {
@@ -74,7 +76,7 @@ export function ProductDescriptionCarousel({
               aria-hidden={i !== index}
             >
               <Image
-                src={src}
+                src={displayImageSrc(src)}
                 alt={slideAlt(src)}
                 fill
                 className="trizen-desc-carousel-image"
@@ -83,6 +85,7 @@ export function ProductDescriptionCarousel({
                     ? "(max-width: 640px) 85vw, 20rem"
                     : "(max-width: 768px) 90vw, 28rem"
                 }
+                quality={IMAGE_QUALITY}
                 priority={i === 0}
               />
             </div>
@@ -139,11 +142,12 @@ export function ProductDescriptionCarousel({
                 }`}
               >
                 <Image
-                  src={src}
+                  src={displayImageSrc(src)}
                   alt=""
                   fill
                   className="trizen-desc-thumb-image"
                   sizes="80px"
+                  quality={IMAGE_QUALITY}
                 />
               </button>
             ))}

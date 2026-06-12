@@ -28,7 +28,7 @@ const emptyForm = {
   content: "",
   coverImage: "/products/",
   category: "News",
-  author: "TriZen Store",
+  author: "TRIZEN Store",
   published: true,
 };
 
@@ -146,7 +146,7 @@ export function BlogManager({ posts }: { posts: BlogPost[] }) {
         <p className="mb-3 text-xs text-[var(--color-muted)]">
           Paste a news URL (e.g. a VALORANT esports article). We pull the title,
           summary, and image into a <strong>draft</strong> with a source link —
-          review and publish it. (We never copy the full article — that keeps it
+          review and publish it. (We never copy the full article, that keeps it
           copyright-safe.)
         </p>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
@@ -185,7 +185,7 @@ export function BlogManager({ posts }: { posts: BlogPost[] }) {
             onChange={(e) => setForm({ ...form, title: e.target.value })}
           />
           <Input
-            label="Slug (optional — auto from title)"
+            label="Slug (optional, auto from title)"
             value={form.slug}
             onChange={(e) => setForm({ ...form, slug: e.target.value })}
             placeholder="how-to-choose-a-glass-mouse-pad"
@@ -264,7 +264,7 @@ export function BlogManager({ posts }: { posts: BlogPost[] }) {
                   <span
                     className={
                       p.published
-                        ? "text-emerald-600"
+                        ? "text emerald-600"
                         : "text-[var(--color-muted)]"
                     }
                   >

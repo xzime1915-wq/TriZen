@@ -59,7 +59,7 @@ export function SiteJsonLd() {
     {
       "@type": "ItemList",
       "@id": `${SITE_URL}/#sitenav`,
-      name: `${SITE_NAME} — main pages`,
+      name: `${SITE_NAME}, main pages`,
       itemListElement: SITE_NAV_LINKS.map((link, index) => ({
         "@type": "ListItem",
         position: index + 1,

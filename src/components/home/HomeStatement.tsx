@@ -13,8 +13,8 @@ export function HomeStatement() {
           <span className="trizen-metallic-muted">More control.</span>
         </h2>
         <p className="mt-6 max-w-2xl text-[0.8125rem] leading-[1.6] text-zinc-500 sm:mt-8 sm:text-sm md:mt-10 md:text-base md:leading-relaxed">
-          TriZen builds gear for players who care about consistency. Our glass
-          surface is tuned for speed without sacrificing stability — so every
+          TRIZEN builds gear for players who care about consistency. Our glass
+          surface is tuned for speed without sacrificing stability, so every
           flick, track, and micro-adjustment feels intentional.
         </p>
       </div>

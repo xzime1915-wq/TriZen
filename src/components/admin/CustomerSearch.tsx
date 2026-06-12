@@ -105,7 +105,7 @@ export function CustomerSearch() {
                   {c.name}
                   {c.id === "unlinked" && (
                     <span className="ml-2 text-xs font-normal text-amber-400/90">
-                      (not synced — click Sync from orders)
+                      (not synced, click Sync from orders)
                     </span>
                   )}
                 </h2>

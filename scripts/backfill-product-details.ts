@@ -9,11 +9,11 @@ const prisma = new PrismaClient();
 
 const defaults = {
   features: stringifyJsonField([
-    "Premium TriZen quality",
+    "Premium TRIZEN quality",
     "Designed for esports performance",
   ]),
   specifications: stringifyJsonField([
-    { label: "Brand", value: "TriZen" },
+    { label: "Brand", value: "TRIZEN" },
   ]),
 };
 

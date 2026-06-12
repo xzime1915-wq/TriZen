@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ProductVisualFrame } from "@/components/product/ProductVisualFrame";
+import { displayImageSrc } from "@/lib/image-path";
 import { getLargeProductImageScale } from "@/lib/product-visual-scale";
 
 export function ProductGallery({
@@ -11,7 +12,6 @@ export function ProductGallery({
 }: {
   images: string[];
   productName: string;
-  showGlideBackground?: boolean;
 }) {
   const [active, setActive] = useState(images[0] || "");
   const activeScale = getLargeProductImageScale(active);
@@ -31,7 +31,7 @@ export function ProductGallery({
 
       {images.length > 1 && (
         <div className="mt-4 lg:mt-6">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-[var(--color-muted)]">
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-[var(--color-muted)] sr-only">
             More photos
           </p>
           <div
@@ -52,7 +52,7 @@ export function ProductGallery({
                 aria-current={active === src ? "true" : undefined}
               >
                 <Image
-                  src={src}
+                  src={displayImageSrc(src)}
                   alt=""
                   width={160}
                   height={160}

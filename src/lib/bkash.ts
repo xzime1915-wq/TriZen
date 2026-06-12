@@ -105,7 +105,7 @@ async function bkashRequest<T>(
       "Content-Type": "application/json",
       Accept: "application/json",
       authorization: token,
-      "x-app-key": config.appKey,
+      "x app key": config.appKey,
     },
     body: JSON.stringify(body),
     cache: "no-store",

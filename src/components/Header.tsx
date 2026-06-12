@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AnimatedLogo } from "@/components/AnimatedLogo";
+import { TrizenLogo } from "@/components/TrizenLogo";
 import { usePathname } from "next/navigation";
 import { ShoppingCart, Menu, X, Search, User, MessageCircle } from "lucide-react";
 import { useChatStore } from "@/lib/chat-store";
@@ -23,6 +23,14 @@ const links = [
 
 const iconClass = "h-[18px] w-[18px]";
 const iconStroke = 1.5;
+
+function isNavActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  if (href === "/shop") {
+    return pathname === "/shop" || pathname.startsWith("/product/");
+  }
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Header({ user = null }: { user?: HeaderUser }) {
   const pathname = usePathname();
@@ -84,24 +92,34 @@ export function Header({ user = null }: { user?: HeaderUser }) {
         {/* Branding — centered on mobile, left on desktop */}
         <Link
           href="/"
-          className="group absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 transition-opacity hover:opacity-80 lg:static lg:translate-x-0 lg:shrink-0"
+          className="absolute left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 transition-opacity hover:opacity-80 lg:static lg:translate-x-0 lg:shrink-0"
         >
-          <span className="logo-3d inline-block shrink-0">
-            <AnimatedLogo size="sm" variant="on-light" />
-          </span>
+          <TrizenLogo
+            variant="on-light"
+            width={128}
+            height={128}
+            className="h-10 w-10"
+            priority
+          />
         </Link>
 
-        <nav className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 lg:flex">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              data-active={pathname === l.href ? "true" : "false"}
-              className="trizen-nav-link pointer-events-auto"
-            >
-              {l.label}
-            </Link>
-          ))}
+        <nav className="pointer-events-none absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-2 lg:flex">
+          {links.map((l) => {
+            const active = isNavActive(pathname, l.href);
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "trizen-nav-link pointer-events-auto",
+                  active && "trizen-nav-link-active"
+                )}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Mobile: cart only */}
@@ -160,24 +178,27 @@ export function Header({ user = null }: { user?: HeaderUser }) {
               useChatStore.getState().toggle();
               setOpen(false);
             }}
-            className="flex w-full items-center gap-3 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-900 transition-colors"
+            className="flex w-full items-center gap-3 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-black hover:text-zinc-700 transition-colors"
           >
             <MessageCircle className={iconClass} strokeWidth={iconStroke} />
             Live Chat
           </button>
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className={cn(
-                "block py-3 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors",
-                pathname === l.href ? "text-zinc-900" : "text-zinc-500 hover:text-zinc-800"
-              )}
-            >
-              {l.label}
-            </Link>
-          ))}
+          {links.map((l) => {
+            const active = isNavActive(pathname, l.href);
+            return (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "block py-3 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors",
+                  active ? "text-zinc-900 font-semibold" : "text-black hover:text-zinc-700"
+                )}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
           {authLinks.map((l) => (
             <Link
               key={l.href}

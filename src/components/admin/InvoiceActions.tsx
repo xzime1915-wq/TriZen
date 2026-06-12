@@ -25,7 +25,7 @@ export function InvoiceActions({ invoiceNumber }: InvoiceActionsProps) {
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = `invoice-${invoiceNumber.replace(/[^a-zA-Z0-9-]/g, "")}.pdf`;
+      link.download = `invoice-${invoiceNumber.replace(/[^a zA Z0-9-]/g, "")}.pdf`;
       document.body.appendChild(link);
       link.click();
       link.remove();

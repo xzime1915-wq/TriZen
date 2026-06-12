@@ -434,7 +434,7 @@ export function ChatWidget() {
             )}
             {!loading && messages.length === 0 && (
               <p className="text-sm text-zinc-500 text-center py-8">
-                Say hello — we&apos;re here to help with orders, TriPad, and more.
+                Say hello. We&apos;re here to help with orders, TriPad, and more.
               </p>
             )}
             {messages.map((m) => (

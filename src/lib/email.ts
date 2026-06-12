@@ -36,7 +36,7 @@ function getSmtpConfig() {
 export async function sendEmail(input: SendEmailInput) {
   const smtp = getSmtpConfig();
   const from =
-    process.env.EMAIL_FROM?.trim() || "TriZen Store <support@trizenstore.com.bd>";
+    process.env.EMAIL_FROM?.trim() || "TRIZEN Store <support@trizenstore.com.bd>";
   const reply =
     input.replyTo?.trim() ||
     process.env.EMAIL_REPLY_TO?.trim() ||
@@ -64,7 +64,7 @@ export async function sendEmail(input: SendEmailInput) {
     );
   }
 
-  console.log("[dev-email]", {
+  console.log("[dev email]", {
     to: input.to,
     subject: input.subject,
     text: input.text,

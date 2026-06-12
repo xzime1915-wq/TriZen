@@ -173,7 +173,7 @@ export function AdminOrderForm({
                 >
                   {products.map((p) => (
                     <option key={p.id} value={p.id}>
-                      {p.name} — ৳{p.price} (stock: {p.stock})
+                      {p.name}, ৳{p.price} (stock: {p.stock})
                     </option>
                   ))}
                 </select>

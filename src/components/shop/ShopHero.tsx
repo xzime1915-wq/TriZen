@@ -9,7 +9,7 @@ export function ShopHero({ count, activeGearLabel, query }: Props) {
     ? `Results for “${query}”`
     : activeGearLabel
       ? activeGearLabel
-      : "Esports mouse pad in Bangladesh — glass TriPad, soft pads, skates & sleeves";
+      : "Esports mouse pad in Bangladesh, glass TRIPAD, soft pads, skates & sleeves";
 
   return (
     <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)]">
@@ -19,7 +19,7 @@ export function ShopHero({ count, activeGearLabel, query }: Props) {
       />
       <div className="container-trizen relative pt-20 pb-8 md:pt-32 md:pb-20">
         <p className="trizen-eyebrow text-[8px] tracking-[0.28em] md:text-xs">
-          TriZen Store
+          TRIZEN Store
         </p>
         <h1 className="trizen-headline mt-2 text-[1.25rem] leading-tight md:mt-4 md:text-6xl sm:text-5xl">
           Shop

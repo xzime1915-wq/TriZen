@@ -11,3 +11,11 @@ export const isComingSoon = isUpcoming;
 export function shouldShowProductPrice(tag: string | null | undefined): boolean {
   return !isUpcoming(tag);
 }
+
+export function isProductAvailable(product: {
+  tag?: string | null;
+  stock: number;
+  price: number;
+}): boolean {
+  return !isUpcoming(product.tag) && product.stock > 0 && product.price > 0;
+}

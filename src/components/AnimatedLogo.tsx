@@ -21,7 +21,7 @@ export function AnimatedLogo({
     return (
       <Image
         src={getLogoSrc(variant)}
-        alt="TriZen Store"
+        alt="TRIZEN Store"
         width={40}
         height={40}
         className={cn("logo-intro-sm h-10 w-10 object-contain", className)}
@@ -34,7 +34,7 @@ export function AnimatedLogo({
       <div className="logo-intro-glow pointer-events-none" aria-hidden />
       <Image
         src="/intro-banner.png"
-        alt="TriZen — Ultimate Esports Solutions"
+        alt="TRIZEN, Ultimate Esports Solutions"
         width={960}
         height={540}
         priority={priority}

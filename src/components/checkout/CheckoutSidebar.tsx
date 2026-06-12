@@ -18,7 +18,6 @@ export function CheckoutSidebar({ items, subtotal, deliveryCharge, total }: Prop
         subtotal={subtotal}
         deliveryCharge={deliveryCharge}
         total={total}
-        hideTitle
       />
     </div>
   );

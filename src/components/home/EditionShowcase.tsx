@@ -1,19 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { displayImageSrc } from "@/lib/image-path";
+import { IMAGE_QUALITY } from "@/lib/image-quality";
 import {
   HOME_GLIDE_TRIPAD_IMAGE,
   HOME_GLIDE_WHITE_IMAGE,
   HOME_GLIDE_BLACK_IMAGE,
-  HOME_GLIDE_V2_TRIPAD_IMAGE,
-  HOME_GLIDE_V2_BLACK_IMAGE,
-  HOME_GLIDE_V2_WHITE_IMAGE,
 } from "@/lib/home-assets";
+import { EditionShowcaseV2Grid } from "@/components/home/EditionShowcaseV2Grid";
 
 const V1_BLACK_SLUG = "trizen-tripad-v1-black";
 const V1_WHITE_SLUG = "trizen-tripad-v1-white";
-const V2_BLACK_SLUG = "trizen-tripad-v2-black";
-const V2_WHITE_SLUG = "trizen-tripad-v2-white";
 
 const padImgClass =
   "mx-auto block h-auto w-full max-h-[min(78vw,420px)] object-contain object-center sm:max-h-[min(46vh,520px)] lg:max-h-[min(50vh,580px)]";
@@ -42,7 +39,7 @@ function EditionCell({
   return (
     <Link
       href={href}
-      className="group flex flex-col items-center bg-white px-1.5 py-4 sm:px-3 sm:py-6 md:px-4 md:py-8"
+      className="group flex flex-col items-center px-1 py-2 sm:px-2 sm:py-4"
     >
       <div className="relative w-full">
         {badge && (
@@ -53,26 +50,26 @@ function EditionCell({
         <Image
           src={displayImageSrc(image.src)}
           alt={image.alt}
-          width={1200}
-          height={960}
+          width={2400}
+          height={1920}
           className={
             hoverImage
               ? `${padImgClass} transition-opacity duration-500 group-hover:opacity-0`
               : padImgClass
           }
           sizes="(max-width: 640px) 100vw, 33vw"
-          quality={85}
+          quality={IMAGE_QUALITY}
           priority={label === "TriPad V1" || label === "TriPad V2"}
         />
         {hoverImage && (
           <Image
             src={displayImageSrc(hoverImage.src)}
             alt={hoverImage.alt}
-            width={1200}
-            height={960}
+            width={2400}
+            height={1920}
             className={`${padImgClass} absolute inset-x-0 top-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100`}
             sizes="(max-width: 640px) 100vw, 33vw"
-            quality={85}
+            quality={IMAGE_QUALITY}
           />
         )}
       </div>
@@ -87,7 +84,7 @@ export function EditionShowcaseV1() {
   return (
     <div className="edition-showcase-section">
       <ShowcaseHeader title="Choose your edition" />
-      <div className="grid grid-cols-3 divide-x divide-[var(--color-border)] border-y border-[var(--color-border)] bg-white">
+      <div className="grid grid-cols-3 gap-2 bg-white px-3 pb-6 sm:gap-4 sm:px-4 md:gap-6 md:pb-10">
         <EditionCell
           href={`/product/${V1_BLACK_SLUG}`}
           label="TriPad V1"
@@ -127,51 +124,16 @@ export function EditionShowcaseV1() {
 
 export function EditionShowcaseV2() {
   return (
-    <div className="edition-showcase-section mt-8 md:mt-24">
-      <ShowcaseHeader title="Upcoming · TriPad V2" />
-      <div className="border-b border-[var(--color-border)] bg-white px-4 pb-3 pt-2 md:pb-8 md:pt-6">
-        <p className="mx-auto max-w-xl text-center text-[10px] leading-snug text-zinc-500 sm:text-sm sm:leading-relaxed">
-          Same glass glide you trust — refreshed vertical TriZen branding in black
-          and white.
+    <div className="edition-showcase-section edition-showcase-v2 mt-12 md:mt-20">
+      <div className="edition-showcase-v2-intro">
+        <p className="edition-showcase-eyebrow">Coming soon</p>
+        <h2 className="edition-showcase-v2-title">TriPad V2</h2>
+        <p className="edition-showcase-v2-desc">
+          Same glass glide you trust, with refreshed vertical TriZen branding in
+          black and white.
         </p>
       </div>
-      <div className="grid grid-cols-3 divide-x divide-[var(--color-border)] border-y border-[var(--color-border)] bg-white">
-        <EditionCell
-          href={`/product/${V2_BLACK_SLUG}`}
-          label="TriPad V2"
-          badge="Upcoming"
-          image={{
-            src: HOME_GLIDE_V2_TRIPAD_IMAGE,
-            alt: "TriZen TriPad V2 black and silver editions",
-          }}
-        />
-        <EditionCell
-          href={`/product/${V2_WHITE_SLUG}`}
-          label="White Edition"
-          badge="Upcoming"
-          image={{
-            src: HOME_GLIDE_V2_WHITE_IMAGE,
-            alt: "TriZen TriPad V2 white edition",
-          }}
-          hoverImage={{
-            src: HOME_GLIDE_V2_BLACK_IMAGE,
-            alt: "TriZen TriPad V2 black edition",
-          }}
-        />
-        <EditionCell
-          href={`/product/${V2_BLACK_SLUG}`}
-          label="Black Edition"
-          badge="Upcoming"
-          image={{
-            src: HOME_GLIDE_V2_BLACK_IMAGE,
-            alt: "TriZen TriPad V2 black edition",
-          }}
-          hoverImage={{
-            src: HOME_GLIDE_V2_WHITE_IMAGE,
-            alt: "TriZen TriPad V2 white edition",
-          }}
-        />
-      </div>
+      <EditionShowcaseV2Grid />
     </div>
   );
 }

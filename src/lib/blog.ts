@@ -36,7 +36,7 @@ export function readingMinutes(content: string) {
 
 export function formatBlogDate(date: Date | string) {
   const d = typeof date === "string" ? new Date(date) : date;
-  return d.toLocaleDateString("en-GB", {
+  return d.toLocaleDateString("en-BD", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -63,7 +63,7 @@ export function buildBlogDbPayload(input: BlogInput) {
     content: (input.content ?? "").trim(),
     coverImage: (input.coverImage ?? "").trim(),
     category: (input.category ?? "News").trim() || "News",
-    author: (input.author ?? "TriZen Store").trim() || "TriZen Store",
+    author: (input.author ?? "TRIZEN Store").trim() || "TRIZEN Store",
     published: input.published ?? true,
   };
 }
