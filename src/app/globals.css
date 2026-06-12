@@ -1874,15 +1874,26 @@ textarea {
 }
 
 .checkout-brand-wordmark {
-  @apply inline-block uppercase leading-none text-black;
+  @apply inline-flex items-baseline leading-none text-black;
   font-family: "New Academy", "Arial Narrow", sans-serif;
-  font-size: clamp(2.125rem, 6.25vw, 2.625rem);
   font-weight: 700;
   font-synthesis: none;
-  letter-spacing: 0.035em;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.checkout-brand-wordmark-t {
+  font-size: clamp(2.75rem, 8.5vw, 3.5rem);
+  letter-spacing: 0.02em;
+  line-height: 0.85;
+}
+
+.checkout-brand-wordmark-rest {
+  @apply uppercase;
+  font-size: clamp(1.375rem, 4.25vw, 1.75rem);
+  letter-spacing: 0.045em;
+  line-height: 1;
 }
 
 .checkout-header-cart {
