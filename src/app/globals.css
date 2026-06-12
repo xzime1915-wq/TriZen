@@ -1874,13 +1874,15 @@ textarea {
 }
 
 .checkout-brand-wordmark {
-  @apply inline-flex shrink-0 leading-none;
-}
-
-.checkout-brand-wordmark-img {
-  @apply h-auto w-auto max-w-none;
-  height: clamp(1.75rem, 5.5vw, 2.25rem);
-  width: auto;
+  @apply inline-block shrink-0 uppercase leading-none text-black;
+  font-family: "New Academy", sans-serif;
+  font-size: clamp(2rem, 6vw, 2.5rem);
+  font-weight: 700;
+  font-synthesis: none;
+  letter-spacing: 0.08em;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .checkout-header-cart {

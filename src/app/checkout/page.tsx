@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
@@ -171,15 +170,8 @@ export default function CheckoutPage() {
       <div className="checkout-layout">
         <main className="checkout-main">
           <header className="checkout-main-header">
-            <Link href="/" className="checkout-brand-wordmark" aria-label="Trizen home">
-              <Image
-                src="/trizen-wordmark.png"
-                alt="Trizen"
-                width={359}
-                height={78}
-                priority
-                className="checkout-brand-wordmark-img"
-              />
+            <Link href="/" className="checkout-brand-wordmark">
+              Trizen
             </Link>
             <button
               type="button"
