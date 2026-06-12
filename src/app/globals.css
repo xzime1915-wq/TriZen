@@ -1903,9 +1903,15 @@ textarea {
 }
 
 .checkout-brand-wordmark {
-  @apply trizen-brand-wordmark inline-block shrink-0 leading-none text-black;
+  @apply inline-block shrink-0 leading-none text-black;
+  font-family: var(--font-brand);
   font-size: clamp(2rem, 6vw, 2.5rem);
+  font-weight: 700;
+  font-synthesis: none;
   letter-spacing: 0.05em;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .checkout-header-cart {
