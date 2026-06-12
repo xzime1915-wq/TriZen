@@ -1560,7 +1560,7 @@ textarea {
 }
 
 .checkout-email-verify {
-  @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 overflow-x-hidden px-0 pt-2 text-center normal-case lg:max-w-[580px];
+  @apply mx-auto flex w-full min-w-0 max-w-[540px] flex-col items-center space-y-7 overflow-x-hidden px-0 pt-2 text-center normal-case lg:mx-0 lg:max-w-none lg:items-stretch lg:pt-6;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
@@ -1601,7 +1601,7 @@ textarea {
 }
 
 .checkout-email-verify-footer {
-  @apply mt-auto justify-center px-1 pb-2 pt-10 text-center sm:pb-4 lg:pb-0;
+  @apply mt-auto w-full max-w-[540px] justify-center px-1 pb-2 pt-10 text-center sm:pb-4 lg:mx-0 lg:max-w-none lg:pb-0;
 }
 
 .checkout-email-verify-title {
@@ -1677,7 +1677,7 @@ textarea {
 }
 
 .checkout-layout {
-  @apply grid min-h-screen lg:grid-cols-2;
+  @apply grid min-h-screen w-full lg:grid-cols-4;
 }
 
 .checkout-top-zone {
@@ -1864,19 +1864,23 @@ textarea {
 }
 
 .checkout-main {
-  @apply order-2 min-w-0 overflow-x-hidden px-5 py-8 sm:px-8 lg:order-1 lg:py-12;
+  @apply order-2 min-w-0 overflow-x-hidden bg-white px-5 py-8 sm:px-8 lg:col-start-2 lg:py-12 lg:pl-10 lg:pr-8 xl:pl-12 xl:pr-10;
 }
 
 .checkout-main--split {
-  @apply lg:flex lg:min-h-screen lg:flex-col lg:px-10 lg:py-12 xl:px-14;
+  @apply lg:flex lg:min-h-screen lg:flex-col;
 }
 
-.checkout-main--split .checkout-top-zone {
-  @apply lg:mx-auto lg:max-w-[580px];
+.checkout-main--split .checkout-brand-wordmark {
+  font-size: clamp(2rem, 2.2vw, 2.75rem);
+}
+
+.checkout-main--split .checkout-verify-flow {
+  @apply lg:flex lg:w-full lg:flex-1 lg:flex-col;
 }
 
 .checkout-main-header {
-  @apply mx-auto mb-8 flex w-full max-w-[540px] items-center justify-between lg:max-w-[580px];
+  @apply mb-8 flex w-full items-center justify-between lg:mb-10;
 }
 
 .checkout-brand-wordmark {
@@ -1890,19 +1894,19 @@ textarea {
 }
 
 .checkout-form {
-  @apply mx-auto flex max-w-[540px] flex-col gap-8 lg:max-w-[580px];
+  @apply mx-auto flex w-full max-w-[540px] flex-col gap-8 lg:mx-0 lg:max-w-none;
 }
 
 .checkout-sidebar {
-  @apply hidden border-b border-zinc-200 bg-white px-5 py-6 sm:px-8 lg:order-2 lg:block lg:min-h-screen lg:border-b-0 lg:border-l lg:border-zinc-200 lg:px-10 lg:py-12;
+  @apply hidden border-b border-zinc-200 bg-zinc-100/60 px-5 py-6 sm:px-8 lg:col-start-3 lg:block lg:min-h-screen lg:border-b-0 lg:border-l lg:border-zinc-200 lg:bg-zinc-100 lg:py-12 lg:pl-8 lg:pr-10 xl:pl-10 xl:pr-12;
 }
 
 .checkout-sidebar--split .checkout-sidebar-inner {
-  @apply max-w-none;
+  @apply w-full lg:sticky lg:top-12;
 }
 
 .checkout-sidebar-inner {
-  @apply mx-auto w-full max-w-[480px] lg:sticky lg:top-8;
+  @apply w-full lg:sticky lg:top-8;
 }
 
 .checkout-sidebar-empty {
@@ -2018,11 +2022,11 @@ textarea {
 }
 
 .checkout-footer-links {
-  @apply flex flex-wrap gap-x-4 gap-y-2 pt-2 text-xs text-zinc-500;
+  @apply flex flex-wrap gap-x-4 gap-y-2 pt-2 text-xs normal-case text-zinc-500;
 }
 
 .checkout-footer-links a {
-  @apply underline underline-offset-2 hover:text-zinc-800;
+  @apply normal-case underline underline-offset-2 hover:text-zinc-800;
 }
 
 /* Cart drawer — Wallhack-style side panel */

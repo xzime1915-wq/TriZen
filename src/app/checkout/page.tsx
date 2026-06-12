@@ -201,7 +201,6 @@ export default function CheckoutPage() {
                 subtotal={sub}
                 deliveryCharge={DELIVERY_CHARGE}
                 total={total}
-                empty
                 showBack
               />
               <CheckoutVerifyFooter />
@@ -335,18 +334,12 @@ export default function CheckoutPage() {
         </main>
 
         <aside className="checkout-sidebar checkout-sidebar--split">
-          {emailVerified ? (
-            <CheckoutSidebar
-              items={items}
-              subtotal={sub}
-              deliveryCharge={DELIVERY_CHARGE}
-              total={total}
-            />
-          ) : (
-            <div className="checkout-sidebar-inner checkout-sidebar-empty">
-              <p className="checkout-sidebar-empty-text">Your cart is empty</p>
-            </div>
-          )}
+          <CheckoutSidebar
+            items={items}
+            subtotal={sub}
+            deliveryCharge={DELIVERY_CHARGE}
+            total={total}
+          />
         </aside>
       </div>
     </div>
