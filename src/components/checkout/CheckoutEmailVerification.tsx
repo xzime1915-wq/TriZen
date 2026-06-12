@@ -2,11 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { LogIn } from "lucide-react";
 
 type Props = {
   email: string;
   onVerified: () => void;
 };
+
+type Step = "confirm" | "code";
 
 function DigitInput({
   index,
@@ -40,7 +43,20 @@ function DigitInput({
   );
 }
 
+function VerifyFooterLinks() {
+  return (
+    <footer className="checkout-footer-links checkout-email-verify-footer">
+      <Link href="/terms">Refund policy</Link>
+      <Link href="/contact">Shipping</Link>
+      <Link href="/privacy">Privacy policy</Link>
+      <Link href="/terms">Terms of service</Link>
+      <Link href="/contact">Contact</Link>
+    </footer>
+  );
+}
+
 export function CheckoutEmailVerification({ email, onVerified }: Props) {
+  const [step, setStep] = useState<Step>("confirm");
   const [digits, setDigits] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
   const [sending, setSending] = useState(false);
@@ -49,7 +65,7 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
   const submittedRef = useRef("");
 
-  async function sendCode() {
+  async function sendCode(): Promise<boolean> {
     setSending(true);
     setError("");
     submittedRef.current = "";
@@ -59,11 +75,18 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to send code");
       if (data.devCode) setDevCode(String(data.devCode));
+      return true;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to send code");
+      return false;
     } finally {
       setSending(false);
     }
+  }
+
+  async function handleContinue() {
+    const sent = await sendCode();
+    if (sent) setStep("code");
   }
 
   async function confirmCode(code: string) {
@@ -91,14 +114,13 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
   }
 
   useEffect(() => {
-    sendCode();
-    inputsRef.current[0]?.focus();
-  }, []);
+    if (step === "code") inputsRef.current[0]?.focus();
+  }, [step]);
 
   useEffect(() => {
     const code = digits.join("");
-    if (code.length === 6) void confirmCode(code);
-  }, [digits]);
+    if (step === "code" && code.length === 6) void confirmCode(code);
+  }, [digits, step]);
 
   function updateDigit(index: number, value: string) {
     const next = value.replace(/\D/g, "").slice(-1);
@@ -123,6 +145,43 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
     const next = pasted.split("").concat(Array(6).fill("")).slice(0, 6);
     setDigits(next);
     inputsRef.current[Math.min(pasted.length, 5)]?.focus();
+  }
+
+  if (step === "confirm") {
+    return (
+      <div className="checkout-email-verify checkout-email-verify--confirm">
+        <div className="checkout-email-confirm">
+          <div className="checkout-email-confirm-avatar" aria-hidden>
+            {email.charAt(0).toUpperCase() || "?"}
+          </div>
+          <p className="checkout-email-confirm-email">{email}</p>
+
+          {error ? (
+            <p className="checkout-email-verify-error checkout-email-confirm-error">{error}</p>
+          ) : null}
+
+          <button
+            type="button"
+            onClick={handleContinue}
+            disabled={sending || !email}
+            className="checkout-email-continue-btn"
+          >
+            {sending ? "Sending…" : "Continue"}
+          </button>
+
+          <Link href="/account" className="checkout-email-confirm-alt">
+            <LogIn className="h-4 w-4" strokeWidth={1.75} aria-hidden />
+            Use a different account
+          </Link>
+
+          <Link href="/cart" className="checkout-email-verify-link-secondary">
+            Back
+          </Link>
+        </div>
+
+        <VerifyFooterLinks />
+      </div>
+    );
   }
 
   return (
@@ -199,9 +258,17 @@ export function CheckoutEmailVerification({ email, onVerified }: Props) {
           <span className="checkout-email-verify-link-dot" aria-hidden>
             ·
           </span>
-          <Link href="/cart" className="checkout-email-verify-link-secondary">
+          <button
+            type="button"
+            onClick={() => {
+              setStep("confirm");
+              setError("");
+              setDevCode(null);
+            }}
+            className="checkout-email-verify-link-secondary"
+          >
             Back
-          </Link>
+          </button>
         </div>
       </div>
     </div>

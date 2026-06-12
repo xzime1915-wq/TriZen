@@ -1564,6 +1564,38 @@ textarea {
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
+.checkout-email-verify--confirm {
+  @apply min-h-[calc(100vh-12rem)] justify-between space-y-10 pb-4 pt-10 sm:min-h-[calc(100vh-10rem)] sm:pt-16;
+}
+
+.checkout-email-confirm {
+  @apply flex w-full max-w-[360px] flex-col items-center gap-5;
+}
+
+.checkout-email-confirm-avatar {
+  @apply flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full border border-zinc-200 bg-zinc-50 text-2xl font-medium text-zinc-400;
+}
+
+.checkout-email-confirm-email {
+  @apply text-sm text-zinc-500;
+}
+
+.checkout-email-confirm-error {
+  @apply w-full;
+}
+
+.checkout-email-continue-btn {
+  @apply mt-2 w-full rounded-full bg-zinc-900 px-6 py-4 text-sm font-semibold text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.checkout-email-confirm-alt {
+  @apply inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-zinc-800;
+}
+
+.checkout-email-verify-footer {
+  @apply justify-center;
+}
+
 .checkout-email-verify-title {
   @apply w-full text-[1.625rem] font-semibold leading-tight tracking-tight text-zinc-900 sm:text-[1.75rem];
 }
