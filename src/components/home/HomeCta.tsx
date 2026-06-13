@@ -1,6 +1,12 @@
 import Link from "next/link";
+import { ReviewTrustBar } from "@/components/ReviewTrustBar";
 
-export function HomeCta() {
+type Props = {
+  averageRating?: number;
+  totalReviews?: number;
+};
+
+export function HomeCta({ averageRating, totalReviews }: Props) {
   return (
     <section className="relative overflow-hidden bg-white">
       <div className="container-trizen-full flex min-h-[44vh] flex-col items-center justify-center py-20 text-center sm:py-24 md:min-h-[50vh] md:py-28">
@@ -22,13 +28,11 @@ export function HomeCta() {
         </div>
       </div>
 
-      <div className="trizen-wh-trust-bar border-t border-zinc-200 text-zinc-900">
-        <span>4.8 ★★★★★</span>
-        <span className="mx-2 opacity-40">|</span>
-        Customers rate us highly on product quality
-        <span className="mx-2 opacity-40">|</span>
-        Verified
-      </div>
+      <ReviewTrustBar
+        averageRating={averageRating}
+        totalReviews={totalReviews}
+        className="border-t border-zinc-200 text-zinc-900"
+      />
     </section>
   );
 }

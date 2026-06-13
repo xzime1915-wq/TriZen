@@ -23,6 +23,7 @@ export type ProductReviewData = {
   rating: number;
   title: string;
   body: string;
+  verified?: boolean;
   createdAt: string;
 };
 

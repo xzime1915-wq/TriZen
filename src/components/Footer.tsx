@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { PayWithLogos } from "@/components/PayWithLogos";
 import { SocialLinks } from "@/components/SocialLinks";
 import { NewsletterForm } from "@/components/NewsletterForm";
+import { ReviewTrustBar } from "@/components/ReviewTrustBar";
 import { TrizenBrandName } from "@/components/TrizenBrandName";
 import { EXPLORE_LINKS } from "@/lib/nav-config";
 
@@ -69,15 +70,7 @@ export function Footer() {
 
   return (
     <footer className="trizen-footer-dark relative mt-0 bg-black overflow-hidden max-lg:mb-[calc(4rem+env(safe-area-inset-bottom))]">
-      {showTrustBar ? (
-        <div className="trizen-wh-trust-bar">
-          <span className="text-[var(--color-foreground)]">4.8 ★★★★★</span>
-          <span className="mx-2 opacity-40">|</span>
-          Customers rate us highly on product quality
-          <span className="mx-2 opacity-40">|</span>
-          Verified
-        </div>
-      ) : null}
+      {showTrustBar ? <ReviewTrustBar variant="dark" /> : null}
 
       <div className="container-trizen relative py-12 md:py-16 lg:py-20">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">

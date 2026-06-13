@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserSession } from "@/lib/user-auth";
 import { getClientIp, rateLimit } from "@/lib/rate-limit";
+import {
+  assertReviewPurchase,
+  findReviewEligibility,
+  verifiedReviewSelect,
+  verifiedReviewWhere,
+} from "@/lib/reviews";
 
 export async function GET(
   _request: Request,
@@ -14,16 +20,9 @@ export async function GET(
   }
 
   const reviews = await prisma.productReview.findMany({
-    where: { productId: product.id },
+    where: { productId: product.id, ...verifiedReviewWhere },
     orderBy: { createdAt: "desc" },
-    select: {
-      id: true,
-      authorName: true,
-      rating: true,
-      title: true,
-      body: true,
-      createdAt: true,
-    },
+    select: verifiedReviewSelect,
   });
 
   return NextResponse.json(reviews);
@@ -64,33 +63,55 @@ export async function POST(
   if (session) {
     authorName = authorName || session.name || session.email.split("@")[0];
     authorEmail = session.email;
-  } else {
-    if (!authorName || !authorEmail) {
-      return NextResponse.json(
-        { error: "Name and email are required to leave a review" },
-        { status: 400 }
-      );
-    }
+  } else if (!authorName || !authorEmail) {
+    return NextResponse.json(
+      { error: "Name and email are required to leave a review" },
+      { status: 400 }
+    );
+  }
+
+  const eligibility = await findReviewEligibility({
+    productId: product.id,
+    userId: session?.id,
+    email: authorEmail,
+  });
+
+  if (!eligibility.eligible || !eligibility.orderId || !eligibility.orderItemId) {
+    return NextResponse.json(
+      { error: eligibility.reason || "You are not eligible to review this product." },
+      { status: 403 }
+    );
+  }
+
+  const purchase = await assertReviewPurchase({
+    productId: product.id,
+    orderId: eligibility.orderId,
+    orderItemId: eligibility.orderItemId,
+    userId: session?.id,
+    email: authorEmail,
+  });
+
+  if (!purchase) {
+    return NextResponse.json(
+      { error: "Could not verify your purchase for this review." },
+      { status: 403 }
+    );
   }
 
   const review = await prisma.productReview.create({
     data: {
       productId: product.id,
       userId: session?.id,
+      orderId: purchase.orderId,
+      orderItemId: purchase.id,
       authorName,
       authorEmail,
       rating,
       title,
       body: reviewBody,
+      verified: true,
     },
-    select: {
-      id: true,
-      authorName: true,
-      rating: true,
-      title: true,
-      body: true,
-      createdAt: true,
-    },
+    select: verifiedReviewSelect,
   });
 
   return NextResponse.json(

@@ -33,17 +33,25 @@ model Product {
 }
 
 model ProductReview {
-  id          String   @id @default(cuid())
+  id          String     @id @default(cuid())
   productId   String
-  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product     Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
   userId      String?
-  user        User?    @relation(fields: [userId], references: [id])
+  user        User?      @relation(fields: [userId], references: [id])
+  orderId     String?
+  order       Order?     @relation(fields: [orderId], references: [id])
+  orderItemId String?    @unique
+  orderItem   OrderItem? @relation(fields: [orderItemId], references: [id])
   authorName  String
   authorEmail String
   rating      Int
-  title       String   @default("")
+  title       String     @default("")
   body        String
-  createdAt   DateTime @default(now())
+  verified    Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+
+  @@index([productId, authorEmail])
+  @@index([orderId])
 }
 
 model Customer {
@@ -91,6 +99,7 @@ model Order {
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
   items           OrderItem[]
+  reviews         ProductReview[]
 }
 
 model OrderItem {
@@ -102,6 +111,7 @@ model OrderItem {
   quantity  Int
   order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   product   Product @relation(fields: [productId], references: [id])
+  review    ProductReview?
 }
 
 model StoreSettings {

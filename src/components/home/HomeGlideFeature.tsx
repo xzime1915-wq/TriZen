@@ -15,13 +15,13 @@ function GlideActionBanner() {
         className="object-cover object-center"
       />
 
-      <div className="container-trizen relative z-10 flex min-h-[30vh] sm:min-h-[40vh] md:min-h-[58vh] items-end justify-center px-4 pb-5 sm:pb-8 md:px-0 md:pb-16">
-        <div className="glide-performance-block max-w-2xl w-full text-center text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.85)]">
-          <p className="glide-performance-eyebrow text-[10px] uppercase tracking-[0.28em] text-white">
-            Performance
-          </p>
-          <GlideAnimatedTitle className="glide-performance-title !text-white" />
-          <p className="glide-performance-body mx-auto max-w-lg text-center text-zinc-300 md:mt-4 md:text-base md:leading-relaxed">
+      <div className="glide-banner-overlay" aria-hidden />
+
+      <div className="container-trizen-full relative z-10 flex min-h-[30vh] items-end sm:min-h-[40vh] md:min-h-[58vh] md:px-0">
+        <div className="glide-performance-block w-full max-w-lg px-4 pb-6 sm:pb-8 md:pb-12">
+          <p className="glide-performance-eyebrow">Performance</p>
+          <GlideAnimatedTitle className="glide-performance-title" />
+          <p className="glide-performance-body">
             Low-friction glass helps your mouse move freely while the pad stays
             planted, built for ranked play and long sessions.
           </p>

@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { formatBlogDate, readingMinutes } from "@/lib/blog";
+import { formatBlogDate, formatBlogDateWallhack, readingMinutes } from "@/lib/blog";
 import { cn } from "@/lib/utils";
 import { TrizenBrandName } from "@/components/TrizenBrandName";
 
 type Props = {
-  variant?: "light" | "dark";
+  variant?: "light" | "dark" | "wallhack";
   post: {
     title: string;
     slug: string;
@@ -20,6 +20,43 @@ type Props = {
 
 export function BlogCard({ post, variant = "light" }: Props) {
   const dark = variant === "dark";
+  const wallhack = variant === "wallhack";
+
+  if (wallhack) {
+    return (
+      <Link href={`/blog/${post.slug}`} className="trizen-wh-blog-card group block">
+        <div className="trizen-wh-blog-card-image">
+          {post.coverImage ? (
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              fill
+              unoptimized
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-zinc-100">
+              <TrizenBrandName className="text-xs tracking-[0.3em] text-zinc-400" />
+            </div>
+          )}
+        </div>
+
+        <div className="trizen-wh-blog-meta">
+          <span className="trizen-wh-blog-mark" aria-hidden />
+          <span>
+            {post.category} | {formatBlogDateWallhack(post.createdAt)}
+          </span>
+        </div>
+
+        <h3 className="trizen-wh-blog-title">{post.title}</h3>
+
+        {post.excerpt ? (
+          <p className="trizen-wh-blog-excerpt">{post.excerpt}</p>
+        ) : null}
+      </Link>
+    );
+  }
 
   return (
     <Link

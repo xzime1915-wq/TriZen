@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { normalizePhone, upsertCustomerFromOrder } from "@/lib/customers";
 import { buildOrderItems, restoreOrderStock } from "@/lib/orders";
+import { sendReviewInvitesForOrder } from "@/lib/review-invite";
 
 export async function GET(
   _request: Request,
@@ -126,6 +127,12 @@ export async function PATCH(
       data: updateData,
       include: { items: true, customer: true },
     });
+
+    if (status === "delivered" && existing.status !== "delivered") {
+      sendReviewInvitesForOrder(order.id).catch((error) => {
+        console.error("[review-invite]", error);
+      });
+    }
 
     return NextResponse.json(order);
   } catch (e) {

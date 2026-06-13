@@ -71,19 +71,19 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
   return (
     <h2
       ref={rootRef}
-      className={`font-black uppercase tracking-[-0.01em] text-[var(--color-foreground)] md:mt-3 md:text-4xl md:leading-[1.1] lg:text-5xl ${className}`}
+      className={`font-light uppercase tracking-[0.08em] text-white md:mt-2 ${className}`}
       aria-label={TITLE}
     >
       <span className="relative inline-block min-h-[1.2em] max-w-full text-center">
         {/* Invisible full text reserves space so typing never shifts layout */}
         <span
-          className="invisible mx-auto block whitespace-nowrap px-1 text-center text-[clamp(1rem,5.1vw,1.75rem)] leading-[1.15] sm:text-inherit"
+          className="invisible block whitespace-nowrap text-left text-[clamp(1.125rem,4.5vw,2.25rem)] leading-[1.12] sm:text-inherit"
           aria-hidden
         >
           {TITLE}
         </span>
         <span
-          className={`absolute inset-0 flex items-center justify-center whitespace-nowrap px-1 text-center text-[clamp(1rem,5.1vw,1.75rem)] leading-[1.15] sm:text-inherit transition-opacity duration-300 ${
+          className={`absolute inset-0 flex items-center justify-start whitespace-nowrap text-left text-[clamp(1.125rem,4.5vw,2.25rem)] leading-[1.12] sm:text-inherit transition-opacity duration-300 ${
             inView ? "opacity-100" : "opacity-0"
           }`}
         >

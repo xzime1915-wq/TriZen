@@ -15,6 +15,7 @@ import { HomeNewsletter } from "@/components/home/HomeNewsletter";
 import { HomeFaqJsonLd } from "@/components/seo/HomeFaqJsonLd";
 import { parseFeatures, averageRating } from "@/lib/product-data";
 import { homePageMetadata } from "@/lib/seo-metadata";
+import { verifiedReviewWhere } from "@/lib/reviews";
 import {
   HOME_HERO_IMAGE,
   HOME_HERO_IMAGE_SIZES,
@@ -32,19 +33,30 @@ function stripEditionSuffix(name: string) {
 }
 
 export default async function HomePage() {
-  const [products, reviews] = await Promise.all([
+  const [products, reviews, reviewStats] = await Promise.all([
     prisma.product.findMany({
       where: { featured: true },
       orderBy: { name: "asc" },
       take: 8,
       include: {
-        reviews: { select: { rating: true } },
+        reviews: {
+          where: verifiedReviewWhere,
+          select: { rating: true },
+        },
       },
     }),
     prisma.productReview.findMany({
-      take: 6,
+      where: verifiedReviewWhere,
+      take: 12,
       orderBy: { createdAt: "desc" },
-      include: { product: { select: { name: true } } },
+      include: {
+        product: { select: { name: true, image: true, slug: true } },
+      },
+    }),
+    prisma.productReview.aggregate({
+      where: verifiedReviewWhere,
+      _count: true,
+      _avg: { rating: true },
     }),
   ]);
 
@@ -109,6 +121,13 @@ export default async function HomePage() {
 
       <HomeFeaturesGrid />
       <HomeProcess />
+      <HomeFaqJsonLd />
+      <HomeFaqSection />
+      <HomeNewsletter />
+      <HomeCta
+        averageRating={reviewStats._avg.rating ?? 0}
+        totalReviews={reviewStats._count}
+      />
       <HomeBlog
         posts={blogPosts.map((p) => ({
           id: p.id,
@@ -128,13 +147,15 @@ export default async function HomePage() {
           rating: r.rating,
           title: r.title,
           body: r.body,
+          verified: r.verified,
           productName: r.product.name,
+          productSlug: r.product.slug,
+          productImage: r.product.image,
+          createdAt: r.createdAt.toISOString(),
         }))}
+        averageRating={reviewStats._avg.rating ?? 0}
+        totalReviews={reviewStats._count}
       />
-      <HomeFaqJsonLd />
-      <HomeFaqSection />
-      <HomeNewsletter />
-      <HomeCta />
     </>
   );
 }

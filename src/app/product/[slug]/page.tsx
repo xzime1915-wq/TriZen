@@ -13,6 +13,7 @@ import {
 } from "@/lib/product-data";
 import type { Metadata } from "next";
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
+import { verifiedReviewSelect, verifiedReviewWhere } from "@/lib/reviews";
 
 export const dynamic = "force-dynamic";
 
@@ -58,15 +59,9 @@ export default async function ProductPage({
     where: { slug },
     include: {
       reviews: {
+        where: verifiedReviewWhere,
         orderBy: { createdAt: "desc" },
-        select: {
-          id: true,
-          authorName: true,
-          rating: true,
-          title: true,
-          body: true,
-          createdAt: true,
-        },
+        select: verifiedReviewSelect,
       },
     },
   });

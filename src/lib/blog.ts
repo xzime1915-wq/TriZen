@@ -43,6 +43,17 @@ export function formatBlogDate(date: Date | string) {
   });
 }
 
+export function formatBlogDateWallhack(date: Date | string) {
+  const d = typeof date === "string" ? new Date(date) : date;
+  return d
+    .toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    })
+    .toUpperCase();
+}
+
 type BlogInput = {
   title?: string;
   slug?: string;
