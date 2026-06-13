@@ -35,7 +35,7 @@ export default async function BlogIndexPage() {
         description="Glass mouse pad guides, esports gear tips, and TRIZEN product news, for players across Bangladesh."
       />
 
-      <section className="border-b border-[var(--color-border)]">
+      <section>
         <div className="container-trizen py-14 md:py-20">
           {posts.length === 0 ? (
             <p className="text-center text-sm text-[var(--color-muted)]">

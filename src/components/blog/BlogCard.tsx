@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { formatBlogDate, readingMinutes } from "@/lib/blog";
 import { cn } from "@/lib/utils";
+import { TrizenBrandName } from "@/components/TrizenBrandName";
 
 type Props = {
   variant?: "light" | "dark";
@@ -46,8 +47,8 @@ export function BlogCard({ post, variant = "light" }: Props) {
             className="object-contain object-center p-4 transition-transform duration-700 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-xs uppercase tracking-[0.3em] text-zinc-400">
-            TriZen
+          <div className="flex h-full w-full items-center justify-center">
+            <TrizenBrandName className="text-xs tracking-[0.3em] text-zinc-400" />
           </div>
         )}
         <span

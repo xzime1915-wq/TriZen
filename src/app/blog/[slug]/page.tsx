@@ -213,7 +213,7 @@ export default async function BlogPostPage({ params }: Params) {
       </article>
 
       {related.length > 0 && (
-        <section className="border-t border-[var(--color-border)]">
+        <section>
           <div className="container-trizen py-12 md:py-16">
             <h2 className="trizen-eyebrow mb-8">More from the blog</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -2,9 +2,11 @@ const AUTH_LOGIN_WORD_COUNT = 14;
 
 function AuthLoginWords({
   idPrefix,
+  word,
   wordCount = AUTH_LOGIN_WORD_COUNT,
 }: {
   idPrefix: string;
+  word: string;
   wordCount?: number;
 }) {
   return Array.from({ length: wordCount }, (_, index) => {
@@ -14,21 +16,27 @@ function AuthLoginWords({
         key={`${idPrefix}-${variant}-${index}`}
         className={`auth-wallhack-word auth-wallhack-word--${variant}`}
       >
-        Login
+        {word}
       </p>
     );
   });
 }
 
-export function AuthLoginVisual({ wordCount = AUTH_LOGIN_WORD_COUNT }: { wordCount?: number }) {
+export function AuthLoginVisual({
+  word = "Login",
+  wordCount = AUTH_LOGIN_WORD_COUNT,
+}: {
+  word?: string;
+  wordCount?: number;
+}) {
   return (
     <div className="auth-wallhack-marquee">
       <div className="auth-wallhack-marquee-track">
         <div className="auth-wallhack-wordstack">
-          <AuthLoginWords idPrefix="a" wordCount={wordCount} />
+          <AuthLoginWords idPrefix="a" word={word} wordCount={wordCount} />
         </div>
         <div className="auth-wallhack-wordstack" aria-hidden>
-          <AuthLoginWords idPrefix="b" wordCount={wordCount} />
+          <AuthLoginWords idPrefix="b" word={word} wordCount={wordCount} />
         </div>
       </div>
     </div>

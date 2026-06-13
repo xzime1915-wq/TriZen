@@ -10,6 +10,10 @@ type Props = {
   productSlug: string;
   productName: string;
   variant?: "default" | "compact";
+  hideTrigger?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  onSubscribed?: () => void;
 };
 
 function buttonSize(variant: "default" | "compact"): "md" | "lg" {
@@ -71,7 +75,7 @@ function NotifyDrawer({
           <span className="notify-drawer-header-spacer" aria-hidden />
         </header>
 
-        <div className="notify-drawer-body">
+        <div className="notify-drawer-body" data-lenis-prevent>
           {subscribed ? (
             <div className="notify-drawer-success">
               <p className="notify-drawer-kicker">You&apos;re on the list</p>
@@ -148,8 +152,14 @@ export function ProductNotifyButton({
   productSlug,
   productName,
   variant = "default",
+  hideTrigger = false,
+  open: controlledOpen,
+  onOpenChange,
+  onSubscribed,
 }: Props) {
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const open = controlledOpen ?? internalOpen;
+  const setOpen = onOpenChange ?? setInternalOpen;
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
@@ -216,16 +226,17 @@ export function ProductNotifyButton({
         }
 
         setSubscribed(true);
+        onSubscribed?.();
       } catch {
         setError("Could not save your email. Try again.");
       } finally {
         setLoading(false);
       }
     },
-    [productSlug]
+    [productSlug, onSubscribed]
   );
 
-  if (checking) {
+  if (checking && !hideTrigger) {
     return (
       <Button
         disabled
@@ -241,7 +252,7 @@ export function ProductNotifyButton({
   const wrapperClass =
     variant === "compact" ? "w-full" : "product-buy-actions w-full";
 
-  if (showSubscribedButton) {
+  if (showSubscribedButton && !hideTrigger) {
     return (
       <div className={wrapperClass}>
         <Button disabled className="w-full" size={buttonSize(variant)}>
@@ -259,20 +270,22 @@ export function ProductNotifyButton({
 
   return (
     <>
-      <div className={wrapperClass}>
-        <Button
-          className="w-full"
-          size={buttonSize(variant)}
-          onClick={() => setOpen(true)}
-          disabled={subscribed}
-        >
-          {subscribed
-            ? variant === "compact"
-              ? "On the list"
-              : "You're on the list"
-            : "Notify me"}
-        </Button>
-      </div>
+      {!hideTrigger ? (
+        <div className={wrapperClass}>
+          <Button
+            className="w-full"
+            size={buttonSize(variant)}
+            onClick={() => setOpen(true)}
+            disabled={subscribed}
+          >
+            {subscribed
+              ? variant === "compact"
+                ? "On the list"
+                : "You're on the list"
+              : "Notify me"}
+          </Button>
+        </div>
+      ) : null}
 
       <NotifyDrawer
         open={open}

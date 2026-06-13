@@ -5,37 +5,36 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import "lenis/dist/lenis.css";
 
-/** Smooth wheel on desktop only; phones keep native scroll (no stick/lag). */
+const HEADER_OFFSET = 64;
+
+function shouldUseSmoothScroll() {
+  if (typeof window === "undefined") return false;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
+  // Phones/tablets: native scroll. Desktop + trackpad/mouse: Lenis like Wallhack.
+  return !window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+}
+
+/** Wallhack-style weighted wheel scroll on desktop; native touch scroll on phones. */
 export function SmoothScroll() {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
+  const isAdmin = pathname.startsWith("/admin");
 
   useEffect(() => {
-    if (pathname.startsWith("/admin")) {
+    if (isAdmin || !shouldUseSmoothScroll()) {
       lenisRef.current?.destroy();
       lenisRef.current = null;
       return;
     }
 
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
-    // Touch devices: native scroll — Lenis syncTouch feels sticky on shop pages.
-    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    const narrowViewport = window.matchMedia("(max-width: 1023px)").matches;
-    if (coarsePointer || narrowViewport) {
-      return;
-    }
-
     const lenis = new Lenis({
       autoRaf: true,
-      lerp: 0.14,
+      lerp: 0.18,
       smoothWheel: true,
       syncTouch: false,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.3,
       touchMultiplier: 1,
-      anchors: true,
+      anchors: { offset: HEADER_OFFSET },
       allowNestedScroll: true,
       stopInertiaOnNavigate: true,
     });
@@ -55,13 +54,16 @@ export function SmoothScroll() {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [pathname]);
+  }, [isAdmin]);
 
   useEffect(() => {
-    if (!pathname.startsWith("/admin")) {
-      lenisRef.current?.resize();
-    }
-  }, [pathname]);
+    const lenis = lenisRef.current;
+    if (!lenis || isAdmin) return;
+
+    lenis.scrollTo(0, { immediate: true });
+    const frame = requestAnimationFrame(() => lenis.resize());
+    return () => cancelAnimationFrame(frame);
+  }, [pathname, isAdmin]);
 
   return null;
 }

@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
         title="Privacy Policy"
         description="How TRIZEN Store collects, uses, and protects your information."
       />
-      <section className="border-b border-[var(--color-border)]">
+      <section>
         <div className="container-trizen py-14 md:py-20 max-w-3xl space-y-6 trizen-body md:text-[0.9375rem]">
           <p>
             TRIZEN Store respects your privacy. We collect only the information

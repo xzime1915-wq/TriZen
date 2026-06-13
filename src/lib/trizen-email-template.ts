@@ -1,4 +1,5 @@
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
+import { trizenBrandHtml } from "@/lib/trizen-brand";
 
 type VerificationEmailOptions = {
   eyebrow: string;
@@ -28,8 +29,9 @@ export function buildTrizenVerificationEmailHtml({
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>${eyebrow}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   </head>
-  <body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#18181b;">
+  <body style="margin:0;padding:0;background:#f4f4f5;font-family:Orbitron,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#18181b;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:40px 16px;">
       <tr>
         <td align="center">
@@ -39,9 +41,9 @@ export function buildTrizenVerificationEmailHtml({
                 <p style="margin:0 0 8px;font-size:10px;font-weight:700;letter-spacing:0.32em;text-transform:uppercase;color:#71717a;">
                   ${eyebrow}
                 </p>
-                <p style="margin:0;font-size:28px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#18181b;">
-                  ${SITE_NAME.split(" ")[0] || "TRIZEN"}
-                </p>
+                <div style="margin:0;text-align:center;">
+                  ${trizenBrandHtml({ fontSize: "28px" })}
+                </div>
               </td>
             </tr>
             <tr>

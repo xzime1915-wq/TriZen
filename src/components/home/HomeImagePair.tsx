@@ -3,9 +3,9 @@ import { HOME_HERO_IMAGE } from "@/lib/home-assets";
 
 export function HomeImagePair() {
   return (
-    <section className="bg-[var(--color-surface)] border-b border-[var(--color-border)]">
+    <section className="bg-[var(--color-surface)]">
       <div className="grid md:grid-cols-2 min-h-[50vh]">
-        <div className="relative min-h-[320px] md:min-h-[50vh] border-b md:border-b-0 md:border-r border-[var(--color-border)]">
+        <div className="relative min-h-[320px] md:min-h-[50vh] md:border-r-0">
           <Image
             src={HOME_HERO_IMAGE}
             alt="TRIZEN TRIPAD setup"

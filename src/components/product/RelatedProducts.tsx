@@ -23,22 +23,21 @@ export function RelatedProducts({
   if (products.length === 0) return null;
 
   return (
-    <section className="mt-16 pt-12 border-t border-[var(--color-border)]">
-      <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
+    <section className="mt-16 pt-12">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-lg font-bold uppercase tracking-widest">Related Products</h2>
-          <p className="text-sm text-[var(--color-muted)] mt-1">
+          <h2 className="trizen-wh-section-title text-xl md:text-2xl">
+            Recently viewed
+          </h2>
+          <p className="trizen-wh-mono mt-2 text-[10px] uppercase tracking-[0.16em] text-zinc-500">
             More from {category}
           </p>
         </div>
-        <Link
-          href={`/shop?category=${encodeURIComponent(category)}`}
-          className="text-xs uppercase tracking-wider text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:underline"
-        >
+        <Link href={`/shop?gear=${encodeURIComponent(category)}`} className="trizen-wh-ghost-btn">
           View all
         </Link>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
         {products.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}

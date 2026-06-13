@@ -1,3 +1,5 @@
+import type { ShopGearLine } from "@/lib/shop-gears";
+
 export type FaqItem = {
   question: string;
   answer: string;
@@ -58,48 +60,115 @@ export const HOME_FAQS: FaqItem[] = [
   },
 ];
 
-const PRODUCT_FAQ_COMMON: FaqItem[] = [
+export const ALL_PRODUCTS_FAQS: FaqItem[] = [
   {
-    question: "Which payment options can I use for this product?",
+    question: "Does TRIZEN Store ship nationwide?",
     answer:
-      "Cash on Delivery, bKash, Nagad, and bank transfer are accepted at checkout. Upcoming products can still be viewed; you will be notified when they are available to order.",
+      "Yes. We deliver across Bangladesh. Most orders ship within a few business days; delivery times vary by district outside Dhaka.",
   },
   {
-    question: "Do you provide Cash on Delivery?",
+    question: "Where can I learn about new products or campaigns?",
     answer:
-      "Yes, COD is available for in stock items shipped within Bangladesh. Select COD during checkout and pay when your parcel arrives.",
+      "Check the shop page for upcoming gear, follow TRIZEN Store on social media, and subscribe to the newsletter for launch updates and offers.",
   },
   {
-    question: "How do I track my order?",
+    question: "How do I become part of the TRIZEN community?",
     answer:
-      "Go to Track Your Order on trizenstorebd.com and enter your order number and phone. Status updates appear as we process and ship your item.",
+      "Follow us on social media, share your setup, and tag TRIZEN Store. For orders and support, email info@trizenstorebd.com or call 01778741431.",
   },
   {
-    question: "How should I clean my TRIPAD?",
+    question: "Which payment options are available?",
     answer:
-      "Wipe the glass surface with a soft, dry or slightly damp cloth. Avoid harsh chemicals or abrasive pads to keep the glide consistent.",
+      "Cash on Delivery, bKash, Nagad, and bank transfer are accepted at checkout. Payment details are shown before you confirm your order.",
+  },
+  {
+    question: "How can I track my order?",
+    answer:
+      "Use Track Your Order on trizenstorebd.com with your order number and phone. You will see updates as your order is processed and shipped.",
   },
 ];
 
-export function getProductFaqs(productName: string, isUpcoming: boolean): FaqItem[] {
-  const specific: FaqItem[] = [
-    {
-      question: `What is ${productName}?`,
-      answer: isUpcoming
-        ? `${productName} is an upcoming TRIZEN TRIPAD glass mouse pad. It shares the same competitive glass glide as V1 with edition specific branding. Check back for launch updates.`
-        : `${productName} is a TRIZEN tempered glass mouse pad built for esports. The surface is ultra smooth and low friction for precise tracking, flicks, and long sessions.`,
-    },
-    {
-      question: "What are the dimensions?",
-      answer:
-        "TRIPAD editions measure 490 × 430 × 3 mm (L × W × H), a generous playing area for wide swipes and arm aiming.",
-    },
-    {
-      question: "Will this pad slip during fast swipes?",
-      answer:
-        "TRIPAD uses a stable non slip base designed to stay planted during intense matches while the glass top allows free mouse movement.",
-    },
-  ];
+const PRODUCT_FAQ_COMMON: FaqItem[] = [
+  {
+    question: "Do you provide Cash on Delivery?",
+    answer:
+      "Yes. COD is available for in-stock items shipped within Bangladesh. Select Cash on Delivery at checkout and pay when your parcel arrives.",
+  },
+];
 
-  return [...specific, ...PRODUCT_FAQ_COMMON];
+function gearSpecificFaqs(
+  productName: string,
+  gearLine: ShopGearLine,
+  isUpcoming: boolean,
+): FaqItem[] {
+  switch (gearLine) {
+    case "glass-mouse-pad":
+      return [
+        {
+          question: `What is ${productName}?`,
+          answer: isUpcoming
+            ? `${productName} is an upcoming TRIZEN TRIPAD glass mouse pad with edition-specific branding. It shares the same competitive glass glide as TRIPAD V1 — check back for launch updates.`
+            : `${productName} is a TRIZEN tempered glass mouse pad built for esports. The surface is ultra smooth and low friction for precise tracking, flicks, and long sessions.`,
+        },
+        {
+          question: "What are the TRIPAD dimensions?",
+          answer:
+            "TRIPAD editions measure 490 × 430 × 3 mm (L × W × H), a generous playing area for wide swipes and arm aiming.",
+        },
+        {
+          question: "How should I clean my TRIPAD?",
+          answer:
+            "Wipe the glass surface with a soft, dry or slightly damp cloth. Avoid harsh chemicals or abrasive pads to keep the glide consistent.",
+        },
+      ];
+    case "soft-mouse-pad":
+      return [
+        {
+          question: `What is ${productName}?`,
+          answer: isUpcoming
+            ? `${productName} is an upcoming TRIZEN soft mouse pad with a cloth surface tuned for control and comfort. It will be listed on the shop when it launches.`
+            : `${productName} is a TRIZEN soft mouse pad with a cloth surface for precise control and comfortable long sessions.`,
+        },
+      ];
+    case "skates":
+      return [
+        {
+          question: `What is ${productName}?`,
+          answer: `${productName} is low-friction mouse skate replacement feet from TRIZEN, built for smooth, consistent glide on your gaming mouse.`,
+        },
+        {
+          question: "Are these skates compatible with my mouse?",
+          answer:
+            "Check the product description and specifications for supported mouse models. If you are unsure, contact us with your mouse model before ordering.",
+        },
+      ];
+    case "hand-sleeves":
+      return [
+        {
+          question: `What is ${productName}?`,
+          answer: isUpcoming
+            ? `${productName} is an upcoming TRIZEN hand sleeve designed to reduce friction and improve comfort during long ranked sessions.`
+            : `${productName} is a TRIZEN compression hand sleeve that reduces friction between your arm and the desk for smoother mouse movement.`,
+        },
+      ];
+    default:
+      return [
+        {
+          question: `What is ${productName}?`,
+          answer: `${productName} is premium esports gear from TRIZEN Store, built for competitive play in Bangladesh.`,
+        },
+      ];
+  }
+}
+
+export function getProductFaqs(
+  productName: string,
+  gearLine: ShopGearLine,
+  isUpcoming: boolean,
+): FaqItem[] {
+  return [
+    ...gearSpecificFaqs(productName, gearLine, isUpcoming),
+    ...PRODUCT_FAQ_COMMON,
+    ...ALL_PRODUCTS_FAQS,
+  ];
 }

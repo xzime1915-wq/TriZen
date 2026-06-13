@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { FaqAccordion } from "@/components/FaqAccordion";
+import { FaqAllProductsTitle } from "@/components/faq/FaqAllProductsTitle";
 import {
   HOME_FAQS,
   HOME_SEO_PARAGRAPHS,
-  HOME_SEO_SUBTITLE,
   HOME_SEO_TITLE,
 } from "@/lib/faq-content";
 
@@ -13,18 +13,13 @@ export function HomeFaqSection() {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <section className="border-t border-[var(--color-border)] bg-[var(--color-surface)]">
-      <div className="container-trizen py-14 md:py-20 lg:py-24 max-w-4xl mx-auto">
-        <h2 className="trizen-headline text-center text-base sm:text-2xl md:text-4xl leading-tight">
-          {HOME_SEO_TITLE}
-        </h2>
-        <p className="mt-3 sm:mt-6 text-center text-[11px] sm:text-sm md:text-base font-bold uppercase tracking-wide text-zinc-600">
-          {HOME_SEO_SUBTITLE}
-        </p>
+    <section className="bg-[var(--color-surface)]">
+      <div className="container-trizen mx-auto max-w-3xl py-14 md:py-20 lg:py-24">
+        <h2 className="trizen-display-title mb-8 md:mb-10">{HOME_SEO_TITLE}</h2>
 
-        <div className="relative mt-6 sm:mt-8 md:mt-10">
+        <div className="relative mt-2 md:mt-4">
           <div
-            className={`space-y-4 sm:space-y-5 text-xs sm:text-sm md:text-base leading-relaxed text-zinc-400 text-center ${
+            className={`space-y-4 text-center text-sm font-light leading-relaxed text-zinc-900 ${
               expanded ? "" : "max-h-[9rem] sm:max-h-[13rem] overflow-hidden"
             }`}
           >
@@ -32,25 +27,26 @@ export function HomeFaqSection() {
               <p key={para.slice(0, 48)}>{para}</p>
             ))}
           </div>
-          {!expanded && (
+          {!expanded ? (
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[var(--color-surface)] via-[var(--color-surface)]/90 to-transparent"
               aria-hidden
             />
-          )}
+          ) : null}
         </div>
 
         <div className="mt-6 text-center">
           <button
             type="button"
             onClick={() => setExpanded((v) => !v)}
-            className="trizen-btn-primary !px-8 !py-2.5 text-[10px] !tracking-[0.2em]"
+            className="trizen-wh-ghost-btn"
           >
-            {expanded ? "See Less" : "See More"}
+            {expanded ? "See less" : "See more"}
           </button>
         </div>
 
-        <div className="mt-14 md:mt-16 pt-12 border-t border-[var(--color-border)]">
+        <div className="mt-14 md:mt-16">
+          <FaqAllProductsTitle>FAQ</FaqAllProductsTitle>
           <FaqAccordion items={HOME_FAQS} />
         </div>
       </div>

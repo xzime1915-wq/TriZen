@@ -14,7 +14,7 @@ export function HomeReviews({ reviews }: { reviews: Review[] }) {
   if (reviews.length === 0) return null;
 
   return (
-    <section className="bg-[var(--color-surface)] border-b border-[var(--color-border)]">
+    <section className="bg-[var(--color-surface)]">
       <div className="container-trizen py-20 md:py-28">
         <p className="trizen-eyebrow mb-4">Community</p>
         <h2 className="trizen-headline text-2xl md:text-3xl mb-14">
@@ -33,7 +33,7 @@ export function HomeReviews({ reviews }: { reviews: Review[] }) {
               <p className="trizen-detail mt-3 flex-1 line-clamp-5">
                 {r.body}
               </p>
-              <footer className="mt-6 pt-6 border-t border-[var(--color-border)] text-xs text-zinc-600">
+              <footer className="mt-6 pt-6 text-xs text-zinc-600">
                 <span className="text-zinc-400">{r.authorName}</span>
                 <span className="mx-2">·</span>
                 <span>{r.productName}</span>

@@ -41,7 +41,7 @@ export function HomeProcess() {
   return (
     <section
       ref={sectionRef}
-      className={`trizen-section-dark trizen-process-section relative overflow-hidden border-b border-[#1a1a1a] ${
+      className={`trizen-section-dark trizen-process-section relative overflow-hidden ${
         inView ? "trizen-process-inview" : ""
       }`}
     >

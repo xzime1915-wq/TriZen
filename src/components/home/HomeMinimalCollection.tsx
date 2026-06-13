@@ -18,7 +18,7 @@ export function HomeMinimalCollection({ products }: { products: Product[] }) {
   if (products.length === 0) return null;
 
   return (
-    <section className="bg-[var(--color-surface)] border-t border-[var(--color-border)]">
+    <section className="bg-[var(--color-surface)]">
       <div className="container-trizen py-16 md:py-24">
         <div className="flex items-end justify-between gap-6 mb-12 md:mb-16">
           <div>

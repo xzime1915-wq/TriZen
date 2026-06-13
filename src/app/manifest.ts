@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "TriZen Store",
-    short_name: "TriZen",
+    name: "TRIZEN Store",
+    short_name: "TRIZEN",
     description:
       "Bangladesh's premium esports gear: glass mouse pads, soft pads, skates & sleeves.",
     start_url: "/",

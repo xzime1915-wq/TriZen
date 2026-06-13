@@ -12,20 +12,16 @@ export function Input({
 }) {
   return (
     <label className="block">
-      {label && (
-        <span className="mb-1.5 block text-xs uppercase tracking-wider text-[var(--color-muted)]">
-          {label}
-        </span>
-      )}
+      {label ? <span className="trizen-box-label">{label}</span> : null}
       <input
         className={cn(
-          "w-full border border-[var(--color-border)] bg-white px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-zinc-400",
+          "trizen-box-field normal-case tracking-normal text-sm placeholder:normal-case placeholder:tracking-normal",
           error && "border-red-500",
           className
         )}
         {...props}
       />
-      {error && <span className="mt-1 block text-xs text-red-400">{error}</span>}
+      {error ? <span className="mt-1 block text-xs text-red-400">{error}</span> : null}
     </label>
   );
 }

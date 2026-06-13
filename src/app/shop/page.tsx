@@ -1,11 +1,12 @@
 import { Suspense } from "react";
 import { prisma } from "@/lib/prisma";
 import { ShopHero } from "@/components/shop/ShopHero";
-import { ShopMarquee } from "@/components/shop/ShopMarquee";
 import { ShopFilters } from "@/components/shop/ShopFilters";
 import { ShopGearSection } from "@/components/shop/ShopGearSection";
+import { ShopEditionShowcase } from "@/components/shop/ShopEditionShowcase";
 import { ShopEmpty } from "@/components/shop/ShopEmpty";
 import { HomeCta } from "@/components/home/HomeCta";
+import { AllProductsFaqSection } from "@/components/faq/AllProductsFaqSection";
 import {
   getShopGearLine,
   SHOP_GEAR_COPY,
@@ -84,46 +85,56 @@ export default async function ShopPage({
   );
   const showAllGearSections = !activeGear && !params.q;
 
+  const showEditionShowcase =
+    !params.q && (!activeGear || activeGear === "glass-mouse-pad");
+
+  const gearsToRender = showEditionShowcase
+    ? sectionsToShow.filter((gear) => gear !== "glass-mouse-pad")
+    : sectionsToShow;
+
   return (
-    <div className="bg-[var(--color-surface)] min-h-screen">
+    <div className="min-h-screen bg-white">
       <ShopHero
         count={productCount}
         activeGearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}
         query={params.q}
       />
-      <ShopMarquee />
 
-      <Suspense fallback={<div className="h-[72px] border-b border-[var(--color-border)]" />}>
+      <Suspense fallback={<div className="h-[72px]" />}>
         <ShopFilters />
       </Suspense>
 
-      <div className="container-trizen pb-0">
-        {productCount === 0 && !showAllGearSections ? (
-          <section className="py-16 md:py-24">
-            <ShopEmpty />
-          </section>
-        ) : (
-          sectionsToShow.map((gear) => (
-            <ShopGearSection
-              key={gear}
-              gear={gear}
-              showWhenEmpty={showAllGearSections}
-              products={grouped[gear].map((p) => ({
-                name: p.name,
-                slug: p.slug,
-                description: p.description,
-                longDescription: p.longDescription,
-                price: p.price,
-                compareAt: p.compareAt,
-                image: p.image,
-                category: p.category,
-                stock: p.stock,
-                tag: p.tag,
-              }))}
-            />
-          ))
-        )}
-      </div>
+      {showEditionShowcase ? <ShopEditionShowcase /> : null}
+
+      {productCount === 0 && !showAllGearSections ? (
+        <section className="container-trizen-full py-16 md:py-24">
+          <ShopEmpty />
+        </section>
+      ) : (
+        gearsToRender.map((gear, index) => (
+          <ShopGearSection
+            key={gear}
+            gear={gear}
+            index={index}
+            showWhenEmpty={showAllGearSections}
+            products={grouped[gear].map((p) => ({
+              id: p.id,
+              name: p.name,
+              slug: p.slug,
+              description: p.description,
+              longDescription: p.longDescription,
+              price: p.price,
+              compareAt: p.compareAt,
+              image: p.image,
+              category: p.category,
+              stock: p.stock,
+              tag: p.tag,
+            }))}
+          />
+        ))
+      )}
+
+      <AllProductsFaqSection />
 
       <HomeCta />
     </div>

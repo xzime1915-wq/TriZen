@@ -2,34 +2,32 @@ import Link from "next/link";
 
 export function HomeCta() {
   return (
-    <section className="relative overflow-hidden bg-[var(--color-surface)] border-b border-[var(--color-border)] min-h-[50vh] flex items-center">
-      <div
-        className="trizen-glow-orb pointer-events-none absolute left-1/2 top-1/2 h-[min(80vw,520px)] w-[min(90vw,640px)] -translate-x-1/2 -translate-y-1/2"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-zinc-100/80 to-transparent"
-        aria-hidden
-      />
-
-      <div className="container-trizen relative py-14 sm:py-20 md:py-28 w-full text-center">
-        <p className="trizen-eyebrow text-[8px] tracking-[0.28em] sm:text-xs">Ready</p>
-        <h2 className="trizen-headline mt-3 sm:mt-6 text-lg sm:text-4xl md:text-5xl max-w-3xl mx-auto leading-tight">
-          Upgrade your desk.
+    <section className="relative overflow-hidden bg-white">
+      <div className="container-trizen-full flex min-h-[44vh] flex-col items-center justify-center py-20 text-center sm:py-24 md:min-h-[50vh] md:py-28">
+        <h2 className="trizen-display-title text-[clamp(1.75rem,4.5vw,3.25rem)]">
+          Upgrade your desk
           <br />
-          Upgrade your aim.
+          Upgrade your aim
         </h2>
-        <p className="trizen-body mt-3 sm:mt-6 max-w-md mx-auto text-xs sm:text-base">
-          Premium esports gear, shipped across Bangladesh.
+        <p className="mx-auto mt-5 max-w-lg text-sm font-light leading-relaxed text-zinc-900 sm:mt-7 md:text-base">
+          Premium esports gear, shipped across Bangladesh
         </p>
-        <div className="mt-7 sm:mt-12 flex flex-wrap justify-center gap-3 sm:gap-4">
-          <Link href="/shop" className="trizen-btn-primary">
+        <div className="mt-9 flex flex-wrap justify-center gap-3 sm:mt-11 sm:gap-4">
+          <Link href="/shop" className="trizen-wh-ghost-btn">
             Shop now
           </Link>
-          <Link href="/contact" className="trizen-btn-primary">
+          <Link href="/contact" className="trizen-wh-ghost-btn">
             Contact us
           </Link>
         </div>
+      </div>
+
+      <div className="trizen-wh-trust-bar border-t border-zinc-200 text-zinc-900">
+        <span>4.8 ★★★★★</span>
+        <span className="mx-2 opacity-40">|</span>
+        Customers rate us highly on product quality
+        <span className="mx-2 opacity-40">|</span>
+        Verified
       </div>
     </section>
   );

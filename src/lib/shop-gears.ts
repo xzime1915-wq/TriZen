@@ -72,6 +72,28 @@ export const SHOP_GEAR_COPY: Record<
   },
 };
 
+export const GEAR_SPEC_TAGS: Record<
+  ShopGearLine,
+  { label: string; tone: "amber" | "neutral" }[]
+> = {
+  "glass-mouse-pad": [
+    { label: "Glide: Max speed", tone: "amber" },
+    { label: "Feeling: Glass", tone: "neutral" },
+  ],
+  "soft-mouse-pad": [
+    { label: "Glide: Balanced", tone: "amber" },
+    { label: "Feeling: Soft", tone: "neutral" },
+  ],
+  skates: [
+    { label: "Glide: Low friction", tone: "amber" },
+    { label: "Feel: Smooth", tone: "neutral" },
+  ],
+  "hand-sleeves": [
+    { label: "Fit: Compression", tone: "amber" },
+    { label: "Feel: Lightweight", tone: "neutral" },
+  ],
+};
+
 export function isShopGearLine(value: string | undefined): value is ShopGearLine {
   return SHOP_GEAR_ORDER.includes(value as ShopGearLine);
 }

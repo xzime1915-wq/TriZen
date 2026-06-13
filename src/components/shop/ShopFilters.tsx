@@ -27,8 +27,8 @@ export function ShopFilters() {
   }
 
   return (
-    <div className="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-      <div className="container-trizen py-3 md:py-5">
+    <div className="bg-white">
+      <div className="container-trizen-full py-3 md:py-5">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-5">
           <div className="flex flex-wrap gap-2">
             <FilterPill
@@ -58,8 +58,8 @@ export function ShopFilters() {
         </div>
       </div>
 
-      <div className="sticky top-14 z-40 border-t border-[var(--color-border)] bg-white/95 backdrop-blur-md lg:hidden">
-        <div className="container-trizen py-2">
+      <div className="sticky top-14 z-40 bg-white lg:hidden">
+        <div className="container-trizen-full py-2">
           <SearchField q={q} onChange={setQ} onSubmit={handleSearch} onClear={() => updateParams({ q: null })} />
         </div>
       </div>
@@ -85,10 +85,10 @@ function SearchField({
       <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-600" />
       <input
         type="search"
-        placeholder="Search..."
+        placeholder="SEARCH..."
         value={q}
         onChange={(e) => onChange(e.target.value)}
-        className="trizen-search-input w-full border border-[var(--color-border)] bg-zinc-50 py-2.5 pl-10 pr-10 text-sm text-[var(--color-foreground)] placeholder:text-zinc-600 focus:border-zinc-500 focus:outline-none md:py-3"
+        className="trizen-box-field normal-case tracking-normal placeholder:uppercase"
       />
       {q ? (
         <button
@@ -120,10 +120,10 @@ function FilterPill({
     <button
       type="button"
       onClick={onClick}
-      className={`border px-3 py-2 text-[10px] font-bold uppercase tracking-[0.18em] transition-all duration-300 md:px-4 md:py-2.5 ${
+      className={`trizen-wh-mono border px-3 py-2 text-[9px] font-bold uppercase tracking-[0.16em] transition-colors md:px-4 md:py-2.5 ${
         active
-          ? "border-zinc-900 bg-zinc-900 text-white shadow-[0_4px_16px_rgba(0,0,0,0.1)]"
-          : "border-[var(--color-border)] bg-zinc-50 text-zinc-600 hover:border-zinc-400 hover:text-[var(--color-foreground)]"
+          ? "border-zinc-900 bg-zinc-900 text-white"
+          : "border-zinc-300 bg-white text-zinc-700 hover:border-zinc-900 hover:text-zinc-900"
       }`}
     >
       {children}

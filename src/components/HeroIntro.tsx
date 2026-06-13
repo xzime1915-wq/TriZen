@@ -3,11 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/Button";
-import { ArrowRight } from "lucide-react";
 
 export function HeroIntro() {
   return (
-    <section className="hero-mixed relative overflow-hidden border-b border-[var(--color-border)] min-h-[520px] md:min-h-[580px] lg:min-h-[640px]">
+    <section className="hero-mixed relative overflow-hidden min-h-[520px] md:min-h-[580px] lg:min-h-[640px]">
       {/* Banner background */}
       <div className="pointer-events-none absolute inset-0">
         <Image
@@ -45,7 +44,7 @@ export function HeroIntro() {
           <div className="flex flex-wrap gap-4 hero-mixed-item hero-mixed-delay-4">
             <Link href="/shop">
               <Button size="lg">
-                Shop Now <ArrowRight className="ml-2 h-4 w-4" />
+                Shop Now
               </Button>
             </Link>
             <Link href="/about">

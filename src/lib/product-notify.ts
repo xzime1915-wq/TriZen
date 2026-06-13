@@ -6,6 +6,7 @@ import { sendEmail } from "@/lib/email";
 import { prisma } from "@/lib/prisma";
 import { isProductAvailable, isUpcoming } from "@/lib/product-status";
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
+import { trizenBrandHtml } from "@/lib/trizen-brand";
 
 type ProductForNotify = {
   id: string;
@@ -23,11 +24,14 @@ function productUrl(slug: string) {
 function notifyEmailShell(title: string, bodyHtml: string) {
   return `<!DOCTYPE html>
 <html lang="en">
-  <body style="margin:0;padding:48px 20px;background:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body style="margin:0;padding:48px 20px;background:#ffffff;font-family:Orbitron,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;margin:0 auto">
       <tr>
         <td align="center" style="padding-bottom:28px">
-          <span style="font-size:24px;font-weight:700;letter-spacing:-0.03em;color:#18181b">TRIZEN</span>
+          ${trizenBrandHtml({ fontSize: "24px" })}
         </td>
       </tr>
       <tr>

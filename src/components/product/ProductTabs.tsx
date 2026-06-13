@@ -42,10 +42,10 @@ export function ProductTabs({
   return (
     <section
       id="product-details"
-      className="w-full border-t border-[var(--color-border)]"
+      className="w-full"
     >
       <nav
-        className="flex w-full justify-center sm:justify-stretch flex-wrap gap-0 border-b border-[var(--color-border)] bg-zinc-50/30"
+        className="flex w-full justify-center sm:justify-stretch flex-wrap gap-0 bg-white"
         aria-label="Product information"
       >
         {tabs.map((t) => {
@@ -91,7 +91,7 @@ export function ProductTabs({
             </div>
 
             {features.length > 0 && (
-              <div className="mt-14 sm:mt-16 w-full max-w-2xl pt-12 border-t border-[var(--color-border)] text-left">
+              <div className="mt-14 sm:mt-16 w-full max-w-2xl pt-12 text-left">
                 <ProductFeaturesList features={features} title="Features" />
               </div>
             )}

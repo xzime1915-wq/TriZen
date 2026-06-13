@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
 import { ProductImage } from "@/components/ProductImage";
-import { StockBadge, isInStock } from "@/components/StockBadge";
 import { isUpcoming, shouldShowProductPrice } from "@/lib/product-status";
+import { ProductCardTitle } from "@/components/product/ProductCardTitle";
+import { ProductHoverAction } from "@/components/product/ProductHoverAction";
+import { cn } from "@/lib/utils";
 
 type Product = {
   id: string;
@@ -17,53 +19,56 @@ type Product = {
 };
 
 export function ProductCard({ product }: { product: Product }) {
-  const inStock = isInStock(product.stock);
   const upcoming = isUpcoming(product.tag);
 
   return (
-    <Link
-      href={`/product/${product.slug}`}
-      className="group block border border-[var(--color-border)] bg-[var(--color-surface-elevated)] transition hover:border-zinc-500"
-    >
-      <div className="relative aspect-square overflow-hidden bg-transparent">
-        <ProductImage
-          src={product.image}
-          alt={product.name}
-          sizes="(max-width: 768px) 100vw, 25vw"
-          className="p-2 sm:p-4 object-contain"
-        />
-        <div className="absolute top-3 left-3">
-          <StockBadge inStock={inStock} upcoming={upcoming} />
-        </div>
-        {!upcoming && !inStock && (
-          <span className="absolute inset-0 flex items-center justify-center bg-white/60 text-sm font-semibold uppercase">
-            Out of Stock
-          </span>
+    <article className="group block">
+      <div
+        className={cn(
+          "shop-product-card-visual relative aspect-square overflow-hidden border border-zinc-200 bg-white transition-colors duration-200 group-hover:border-zinc-900",
+          upcoming && "shop-product-card-visual--upcoming"
         )}
-        {upcoming && (
-          <span className="absolute inset-0 flex items-center justify-center bg-white/50 text-sm font-semibold uppercase">
-            Upcoming
-          </span>
-        )}
-      </div>
-      <div className="p-4">
-        <p className="text-[10px] uppercase tracking-widest text-[var(--color-muted)] mb-1">
-          {product.category}
-        </p>
-        <h3 className="font-medium text-sm leading-snug mb-2 line-clamp-2 group-hover:underline">
-          {product.name}
-        </h3>
-        {shouldShowProductPrice(product.tag) && (
-          <div className="flex items-baseline gap-2">
-            <span className="font-semibold">{formatCurrency(product.price)}</span>
-            {product.compareAt && product.compareAt > product.price && (
-              <span className="text-xs text-[var(--color-muted)] line-through">
-                {formatCurrency(product.compareAt)}
-              </span>
-            )}
+      >
+        <Link href={`/product/${product.slug}`} className="block h-full">
+          <div className="relative z-[2] flex h-full w-full items-center justify-center p-6 sm:p-7">
+            <ProductImage
+              src={product.image}
+              alt={product.name}
+              sizes="(max-width: 768px) 50vw, 25vw"
+              className={cn(
+                "max-h-full w-full object-contain object-center transition duration-500 group-hover:scale-[1.02]",
+                upcoming && "opacity-45"
+              )}
+            />
           </div>
-        )}
+        </Link>
+
+        <ProductHoverAction product={product} />
+
+        {upcoming ? (
+          <div className="pointer-events-none absolute inset-0 z-[3] flex items-center justify-center">
+            <span className="trizen-wh-hero-eyebrow text-[10px] tracking-[0.32em] text-zinc-500">
+              Upcoming
+            </span>
+          </div>
+        ) : null}
       </div>
-    </Link>
+
+      <Link href={`/product/${product.slug}`} className="mt-3 block space-y-1">
+        <ProductCardTitle
+          name={product.name}
+          className="text-[10px] font-bold md:text-[11px]"
+        />
+        {shouldShowProductPrice(product.tag) ? (
+          <p className="trizen-wh-hero-eyebrow text-[10px] text-zinc-500">
+            {formatCurrency(product.price)}
+          </p>
+        ) : (
+          <p className="trizen-wh-hero-eyebrow text-[9px] text-zinc-400">
+            Price at launch
+          </p>
+        )}
+      </Link>
+    </article>
   );
 }

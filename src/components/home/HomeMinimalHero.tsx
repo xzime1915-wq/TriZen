@@ -8,15 +8,16 @@ type Props = {
 function HeroCopy({ productSlug }: { productSlug: string }) {
   return (
     <div className="flex w-full max-w-xl flex-col items-start">
-      <h1 className="trizen-headline text-[clamp(0.6rem,2.7vw,1.05rem)] leading-[1.12] tracking-tight sm:text-2xl md:text-3xl lg:text-4xl">
-        Maximum glide for only pros.
+      <h1
+        aria-label="Maximum glide for only pros"
+        className="home-hero-title trizen-wh-section-title text-[clamp(1.75rem,5vw,3.5rem)] leading-[1.05] md:text-6xl lg:text-7xl"
+      >
+        Maximum glide for only pr
+        <span className="home-hero-letter-hollow">o</span>s
       </h1>
 
-      <div className="mt-3 sm:mt-8 md:mt-10">
-        <Link
-          href={`/product/${productSlug}`}
-          className="trizen-btn-primary whitespace-nowrap max-md:!px-[clamp(9px,3vw,18px)] max-md:!py-[clamp(5px,1.6vw,10px)] max-md:!text-[clamp(7px,2.1vw,12px)] max-md:!tracking-[0.12em] sm:!px-10 sm:!py-4 sm:text-sm md:!px-12 md:!py-5 md:text-base"
-        >
+      <div className="mt-8 sm:mt-10">
+        <Link href={`/product/${productSlug}`} className="trizen-wh-ghost-btn">
           Shop TRIPAD
         </Link>
       </div>
@@ -26,14 +27,14 @@ function HeroCopy({ productSlug }: { productSlug: string }) {
 
 export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Props) {
   return (
-    <section className="relative isolate overflow-x-clip border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+    <section className="relative isolate overflow-x-clip bg-white">
       <div className="container-trizen relative">
-        <div className="grid grid-cols-2 items-center gap-3 py-10 sm:gap-8 sm:py-12 md:min-h-[calc(100dvh-4rem)] md:gap-10 lg:gap-14 md:py-14 lg:py-16">
-          <div className="relative z-10 flex flex-col justify-center md:max-w-lg md:pr-4 lg:pr-8">
+        <div className="grid grid-cols-2 items-center gap-4 py-12 sm:gap-8 sm:py-16 md:min-h-[calc(100dvh-4rem)] md:gap-12 lg:gap-16 md:py-20">
+          <div className="relative z-10 flex flex-col justify-center md:max-w-lg md:pr-4 lg:pr-10">
             <HeroCopy productSlug={productSlug} />
           </div>
 
-          <div className="relative z-0 w-full max-w-[min(100%,520px)] md:max-w-none md:justify-self-end">
+          <div className="relative z-0 w-full md:justify-self-end">
             <HeroProductVisual />
           </div>
         </div>

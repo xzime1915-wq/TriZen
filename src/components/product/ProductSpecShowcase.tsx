@@ -40,7 +40,7 @@ export function ProductSpecShowcase({
   if (specifications.length === 0) return null;
 
   return (
-    <section id="product-details" className="border-t border-[var(--color-border)]">
+    <section id="product-details">
       <div className="product-page-pad py-14 md:py-20 lg:py-24">
         <div className="grid items-start gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16 xl:gap-20">
           <div className="min-w-0">
@@ -51,9 +51,9 @@ export function ProductSpecShowcase({
                 return (
                   <div
                     key={spec.label}
-                    className="product-spec-row grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-x-6 gap-y-1 border-b border-[var(--color-border)] py-4 first:pt-0 last:border-b-0"
+                    className="product-spec-row grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-x-6 gap-y-1 py-4 first:pt-0"
                   >
-                    <dt className="flex min-w-0 items-start gap-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
+                    <dt className="trizen-wh-mono flex min-w-0 items-start gap-2.5 text-[9px] font-bold uppercase tracking-[0.18em] text-zinc-500">
                       <Icon
                         className="mt-0.5 h-3.5 w-3.5 shrink-0 text-zinc-400"
                         strokeWidth={1.5}
@@ -61,7 +61,7 @@ export function ProductSpecShowcase({
                       />
                       <span>{spec.label}</span>
                     </dt>
-                    <dd className="text-right text-sm leading-snug text-[var(--color-foreground)] normal-case">
+                    <dd className="text-right text-sm font-medium leading-snug text-[var(--color-foreground)] normal-case md:text-base">
                       {spec.value}
                     </dd>
                   </div>

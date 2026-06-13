@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Orbitron } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -8,8 +9,16 @@ import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { SiteJsonLd } from "@/components/seo/SiteJsonLd";
 import { MediaProtect } from "@/components/MediaProtect";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { NewsletterPopup } from "@/components/NewsletterPopup";
 import { getUserSession } from "@/lib/user-auth";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site-config";
+
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-orbitron",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -60,8 +69,8 @@ export default async function RootLayout({
   const user = await getUserSession();
 
   return (
-    <html lang="en">
-      <body className="min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)] overflow-x-clip">
+    <html lang="en" className={orbitron.variable}>
+      <body className={`${orbitron.className} min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)] overflow-x-clip`}>
         <SmoothScroll />
         <MediaProtect />
         <SiteJsonLd />
@@ -73,6 +82,7 @@ export default async function RootLayout({
           <Footer />
           <MobileBottomNav />
           <ChatWidgetHost />
+          <NewsletterPopup signedIn={!!user} />
         </CartProvider>
       </body>
     </html>

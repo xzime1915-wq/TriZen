@@ -23,7 +23,7 @@ const TRUST_ITEMS = [
 
 export function ProductPurchaseInfo() {
   return (
-    <div className="product-buy-trust mt-8 border-t border-[var(--color-border)] pt-6">
+    <div className="product-buy-trust mt-8 pt-6">
       <ul className="grid gap-4 sm:grid-cols-3">
         {TRUST_ITEMS.map(({ icon: Icon, title, detail }) => (
           <li key={title} className="flex gap-2.5">

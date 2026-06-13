@@ -89,7 +89,7 @@ export function ProductDetailView({
   return (
     <div className="w-full">
       <div className="product-page-pad py-6 md:py-10 lg:py-12">
-        <nav className="product-buy-breadcrumb mb-6 text-[10px] uppercase tracking-[0.18em] text-[var(--color-muted)] md:mb-8">
+        <nav className="product-buy-breadcrumb trizen-wh-mono mb-6 text-[9px] uppercase tracking-[0.2em] text-zinc-500 md:mb-8">
           <Link href="/" className="hover:text-[var(--color-foreground)]">
             Home
           </Link>
@@ -200,7 +200,12 @@ export function ProductDetailView({
         />
       </ProductReviewsBlock>
 
-      <ProductFaqSection productName={product.name} tag={product.tag} />
+      <ProductFaqSection
+        productName={product.name}
+        slug={product.slug}
+        category={product.category}
+        tag={product.tag}
+      />
     </div>
   );
 }

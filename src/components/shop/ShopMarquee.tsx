@@ -1,27 +1,34 @@
-export function ShopMarquee() {
-  const text = "SHOP · TRIZEN · TRIPAD · ESPORTS · BANGLADESH · ";
-  const line = text.repeat(8);
+import { HomeMarqueeWord } from "@/components/home/HomeMarqueeWord";
 
+const MARQUEE_WORDS = ["ESPORTS", "BANGLADESH"] as const;
+const MARQUEE_REPEAT = 5;
+
+function MarqueeWords({ idPrefix }: { idPrefix: string }) {
+  return Array.from({ length: MARQUEE_WORDS.length * MARQUEE_REPEAT }, (_, index) => {
+    const word = MARQUEE_WORDS[index % MARQUEE_WORDS.length];
+    const variant = index % 2 === 0 ? "solid" : "hollow";
+
+    return (
+      <span key={`${idPrefix}-${word}-${index}`} className="home-marquee-item">
+        <HomeMarqueeWord word={word} variant={variant} />
+      </span>
+    );
+  });
+}
+
+export function ShopMarquee() {
   return (
     <section
-      className="trizen-section-dark home-marquee-dark relative border-y border-[var(--color-border)] bg-[var(--color-surface)] py-4 sm:py-7 overflow-hidden"
+      className="shop-marquee home-marquee relative overflow-x-hidden bg-white py-8 sm:py-10 md:py-12"
       aria-hidden
     >
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-zinc-500/50 to-transparent"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_120%_at_50%_50%,rgba(255,255,255,0.04)_0%,transparent_55%)]"
-        aria-hidden
-      />
       <div className="home-marquee-track relative z-[1] flex whitespace-nowrap">
-        <span className="home-marquee-text home-marquee-text--dark text-sm sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-[0.12em] sm:tracking-tight select-none">
-          {line}
-        </span>
-        <span className="home-marquee-text home-marquee-text--dark text-sm sm:text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-[0.12em] sm:tracking-tight select-none">
-          {line}
-        </span>
+        <div className="home-marquee-strip flex items-center">
+          <MarqueeWords idPrefix="a" />
+        </div>
+        <div className="home-marquee-strip flex items-center" aria-hidden>
+          <MarqueeWords idPrefix="b" />
+        </div>
       </div>
     </section>
   );

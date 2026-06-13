@@ -27,22 +27,19 @@ const FEATURES = [
 
 export function HomeFeaturesGrid() {
   return (
-    <section className="bg-[var(--color-surface)] border-b border-[var(--color-border)]">
-      <div className="container-trizen py-20 md:py-28">
-        <p className="trizen-eyebrow mb-4">Why TRIPAD</p>
-        <h2 className="trizen-headline text-2xl md:text-3xl mb-14 md:mb-20">
-          Built different
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-14 md:gap-y-16">
+    <section className="bg-white">
+      <div className="container-trizen mx-auto max-w-3xl py-20 md:py-28">
+        <h2 className="trizen-display-title mb-10 md:mb-14">Built different</h2>
+
+        <div className="trizen-divider-list">
           {FEATURES.map((f) => (
-            <div
-              key={f.title}
-              className="group border-t border-[var(--color-border)] pt-8 transition-colors duration-300 hover:border-zinc-600"
-            >
-              <h3 className="text-sm font-bold uppercase tracking-widest text-[var(--color-foreground)] transition-colors group-hover:text-zinc-200">
+            <div key={f.title} className="trizen-divider-list-item">
+              <h3 className="text-sm font-light normal-case tracking-normal text-zinc-900 md:text-base">
                 {f.title}
               </h3>
-              <p className="trizen-body mt-4">{f.body}</p>
+              <p className="mt-3 text-sm font-light leading-relaxed text-zinc-900 md:text-base">
+                {f.body}
+              </p>
             </div>
           ))}
         </div>

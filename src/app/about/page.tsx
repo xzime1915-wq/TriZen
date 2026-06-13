@@ -11,7 +11,7 @@ export default function AboutPage() {
         description="Premium esports gear for players who care about glide, control, and consistency."
       />
 
-      <section className="border-b border-[var(--color-border)]">
+      <section>
         <div className="container-trizen py-16 md:py-20 max-w-3xl">
           <div className="flex items-center gap-5 mb-12">
             <TrizenLogo variant="on-light" width={56} height={56} className="shrink-0" />
@@ -34,7 +34,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-b border-[var(--color-border)] bg-zinc-50/30">
+      <section className="bg-white">
         <div className="container-trizen py-16 md:py-20">
           <p className="trizen-eyebrow mb-4">Our gear</p>
           <h2 className="trizen-headline text-2xl md:text-3xl mb-10">What we build</h2>

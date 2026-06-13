@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
 import { ProductImage } from "@/components/ProductImage";
-import { StockBadge, isInStock } from "@/components/StockBadge";
 import { isUpcoming, shouldShowProductPrice } from "@/lib/product-status";
-import { usesTripadGlideBackground } from "@/lib/product-visuals";
-import { ProductGlideBackground } from "@/components/product/ProductGlideBackground";
-import { ArrowUpRight } from "lucide-react";
+import { ProductCardTitle } from "@/components/product/ProductCardTitle";
+import { ProductHoverAction } from "@/components/product/ProductHoverAction";
+import { cn } from "@/lib/utils";
 
 type Product = {
+  id: string;
   name: string;
   slug: string;
   description: string;
@@ -31,106 +31,116 @@ function previewText(product: Product) {
 export function ShopProductCard({
   product,
   editionLabel,
+  compact = false,
 }: {
   product: Product;
   editionLabel?: string;
+  compact?: boolean;
 }) {
-  const inStock = isInStock(product.stock);
   const upcoming = isUpcoming(product.tag);
-  const showGlide = usesTripadGlideBackground(product.slug);
+
+  if (compact) {
+    return (
+      <article className="group block">
+        <div
+          className={cn(
+            "shop-product-card-visual relative aspect-square overflow-hidden border border-zinc-200 bg-white transition-colors duration-200 group-hover:border-zinc-900",
+            upcoming && "shop-product-card-visual--upcoming"
+          )}
+        >
+          <Link href={`/product/${product.slug}`} className="block h-full">
+            <div className="relative z-[2] flex h-full w-full items-center justify-center p-3 sm:p-4">
+              <ProductImage
+                src={product.image}
+                alt={product.name}
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className={cn(
+                  "max-h-full w-full object-contain object-center transition duration-500 group-hover:scale-[1.02]",
+                  upcoming && "opacity-45"
+                )}
+              />
+            </div>
+          </Link>
+
+          <ProductHoverAction product={product} />
+
+          {upcoming ? (
+            <div className="pointer-events-none absolute inset-0 z-[3] flex items-center justify-center">
+              <span className="trizen-wh-hero-eyebrow text-[10px] tracking-[0.32em] text-zinc-500">
+                Upcoming
+              </span>
+            </div>
+          ) : null}
+        </div>
+
+        <Link href={`/product/${product.slug}`} className="mt-3 block space-y-1">
+          <ProductCardTitle
+            name={product.name}
+            className="text-[10px] font-bold leading-snug md:text-[11px]"
+          />
+          {shouldShowProductPrice(product.tag) ? (
+            <p className="trizen-wh-hero-eyebrow text-[10px] text-zinc-500">
+              {formatCurrency(product.price)}
+            </p>
+          ) : (
+            <p className="trizen-wh-hero-eyebrow text-[9px] text-zinc-400">
+              Price at launch
+            </p>
+          )}
+        </Link>
+      </article>
+    );
+  }
 
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="trizen-card-hover group relative flex flex-col border border-[var(--color-border)] bg-[var(--color-surface)] shadow-sm hover:shadow-md"
+      className="group relative flex flex-col border border-zinc-200 bg-white transition-colors duration-200 hover:border-zinc-900"
     >
-      <div className="relative aspect-[4/5] sm:aspect-square overflow-hidden bg-transparent">
-        {showGlide && <ProductGlideBackground />}
-        <div
-          className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_80%_70%_at_50%_40%,rgba(0,0,0,0.03)_0%,transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          aria-hidden
-        />
-        <div className="relative z-10 h-full w-full max-md:pt-12">
+      <div className="relative aspect-[4/5] overflow-hidden sm:aspect-square shop-product-card-visual">
+        <div className="relative z-[2] flex h-full w-full items-center justify-center p-6 sm:p-8">
           <ProductImage
             src={product.image}
             alt={product.name}
             sizes="(max-width: 768px) 100vw, 50vw"
-            className={
-              showGlide
-                ? "max-md:object-[50%_62%] p-2 pb-4 pt-1 object-contain object-center transition duration-700 group-hover:scale-[1.02] sm:p-3 sm:pb-6"
-                : "p-2 sm:p-3 object-contain transition duration-700 group-hover:scale-[1.02]"
-            }
+            className={cn(
+              "max-h-full w-full object-contain object-center transition duration-500 group-hover:scale-[1.02]",
+              upcoming && "opacity-45"
+            )}
           />
         </div>
-        <div className="absolute top-4 left-4 flex flex-wrap gap-2">
-          <StockBadge inStock={inStock} upcoming={upcoming} />
-          {product.tag && (
-            <span className="text-[10px] font-bold uppercase tracking-widest bg-white text-black px-2 py-0.5">
-              {product.tag}
-            </span>
-          )}
-        </div>
-        {upcoming && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white/75 backdrop-blur-[2px] pointer-events-none">
-            <span className="text-xs font-bold uppercase tracking-widest text-zinc-800">
+        {upcoming ? (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <span className="trizen-wh-hero-eyebrow text-[10px] tracking-[0.32em] text-zinc-500">
               Upcoming
             </span>
           </div>
-        )}
-        {!upcoming && !inStock && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white/70">
-            <span className="text-xs font-bold uppercase tracking-widest text-zinc-400">
-              Out of Stock
-            </span>
-          </div>
-        )}
-        <span className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center border border-[var(--color-border)] bg-white/90 text-zinc-500 transition group-hover:border-zinc-400 group-hover:bg-zinc-50 group-hover:text-[var(--color-foreground)]">
-          <ArrowUpRight className="h-4 w-4" />
-        </span>
+        ) : null}
       </div>
 
-      <div className="flex flex-1 flex-col border-t border-[var(--color-border)] p-4 sm:p-8 lg:p-10">
-        <div className="flex flex-wrap items-center gap-1.5 md:gap-2">
-          {editionLabel && (
-            <span className="border border-[var(--color-border)] px-2 py-0.5 text-[8px] font-bold uppercase tracking-[0.18em] text-zinc-400 md:px-2.5 md:py-1 md:text-xs md:tracking-[0.2em]">
-              {editionLabel}
-            </span>
-          )}
-          {!editionLabel && (
-            <p className="trizen-eyebrow text-[8px] tracking-[0.28em] text-zinc-600 md:text-xs">
-              {product.category}
-            </p>
-          )}
-        </div>
-        <h2 className="mt-2 text-[1.05rem] font-bold uppercase leading-[1.15] tracking-tight text-[var(--color-foreground)] group-hover:underline md:mt-4 md:text-2xl md:leading-snug">
-          {product.name}
-        </h2>
-        <p className="mt-2 line-clamp-4 flex-1 text-[0.7rem] leading-[1.5] text-zinc-500 md:mt-4 md:text-base md:leading-relaxed lg:text-lg">
+      <div className="flex flex-1 flex-col border-t border-zinc-200 p-4 sm:p-5">
+        {editionLabel ? (
+          <span className="trizen-wh-hero-eyebrow text-zinc-400">{editionLabel}</span>
+        ) : (
+          <p className="trizen-wh-hero-eyebrow text-zinc-400">{product.category}</p>
+        )}
+        <ProductCardTitle
+          name={product.name}
+          className="mt-2 text-sm font-bold md:text-base"
+        />
+        <p className="mt-2 line-clamp-2 flex-1 text-xs leading-relaxed text-zinc-500">
           {previewText(product)}
         </p>
-        <div className="mt-4 flex items-end justify-between gap-4 border-t border-[var(--color-border)] pt-4 md:mt-6 md:pt-6">
+        <div className="mt-4 border-t border-zinc-200 pt-3">
           {shouldShowProductPrice(product.tag) ? (
-            <div>
-              <p className="mb-0.5 text-[9px] uppercase tracking-[0.2em] text-zinc-600 md:mb-1 md:text-[10px] md:tracking-widest">
-                Price
-              </p>
-              <p className="text-[1rem] font-semibold tabular-nums text-[var(--color-foreground)] md:text-xl">
-                {formatCurrency(product.price)}
-              </p>
-              {product.compareAt && product.compareAt > product.price && (
-                <p className="mt-0.5 text-[10px] text-zinc-600 line-through md:mt-1 md:text-xs">
-                  {formatCurrency(product.compareAt)}
-                </p>
-              )}
-            </div>
+            <p className="trizen-wh-hero-eyebrow text-[10px] text-zinc-500">
+              {formatCurrency(product.price)}
+            </p>
           ) : (
-            <p className="text-[10px] uppercase tracking-widest text-zinc-500">
+            <p className="trizen-wh-hero-eyebrow text-[9px] text-zinc-400">
               Price at launch
             </p>
           )}
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-[var(--color-foreground)] transition">
-            View
-          </span>
         </div>
       </div>
     </Link>

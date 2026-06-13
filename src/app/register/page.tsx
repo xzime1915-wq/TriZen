@@ -2,12 +2,51 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
-import { TrizenLogo } from "@/components/TrizenLogo";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 import { AuthDivider } from "@/components/AuthDivider";
+import { AuthLoginVisual } from "@/components/auth/AuthLoginVisual";
+
+function AuthInfield({
+  label,
+  type = "text",
+  value,
+  onChange,
+  required,
+  autoComplete,
+  minLength,
+}: {
+  label: string;
+  type?: string;
+  value: string;
+  onChange: (value: string) => void;
+  required?: boolean;
+  autoComplete?: string;
+  minLength?: number;
+}) {
+  const [focused, setFocused] = useState(false);
+  const showLabel = !value && !focused;
+
+  return (
+    <label
+      className={`auth-wallhack-infield${value || focused ? " auth-wallhack-infield--filled" : ""}`}
+    >
+      {showLabel ? <span className="auth-wallhack-infield-label">{label}</span> : null}
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        required={required}
+        autoComplete={autoComplete}
+        minLength={minLength}
+        className="auth-wallhack-infield-input"
+      />
+    </label>
+  );
+}
 
 function RegisterForm() {
   const router = useRouter();
@@ -22,6 +61,10 @@ function RegisterForm() {
   const nextPath = searchParams.get("next");
   const redirectTo =
     nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//") ? nextPath : "/";
+  const signInHref =
+    redirectTo !== "/"
+      ? `/sign-in?next=${encodeURIComponent(redirectTo)}`
+      : "/sign-in";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -58,94 +101,91 @@ function RegisterForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-sm border border-[var(--color-border)] p-8 bg-[var(--color-surface-elevated)]"
-    >
-      <TrizenLogo variant="on-light" width={48} height={48} className="mx-auto mb-4" />
-      <h1 className="text-center text-lg font-bold uppercase tracking-wide mb-2">
-        Create Account
-      </h1>
-      <p className="text-center text-sm text-[var(--color-muted)] mb-6">
-        Register to shop faster and track orders
+    <form onSubmit={handleSubmit} className="auth-wallhack-form">
+      <p className="auth-wallhack-intro">
+        Create your TRIZEN account to shop faster, track orders, and manage your
+        profile in one place.
       </p>
 
-      <GoogleSignInButton label="Sign up with Google" nextPath={redirectTo} />
-
-      <AuthDivider />
-
-      <div className="space-y-4">
-        <Input
-          label="Full Name"
-          type="text"
+      <div className="auth-wallhack-fields">
+        <AuthInfield
+          label="Full name"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={setName}
           required
           autoComplete="name"
         />
-        <Input
-          label="Email"
+        <AuthInfield
+          label="E-mail"
           type="email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={setEmail}
           required
           autoComplete="email"
         />
-        <Input
+        <AuthInfield
           label="Password"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={setPassword}
           required
           autoComplete="new-password"
           minLength={8}
         />
-        <Input
-          label="Confirm Password"
+        <AuthInfield
+          label="Confirm password"
           type="password"
           value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          onChange={setConfirmPassword}
           required
           autoComplete="new-password"
           minLength={8}
         />
       </div>
 
-      {error && <p className="text-red-400 text-sm mt-3">{error}</p>}
+      {error ? <p className="auth-wallhack-error">{error}</p> : null}
 
-      <Button type="submit" className="w-full mt-6" disabled={loading}>
-        {loading ? "Creating account..." : "Create Account"}
+      <Button type="submit" className="auth-wallhack-submit w-full" size="lg" disabled={loading}>
+        {loading ? "Creating account..." : "Create account"}
       </Button>
 
-      <p className="text-center text-sm text-[var(--color-muted)] mt-6">
-        Already have an account?{" "}
-        <Link
-          href={
-            redirectTo !== "/"
-              ? `/sign-in?next=${encodeURIComponent(redirectTo)}`
-              : "/sign-in"
-          }
-          className="text-[var(--color-foreground)] hover:underline"
-        >
+      <Link href={signInHref} className="block">
+        <Button type="button" variant="secondary" className="auth-wallhack-secondary w-full" size="lg">
           Sign in
-        </Link>
-      </p>
+        </Button>
+      </Link>
+
+      <AuthDivider />
+
+      <GoogleSignInButton label="Continue with Google" nextPath={redirectTo} />
     </form>
+  );
+}
+
+function RegisterFallback() {
+  return (
+    <div className="auth-wallhack-form">
+      <p className="auth-wallhack-intro">Loading...</p>
+    </div>
   );
 }
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center p-4 py-12">
-      <Suspense
-        fallback={
-          <div className="w-full max-w-sm border border-[var(--color-border)] p-8 bg-[var(--color-surface-elevated)] text-center text-sm text-[var(--color-muted)]">
-            Loading...
-          </div>
-        }
-      >
-        <RegisterForm />
-      </Suspense>
+    <div className="auth-wallhack-page">
+      <div className="auth-wallhack-visual" aria-hidden>
+        <AuthLoginVisual word="Register" />
+      </div>
+
+      <div className="auth-wallhack-panel">
+        <div className="auth-wallhack-visual-mobile lg:hidden" aria-hidden>
+          <AuthLoginVisual word="Register" wordCount={22} />
+        </div>
+
+        <Suspense fallback={<RegisterFallback />}>
+          <RegisterForm />
+        </Suspense>
+      </div>
     </div>
   );
 }

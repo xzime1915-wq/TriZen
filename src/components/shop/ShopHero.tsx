@@ -1,3 +1,5 @@
+import { TrizenBrandName } from "@/components/TrizenBrandName";
+
 type Props = {
   count: number;
   activeGearLabel?: string;
@@ -5,30 +7,32 @@ type Props = {
 };
 
 export function ShopHero({ count, activeGearLabel, query }: Props) {
+  const title = query ? "Search" : activeGearLabel ?? "All Products";
+
   const subtitle = query
     ? `Results for “${query}”`
     : activeGearLabel
-      ? activeGearLabel
-      : "Esports mouse pad in Bangladesh, glass TRIPAD, soft pads, skates & sleeves";
+      ? `Browse ${activeGearLabel.toLowerCase()} from TRIZEN Store.`
+      : "Esports mouse pads, glass TRIPAD, soft pads, skates and sleeves — built for competitive play in Bangladesh.";
 
   return (
-    <section className="relative overflow-hidden border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_20%_0%,rgba(0,0,0,0.03)_0%,transparent_55%)]"
-        aria-hidden
-      />
-      <div className="container-trizen relative pt-20 pb-8 md:pt-32 md:pb-20">
-        <p className="trizen-eyebrow text-[8px] tracking-[0.28em] md:text-xs">
-          TRIZEN Store
+    <section className="shop-hero bg-white">
+      <div className="container-trizen-full py-10 md:py-14 lg:py-16">
+        <p className="flex flex-wrap items-baseline gap-x-[0.35em]">
+          <TrizenBrandName className="trizen-wh-hero-eyebrow text-zinc-900" />
+          <span className="trizen-wh-hero-eyebrow text-zinc-900">Store</span>
         </p>
-        <h1 className="trizen-headline mt-2 text-[1.25rem] leading-tight md:mt-4 md:text-6xl sm:text-5xl">
-          Shop
+
+        <h1 className="trizen-shop-title mt-3 text-[clamp(1.75rem,5vw,3.25rem)] md:mt-4 md:text-5xl lg:text-6xl">
+          {title}
         </h1>
-        <p className="mt-2 max-w-md text-[0.7rem] leading-[1.5] text-zinc-500 md:mt-5 md:max-w-2xl md:text-lg">
+
+        <p className="trizen-wh-mono mt-4 max-w-2xl text-[10px] uppercase leading-relaxed tracking-[0.16em] text-zinc-900 md:mt-5">
           {subtitle}
         </p>
-        <p className="mt-4 text-[9px] uppercase tracking-[0.2em] text-zinc-600 md:mt-8 md:text-xs md:tracking-[0.22em]">
-          {count} {count === 1 ? "product" : "products"} listed below
+
+        <p className="trizen-wh-hero-eyebrow mt-5 text-zinc-900 md:mt-6">
+          {count} {count === 1 ? "Product" : "Products"}
         </p>
       </div>
     </section>

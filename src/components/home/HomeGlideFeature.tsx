@@ -1,9 +1,5 @@
 import Image from "next/image";
 import { GlideAnimatedTitle } from "@/components/home/GlideAnimatedTitle";
-import {
-  EditionShowcaseV1,
-  EditionShowcaseV2,
-} from "@/components/home/EditionShowcase";
 import { HOME_GLIDE_IMAGE } from "@/lib/home-assets";
 import { IMAGE_QUALITY } from "@/lib/image-quality";
 
@@ -39,11 +35,6 @@ export function HomeGlideFeature() {
   return (
     <section className="overflow-x-clip bg-[var(--color-surface)]">
       <GlideActionBanner />
-
-      <div className="relative bg-white pb-12 max-md:pb-10 md:pb-20">
-        <EditionShowcaseV1 />
-        <EditionShowcaseV2 />
-      </div>
     </section>
   );
 }

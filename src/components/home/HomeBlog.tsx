@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { BlogCard } from "@/components/blog/BlogCard";
 
 type Post = {
@@ -17,7 +16,7 @@ export function HomeBlog({ posts }: { posts: Post[] }) {
   if (posts.length === 0) return null;
 
   return (
-    <section className="relative overflow-hidden border-t border-[var(--color-border)] bg-[var(--color-surface)]">
+    <section className="relative overflow-hidden bg-[var(--color-surface)]">
       <div className="container-trizen py-14 md:py-20 lg:py-24">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4 md:mb-12">
           <div>
@@ -30,7 +29,7 @@ export function HomeBlog({ posts }: { posts: Post[] }) {
             href="/blog"
             className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-[var(--color-foreground)]"
           >
-            View all <ArrowRight className="h-3.5 w-3.5" />
+            View all
           </Link>
         </div>
 

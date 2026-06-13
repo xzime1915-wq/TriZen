@@ -24,7 +24,7 @@ export function ProductDescriptionBlock({
   }
 
   return (
-    <section className="border-t border-[var(--color-border)] bg-zinc-50/40">
+    <section className="bg-white">
       <div className="product-page-pad py-14 md:py-20">
         {descriptionSlides.length > 0 && (
           <div className="mx-auto w-full max-w-4xl">
@@ -48,7 +48,7 @@ export function ProductDescriptionBlock({
         )}
 
         {features.length > 0 && (
-          <div className="mx-auto mt-12 w-full max-w-3xl border-t border-[var(--color-border)] pt-10 md:mt-16">
+          <div className="mx-auto mt-12 w-full max-w-3xl pt-10 md:mt-16">
             <ProductFeaturesList features={features} title="Features" />
           </div>
         )}

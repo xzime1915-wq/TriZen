@@ -6,7 +6,7 @@ type Props = {
 
 export function ProductReviewsBlock({ children }: Props) {
   return (
-    <section id="reviews" className="border-t border-[var(--color-border)]">
+    <section id="reviews">
       <div className="product-page-pad py-14 md:py-20">
         <h2 className="mb-8 text-xs font-bold uppercase tracking-[0.22em] text-[var(--color-foreground)] md:mb-10">
           Reviews

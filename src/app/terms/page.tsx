@@ -8,7 +8,7 @@ export default function TermsPage() {
         title="Terms & Conditions"
         description="Terms for shopping at TRIZEN Store."
       />
-      <section className="border-b border-[var(--color-border)]">
+      <section>
         <div className="container-trizen py-14 md:py-20 max-w-3xl space-y-6 trizen-body md:text-[0.9375rem]">
           <p>
             By placing an order on TRIZEN Store, you agree to these terms. Prices

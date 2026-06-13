@@ -16,6 +16,7 @@ import {
   showChatNotification,
 } from "@/lib/chat-notify";
 import { cn } from "@/lib/utils";
+import { TrizenBrandName } from "@/components/TrizenBrandName";
 
 const POLL_MS = 4000;
 
@@ -63,7 +64,7 @@ export function ChatWidget() {
 
       if (!openRef.current || document.visibilityState === "hidden") {
         addUnread(fresh.length);
-        showChatNotification("TriZen Support", preview, () => setOpen(true));
+        showChatNotification("TRIZEN Support", preview, () => setOpen(true));
       }
     },
     [addUnread, setOpen]
@@ -358,13 +359,11 @@ export function ChatWidget() {
       )}
       role="dialog"
       aria-modal="true"
-      aria-label="TriZen support chat"
+      aria-label="TRIZEN support chat"
     >
       <header className="shrink-0 flex items-center justify-between gap-3 border-b border-[var(--color-border)] px-4 py-3 bg-[var(--color-surface-elevated)]">
         <div className="min-w-0">
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-            TriZen Support
-          </p>
+          <TrizenBrandName className="text-xs tracking-[0.2em] text-zinc-500" suffix=" Support" suffixClassName="text-[0.9em]" />
           <p className="text-sm font-semibold text-[var(--color-foreground)]">Live Chat</p>
         </div>
         <button

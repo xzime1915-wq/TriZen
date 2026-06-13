@@ -8,14 +8,10 @@ export function Textarea({
 }: TextareaHTMLAttributes<HTMLTextAreaElement> & { label?: string }) {
   return (
     <label className="block">
-      {label && (
-        <span className="mb-1.5 block text-xs uppercase tracking-wider text-[var(--color-muted)]">
-          {label}
-        </span>
-      )}
+      {label ? <span className="trizen-box-label">{label}</span> : null}
       <textarea
         className={cn(
-          "w-full min-h-[100px] border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm text-[var(--color-foreground)] outline-none transition focus:border-zinc-400 resize-y",
+          "trizen-box-field min-h-[100px] resize-y normal-case tracking-normal text-sm placeholder:normal-case placeholder:tracking-normal",
           className
         )}
         {...props}

@@ -49,7 +49,7 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
         <span className="cart-panel-header-spacer" aria-hidden />
       </header>
 
-      <div className="cart-panel-body">
+      <div className="cart-panel-body" data-lenis-prevent>
         {items.length === 0 ? (
           <div className="cart-panel-empty">
             <p className="text-sm text-zinc-500">Your cart is empty.</p>

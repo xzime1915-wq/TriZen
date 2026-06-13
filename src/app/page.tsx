@@ -11,6 +11,7 @@ import { HomeCta } from "@/components/home/HomeCta";
 import { HomeOurGears } from "@/components/home/HomeOurGears";
 import { HomeBlog } from "@/components/home/HomeBlog";
 import { HomeFaqSection } from "@/components/home/HomeFaqSection";
+import { HomeNewsletter } from "@/components/home/HomeNewsletter";
 import { HomeFaqJsonLd } from "@/components/seo/HomeFaqJsonLd";
 import { parseFeatures, averageRating } from "@/lib/product-data";
 import { homePageMetadata } from "@/lib/seo-metadata";
@@ -132,6 +133,7 @@ export default async function HomePage() {
       />
       <HomeFaqJsonLd />
       <HomeFaqSection />
+      <HomeNewsletter />
       <HomeCta />
     </>
   );

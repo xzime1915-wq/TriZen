@@ -9,6 +9,7 @@ import {
   normalizeCheckoutEmail,
 } from "@/lib/checkout-email-verify";
 import { useSecureCookies } from "@/lib/auth";
+import { trizenBrandHtml } from "@/lib/trizen-brand";
 
 const COOKIE = "trizen_password_reset_verified";
 const CODE_TTL_MS = 10 * 60 * 1000;
@@ -33,11 +34,14 @@ function generateResetCode() {
 function buildResetEmailHtml(email: string, code: string) {
   return `<!DOCTYPE html>
 <html lang="en">
-  <body style="margin:0;padding:48px 20px;background:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body style="margin:0;padding:48px 20px;background:#ffffff;font-family:Orbitron,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:420px;margin:0 auto">
       <tr>
         <td align="center" style="padding-bottom:28px">
-          <span style="font-size:24px;font-weight:700;letter-spacing:-0.03em;color:#18181b">TRIZEN</span>
+          ${trizenBrandHtml({ fontSize: "24px" })}
         </td>
       </tr>
       <tr>
