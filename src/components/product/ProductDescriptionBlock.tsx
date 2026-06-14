@@ -27,7 +27,7 @@ export function ProductDescriptionBlock({
     <section className="bg-white">
       <div className="product-page-pad py-14 md:py-20">
         {descriptionSlides.length > 0 && (
-          <div className="mx-auto w-full max-w-4xl">
+          <div className="mx-auto w-full max-w-3xl">
             <ProductDescriptionCarousel slides={descriptionSlides} />
           </div>
         )}
@@ -38,8 +38,8 @@ export function ProductDescriptionBlock({
               descriptionSlides.length > 0 ? "mt-14 md:mt-16" : ""
             }`}
           >
-            <h2 className="trizen-headline text-lg md:text-2xl">{productName}</h2>
-            <div className="mt-6 space-y-5 text-sm leading-[1.75] text-zinc-600 normal-case md:text-[0.9375rem]">
+            <h2 className="product-display-title md:text-2xl">{productName}</h2>
+            <div className="trizen-prose mt-6 space-y-5">
               {paragraphs.map((para) => (
                 <p key={para.slice(0, 48)}>{para}</p>
               ))}
@@ -48,7 +48,7 @@ export function ProductDescriptionBlock({
         )}
 
         {features.length > 0 && (
-          <div className="mx-auto mt-12 w-full max-w-3xl pt-10 md:mt-16">
+          <div className="mx-auto mt-12 w-full max-w-3xl pt-2 md:mt-14">
             <ProductFeaturesList features={features} title="Features" />
           </div>
         )}

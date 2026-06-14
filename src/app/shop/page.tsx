@@ -1,7 +1,5 @@
-import { Suspense } from "react";
 import { prisma } from "@/lib/prisma";
 import { ShopHero } from "@/components/shop/ShopHero";
-import { ShopFilters } from "@/components/shop/ShopFilters";
 import { ShopGearSection } from "@/components/shop/ShopGearSection";
 import { ShopEditionShowcase } from "@/components/shop/ShopEditionShowcase";
 import { ShopEmpty } from "@/components/shop/ShopEmpty";
@@ -99,10 +97,6 @@ export default async function ShopPage({
         activeGearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}
         query={params.q}
       />
-
-      <Suspense fallback={<div className="h-[72px]" />}>
-        <ShopFilters />
-      </Suspense>
 
       {showEditionShowcase ? <ShopEditionShowcase /> : null}
 

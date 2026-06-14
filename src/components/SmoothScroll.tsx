@@ -1,68 +1,43 @@
 "use client";
 
-import Lenis from "lenis";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
-import "lenis/dist/lenis.css";
+import { useEffect } from "react";
 
 const HEADER_OFFSET = 64;
 
-function shouldUseSmoothScroll() {
-  if (typeof window === "undefined") return false;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
-  // Phones/tablets: native scroll. Desktop + trackpad/mouse: Lenis like Wallhack.
-  return !window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+function scrollToHashTarget() {
+  const hash = window.location.hash;
+
+  if (hash) {
+    const target = document.getElementById(hash.slice(1));
+    if (target) {
+      const top =
+        target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+      window.scrollTo({ top, behavior: "auto" });
+      return;
+    }
+  }
+
+  window.scrollTo({ top: 0, behavior: "auto" });
 }
 
-/** Wallhack-style weighted wheel scroll on desktop; native touch scroll on phones. */
+/** Native 1:1 scroll — no inertia or smooth lag after wheel stops. */
 export function SmoothScroll() {
   const pathname = usePathname();
-  const lenisRef = useRef<Lenis | null>(null);
   const isAdmin = pathname.startsWith("/admin");
 
   useEffect(() => {
-    if (isAdmin || !shouldUseSmoothScroll()) {
-      lenisRef.current?.destroy();
-      lenisRef.current = null;
-      return;
-    }
+    if (isAdmin) return;
 
-    const lenis = new Lenis({
-      autoRaf: true,
-      lerp: 0.18,
-      smoothWheel: true,
-      syncTouch: false,
-      wheelMultiplier: 1.3,
-      touchMultiplier: 1,
-      anchors: { offset: HEADER_OFFSET },
-      allowNestedScroll: true,
-      stopInertiaOnNavigate: true,
+    const frame = requestAnimationFrame(() => {
+      requestAnimationFrame(scrollToHashTarget);
     });
-
-    lenisRef.current = lenis;
-
-    function onScrollLock(event: Event) {
-      const locked = Boolean((event as CustomEvent<boolean>).detail);
-      if (locked) lenis.stop();
-      else lenis.start();
-    }
-
-    window.addEventListener("trizen:scroll-lock", onScrollLock);
+    const retry = window.setTimeout(scrollToHashTarget, 120);
 
     return () => {
-      window.removeEventListener("trizen:scroll-lock", onScrollLock);
-      lenis.destroy();
-      lenisRef.current = null;
+      cancelAnimationFrame(frame);
+      window.clearTimeout(retry);
     };
-  }, [isAdmin]);
-
-  useEffect(() => {
-    const lenis = lenisRef.current;
-    if (!lenis || isAdmin) return;
-
-    lenis.scrollTo(0, { immediate: true });
-    const frame = requestAnimationFrame(() => lenis.resize());
-    return () => cancelAnimationFrame(frame);
   }, [pathname, isAdmin]);
 
   return null;

@@ -75,7 +75,7 @@ export function ProductDetailView({
     .split("\n\n")
     .map((p) => p.trim())
     .filter(Boolean)
-    .slice(0, 2);
+    .slice(0, 3);
 
   const specFeatureImage =
     descriptionSlides[0] ?? gallery[1] ?? gallery[0] ?? product.image;
@@ -90,21 +90,12 @@ export function ProductDetailView({
   return (
     <div className="w-full">
       <div className="product-page-pad py-6 md:py-10 lg:py-12">
-        <nav className="product-buy-breadcrumb trizen-wh-mono mb-6 text-[9px] uppercase tracking-[0.2em] text-zinc-500 md:mb-8">
-          <Link href="/" className="hover:text-[var(--color-foreground)]">
-            Home
-          </Link>
-          <span className="mx-2 opacity-40">/</span>
-          <Link href="/shop" className="hover:text-[var(--color-foreground)]">
-            Shop
-          </Link>
-          <span className="mx-2 opacity-40">/</span>
-          <Link
-            href={`/shop?gear=${gearLine}`}
-            className="hover:text-[var(--color-foreground)]"
-          >
-            {gearLabel}
-          </Link>
+        <nav className="product-buy-breadcrumb" aria-label="Breadcrumb">
+          <Link href="/">Home</Link>
+          <span className="mx-2">/</span>
+          <Link href="/shop">Shop</Link>
+          <span className="mx-2">/</span>
+          <Link href={`/shop?gear=${gearLine}`}>{gearLabel}</Link>
         </nav>
 
         <div className="product-split-grid product-split-grid--wide-visual">
@@ -115,13 +106,42 @@ export function ProductDetailView({
           <div className="product-buy-panel min-w-0 w-full lg:sticky lg:top-[4.75rem] lg:max-w-[26rem] lg:justify-self-end xl:max-w-[30rem]">
             <h1 className="product-buy-title">{product.name}</h1>
 
+            <div className="product-buy-price mt-2 sm:mt-3">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <ProductPrice
+                  price={product.price}
+                  compareAt={product.compareAt}
+                  tag={product.tag}
+                  className="product-buy-price-value"
+                  compareClassName="product-buy-price-compare"
+                />
+                {savePct != null && (
+                  <span className="text-[10px] font-light uppercase tracking-[0.14em] text-zinc-500">
+                    Save {savePct}%
+                  </span>
+                )}
+              </div>
+            </div>
+
             {introParagraphs.length > 0 && (
-              <div className="product-buy-copy mt-5 space-y-4 text-sm leading-[1.75] text-zinc-600 normal-case md:text-[0.9375rem]">
+              <div className="product-buy-copy trizen-prose mt-4 max-w-md space-y-4 sm:mt-6">
                 {introParagraphs.map((para) => (
                   <p key={para.slice(0, 48)}>{para}</p>
                 ))}
               </div>
             )}
+
+            {reviews.length > 0 ? (
+              <div className="mt-5 flex items-center gap-3 sm:mt-6">
+                <StarRating value={avgRating} size="sm" />
+                <a
+                  href="#reviews"
+                  className="text-xs font-normal text-black hover:underline"
+                >
+                  ({avgRating})
+                </a>
+              </div>
+            ) : null}
 
             {selectedColor && colors.length > 0 && (
               <div className="mt-6">
@@ -133,49 +153,22 @@ export function ProductDetailView({
               </div>
             )}
 
-            <div className="product-buy-reviews mt-6 flex flex-wrap items-center gap-x-3 gap-y-1">
-              <StarRating value={avgRating} size="sm" />
-              <a
-                href="#reviews"
-                className="text-[11px] text-[var(--color-muted)] hover:text-[var(--color-foreground)] hover:underline"
-              >
-                {reviews.length > 0
-                  ? `${reviews.length} review${reviews.length !== 1 ? "s" : ""}`
-                  : "No reviews yet"}
-              </a>
+            <div className="mt-6 sm:mt-8">
+              <AddToCartButton
+                product={{
+                  id: product.id,
+                  name: product.name,
+                  slug: product.slug,
+                  price: product.price,
+                  compareAt: product.compareAt,
+                  image: selectedColor?.image ?? product.image,
+                  stock: product.stock,
+                }}
+                color={selectedColor?.name}
+                colors={colors}
+                comingSoon={upcoming}
+              />
             </div>
-
-            <div className="product-buy-price mt-6">
-              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <ProductPrice
-                  price={product.price}
-                  compareAt={product.compareAt}
-                  tag={product.tag}
-                  className="text-xl font-medium tracking-tight text-[var(--color-foreground)] md:text-2xl"
-                  compareClassName="text-base font-normal text-zinc-400 line-through"
-                />
-                {savePct != null && (
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
-                    Save {savePct}%
-                  </span>
-                )}
-              </div>
-            </div>
-
-            <AddToCartButton
-              product={{
-                id: product.id,
-                name: product.name,
-                slug: product.slug,
-                price: product.price,
-                compareAt: product.compareAt,
-                image: selectedColor?.image ?? product.image,
-                stock: product.stock,
-              }}
-              color={selectedColor?.name}
-              colors={colors}
-              comingSoon={upcoming}
-            />
           </div>
         </div>
       </div>

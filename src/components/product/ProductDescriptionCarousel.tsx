@@ -59,7 +59,7 @@ export function ProductDescriptionCarousel({
     >
       <div className="trizen-desc-carousel-header">
         <span className="trizen-desc-carousel-line" aria-hidden />
-        <p className="trizen-eyebrow">Product highlights</p>
+        <p className="trizen-eyebrow text-zinc-900 font-light">Product highlights</p>
         <span className="trizen-desc-carousel-line" aria-hidden />
       </div>
 
@@ -120,7 +120,7 @@ export function ProductDescriptionCarousel({
 
       {items.length > 1 && (
         <div className="trizen-desc-carousel-thumbs">
-          <p className="text-[10px] uppercase tracking-[0.28em] text-zinc-600 mb-3 text-center">
+          <p className="text-[10px] font-light uppercase tracking-[0.28em] text-zinc-900 mb-3 text-center">
             Browse highlights
           </p>
           <div

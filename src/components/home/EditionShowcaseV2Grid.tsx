@@ -8,6 +8,7 @@ import { IMAGE_QUALITY } from "@/lib/image-quality";
 import { shouldShowProductPrice } from "@/lib/product-status";
 import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
+import { TRIPAD_MODEL_NAMES } from "@/lib/product-catalog-content";
 import {
   HOME_GLIDE_V2_TRIPAD_IMAGE,
   HOME_GLIDE_V2_BLACK_IMAGE,
@@ -54,7 +55,7 @@ function EditionProductCell({
         }
         sizes="(max-width: 640px) 100vw, 33vw"
         quality={IMAGE_QUALITY}
-        priority={label === "TriPad V2"}
+        priority={label.startsWith("TP")}
       />
       {hoverImage ? (
         <Image
@@ -82,7 +83,7 @@ function EditionProductCell({
         ) : null}
       </div>
     ) : (
-      <span className="mt-2 text-center text-[7px] font-bold uppercase tracking-[0.16em] text-[var(--color-foreground)] sm:mt-4 sm:text-[10px] sm:tracking-[0.34em] md:text-[11px] md:tracking-[0.38em]">
+      <span className="mt-2 text-center text-[7px] font-light normal-case tracking-[0.08em] text-black sm:mt-4 sm:text-[10px] md:text-[11px]">
         {label}
       </span>
     );
@@ -135,7 +136,7 @@ export function EditionShowcaseV2Grid({ productsBySlug, mode = "default" }: Prop
     >
       <EditionProductCell
         href={`/product/${V2_BLACK_SLUG}`}
-        label="TriPad V2"
+        label="TP - V2"
         product={black}
         mode={mode}
         image={{
@@ -145,7 +146,7 @@ export function EditionShowcaseV2Grid({ productsBySlug, mode = "default" }: Prop
       />
       <EditionProductCell
         href={`/product/${V2_WHITE_SLUG}`}
-        label="White Edition"
+        label={white?.name ?? TRIPAD_MODEL_NAMES.v2White}
         product={white}
         mode={mode}
         image={{
@@ -159,7 +160,7 @@ export function EditionShowcaseV2Grid({ productsBySlug, mode = "default" }: Prop
       />
       <EditionProductCell
         href={`/product/${V2_BLACK_SLUG}`}
-        label="Black Edition"
+        label={black?.name ?? TRIPAD_MODEL_NAMES.v2Black}
         product={black}
         mode={mode}
         image={{

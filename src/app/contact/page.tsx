@@ -5,7 +5,28 @@ import { Input } from "@/components/Input";
 import { Textarea } from "@/components/Textarea";
 import { Button } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
+import { SITE_CONTACT } from "@/lib/site-config";
 import { Mail, Phone, MapPin } from "lucide-react";
+
+const CONTACT_ITEMS = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: SITE_CONTACT.email,
+    href: `mailto:${SITE_CONTACT.email}`,
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: SITE_CONTACT.phoneDisplay,
+    href: `tel:${SITE_CONTACT.phone}`,
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Bangladesh, nationwide shipping",
+  },
+] as const;
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -16,64 +37,64 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="bg-[var(--color-surface)] min-h-screen">
+    <div className="min-h-screen bg-white">
       <PageHero
         eyebrow="Support"
         title="Contact us"
-        description="Questions about TRIPAD, orders, or shipping, we're here to help."
+        description="Questions about TRIPAD, orders, or shipping — we're here to help."
       />
 
-      <div className="container-trizen py-14 md:py-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          <div className="space-y-8">
-            <p className="trizen-eyebrow">Reach us</p>
-            {[
-              { icon: Mail, label: "Email", value: "support@trizenstore.com" },
-              { icon: Phone, label: "Phone", value: "01778741431" },
-              {
-                icon: MapPin,
-                label: "Location",
-                value: "Bangladesh, nationwide shipping",
-              },
-            ].map(({ icon: Icon, label, value }) => (
-              <div
-                key={label}
-                className="trizen-panel flex gap-5 p-6 transition-colors duration-300 hover:border-zinc-600"
-              >
-                <Icon className="h-5 w-5 shrink-0 mt-0.5 text-zinc-400" />
-                <div>
-                  <p className="trizen-eyebrow text-zinc-600">{label}</p>
-                  <p className="mt-2 text-sm text-[var(--color-foreground)]">{value}</p>
-                </div>
+      <section>
+        <div className="container-trizen py-14 md:py-20">
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <h2 className="trizen-wh-section-label mb-8">Reach us</h2>
+              <div className="space-y-8">
+                {CONTACT_ITEMS.map(({ icon: Icon, label, value, href }) => (
+                  <div key={label} className="flex gap-4">
+                    <Icon
+                      className="mt-0.5 h-5 w-5 shrink-0 text-black"
+                      strokeWidth={1.5}
+                    />
+                    <div>
+                      <p className="trizen-box-label text-zinc-500">{label}</p>
+                      {href ? (
+                        <a
+                          href={href}
+                          className="trizen-body mt-2 block text-sm text-black transition-colors hover:text-zinc-600"
+                        >
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="trizen-body mt-2 text-sm text-black">{value}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-
-          {sent ? (
-            <div className="trizen-panel flex flex-col items-center justify-center p-10 md:p-12 text-center border-emerald-900/40 bg-emerald-950/20">
-              <p className="text-lg font-bold uppercase tracking-wide text-[var(--color-foreground)] mb-2">
-                Message sent
-              </p>
-              <p className="trizen-body">
-                We&apos;ll get back to you within 24 hours.
-              </p>
             </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              className="trizen-panel space-y-5 p-8 md:p-10"
-            >
-              <p className="trizen-eyebrow mb-2">Send a message</p>
-              <Input label="Name" required />
-              <Input label="Email" type="email" required />
-              <Textarea label="Message" required />
-              <Button type="submit" className="w-full" size="lg">
-                Send message
-              </Button>
-            </form>
-          )}
+
+            {sent ? (
+              <div className="text-center lg:text-left">
+                <p className="trizen-headline mb-2 text-xl">Message sent</p>
+                <p className="trizen-body text-sm md:text-[0.9375rem]">
+                  We&apos;ll get back to you within 24 hours.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <h2 className="trizen-wh-section-label mb-2">Send a message</h2>
+                <Input label="Name" required />
+                <Input label="Email" type="email" required />
+                <Textarea label="Message" required />
+                <Button type="submit" className="auth-wallhack-submit w-full" size="lg">
+                  Send message
+                </Button>
+              </form>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

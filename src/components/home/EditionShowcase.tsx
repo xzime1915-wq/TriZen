@@ -10,6 +10,7 @@ import {
   HOME_GLIDE_WHITE_IMAGE,
   HOME_GLIDE_BLACK_IMAGE,
 } from "@/lib/home-assets";
+import { TRIPAD_MODEL_NAMES } from "@/lib/product-catalog-content";
 import { EditionShowcaseV2Grid } from "@/components/home/EditionShowcaseV2Grid";
 
 const V1_BLACK_SLUG = "trizen-tripad-v1-black";
@@ -50,7 +51,7 @@ function EditionMeta({
   }
 
   return (
-    <span className="mt-2 text-center text-[7px] font-bold uppercase tracking-[0.16em] text-[var(--color-foreground)] sm:mt-4 sm:text-[10px] sm:tracking-[0.34em] md:text-[11px] md:tracking-[0.38em]">
+    <span className="mt-2 text-center text-[7px] font-light normal-case tracking-[0.08em] text-black sm:mt-4 sm:text-[10px] md:text-[11px]">
       {label}
     </span>
   );
@@ -99,7 +100,7 @@ function EditionCell({
         }
         sizes="(max-width: 640px) 100vw, 33vw"
         quality={IMAGE_QUALITY}
-        priority={label === "TriPad V1" || label === "TriPad V2"}
+        priority={label.startsWith("TP")}
       />
       {hoverImage && (
         <Image
@@ -148,8 +149,20 @@ export function EditionShowcaseV1({
   const white = productsBySlug?.[V1_WHITE_SLUG];
 
   return (
-    <div className="edition-showcase-section">
-      {mode === "default" ? <ShowcaseHeader title="Choose your edition" /> : null}
+    <div
+      className={cn(
+        "edition-showcase-section edition-showcase-v1",
+        mode === "shop" && "edition-showcase-v1--shop"
+      )}
+    >
+      {mode === "shop" ? (
+        <div className="edition-showcase-v1-shop-intro">
+          <p className="edition-showcase-eyebrow">Grab now</p>
+          <h3 className="edition-showcase-v1-shop-title">TP - V1</h3>
+        </div>
+      ) : (
+        <ShowcaseHeader title="Choose your edition" />
+      )}
       <div
         className={cn(
           "grid grid-cols-3 bg-white",
@@ -160,7 +173,7 @@ export function EditionShowcaseV1({
       >
         <EditionCell
           href={`/product/${V1_BLACK_SLUG}`}
-          label="TriPad V1"
+          label="TP - V1"
           mode={mode}
           image={{
             src: HOME_GLIDE_TRIPAD_IMAGE,
@@ -169,7 +182,7 @@ export function EditionShowcaseV1({
         />
         <EditionCell
           href={`/product/${V1_WHITE_SLUG}`}
-          label="White Edition"
+          label={white?.name ?? TRIPAD_MODEL_NAMES.v1White}
           mode={mode}
           product={white}
           image={{
@@ -183,7 +196,7 @@ export function EditionShowcaseV1({
         />
         <EditionCell
           href={`/product/${V1_BLACK_SLUG}`}
-          label="Black Edition"
+          label={black?.name ?? TRIPAD_MODEL_NAMES.v1Black}
           mode={mode}
           product={black}
           image={{
@@ -229,16 +242,12 @@ export function EditionShowcaseV2({
       {mode === "shop" ? (
         <div className="edition-showcase-v2-shop-intro">
           <p className="edition-showcase-eyebrow">Coming soon</p>
-          <h3 className="edition-showcase-v2-shop-title">TriPad V2</h3>
-          <p className="edition-showcase-v2-shop-desc">
-            Same glass glide you trust, with refreshed vertical TriZen branding in
-            black and white.
-          </p>
+          <h3 className="edition-showcase-v2-shop-title">TP - V2</h3>
         </div>
       ) : (
         <div className="edition-showcase-v2-intro">
           <p className="edition-showcase-eyebrow">Coming soon</p>
-          <h2 className="edition-showcase-v2-title">TriPad V2</h2>
+          <h2 className="edition-showcase-v2-title">TP - V2</h2>
           <p className="edition-showcase-v2-desc">
             Same glass glide you trust, with refreshed vertical TriZen branding in
             black and white.

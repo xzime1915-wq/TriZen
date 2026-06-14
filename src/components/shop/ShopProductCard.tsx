@@ -73,17 +73,17 @@ export function ShopProductCard({
           ) : null}
         </div>
 
-        <Link href={`/product/${product.slug}`} className="mt-3 block space-y-1">
+        <Link href={`/product/${product.slug}`} className="product-card-meta block">
           <ProductCardTitle
             name={product.name}
-            className="text-[10px] font-bold leading-snug md:text-[11px]"
+            className="text-[10px] leading-snug md:text-[11px]"
           />
           {shouldShowProductPrice(product.tag) ? (
-            <p className="trizen-wh-hero-eyebrow text-[10px] text-zinc-500">
+            <p className="product-card-price product-inline-price">
               {formatCurrency(product.price)}
             </p>
           ) : (
-            <p className="trizen-wh-hero-eyebrow text-[9px] text-zinc-400">
+            <p className="product-card-price product-inline-price text-zinc-600">
               Price at launch
             </p>
           )}
@@ -126,18 +126,18 @@ export function ShopProductCard({
         )}
         <ProductCardTitle
           name={product.name}
-          className="mt-2 text-sm font-bold md:text-base"
+          className="mt-2 text-sm md:text-base"
         />
         <p className="mt-2 line-clamp-2 flex-1 text-xs leading-relaxed text-zinc-500">
           {previewText(product)}
         </p>
         <div className="mt-4 border-t border-zinc-200 pt-3">
           {shouldShowProductPrice(product.tag) ? (
-            <p className="trizen-wh-hero-eyebrow text-[10px] text-zinc-500">
+            <p className="product-inline-price">
               {formatCurrency(product.price)}
             </p>
           ) : (
-            <p className="trizen-wh-hero-eyebrow text-[9px] text-zinc-400">
+            <p className="product-inline-price text-zinc-600">
               Price at launch
             </p>
           )}

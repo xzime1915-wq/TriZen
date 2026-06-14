@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { StockBadge, isInStock } from "@/components/StockBadge";
 import { StarRating } from "@/components/product/StarRating";
 import { ProductVisualFrame } from "@/components/product/ProductVisualFrame";
 import { HomeProductActions } from "./HomeProductActions";
@@ -85,25 +84,17 @@ export function HomeProductShowcase({
               reverse ? "lg:order-1" : ""
             }`}
           >
-            <div className="mb-3 sm:mb-4">
-              <StockBadge
-                inStock={isInStock(product.stock)}
-                upcoming={upcoming}
-                size="md"
-              />
-            </div>
-
             <Link href={`/product/${product.slug}`}>
-              <h2 className="trizen-wh-section-title text-xl transition-colors hover:text-zinc-600 sm:text-2xl md:text-3xl lg:text-[2rem]">
+              <h2 className="product-display-title text-xl transition-colors hover:text-zinc-600 sm:text-2xl md:text-3xl lg:text-[2rem]">
                 {headline}
               </h2>
             </Link>
 
             {shouldShowProductPrice(product.tag) && (
-              <p className="mt-2 text-base font-medium tabular-nums text-[var(--color-foreground)] sm:mt-3 sm:text-lg">
+              <p className="product-inline-price mt-2 sm:mt-3">
                 {formatCurrency(product.price)}
                 {product.compareAt && product.compareAt > product.price && (
-                  <span className="ml-2 text-sm font-normal text-zinc-600 line-through">
+                  <span className="product-inline-price-compare ml-2">
                     {formatCurrency(product.compareAt)}
                   </span>
                 )}
@@ -116,12 +107,14 @@ export function HomeProductShowcase({
               ))}
             </div>
 
-            <div className="mt-5 flex items-center gap-3 sm:mt-6">
-              <StarRating value={avgRating || 5} />
-              <span className="text-xs text-zinc-600">
-                {reviewCount > 0 ? `(${avgRating})` : "(New)"}
-              </span>
-            </div>
+            {reviewCount > 0 ? (
+              <div className="mt-5 flex items-center gap-3 sm:mt-6">
+                <StarRating value={avgRating} />
+                <span className="text-xs font-normal text-black">
+                  ({avgRating})
+                </span>
+              </div>
+            ) : null}
 
             <div className="mt-6 sm:mt-8">
               <HomeProductActions

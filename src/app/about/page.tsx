@@ -54,7 +54,7 @@ export default function AboutPage() {
               },
             ].map((item) => (
               <li key={item.title} className="trizen-panel p-6 trizen-card-hover">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-[var(--color-foreground)]">
+                <h3 className="text-sm font-normal uppercase tracking-wider text-black">
                   {item.title}
                 </h3>
                 <p className="trizen-body mt-3">{item.body}</p>

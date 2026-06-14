@@ -28,10 +28,6 @@ export const metadata = homePageMetadata();
 
 const HERO_SLUG = "trizen-tripad-v1-black";
 
-function stripEditionSuffix(name: string) {
-  return name.replace(/\s+(Black|White)$/i, "");
-}
-
 export default async function HomePage() {
   const [products, reviews, reviewStats] = await Promise.all([
     prisma.product.findMany({
@@ -97,9 +93,6 @@ export default async function HomePage() {
           key={p.id}
           reverse={index % 2 === 1}
           priority={index === 0}
-          displayName={
-            p.slug === HERO_SLUG ? stripEditionSuffix(p.name) : undefined
-          }
           product={{
             id: p.id,
             name: p.name,

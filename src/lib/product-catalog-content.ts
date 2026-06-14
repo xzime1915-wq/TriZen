@@ -1,5 +1,13 @@
 import { stringifyJsonField } from "./product-data";
 
+/** Display names for TriPad product modules */
+export const TRIPAD_MODEL_NAMES = {
+  v1Black: "TP - V1 (black)",
+  v1White: "TP - V1 (White)",
+  v2Black: "TP - V2 (black)",
+  v2White: "TP - V2 (white)",
+} as const;
+
 /** TRIPAD glass mouse pad — physical size (all V1 & V2 editions) */
 export const TRIPAD_DIMENSIONS = "490 × 430 × 3 mm";
 
@@ -28,7 +36,7 @@ export const tripadFeatures = [
 ];
 
 export const tripadSpecs = [
-  { label: "Product", value: "TRIZEN TRIPAD V1 Glass Mouse Pad" },
+  { label: "Product", value: "TP-V1 Glass Mouse Pad" },
   ...tripadSpecsShared,
 ];
 
@@ -68,8 +76,8 @@ export const tripadV2Features = [
 ];
 
 export const tripadV2Specs = [
-  { label: "Product", value: "TRIZEN TRIPAD V2 Glass Mouse Pad" },
-  { label: "Series", value: "TRIPAD V2 (Upcoming)" },
+  { label: "Product", value: "TP-V2 Glass Mouse Pad" },
+  { label: "Series", value: "TP-V2 (Upcoming)" },
   ...tripadSpecsShared,
   { label: "Design", value: "Vertical TRIZEN signature layout" },
 ];
@@ -96,7 +104,7 @@ export function tripadV2ShortDescription(variant: "black" | "white") {
 export function buildTripadSpecs(variant: "black" | "white") {
   const edition = variant === "black" ? "Black" : "White";
   return [
-    { label: "Product", value: "TRIZEN TRIPAD V1 Glass Mouse Pad" },
+    { label: "Product", value: "TP-V1 Glass Mouse Pad" },
     { label: "Edition", value: edition },
     { label: "SKU", value: variant === "black" ? "TZ TRIPAD V1 BLK" : "TZ TRIPAD V1 WHT" },
     ...tripadSpecsShared,
@@ -106,8 +114,8 @@ export function buildTripadSpecs(variant: "black" | "white") {
 export function buildTripadV2Specs(variant: "black" | "white") {
   const edition = variant === "black" ? "Black" : "White";
   return [
-    { label: "Product", value: "TRIZEN TRIPAD V2 Glass Mouse Pad" },
-    { label: "Series", value: "TRIPAD V2 (Upcoming)" },
+    { label: "Product", value: "TP-V2 Glass Mouse Pad" },
+    { label: "Series", value: "TP-V2 (Upcoming)" },
     { label: "Edition", value: edition },
     { label: "SKU", value: variant === "black" ? "TZ TRIPAD V2 BLK" : "TZ TRIPAD V2 WHT" },
     ...tripadSpecsShared,
@@ -118,7 +126,7 @@ export function buildTripadV2Specs(variant: "black" | "white") {
 export function buildTripadV2ProductData(variant: "black" | "white") {
   const isBlack = variant === "black";
   return {
-    name: isBlack ? "TRIZEN TRIPAD V2 Black" : "TRIZEN TRIPAD V2 White",
+    name: isBlack ? "TP - V2 (black)" : "TP - V2 (white)",
     slug: isBlack ? "trizen-tripad-v2-black" : "trizen-tripad-v2-white",
     description: tripadV2ShortDescription(variant),
     longDescription: tripadV2LongDescription(variant),
@@ -139,7 +147,7 @@ export function buildTripadV2ProductData(variant: "black" | "white") {
 export function buildTripadProductData(variant: "black" | "white") {
   const isBlack = variant === "black";
   return {
-    name: isBlack ? "TRIZEN TRIPAD V1 Black" : "TRIZEN TRIPAD V1 White",
+    name: isBlack ? "TP - V1 (black)" : "TP - V1 (White)",
     slug: isBlack ? "trizen-tripad-v1-black" : "trizen-tripad-v1-white",
     description: tripadShortDescription(variant),
     longDescription: tripadLongDescription(variant),

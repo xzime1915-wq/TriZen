@@ -21,7 +21,7 @@ export function ProductCardTitle({
 
   if (!hasBrand) {
     return (
-      <p className={cn("uppercase tracking-[0.12em] text-zinc-900", className)}>
+      <p className={cn("font-light uppercase tracking-[0.12em] text-black", className)}>
         {rest}
       </p>
     );
@@ -30,12 +30,12 @@ export function ProductCardTitle({
   return (
     <p
       className={cn(
-        "flex flex-wrap items-baseline gap-x-1.5 uppercase tracking-[0.12em] text-zinc-900",
+        "flex flex-wrap items-baseline gap-x-1.5 font-light uppercase tracking-[0.12em] text-black",
         className
       )}
     >
-      <TrizenBrandName className="inline-flex shrink-0 text-[1em]" />
-      <span className="leading-snug">{rest}</span>
+      <TrizenBrandName className="inline-flex shrink-0 text-[1em] !font-light" />
+      <span className="leading-snug font-light">{rest}</span>
     </p>
   );
 }

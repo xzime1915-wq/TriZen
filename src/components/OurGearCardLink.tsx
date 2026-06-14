@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { displayImageSrc } from "@/lib/image-path";
 import { IMAGE_QUALITY } from "@/lib/image-quality";
+import { OurGearCta } from "@/components/OurGearCta";
 import { OUR_GEARS_FALLBACK_IMAGES, type OurGearCard } from "@/lib/our-gears";
 
 type Props = {
@@ -44,8 +45,18 @@ export function OurGearCardLink({
         <div className="our-gear-card-overlay" aria-hidden />
 
         <div className="our-gear-card-meta">
-          <h3 className="our-gear-card-title">{title}</h3>
-          <p className="our-gear-card-status">{gear.statusLabel}</p>
+          <h3 className="our-gear-card-title">
+            <span>{gear.titleLine1}</span>
+            {gear.titleLine2 ? <span>{gear.titleLine2}</span> : null}
+          </h3>
+          <p className="our-gear-card-tagline">
+            <span>{gear.taglineLine1}</span>
+            <span>{gear.taglineLine2}</span>
+          </p>
+          <OurGearCta
+            label={gear.statusLabel}
+            muted={gear.status !== "grab"}
+          />
         </div>
       </div>
     </Link>

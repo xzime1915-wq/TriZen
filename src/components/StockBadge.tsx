@@ -15,7 +15,7 @@ export function StockBadge({
     return (
       <span
         className={cn(
-          "inline-flex w-fit items-center gap-1.5 font-semibold uppercase tracking-wider leading-none text-zinc-600",
+          "inline-flex w-fit items-center gap-1.5 font-light uppercase tracking-wider leading-none text-zinc-600",
           size === "sm" ? "text-[10px]" : "text-[11px]",
           className
         )}
@@ -29,7 +29,7 @@ export function StockBadge({
   return (
     <span
       className={cn(
-        "inline-flex w-fit items-center gap-1.5 font-semibold uppercase tracking-wider leading-none",
+        "inline-flex w-fit items-center gap-1.5 font-light uppercase tracking-wider leading-none",
         size === "sm" ? "text-[10px]" : "text-[11px]",
         inStock ? "text-emerald-400" : "text-red-400",
         className

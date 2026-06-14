@@ -53,15 +53,15 @@ export function ProductSpecShowcase({
                     key={spec.label}
                     className="product-spec-row grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-x-6 gap-y-1 py-4 first:pt-0"
                   >
-                    <dt className="trizen-wh-mono flex min-w-0 items-start gap-2.5 text-[9px] font-bold uppercase tracking-[0.18em] text-zinc-500">
+                    <dt className="trizen-wh-mono flex min-w-0 items-start gap-2.5 text-[9px] font-light uppercase tracking-[0.18em] text-zinc-900">
                       <Icon
-                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-zinc-400"
+                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-zinc-900"
                         strokeWidth={1.5}
                         aria-hidden
                       />
                       <span>{spec.label}</span>
                     </dt>
-                    <dd className="text-right text-sm font-medium leading-snug text-[var(--color-foreground)] normal-case md:text-base">
+                    <dd className="text-right text-sm font-light leading-snug text-zinc-900 normal-case md:text-base">
                       {spec.value}
                     </dd>
                   </div>

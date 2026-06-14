@@ -9,6 +9,7 @@ import { useChatStore } from "@/lib/chat-store";
 import { useState, useEffect, useRef } from "react";
 import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
+import { useTrackOrderUi } from "@/lib/track-order-ui-store";
 import { cn } from "@/lib/utils";
 import { ChatHeaderButton } from "@/components/chat/ChatHeaderButton";
 import { MegaMenuGearCard } from "@/components/MegaMenuGearCard";
@@ -17,14 +18,64 @@ import {
   HEADER_NAV,
   MOUSE_PAD_GROUPS,
   SHOP_MEGA_GROUPS,
+  type HeaderMegaKey,
+  type HeaderNavItem,
 } from "@/lib/nav-config";
 import { OUR_GEARS } from "@/lib/our-gears";
 
 type HeaderUser = { name: string | null; email: string } | null;
-type MegaKey = "shop" | "mouse-pads" | "explore";
 
 const iconClass = "h-[18px] w-[18px]";
 const iconStroke = 1.5;
+
+function isNavActive(
+  pathname: string,
+  item: HeaderNavItem,
+  gear: string | null,
+) {
+  const mega = item.mega;
+
+  if (mega === "mouse-pads") {
+    return (
+      gear === "glass-mouse-pad" ||
+      gear === "soft-mouse-pad" ||
+      (pathname.startsWith("/product/") &&
+        (pathname.includes("tripad") || pathname.includes("soft")))
+    );
+  }
+
+  if (mega === "shop") {
+    return pathname === "/shop" && !gear;
+  }
+
+  if (mega === "explore") {
+    return ["/about", "/blog", "/contact"].some(
+      (p) => pathname === p || pathname.startsWith(`${p}/`),
+    );
+  }
+
+  if (item.href.includes("gear=skates")) {
+    return (
+      gear === "skates" ||
+      (pathname.startsWith("/product/") && pathname.includes("skate"))
+    );
+  }
+
+  if (item.href.includes("gear=hand-sleeves")) {
+    return (
+      gear === "hand-sleeves" ||
+      (pathname.startsWith("/product/") && pathname.includes("sleeve"))
+    );
+  }
+
+  if (item.drawer === "track-order") {
+    return false;
+  }
+
+  return pathname === item.href || pathname.startsWith(`${item.href}/`);
+}
+
+const MOUSE_PAD_GEAR_IDS = ["glass-mouse-pad", "soft-mouse-pad"] as const;
 
 function CartCountBadge({ count }: { count: number }) {
   if (count <= 0) return null;
@@ -35,35 +86,6 @@ function CartCountBadge({ count }: { count: number }) {
     </span>
   );
 }
-
-function isNavActive(
-  pathname: string,
-  mega: MegaKey | undefined,
-  gear: string | null,
-) {
-  if (mega === "mouse-pads") {
-    return (
-      gear === "glass-mouse-pad" ||
-      gear === "soft-mouse-pad" ||
-      (pathname.startsWith("/product/") &&
-        (pathname.includes("tripad") || pathname.includes("soft")))
-    );
-  }
-  if (mega === "shop") {
-    if (!pathname.startsWith("/shop") && !pathname.startsWith("/product/")) {
-      return false;
-    }
-    return gear !== "glass-mouse-pad" && gear !== "soft-mouse-pad";
-  }
-  if (mega === "explore") {
-    return ["/about", "/blog", "/contact", "/track-order"].some(
-      (p) => pathname === p || pathname.startsWith(`${p}/`),
-    );
-  }
-  return false;
-}
-
-const MOUSE_PAD_GEAR_IDS = ["glass-mouse-pad", "soft-mouse-pad"] as const;
 
 function MegaGearGrid({
   gearIds,
@@ -101,13 +123,15 @@ export function Header({ user = null }: { user?: HeaderUser }) {
   const gear = searchParams.get("gear");
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState<MegaKey | null>(null);
+  const [megaOpen, setMegaOpen] = useState<HeaderMegaKey | null>(null);
   const [mounted, setMounted] = useState(false);
   const [headerHidden, setHeaderHidden] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const lastScrollY = useRef(0);
   const totalItems = useCart((s) => s.totalItems());
   const openCart = useCartUi((s) => s.openCart);
+  const openTrackOrder = useTrackOrderUi((s) => s.openTrackOrder);
+  const trackOrderOpen = useTrackOrderUi((s) => s.isOpen);
 
   useEffect(() => setMounted(true), []);
 
@@ -211,28 +235,70 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           <nav className="relative z-20 hidden items-center gap-1 lg:absolute lg:left-1/2 lg:top-1/2 lg:flex lg:-translate-x-1/2 lg:-translate-y-1/2">
             {HEADER_NAV.map((item) => {
               const mega = item.mega;
-              const active = isNavActive(pathname, mega, gear);
+              const active =
+                isNavActive(pathname, item, gear) ||
+                (item.drawer === "track-order" && trackOrderOpen);
+
+              const className = cn(
+                "trizen-nav-link",
+                (active || (mega && megaOpen === mega)) &&
+                  "trizen-nav-link-active",
+              );
+
+              if (item.drawer === "track-order") {
+                return (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onMouseEnter={() => setMegaOpen(null)}
+                    onFocus={() => setMegaOpen(null)}
+                    onClick={() => {
+                      setMegaOpen(null);
+                      openTrackOrder();
+                    }}
+                    className={className}
+                  >
+                    {item.label}
+                  </button>
+                );
+              }
 
               return (
-                <button
+                <Link
                   key={item.label}
-                  type="button"
-                  onMouseEnter={() => setMegaOpen(mega)}
-                  onFocus={() => setMegaOpen(mega)}
-                  className={cn(
-                    "trizen-nav-link",
-                    (active || megaOpen === mega) && "trizen-nav-link-active",
-                  )}
+                  href={item.href}
+                  onMouseEnter={() => {
+                    if (mega) setMegaOpen(mega);
+                    else setMegaOpen(null);
+                  }}
+                  onFocus={() => {
+                    if (mega) setMegaOpen(mega);
+                    else setMegaOpen(null);
+                  }}
+                  onClick={() => setMegaOpen(null)}
+                  className={className}
                 >
                   {item.label}
-                </button>
+                </Link>
               );
             })}
           </nav>
 
           <div className="ml-auto flex items-center gap-1">
-            <span className="trizen-wh-ui mr-2 hidden text-zinc-500 xl:inline">
-              Bangladesh (BDT ৳)
+            <span
+              className="trizen-header-region mr-2 hidden items-center gap-1.5 text-zinc-900 xl:inline-flex"
+              title="Bangladesh"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/flags/bangladesh.png"
+                alt=""
+                aria-hidden
+                className="h-3 w-[1.125rem] shrink-0 rounded-[1px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.08)]"
+                width={18}
+                height={12}
+              />
+              <span className="trizen-wh-ui">BDT ৳</span>
             </span>
             <div className="hidden items-center gap-0.5 lg:flex">
               <ChatHeaderButton className="trizen-header-icon" />
@@ -380,16 +446,30 @@ export function Header({ user = null }: { user?: HeaderUser }) {
               <MessageCircle className={iconClass} strokeWidth={iconStroke} />
               Live Chat
             </button>
-            {HEADER_NAV.map((item) => (
-              <Link
-                key={item.href + item.label}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="block py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-black"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {HEADER_NAV.map((item) =>
+              item.drawer === "track-order" ? (
+                <button
+                  key={item.href + item.label}
+                  type="button"
+                  onClick={() => {
+                    openTrackOrder();
+                    setOpen(false);
+                  }}
+                  className="block w-full py-3 text-left text-[11px] font-medium uppercase tracking-[0.2em] text-black"
+                >
+                  {item.label}
+                </button>
+              ) : (
+                <Link
+                  key={item.href + item.label}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="block py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-black"
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
             {EXPLORE_LINKS.map((l) => (
               <Link
                 key={l.href}

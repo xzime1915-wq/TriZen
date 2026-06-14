@@ -1,21 +1,37 @@
 import { SHOP_GEAR_COPY, SHOP_GEAR_ORDER } from "@/lib/shop-gears";
-export const HEADER_NAV = [
-  { href: "/shop", label: "Shop", mega: "shop" as const },
-  { href: "/shop", label: "Mouse Pads", mega: "mouse-pads" as const },
-  { href: "/about", label: "Explore", mega: "explore" as const },
-] as const;
+
+export type HeaderMegaKey = "shop" | "mouse-pads" | "explore";
+
+export type HeaderNavItem = {
+  href: string;
+  label: string;
+  mega?: HeaderMegaKey;
+  drawer?: "track-order";
+};
+
+export const HEADER_NAV: HeaderNavItem[] = [
+  { href: "/shop", label: "Shop", mega: "shop" },
+  {
+    href: "/shop#gear-glass-mouse-pad",
+    label: "Mouse Pads",
+    mega: "mouse-pads",
+  },
+  { href: "/shop?gear=skates", label: "Skates" },
+  { href: "/shop?gear=hand-sleeves", label: "Sleeves" },
+  { href: "/track-order", label: "Track Order", drawer: "track-order" },
+  { href: "/about", label: "Explore", mega: "explore" },
+];
 
 export const EXPLORE_LINKS = [
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
-  { href: "/track-order", label: "Track Your Order" },
 ] as const;
 
 export const MOUSE_PAD_GROUPS = [
   {
     title: "Glass Pads",
-    links: [{ href: "/shop?gear=glass-mouse-pad", label: "TRIPAD V1" }],
+    links: [{ href: "/shop?gear=glass-mouse-pad", label: "TP-V1" }],
   },
   {
     title: "Soft Pads",

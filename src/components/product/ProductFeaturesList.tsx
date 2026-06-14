@@ -11,14 +11,14 @@ export function ProductFeaturesList({
 
   return (
     <div>
-      <h3 className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-foreground)] mb-4">
+      <h3 className="text-xs font-light uppercase tracking-[0.14em] text-zinc-900 mb-4">
         {title}
       </h3>
       <ul className="space-y-3">
         {features.map((f) => (
           <li
             key={f}
-            className="flex gap-3 text-sm text-[var(--color-muted)] leading-snug tracking-[0.01em] normal-case"
+            className="trizen-prose flex gap-3 leading-snug"
           >
             <Check className="h-4 w-4 shrink-0 text-emerald-400 mt-0.5" aria-hidden />
             <span>{f}</span>

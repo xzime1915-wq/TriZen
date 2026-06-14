@@ -54,17 +54,17 @@ export function ProductCard({ product }: { product: Product }) {
         ) : null}
       </div>
 
-      <Link href={`/product/${product.slug}`} className="mt-3 block space-y-1">
+      <Link href={`/product/${product.slug}`} className="product-card-meta block">
         <ProductCardTitle
           name={product.name}
-          className="text-[10px] font-bold md:text-[11px]"
+          className="text-[10px] md:text-[11px]"
         />
         {shouldShowProductPrice(product.tag) ? (
-          <p className="trizen-wh-hero-eyebrow text-[10px] text-zinc-500">
+          <p className="product-card-price product-inline-price">
             {formatCurrency(product.price)}
           </p>
         ) : (
-          <p className="trizen-wh-hero-eyebrow text-[9px] text-zinc-400">
+          <p className="product-card-price product-inline-price text-zinc-600">
             Price at launch
           </p>
         )}

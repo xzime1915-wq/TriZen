@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ProductImage } from "@/components/ProductImage";
-import { StockBadge, isInStock } from "@/components/StockBadge";
 import { formatCurrency } from "@/lib/utils";
 
 type Product = {
@@ -53,7 +52,6 @@ export function HomeMinimalCollection({ products }: { products: Product[] }) {
                   />
                 </div>
                 <div className="min-w-0">
-                  <StockBadge inStock={isInStock(p.stock)} className="mb-3" />
                   <h3 className="text-sm sm:text-base font-bold uppercase tracking-wide text-[var(--color-foreground)] group-hover:underline">
                     {p.name}
                   </h3>

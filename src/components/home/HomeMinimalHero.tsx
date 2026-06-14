@@ -17,7 +17,7 @@ function HeroCopy({ productSlug }: { productSlug: string }) {
       </h1>
 
       <div className="mt-8 sm:mt-10">
-        <Link href={`/product/${productSlug}`} className="trizen-wh-ghost-btn">
+        <Link href={`/product/${productSlug}`} className="trizen-box-action home-hero-cta">
           Shop TRIPAD
         </Link>
       </div>
@@ -34,7 +34,7 @@ export function HomeMinimalHero({ productSlug = "trizen-tripad-v1-black" }: Prop
             <HeroCopy productSlug={productSlug} />
           </div>
 
-          <div className="relative z-0 w-full md:justify-self-end">
+          <div className="relative z-0 flex w-full justify-center md:justify-end">
             <HeroProductVisual />
           </div>
         </div>

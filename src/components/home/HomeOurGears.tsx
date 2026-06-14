@@ -1,6 +1,5 @@
 "use client";
 
-import { TrizenBrandName } from "@/components/TrizenBrandName";
 import { OurGearCardLink } from "@/components/OurGearCardLink";
 import { OUR_GEARS } from "@/lib/our-gears";
 
@@ -10,8 +9,8 @@ export function HomeOurGears() {
       <div className="container-trizen-full">
         <div className="mb-8 text-center md:mb-12">
           <h2 className="trizen-display-title">Our Gears</h2>
-          <p className="our-gears-subtitle mt-4">
-            The full <TrizenBrandName className="inline-flex text-[10px] md:text-[11px]" /> lineup — glass pads, soft pads, skates, and sleeves.
+          <p className="our-gears-subtitle">
+            The full TRIZEN lineup. Glass pads, soft pads, skates, and sleeves.
           </p>
         </div>
 

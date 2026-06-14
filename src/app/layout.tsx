@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Orbitron } from "next/font/google";
+import { Inter, Orbitron } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -17,6 +17,13 @@ const orbitron = Orbitron({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-orbitron",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -69,7 +76,7 @@ export default async function RootLayout({
   const user = await getUserSession();
 
   return (
-    <html lang="en" className={orbitron.variable}>
+    <html lang="en" className={`${orbitron.variable} ${inter.variable}`}>
       <body className={`${orbitron.className} min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)] overflow-x-clip`}>
         <SmoothScroll />
         <MediaProtect />

@@ -23,15 +23,11 @@ export function RelatedProducts({
   if (products.length === 0) return null;
 
   return (
-    <section className="mt-16 pt-12">
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <section className="border-t border-zinc-200 pt-12 md:pt-14">
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4 md:mb-10">
         <div>
-          <h2 className="trizen-wh-section-title text-xl md:text-2xl">
-            Recently viewed
-          </h2>
-          <p className="trizen-wh-mono mt-2 text-[10px] uppercase tracking-[0.16em] text-zinc-500">
-            More from {category}
-          </p>
+          <h2 className="trizen-wh-section-label md:text-2xl">Recently viewed</h2>
+          <p className="product-section-eyebrow mt-2">More from {category}</p>
         </div>
         <Link href={`/shop?gear=${encodeURIComponent(category)}`} className="trizen-wh-ghost-btn">
           View all
