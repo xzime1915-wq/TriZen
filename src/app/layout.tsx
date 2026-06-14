@@ -11,7 +11,7 @@ import { MediaProtect } from "@/components/MediaProtect";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { NewsletterPopup } from "@/components/NewsletterPopup";
 import { getUserSession } from "@/lib/user-auth";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site-config";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site-config";
 
 const orbitron = Orbitron({
   subsets: ["latin"],
@@ -30,15 +30,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} | Esports Mouse Pad Bangladesh`,
-    template: `%s | ${SITE_NAME}`,
+    default: SITE_TITLE,
+    template: `%s | TRIZEN STORE`,
   },
   description: SITE_DESCRIPTION,
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
-    title: `${SITE_NAME} | Premium Esports Gear`,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} | Premium Esports Gear`,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     images: ["/og-image.png"],
   },

@@ -12,7 +12,7 @@ type VerificationEmailOptions = {
 
 function formatCodeDigits(code: string) {
   const digits = code.replace(/\D/g, "").padStart(6, "0").slice(0, 6);
-  return `${digits.slice(0, 3)}<span style="color:#d4d4d8;padding:0 6px;">&middot;</span>${digits.slice(3)}`;
+  return `${digits.slice(0, 3)} ${digits.slice(3)}`;
 }
 
 export function buildTrizenVerificationEmailHtml({
@@ -31,47 +31,45 @@ export function buildTrizenVerificationEmailHtml({
     <title>${eyebrow}</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   </head>
-  <body style="margin:0;padding:0;background:#f4f4f5;font-family:Orbitron,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#18181b;">
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:40px 16px;">
+  <body style="margin:0;padding:0;background:#ffffff;font-family:Orbitron,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#18181b;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;padding:40px 16px;">
       <tr>
         <td align="center">
-          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border:1px solid #e4e4e7;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:420px;">
             <tr>
-              <td style="padding:28px 32px 24px;border-bottom:1px solid #e4e4e7;text-align:center;">
-                <p style="margin:0 0 8px;font-size:10px;font-weight:700;letter-spacing:0.32em;text-transform:uppercase;color:#71717a;">
+              <td style="padding:0 0 28px;text-align:center;border-bottom:1px solid #e4e4e7;">
+                <p style="margin:0 0 10px;font-size:10px;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:#a1a1aa;">
                   ${eyebrow}
                 </p>
-                <div style="margin:0;text-align:center;">
-                  ${trizenBrandHtml({ fontSize: "28px" })}
-                </div>
+                ${trizenBrandHtml({ fontSize: "26px", email: true })}
               </td>
             </tr>
             <tr>
-              <td style="padding:32px 32px 28px;text-align:center;">
-                <p style="margin:0 0 18px;font-size:15px;line-height:1.65;color:#52525b;">
+              <td style="padding:28px 0 24px;text-align:center;">
+                <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#52525b;">
                   ${intro}
                 </p>
-                <p style="margin:0 auto 28px;max-width:320px;padding:12px 16px;border:1px solid #e4e4e7;background:#fafafa;font-size:14px;line-height:1.5;color:#18181b;word-break:break-all;">
+                <p style="margin:0 0 28px;font-size:14px;line-height:1.5;color:#18181b;word-break:break-all;">
                   ${email}
                 </p>
-                <p style="margin:0 0 16px;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#71717a;">
+                <p style="margin:0 0 12px;font-size:10px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:#a1a1aa;">
                   ${codeLabel}
                 </p>
-                <p style="margin:0 auto 24px;display:inline-block;padding:18px 28px;border:2px solid #18181b;background:#ffffff;font-size:34px;line-height:1;font-weight:700;letter-spacing:0.18em;color:#18181b;font-variant-numeric:tabular-nums;">
+                <p style="margin:0 auto 20px;display:inline-block;padding:16px 24px;border:1px solid #18181b;background:#ffffff;font-size:32px;line-height:1;font-weight:700;letter-spacing:0.16em;color:#18181b;font-variant-numeric:tabular-nums;">
                   ${formatCodeDigits(code)}
                 </p>
-                <p style="margin:0;font-size:13px;line-height:1.5;color:#a1a1aa;">
+                <p style="margin:0;font-size:12px;line-height:1.5;color:#a1a1aa;">
                   Expires in ${expiryMinutes} minutes
                 </p>
               </td>
             </tr>
             <tr>
-              <td style="padding:18px 32px 24px;border-top:1px solid #e4e4e7;background:#fafafa;text-align:center;">
-                <p style="margin:0 0 8px;font-size:12px;line-height:1.55;color:#71717a;">
+              <td style="padding:20px 0 0;border-top:1px solid #e4e4e7;text-align:center;">
+                <p style="margin:0 0 6px;font-size:11px;line-height:1.55;color:#a1a1aa;">
                   If you did not request this code, you can ignore this email.
                 </p>
-                <p style="margin:0;font-size:12px;line-height:1.55;color:#a1a1aa;">
-                  <a href="${SITE_URL}" style="color:#18181b;text-decoration:none;font-weight:600;">${SITE_URL.replace(/^https?:\/\//, "")}</a>
+                <p style="margin:0;font-size:11px;line-height:1.55;color:#71717a;">
+                  <a href="${SITE_URL}" style="color:#18181b;text-decoration:none;">${SITE_URL.replace(/^https?:\/\//, "")}</a>
                   &nbsp;&middot;&nbsp;
                   <a href="mailto:support@trizenstore.com.bd" style="color:#71717a;text-decoration:none;">support@trizenstore.com.bd</a>
                 </p>
@@ -92,6 +90,9 @@ export function buildTrizenVerificationEmailText({
   code,
   expiryMinutes = 10,
 }: VerificationEmailOptions) {
+  const digits = code.replace(/\D/g, "").padStart(6, "0").slice(0, 6);
+  const formattedCode = `${digits.slice(0, 3)} ${digits.slice(3)}`;
+
   return [
     SITE_NAME.toUpperCase(),
     "",
@@ -99,7 +100,7 @@ export function buildTrizenVerificationEmailText({
     email,
     "",
     codeLabel,
-    code,
+    formattedCode,
     "",
     `Expires in ${expiryMinutes} minutes.`,
     "",

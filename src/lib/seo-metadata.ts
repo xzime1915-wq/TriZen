@@ -3,6 +3,7 @@ import {
   SEO_ESPORTS_MOUSE_PAD_BD,
   SEO_GLASS_MOUSE_PAD_BD,
   SITE_NAME,
+  SITE_TITLE,
   SITE_URL,
 } from "@/lib/site-config";
 
@@ -40,12 +41,12 @@ export function esportsMousePadShopMetadata(): Metadata {
 
 export function homePageMetadata(): Metadata {
   return {
-    title: `${SEO_ESPORTS_MOUSE_PAD_BD} · ${SEO_GLASS_MOUSE_PAD_BD}`,
+    title: SITE_TITLE,
     description:
       "Esports mouse pad in Bangladesh, TRIZEN TRIPAD glass pads, soft pads, skates & sleeves. COD, bKash, Nagad & order tracking.",
     alternates: { canonical: SITE_URL },
     openGraph: {
-      title: `Esports & Glass Mouse Pad Bangladesh | ${SITE_NAME}`,
+      title: SITE_TITLE,
       url: SITE_URL,
     },
   };

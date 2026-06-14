@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useCartUi } from "@/lib/cart-ui-store";
+import { lockPageScroll, unlockPageScroll } from "@/lib/scroll-lock";
 import { CartPanel } from "@/components/cart/CartPanel";
 
 export function CartDrawer() {
@@ -17,11 +18,8 @@ export function CartDrawer() {
 
   useEffect(() => {
     if (!isOpen || hiddenRoute) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
+    lockPageScroll();
+    return () => unlockPageScroll();
   }, [hiddenRoute, isOpen]);
 
   useEffect(() => {

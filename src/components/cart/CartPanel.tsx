@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Minus, Plus, Trash2, X } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { ProductImage } from "@/components/ProductImage";
 import { Button } from "@/components/Button";
 import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
 import { formatCurrency } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 type Props = {
   onClose?: () => void;
@@ -45,17 +46,27 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
         >
           <X className="h-5 w-5" strokeWidth={1.5} />
         </button>
-        <h2 className="cart-panel-title">Cart ({count})</h2>
+        <h2 className="cart-panel-title">
+          <ShoppingBag className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} aria-hidden />
+          <span>Cart{count > 0 ? ` (${count})` : ""}</span>
+        </h2>
         <span className="cart-panel-header-spacer" aria-hidden />
       </header>
 
-      <div className="cart-panel-body" data-lenis-prevent>
+      <div
+        className={cn("cart-panel-body", items.length === 0 && "cart-panel-body--empty")}
+        data-lenis-prevent
+      >
         {items.length === 0 ? (
           <div className="cart-panel-empty">
-            <p className="text-sm text-zinc-500">Your cart is empty.</p>
-            <Button variant="secondary" className="mt-6" onClick={handleClose}>
+            <p className="cart-panel-empty-text">Your cart is empty</p>
+            <Link
+              href="/shop"
+              className="cart-panel-empty-btn trizen-sweep-dark"
+              onClick={handleClose}
+            >
               Continue Shopping
-            </Button>
+            </Link>
           </div>
         ) : (
           <ul className="cart-panel-items">

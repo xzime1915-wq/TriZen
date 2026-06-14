@@ -2,6 +2,8 @@ export const SITE_URL = "https://trizenstore.com.bd";
 
 export const SITE_NAME = "TRIZEN Store";
 
+export const SITE_TITLE = "TRIZEN STORE ESPORTS GEARS";
+
 export const SITE_DESCRIPTION =
   "Esports mouse pad in Bangladesh, TRIZEN Store sells TRIPAD glass pads, soft pads, skates & sleeves. COD, bKash, Nagad & nationwide delivery.";
 

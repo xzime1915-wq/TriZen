@@ -50,7 +50,7 @@ function reviewInviteEmailHtml({
                   Order delivered
                 </p>
                 <div style="margin:0;text-align:center;">
-                  ${trizenBrandHtml({ fontSize: "28px" })}
+                  ${trizenBrandHtml({ fontSize: "28px", email: true })}
                 </div>
               </td>
             </tr>

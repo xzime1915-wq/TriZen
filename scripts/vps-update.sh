@@ -22,6 +22,10 @@ npx prisma generate
 npx prisma db push --accept-data-loss
 echo ""
 
+echo ">>> Sync TriPad names & SKU in database..."
+npm run db:rename-tripad
+echo ""
+
 echo ">>> Build (may take 2-3 min)..."
 rm -rf .next
 npm run build

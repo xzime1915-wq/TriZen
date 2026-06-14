@@ -1,12 +1,14 @@
 "use client";
 
 import { BANGLADESH_DISTRICTS } from "@/lib/bangladesh-districts";
+import type { CheckoutFieldErrors } from "@/lib/checkout-form-validation";
 import {
   CheckoutInput,
   CheckoutSelect,
   CheckoutSection,
   CheckoutTextarea,
 } from "./CheckoutField";
+import { CheckoutPhoneInput } from "./CheckoutPhoneInput";
 
 export type BillingFormState = {
   fullName: string;
@@ -23,9 +25,17 @@ type Props = {
   form: BillingFormState;
   onChange: (form: BillingFormState) => void;
   emailReadOnly?: boolean;
+  fieldErrors?: CheckoutFieldErrors;
+  showFieldErrors?: boolean;
 };
 
-export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: Props) {
+export function CheckoutBillingForm({
+  form,
+  onChange,
+  emailReadOnly = false,
+  fieldErrors = {},
+  showFieldErrors = false,
+}: Props) {
   const set = (patch: Partial<BillingFormState>) => onChange({ ...form, ...patch });
 
   return (
@@ -39,15 +49,15 @@ export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: P
           readOnly={emailReadOnly}
           value={form.customerEmail}
           onChange={(e) => set({ customerEmail: e.target.value })}
+          error={fieldErrors.customerEmail}
+          showError={showFieldErrors}
         />
-        <CheckoutInput
-          label="Phone"
-          type="tel"
+        <CheckoutPhoneInput
           required
-          autoComplete="tel"
-          placeholder="Phone"
           value={form.customerPhone}
-          onChange={(e) => set({ customerPhone: e.target.value })}
+          onChange={(customerPhone) => set({ customerPhone })}
+          error={fieldErrors.customerPhone}
+          showError={showFieldErrors}
         />
       </CheckoutSection>
 
@@ -67,6 +77,8 @@ export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: P
           autoComplete="name"
           value={form.fullName}
           onChange={(e) => set({ fullName: e.target.value })}
+          error={fieldErrors.fullName}
+          showError={showFieldErrors}
         />
 
         <CheckoutInput
@@ -76,6 +88,8 @@ export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: P
           autoComplete="street address"
           value={form.streetAddress}
           onChange={(e) => set({ streetAddress: e.target.value })}
+          error={fieldErrors.streetAddress}
+          showError={showFieldErrors}
         />
 
         <CheckoutSelect

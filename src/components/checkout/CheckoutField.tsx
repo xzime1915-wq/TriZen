@@ -1,15 +1,31 @@
 import { cn } from "@/lib/utils";
 import { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 
+type FieldErrorProps = {
+  error?: string | null;
+  showError?: boolean;
+};
+
+function FieldError({ error, showError }: FieldErrorProps) {
+  if (!showError || !error) return null;
+  return <p className="checkout-field-error">{error}</p>;
+}
+
 export function CheckoutInput({
   label,
   hideLabel = true,
   className,
   placeholder,
+  error,
+  showError,
   ...props
-}: InputHTMLAttributes<HTMLInputElement> & { label: string; hideLabel?: boolean }) {
+}: InputHTMLAttributes<HTMLInputElement> & {
+  label: string;
+  hideLabel?: boolean;
+} & FieldErrorProps) {
   const fieldPlaceholder =
     placeholder ?? (hideLabel ? `${label}${props.required ? " *" : ""}` : undefined);
+  const visibleError = showError && error;
 
   return (
     <label className={cn("block", className)}>
@@ -20,11 +36,16 @@ export function CheckoutInput({
         </span>
       )}
       <input
-        className="checkout-field-input"
+        className={cn(
+          "checkout-field-input",
+          visibleError && "checkout-field-input--invalid"
+        )}
         placeholder={fieldPlaceholder}
         aria-label={hideLabel ? label : undefined}
+        aria-invalid={visibleError ? true : undefined}
         {...props}
       />
+      <FieldError error={error} showError={showError} />
     </label>
   );
 }
@@ -34,19 +55,30 @@ export function CheckoutTextarea({
   hideLabel = true,
   className,
   placeholder,
+  error,
+  showError,
   ...props
-}: TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; hideLabel?: boolean }) {
+}: TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  label: string;
+  hideLabel?: boolean;
+} & FieldErrorProps) {
   const fieldPlaceholder = placeholder ?? (hideLabel ? label : undefined);
+  const visibleError = showError && error;
 
   return (
     <label className={cn("block", className)}>
       {!hideLabel && <span className="checkout-field-label">{label}</span>}
       <textarea
-        className={cn("checkout-field-input min-h-[88px] resize-y")}
+        className={cn(
+          "checkout-field-input min-h-[88px] resize-y",
+          visibleError && "checkout-field-input--invalid"
+        )}
         placeholder={fieldPlaceholder}
         aria-label={hideLabel ? label : undefined}
+        aria-invalid={visibleError ? true : undefined}
         {...props}
       />
+      <FieldError error={error} showError={showError} />
     </label>
   );
 }
@@ -56,8 +88,15 @@ export function CheckoutSelect({
   hideLabel = true,
   children,
   className,
+  error,
+  showError,
   ...props
-}: React.SelectHTMLAttributes<HTMLSelectElement> & { label: string; hideLabel?: boolean }) {
+}: React.SelectHTMLAttributes<HTMLSelectElement> & {
+  label: string;
+  hideLabel?: boolean;
+} & FieldErrorProps) {
+  const visibleError = showError && error;
+
   return (
     <label className={cn("block", className)}>
       {!hideLabel && (
@@ -67,12 +106,17 @@ export function CheckoutSelect({
         </span>
       )}
       <select
-        className="checkout-field-input checkout-field-select"
+        className={cn(
+          "checkout-field-input checkout-field-select",
+          visibleError && "checkout-field-input--invalid"
+        )}
         aria-label={hideLabel ? label : undefined}
+        aria-invalid={visibleError ? true : undefined}
         {...props}
       >
         {children}
       </select>
+      <FieldError error={error} showError={showError} />
     </label>
   );
 }

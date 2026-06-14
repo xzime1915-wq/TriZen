@@ -9,6 +9,8 @@ import { useCartUi } from "@/lib/cart-ui-store";
 import { DELIVERY_CHARGE, formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/Button";
 import { PaymentMethodId, buildPaymentRef, isBkashPayment } from "@/lib/checkout";
+import { validateCheckoutForm, type CheckoutFieldErrors } from "@/lib/checkout-form-validation";
+import { normalizeBangladeshPhone } from "@/lib/phone";
 import {
   CheckoutBillingForm,
   type BillingFormState,
@@ -47,6 +49,8 @@ export default function CheckoutPage() {
   });
   const [signedIn, setSignedIn] = useState(false);
   const [emailVerified, setEmailVerified] = useState<boolean | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<CheckoutFieldErrors>({});
+  const [showFieldErrors, setShowFieldErrors] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -109,16 +113,28 @@ export default function CheckoutPage() {
     setLoading(true);
     setError("");
 
-    if (!agreeTerms) {
-      setError("Please agree to the terms and policies.");
+    const errors = validateCheckoutForm(form);
+    const hasFieldErrors = Object.keys(errors).length > 0;
+
+    if (hasFieldErrors || !agreeTerms) {
+      setFieldErrors(errors);
+      setShowFieldErrors(true);
+      setError(
+        !agreeTerms
+          ? "Please agree to the terms and policies."
+          : "Please fill in all required fields."
+      );
       setLoading(false);
       return;
     }
 
+    setFieldErrors({});
+    setShowFieldErrors(false);
+
     const orderPayload = {
       customerName: form.fullName.trim(),
       customerEmail: form.customerEmail,
-      customerPhone: form.customerPhone,
+      customerPhone: normalizeBangladeshPhone(form.customerPhone),
       shippingAddress: form.streetAddress.trim(),
       city: form.district,
       country: form.country || "Bangladesh",
@@ -215,12 +231,14 @@ export default function CheckoutPage() {
             <CheckoutMobileCart />
           </div>
 
-          <form onSubmit={handleSubmit} className="checkout-form">
+          <form onSubmit={handleSubmit} className="checkout-form" noValidate>
             <div className="checkout-form-fields">
               <CheckoutBillingForm
                 form={form}
                 onChange={setForm}
                 emailReadOnly={signedIn || emailVerified === true}
+                fieldErrors={fieldErrors}
+                showFieldErrors={showFieldErrors}
               />
 
               <CheckoutSection title="Delivery method">

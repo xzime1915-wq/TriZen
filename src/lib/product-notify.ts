@@ -31,7 +31,7 @@ function notifyEmailShell(title: string, bodyHtml: string) {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;margin:0 auto">
       <tr>
         <td align="center" style="padding-bottom:28px">
-          ${trizenBrandHtml({ fontSize: "24px" })}
+          ${trizenBrandHtml({ fontSize: "24px", email: true })}
         </td>
       </tr>
       <tr>

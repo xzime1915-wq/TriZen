@@ -43,6 +43,7 @@ html.lenis body {
 html.trizen-scroll-locked,
 html.trizen-scroll-locked body {
   overflow: hidden !important;
+  overscroll-behavior: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -745,7 +746,8 @@ textarea {
   .trizen-product-hover-action,
   .checkout-email-continue-btn,
   .checkout-submit-btn,
-  .auth-wallhack-submit {
+  .auth-wallhack-submit,
+  .cart-panel-empty-btn {
     @apply relative isolate overflow-hidden;
   }
 
@@ -758,6 +760,7 @@ textarea {
   .checkout-email-continue-btn::after,
   .checkout-submit-btn::after,
   .auth-wallhack-submit::after,
+  .cart-panel-empty-btn::after,
   .our-gear-card-cta--muted::after,
   .trizen-wh-ghost-btn--on-dark::after {
     content: "";
@@ -827,6 +830,7 @@ textarea {
     .checkout-email-continue-btn:not(:disabled):hover::after,
     .checkout-submit-btn:not(:disabled):hover::after,
     .auth-wallhack-submit:not(:disabled):hover::after,
+    .cart-panel-empty-btn:hover::after,
     .our-gear-card-cta--muted:hover::after,
     .trizen-wh-ghost-btn--on-dark:hover::after,
     .trizen-box-action--outline:not(:disabled):hover::after,
@@ -863,6 +867,7 @@ textarea {
     .checkout-email-continue-btn::after,
     .checkout-submit-btn::after,
     .auth-wallhack-submit::after,
+    .cart-panel-empty-btn::after,
     .auth-wallhack-secondary::after,
     .newsletter-popup-submit::after,
     .our-gear-card-cta::after {
@@ -3009,6 +3014,36 @@ textarea {
   font-family: var(--font-sans);
 }
 
+.checkout-field-input--invalid {
+  @apply border-red-400 focus:border-red-500;
+}
+
+.checkout-field-error {
+  @apply mt-1.5 text-xs text-red-600;
+}
+
+.checkout-phone-field {
+  @apply flex w-full border border-zinc-300 bg-white transition focus-within:border-zinc-900;
+}
+
+.checkout-phone-field--invalid {
+  @apply border-red-400 focus-within:border-red-500;
+}
+
+.checkout-phone-prefix {
+  @apply flex shrink-0 items-center gap-2 border-r border-zinc-300 bg-zinc-50 px-3 py-3.5 text-sm font-medium text-zinc-700 tabular-nums;
+  font-family: var(--font-sans);
+}
+
+.checkout-phone-flag {
+  @apply h-3 w-[18px] shrink-0 rounded-[2px] object-cover;
+}
+
+.checkout-phone-input {
+  @apply min-w-0 flex-1 border-0 bg-transparent px-4 py-3.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:placeholder:text-transparent;
+  font-family: var(--font-sans);
+}
+
 .checkout-field-select {
   @apply appearance-none bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23717171' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
@@ -3089,11 +3124,11 @@ textarea {
 
 /* Cart drawer — Wallhack-style side panel */
 .cart-drawer-root {
-  @apply fixed inset-0 z-[60];
+  @apply fixed inset-0 z-[60] overscroll-none;
 }
 
 .cart-drawer-backdrop {
-  @apply absolute inset-0 bg-black/35 backdrop-blur-[3px] transition-opacity;
+  @apply absolute inset-0 bg-black/45 backdrop-blur-[12px] transition-opacity;
 }
 
 .cart-drawer-panel {
@@ -3577,11 +3612,12 @@ textarea {
 }
 
 .cart-panel-close {
-  @apply flex h-10 w-10 items-center justify-center rounded-full text-zinc-700 transition hover:bg-zinc-100;
+  @apply flex h-10 w-10 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:bg-zinc-50;
 }
 
 .cart-panel-title {
-  @apply text-center text-sm font-semibold uppercase tracking-[0.12em] text-zinc-900;
+  @apply flex items-center justify-center gap-1.5 text-center text-[11px] font-normal uppercase tracking-[0.14em] text-zinc-500;
+  font-family: var(--font-sans);
 }
 
 .cart-panel-header-spacer {
@@ -3592,8 +3628,22 @@ textarea {
   @apply min-h-0 flex-1 overflow-y-auto px-4 py-4 sm:px-5;
 }
 
+.cart-panel-body--empty {
+  @apply flex flex-col overflow-hidden px-6 py-0;
+}
+
 .cart-panel-empty {
-  @apply flex min-h-[40vh] flex-col items-center justify-center text-center;
+  @apply flex flex-1 flex-col items-center justify-center text-center;
+}
+
+.cart-panel-empty-text {
+  @apply whitespace-nowrap text-[10px] font-light uppercase tracking-[0.14em] text-zinc-900;
+  font-family: var(--font-sans);
+}
+
+.cart-panel-empty-btn {
+  @apply mt-8 inline-flex w-full max-w-[220px] items-center justify-center whitespace-nowrap border border-black bg-black px-5 py-3 text-[11px] font-light uppercase tracking-[0.18em] text-white transition-colors hover:bg-zinc-900;
+  font-family: var(--font-sans);
 }
 
 .cart-panel-items {

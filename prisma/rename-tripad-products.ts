@@ -19,6 +19,7 @@ async function main() {
       where: { slug: data.slug },
       data: {
         name: data.name,
+        sku: data.sku,
         specifications: data.specifications,
       },
     });
