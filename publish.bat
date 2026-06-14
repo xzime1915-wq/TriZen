@@ -1,3 +1,3 @@
 @echo off
-wscript //nologo "%~dp0publish.vbs"
-exit /b 0
+py -3 "%~dp0scripts\deploy-auto.py"
+exit /b %ERRORLEVEL%
