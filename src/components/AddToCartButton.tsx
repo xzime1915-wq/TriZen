@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useCart } from "@/lib/cart-store";
 import type { ProductColor } from "@/lib/product-data";
 import { checkoutProductTitle, modelLabelFromProduct } from "@/lib/product-edition";
+import { ProductNotifyButton } from "@/components/product/ProductNotifyButton";
 import { Button } from "./Button";
 import { Minus, Plus } from "lucide-react";
 
