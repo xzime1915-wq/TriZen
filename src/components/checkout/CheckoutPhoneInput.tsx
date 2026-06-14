@@ -26,8 +26,8 @@ export function CheckoutPhoneInput({ value, onChange, required }: Props) {
       <div
         className={cn(
           "checkout-phone-field",
-          error && "checkout-phone-field--invalid",
-          valid && "checkout-phone-field--valid"
+          error ? "checkout-phone-field--invalid" : undefined,
+          valid ? "checkout-phone-field--valid" : undefined
         )}
       >
         <span className="checkout-phone-prefix" aria-hidden="true">
