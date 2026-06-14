@@ -6,10 +6,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
-import { bangladeshPhoneError } from "@/lib/phone";
 import { DELIVERY_CHARGE, formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/Button";
-import { PaymentMethodId, buildPaymentRef, calculateCheckoutTotal, getPaymentSurcharge, isBkashPayment } from "@/lib/checkout";
+import { PaymentMethodId, buildPaymentRef, isBkashPayment } from "@/lib/checkout";
 import {
   CheckoutBillingForm,
   type BillingFormState,
@@ -91,8 +90,7 @@ export default function CheckoutPage() {
   }, [searchParams]);
 
   const sub = subtotal();
-  const paymentSurcharge = getPaymentSurcharge(paymentMethod);
-  const total = calculateCheckoutTotal(sub, DELIVERY_CHARGE, paymentMethod);
+  const total = sub + DELIVERY_CHARGE;
   const checkingEmail = emailVerified === null;
 
   if (items.length === 0) {
@@ -113,13 +111,6 @@ export default function CheckoutPage() {
 
     if (!agreeTerms) {
       setError("Please agree to the terms and policies.");
-      setLoading(false);
-      return;
-    }
-
-    const phoneError = bangladeshPhoneError(form.customerPhone);
-    if (phoneError) {
-      setError(phoneError);
       setLoading(false);
       return;
     }
@@ -211,7 +202,6 @@ export default function CheckoutPage() {
                 items={items}
                 subtotal={sub}
                 deliveryCharge={DELIVERY_CHARGE}
-                paymentSurcharge={paymentSurcharge}
                 total={total}
                 empty
                 showBack
@@ -286,7 +276,6 @@ export default function CheckoutPage() {
                 items={items}
                 subtotal={sub}
                 deliveryCharge={DELIVERY_CHARGE}
-                paymentSurcharge={paymentSurcharge}
                 total={total}
               />
 
@@ -347,7 +336,6 @@ export default function CheckoutPage() {
               items={items}
               subtotal={sub}
               deliveryCharge={DELIVERY_CHARGE}
-              paymentSurcharge={paymentSurcharge}
               total={total}
             />
           ) : (

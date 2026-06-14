@@ -5,20 +5,18 @@ import { displayImageSrc } from "@/lib/image-path";
 import { formatCheckoutPrice } from "@/lib/checkout";
 import { discountPercent } from "@/lib/discount";
 import type { CartItem } from "@/lib/cart-store";
-import { checkoutProductTitle } from "@/lib/product-edition";
 import { cn } from "@/lib/utils";
 
 type Props = {
   items: CartItem[];
   subtotal: number;
   deliveryCharge: number;
-  paymentSurcharge?: number;
   total: number;
   className?: string;
 };
 
 function displayName(item: CartItem) {
-  return item.baseName ?? checkoutProductTitle(item.name);
+  return item.baseName ?? item.name.split(/, | — /)[0] ?? item.name;
 }
 
 function SummaryLine({ item }: { item: CartItem }) {
@@ -65,7 +63,6 @@ export function CheckoutOrderSummaryPanel({
   items,
   subtotal,
   deliveryCharge,
-  paymentSurcharge = 0,
   total,
   className,
 }: Props) {
@@ -98,14 +95,6 @@ export function CheckoutOrderSummaryPanel({
           <span>Delivery</span>
           <span className="tabular-nums text-zinc-900">{formatCheckoutPrice(deliveryCharge)}</span>
         </div>
-        {paymentSurcharge > 0 ? (
-          <div className="checkout-sidebar-row">
-            <span>bKash merchant charge</span>
-            <span className="tabular-nums text-zinc-900">
-              {formatCheckoutPrice(paymentSurcharge)}
-            </span>
-          </div>
-        ) : null}
         <div className="checkout-sidebar-total">
           <span className="checkout-sidebar-total-label">Total</span>
           <span className="tabular-nums">

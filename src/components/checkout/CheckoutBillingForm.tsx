@@ -7,7 +7,6 @@ import {
   CheckoutSection,
   CheckoutTextarea,
 } from "./CheckoutField";
-import { CheckoutPhoneInput } from "./CheckoutPhoneInput";
 
 export type BillingFormState = {
   fullName: string;
@@ -41,10 +40,14 @@ export function CheckoutBillingForm({ form, onChange, emailReadOnly = false }: P
           value={form.customerEmail}
           onChange={(e) => set({ customerEmail: e.target.value })}
         />
-        <CheckoutPhoneInput
+        <CheckoutInput
+          label="Phone"
+          type="tel"
           required
+          autoComplete="tel"
+          placeholder="Phone"
           value={form.customerPhone}
-          onChange={(customerPhone) => set({ customerPhone })}
+          onChange={(e) => set({ customerPhone: e.target.value })}
         />
       </CheckoutSection>
 

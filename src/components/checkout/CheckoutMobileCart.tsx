@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { ChevronDown, Minus, Plus } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
-import { checkoutProductTitle } from "@/lib/product-edition";
 import { formatCheckoutPrice } from "@/lib/checkout";
 import { CheckoutCartItemCard } from "@/components/checkout/CheckoutCartItemCard";
 
@@ -59,10 +58,7 @@ export function CheckoutMobileCart() {
                 className="checkout-cart-qty-row"
               >
                 <p className="min-w-0 truncate text-sm text-zinc-700">
-                  {item.baseName ?? checkoutProductTitle(item.name)}
-                  {item.color ? (
-                    <span className="text-zinc-500"> · {item.color}</span>
-                  ) : null}
+                  {item.name}
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="checkout-qty-stepper">

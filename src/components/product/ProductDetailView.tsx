@@ -166,7 +166,6 @@ export function ProductDetailView({
                 }}
                 color={selectedColor?.name}
                 colors={colors}
-                sku={product.sku}
                 comingSoon={upcoming}
               />
             </div>

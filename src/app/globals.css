@@ -2584,7 +2584,6 @@ textarea {
 .checkout-page {
   @apply overflow-x-hidden text-zinc-900;
   letter-spacing: normal;
-  font-family: var(--font-body);
 }
 
 .checkout-email-verify {
@@ -2736,7 +2735,6 @@ textarea {
 
 .checkout-upsell-lead {
   @apply text-sm font-normal leading-[1.65] text-zinc-600;
-  font-family: var(--font-body);
 }
 
 .checkout-upsell-actions {
@@ -2756,12 +2754,10 @@ textarea {
 
 .checkout-style-select-label {
   @apply block text-[11px] leading-none text-zinc-500;
-  font-family: var(--font-body);
 }
 
 .checkout-style-select-input {
   @apply mt-1 w-full cursor-pointer appearance-none truncate bg-transparent text-sm leading-tight text-zinc-900 outline-none;
-  font-family: var(--font-body);
 }
 
 .checkout-style-select-icon {
@@ -2859,7 +2855,6 @@ textarea {
 
 .checkout-order-summary-title {
   @apply mb-4 text-sm font-semibold uppercase tracking-[0.14em] text-zinc-900;
-  font-family: var(--font-sans);
 }
 
 .checkout-verify-flow {
@@ -2968,7 +2963,6 @@ textarea {
 
 .checkout-sidebar-row {
   @apply flex items-center justify-between text-sm text-zinc-600;
-  font-family: var(--font-body);
 }
 
 .checkout-sidebar-total {
@@ -2978,7 +2972,6 @@ textarea {
 .checkout-sidebar-total-label,
 .checkout-sidebar-total-amount {
   @apply text-xl font-black text-black;
-  font-family: var(--font-sans);
   -webkit-text-stroke: 0.025em currentColor;
   paint-order: stroke fill;
 }
@@ -2997,12 +2990,10 @@ textarea {
 
 .checkout-section-title {
   @apply text-lg font-semibold text-zinc-900;
-  font-family: var(--font-sans);
 }
 
 .checkout-section-subtitle {
-  @apply text-sm font-normal leading-relaxed text-zinc-600;
-  font-family: var(--font-body);
+  @apply text-sm font-normal text-zinc-600;
 }
 
 .checkout-section-body {
@@ -3011,48 +3002,11 @@ textarea {
 
 .checkout-field-label {
   @apply mb-1.5 block text-xs font-normal text-zinc-600;
-  font-family: var(--font-body);
 }
 
 .checkout-field-input {
   @apply w-full border border-zinc-300 bg-white px-4 py-3.5 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 rounded-none normal-case tracking-normal placeholder:normal-case placeholder:tracking-normal focus:placeholder:text-transparent;
-  font-family: var(--font-body);
-}
-
-.checkout-phone-field {
-  @apply flex w-full border border-zinc-300 bg-white transition focus-within:border-zinc-900;
-}
-
-.checkout-phone-field--invalid {
-  @apply border-red-400 focus-within:border-red-500;
-}
-
-.checkout-phone-field--valid {
-  @apply border-emerald-500/70 focus-within:border-emerald-600;
-}
-
-.checkout-phone-prefix {
-  @apply flex shrink-0 items-center gap-2 border-r border-zinc-300 bg-zinc-50 px-3 py-3.5 text-sm font-medium text-zinc-700 tabular-nums;
-  font-family: var(--font-body);
-}
-
-.checkout-phone-flag {
-  @apply h-3 w-[18px] shrink-0 rounded-[2px] object-cover;
-}
-
-.checkout-phone-input {
-  @apply min-w-0 flex-1 border-0 bg-transparent px-4 py-3.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:placeholder:text-transparent;
-  font-family: var(--font-body);
-  letter-spacing: normal;
-}
-
-.checkout-phone-hint {
-  @apply mt-1.5 text-xs text-zinc-500;
-  font-family: var(--font-body);
-}
-
-.checkout-phone-hint--error {
-  @apply text-red-600;
+  font-family: var(--font-sans);
 }
 
 .checkout-field-select {
@@ -3061,8 +3015,7 @@ textarea {
 }
 
 .checkout-delivery-method {
-  @apply flex items-center justify-between rounded-md border border-zinc-300 bg-zinc-50 px-4 py-3.5 text-sm text-zinc-800;
-  font-family: var(--font-body);
+  @apply flex items-center justify-between rounded-md border border-zinc-300 bg-zinc-50 px-4 py-3.5;
 }
 
 .checkout-payment-box {
@@ -3070,8 +3023,7 @@ textarea {
 }
 
 .checkout-payment-row {
-  @apply flex cursor-pointer items-center gap-3 px-4 py-3.5 text-sm font-medium text-zinc-900 transition hover:bg-zinc-50;
-  font-family: var(--font-body);
+  @apply flex cursor-pointer items-center gap-3 px-4 py-3.5 transition hover:bg-zinc-50;
 }
 
 .checkout-payment-row--active {
@@ -3084,16 +3036,6 @@ textarea {
 
 .checkout-payment-expand {
   @apply border-t border-zinc-200 bg-zinc-50 px-4 py-4;
-}
-
-.checkout-payment-copy {
-  @apply text-sm leading-relaxed text-zinc-600;
-  font-family: var(--font-body);
-}
-
-.checkout-payment-amount {
-  @apply font-semibold text-zinc-900;
-  font-family: var(--font-sans);
 }
 
 .checkout-submit-btn {

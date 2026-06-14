@@ -282,9 +282,6 @@ export async function buildInvoicePdf(
     ["Subtotal", order.subtotal],
     ["Delivery Charge", order.shippingCost],
   ];
-  if (order.paymentMethod === "bkash" && order.tax > 0) {
-    totals.push(["bKash Merchant Charge", order.tax]);
-  }
 
   for (const [label, amount] of totals) {
     const val = formatMoney(amount);

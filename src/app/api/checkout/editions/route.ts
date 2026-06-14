@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { parseColors } from "@/lib/product-data";
 import {
-  checkoutProductTitle,
-  modelLabelFromProduct,
+  baseNameFromProductName,
+  editionLabelFromName,
 } from "@/lib/product-edition";
 import { isUpcoming, shouldShowProductPrice } from "@/lib/product-status";
 import { getShopGearLine } from "@/lib/shop-gears";
@@ -38,7 +38,6 @@ export async function GET(request: Request) {
         stock: true,
         tag: true,
         colors: true,
-        sku: true,
       },
       orderBy: { name: "asc" },
     });
@@ -50,9 +49,9 @@ export async function GET(request: Request) {
       })
       .map((p) => ({
         productId: p.id,
-        label: modelLabelFromProduct(p.name, p.sku, p.slug),
+        label: editionLabelFromName(p.name),
         name: p.name,
-        baseName: checkoutProductTitle(p.name),
+        baseName: baseNameFromProductName(p.name),
         price: p.price,
         compareAt: p.compareAt,
         image: p.image,

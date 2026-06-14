@@ -111,12 +111,6 @@ export default async function InvoicePage({
             <span>Delivery Charge</span>
             <span className="text-black">{formatCurrency(order.shippingCost)}</span>
           </div>
-          {order.paymentMethod === "bkash" && order.tax > 0 ? (
-            <div className="flex justify-between invoice-meta">
-              <span>bKash Merchant Charge</span>
-              <span className="text-black">{formatCurrency(order.tax)}</span>
-            </div>
-          ) : null}
           <div className="invoice-total-row flex justify-between border-t-2 border-black pt-2">
             <span>Total Due</span>
             <span>{formatCurrency(order.total)}</span>

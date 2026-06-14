@@ -10,7 +10,6 @@ type Props = {
   items: CartItem[];
   subtotal: number;
   deliveryCharge: number;
-  paymentSurcharge?: number;
   total: number;
   empty?: boolean;
   showBack?: boolean;
@@ -20,7 +19,6 @@ export function CheckoutMobileOrderSummary({
   items,
   subtotal,
   deliveryCharge,
-  paymentSurcharge = 0,
   total,
   empty = false,
   showBack = false,
@@ -65,7 +63,6 @@ export function CheckoutMobileOrderSummary({
         items={items}
         subtotal={subtotal}
         deliveryCharge={deliveryCharge}
-        paymentSurcharge={paymentSurcharge}
         total={total}
       />
     </div>
