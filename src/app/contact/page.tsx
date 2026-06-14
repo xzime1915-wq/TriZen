@@ -50,27 +50,31 @@ export default function ContactPage() {
             <div>
               <h2 className="trizen-wh-section-label mb-8">Reach us</h2>
               <div className="space-y-8">
-                {CONTACT_ITEMS.map(({ icon: Icon, label, value, href }) => (
-                  <div key={label} className="flex gap-4">
+                {CONTACT_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  const href = "href" in item ? item.href : undefined;
+                  return (
+                  <div key={item.label} className="flex gap-4">
                     <Icon
                       className="mt-0.5 h-5 w-5 shrink-0 text-black"
                       strokeWidth={1.5}
                     />
                     <div>
-                      <p className="trizen-box-label text-zinc-500">{label}</p>
+                      <p className="trizen-box-label text-zinc-500">{item.label}</p>
                       {href ? (
                         <a
                           href={href}
                           className="trizen-body mt-2 block text-sm text-black transition-colors hover:text-zinc-600"
                         >
-                          {value}
+                          {item.value}
                         </a>
                       ) : (
-                        <p className="trizen-body mt-2 text-sm text-black">{value}</p>
+                        <p className="trizen-body mt-2 text-sm text-black">{item.value}</p>
                       )}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
