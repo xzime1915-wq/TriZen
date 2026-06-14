@@ -1,68 +1,70 @@
 #!/usr/bin/env python3
-"""TRIZEN Publish — password diye ek click e commit + push + deploy."""
+"""TRIZEN Publish — password → deploy (log file e error dekhabe)."""
 from __future__ import annotations
 
 import subprocess
 import threading
 import time
 import tkinter as tk
+from datetime import datetime
 from pathlib import Path
 from tkinter import scrolledtext, ttk
 
 ROOT = Path(__file__).resolve().parent.parent
+LOG_FILE = ROOT / "last-deploy.log"
 HOST = "144.79.133.209"
 USER = "root"
 REMOTE_CMD = "cd /var/www/trizen && bash scripts/vps-update.sh"
-COMMIT_MSG = "Update website"
 
 
 class PublishApp:
     def __init__(self) -> None:
         self.root = tk.Tk()
-        self.root.title("TRIZEN Publish")
+        self.root.title("TRIZEN Deploy")
         self.root.resizable(False, False)
-        self.root.geometry("520x420")
+        self.root.geometry("560x460")
         self.root.configure(padx=18, pady=16)
-
         self.busy = False
         self._build_ui()
         self._bring_to_front()
 
     def _build_ui(self) -> None:
+        ttk.Label(self.root, text="TRIZEN Deploy", font=("Segoe UI", 15, "bold")).pack(
+            anchor="w"
+        )
         ttk.Label(
             self.root,
-            text="TRIZEN Publish",
-            font=("Segoe UI", 15, "bold"),
-        ).pack(anchor="w")
-
-        ttk.Label(
-            self.root,
-            text="Password dao — baki shob automatic (commit, push, deploy)",
+            text="VPS password dao → Deploy click. Sob log niche + last-deploy.log",
             foreground="#555",
-            wraplength=460,
-        ).pack(anchor="w", pady=(6, 14))
+            wraplength=500,
+        ).pack(anchor="w", pady=(6, 12))
 
         row = ttk.Frame(self.root)
         row.pack(fill="x")
         ttk.Label(row, text="VPS password", width=14).pack(side="left")
         self.pwd_var = tk.StringVar()
-        self.pwd_entry = ttk.Entry(row, textvariable=self.pwd_var, show="•", width=34)
+        self.pwd_entry = ttk.Entry(row, textvariable=self.pwd_var, show="•", width=36)
         self.pwd_entry.pack(side="left", fill="x", expand=True)
         self.pwd_entry.focus_set()
 
-        self.go_btn = ttk.Button(
+        self.push_first = tk.BooleanVar(value=True)
+        ttk.Checkbutton(
             self.root,
-            text="Publish",
-            command=self.start,
-        )
-        self.go_btn.pack(anchor="w", pady=(12, 8))
+            text="Age commit + push kore deploy (unchecked = shudhu VPS deploy)",
+            variable=self.push_first,
+        ).pack(anchor="w", pady=(10, 8))
+
+        btn_row = ttk.Frame(self.root)
+        btn_row.pack(fill="x", pady=(0, 8))
+        self.go_btn = ttk.Button(btn_row, text="Deploy", command=self.start)
+        self.go_btn.pack(side="left")
 
         self.status = ttk.Label(self.root, text="Ready", foreground="#666")
         self.status.pack(anchor="w", pady=(0, 6))
 
         self.log = scrolledtext.ScrolledText(
             self.root,
-            height=14,
+            height=16,
             wrap="word",
             font=("Consolas", 9),
             bg="#111",
@@ -71,7 +73,6 @@ class PublishApp:
         )
         self.log.pack(fill="both", expand=True)
         self.log.configure(state="disabled")
-
         self.root.bind("<Return>", lambda _e: self.start())
 
     def _bring_to_front(self) -> None:
@@ -82,6 +83,9 @@ class PublishApp:
         self.pwd_entry.focus_set()
 
     def _log(self, text: str) -> None:
+        with LOG_FILE.open("a", encoding="utf-8") as f:
+            f.write(text)
+
         def append() -> None:
             self.log.configure(state="normal")
             self.log.insert("end", text)
@@ -91,14 +95,19 @@ class PublishApp:
         self.root.after(0, append)
 
     def _clear(self) -> None:
+        LOG_FILE.write_text(
+            f"=== TRIZEN Deploy {datetime.now().isoformat(timespec='seconds')} ===\n",
+            encoding="utf-8",
+        )
         self.log.configure(state="normal")
         self.log.delete("1.0", "end")
         self.log.configure(state="disabled")
 
     def _set_busy(self, busy: bool, msg: str) -> None:
         self.busy = busy
-        self.go_btn.configure(state=tk.DISABLED if busy else tk.NORMAL)
-        self.pwd_entry.configure(state=tk.DISABLED if busy else tk.NORMAL)
+        state = tk.DISABLED if busy else tk.NORMAL
+        self.go_btn.configure(state=state)
+        self.pwd_entry.configure(state=state)
         self.status.configure(text=msg)
 
     def start(self) -> None:
@@ -111,55 +120,39 @@ class PublishApp:
         threading.Thread(target=lambda: self._run(pwd), daemon=True).start()
 
     def _run(self, password: str) -> None:
-        self._set_busy(True, "Publishing…")
+        self._set_busy(True, "Deploying…")
         self._clear()
-        self._log("=== TRIZEN Publish ===\n\n")
 
-        if not self._git_push():
-            self._set_busy(False, "Failed")
-            return
+        if self.push_first.get():
+            self._log(">>> Step 1: Git push\n\n")
+            if not self._git_push():
+                self._set_busy(False, "Push failed")
+                return
+            self._log("\n>>> Step 2: VPS deploy\n\n")
+        else:
+            self._log(">>> VPS deploy only\n\n")
 
-        self._log("\n--- VPS Deploy (2–5 min) ---\n\n")
         self._deploy(password)
 
     def _git_push(self) -> bool:
         try:
             branch = (
                 subprocess.check_output(
-                    ["git", "branch", "--show-current"],
-                    cwd=ROOT,
-                    text=True,
+                    ["git", "branch", "--show-current"], cwd=ROOT, text=True
                 ).strip()
                 or "main"
             )
             dirty = subprocess.check_output(
                 ["git", "status", "--porcelain"], cwd=ROOT, text=True
             ).strip()
-
             if dirty:
-                n = len(dirty.splitlines())
-                self._log(f">>> {n} file commit hocche…\n")
+                self._log(f"{len(dirty.splitlines())} file commit…\n")
                 if not self._git(["git", "add", "-A"]):
                     return False
-                if not self._git(["git", "commit", "-m", COMMIT_MSG]):
+                if not self._git(["git", "commit", "-m", "Update website"]):
                     return False
-                self._log("[OK] Commit done.\n")
-            else:
-                self._log("No new changes to commit.\n")
-
-            self._log(f"\n>>> GitHub e push ({branch})…\n")
-            if not self._git(["git", "push", "-u", "origin", branch]):
-                return False
-
-            left = subprocess.check_output(
-                ["git", "status", "--porcelain"], cwd=ROOT, text=True
-            ).strip()
-            if left:
-                self._log("[FAILED] Push hoy ni — local file ache.\n")
-                return False
-
-            self._log("[OK] GitHub push done.\n")
-            return True
+            self._log(f"Push origin/{branch}…\n")
+            return self._git(["git", "push", "-u", "origin", branch])
         except Exception as exc:
             self._log(f"[ERROR] {exc}\n")
             return False
@@ -191,16 +184,18 @@ class PublishApp:
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         try:
-            self._log(f"Connecting {HOST}…\n")
+            self._log(f"SSH connect {USER}@{HOST}…\n")
             client.connect(
                 HOST,
                 username=USER,
                 password=password,
-                timeout=45,
+                timeout=60,
+                banner_timeout=60,
+                auth_timeout=60,
                 allow_agent=False,
                 look_for_keys=False,
             )
-            self._log("Connected. Building on VPS…\n\n")
+            self._log("Connected OK.\nRunning vps-update.sh (2–5 min)…\n\n")
             _, stdout, stderr = client.exec_command(REMOTE_CMD, get_pty=True)
             ch = stdout.channel
             while True:
@@ -208,22 +203,25 @@ class PublishApp:
                     self._log(ch.recv(4096).decode("utf-8", errors="replace"))
                 if ch.exit_status_ready():
                     break
-                time.sleep(0.1)
+                time.sleep(0.15)
             while ch.recv_ready():
                 self._log(ch.recv(4096).decode("utf-8", errors="replace"))
 
             err = stderr.read().decode("utf-8", errors="replace")
             if err.strip():
-                self._log(err)
+                self._log(f"\nSTDERR:\n{err}")
             code = ch.recv_exit_status()
             if code == 0:
                 self._log("\n[OK] LIVE: https://trizenstore.com.bd\n")
-                self._set_busy(False, "Done!")
+                self._set_busy(False, "Deploy done!")
             else:
-                self._log(f"\n[FAILED] Deploy exit {code}\n")
-                self._set_busy(False, "Deploy failed")
+                self._log(f"\n[FAILED] VPS script exit code: {code}\n")
+                self._set_busy(False, f"Failed (exit {code})")
+        except paramiko.AuthenticationException:
+            self._log("\n[ERROR] Password vul — VPS root password check koro.\n")
+            self._set_busy(False, "Wrong password")
         except Exception as exc:
-            self._log(f"\n[ERROR] {exc}\n")
+            self._log(f"\n[ERROR] {type(exc).__name__}: {exc}\n")
             self._set_busy(False, "Failed")
         finally:
             client.close()

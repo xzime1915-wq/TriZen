@@ -15,4 +15,5 @@ public/uploads/chat/**
 public/blog/**
 !public/blog/.gitkeep
 .DS_Store
+last-deploy.log
 tsconfig.tsbuildinfo
