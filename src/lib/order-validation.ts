@@ -1,3 +1,5 @@
+import { normalizePhone } from "@/lib/customers";
+import { isValidBangladeshPhone } from "@/lib/phone";
 import type { OrderItemInput } from "./orders";
 
 export type CreateOrderPayload = {
@@ -27,7 +29,9 @@ export function parseCreateOrderPayload(body: unknown): CreateOrderPayload | str
 
   if (customerName.length < 2) return "Full name is required";
   if (!EMAIL_RE.test(customerEmail)) return "Valid email is required";
-  if (customerPhone.length < 10) return "Valid phone number is required";
+  if (!isValidBangladeshPhone(customerPhone)) {
+    return "Enter a valid Bangladeshi mobile number (01XXXXXXXXX)";
+  }
   if (shippingAddress.length < 5) return "Shipping address is required";
   if (city.length < 2) return "City / district is required";
 
@@ -56,7 +60,7 @@ export function parseCreateOrderPayload(body: unknown): CreateOrderPayload | str
   return {
     customerName,
     customerEmail,
-    customerPhone,
+    customerPhone: normalizePhone(customerPhone),
     shippingAddress,
     city,
     country: typeof b.country === "string" ? b.country.trim() : "Bangladesh",

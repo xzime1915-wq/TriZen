@@ -1,6 +1,7 @@
 import { prisma } from "./prisma";
 import { normalizePhone, upsertCustomerFromOrder } from "./customers";
 import { isUpcoming } from "./product-status";
+import { getPaymentSurcharge } from "./checkout";
 import { notifyAdminNewOrder } from "./admin-notify";
 import {
   DELIVERY_CHARGE,
@@ -67,7 +68,8 @@ export async function createOrder(data: {
 }) {
   const { subtotal, orderItems } = await buildOrderItems(data.items);
   const shippingCost = data.shippingCost ?? DELIVERY_CHARGE;
-  const total = subtotal + shippingCost;
+  const paymentSurcharge = getPaymentSurcharge(data.paymentMethod || "cod");
+  const total = subtotal + shippingCost + paymentSurcharge;
   const orderNumber = generateOrderNumber();
   const invoiceNumber = generateInvoiceNumber(orderNumber);
 
@@ -100,7 +102,7 @@ export async function createOrder(data: {
         country: data.country || "Bangladesh",
         subtotal,
         shippingCost,
-        tax: 0,
+        tax: paymentSurcharge,
         total,
         notes: data.notes || null,
         adminNotes: data.adminNotes || null,

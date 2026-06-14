@@ -7,7 +7,7 @@ import { CheckoutItemPrice } from "@/components/checkout/CheckoutItemPrice";
 import { CheckoutStyleSelect } from "@/components/checkout/CheckoutStyleSelect";
 import { discountPercent } from "@/lib/discount";
 import { displayImageSrc } from "@/lib/image-path";
-import { editionLabelFromName } from "@/lib/product-edition";
+import { checkoutProductTitle, modelLabelFromProduct } from "@/lib/product-edition";
 import type { ProductColor } from "@/lib/product-data";
 
 type EditionOption = {
@@ -23,7 +23,7 @@ type EditionOption = {
 };
 
 function displayName(item: CartItem) {
-  return item.baseName ?? item.name.split(/, | — /)[0] ?? item.name;
+  return item.baseName ?? checkoutProductTitle(item.name);
 }
 
 export function CheckoutCartItemCard({ item }: { item: CartItem }) {
@@ -31,7 +31,7 @@ export function CheckoutCartItemCard({ item }: { item: CartItem }) {
   const replaceEdition = useCart((s) => s.replaceEdition);
   const [editions, setEditions] = useState<EditionOption[]>([]);
   const [selectedLabel, setSelectedLabel] = useState(
-    item.color ?? editionLabelFromName(item.name)
+    item.color ?? modelLabelFromProduct(item.name)
   );
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function CheckoutCartItemCard({ item }: { item: CartItem }) {
   const styleOptions: ProductColor[] =
     editions.length > 0
       ? editions.map((e) => ({ name: e.label, image: e.image }))
-      : [{ name: item.color ?? editionLabelFromName(item.name) }];
+      : [{ name: item.color ?? modelLabelFromProduct(item.name) }];
 
   const pct = discountPercent(item.price, item.compareAt);
   const title = displayName(item);

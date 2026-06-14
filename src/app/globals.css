@@ -3009,6 +3009,37 @@ textarea {
   font-family: var(--font-sans);
 }
 
+.checkout-phone-field {
+  @apply flex w-full border border-zinc-300 bg-white transition focus-within:border-zinc-900;
+}
+
+.checkout-phone-field--invalid {
+  @apply border-red-400 focus-within:border-red-500;
+}
+
+.checkout-phone-field--valid {
+  @apply border-emerald-500/70 focus-within:border-emerald-600;
+}
+
+.checkout-phone-prefix {
+  @apply flex shrink-0 items-center border-r border-zinc-300 bg-zinc-50 px-4 py-3.5 text-sm font-semibold text-zinc-700 tabular-nums;
+  font-family: var(--font-sans);
+}
+
+.checkout-phone-input {
+  @apply min-w-0 flex-1 border-0 bg-transparent px-4 py-3.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:placeholder:text-transparent;
+  font-family: var(--font-sans);
+  letter-spacing: 0.04em;
+}
+
+.checkout-phone-hint {
+  @apply mt-1.5 text-xs text-zinc-500;
+}
+
+.checkout-phone-hint--error {
+  @apply text-red-600;
+}
+
 .checkout-field-select {
   @apply appearance-none bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-10;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23717171' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");

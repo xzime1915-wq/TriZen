@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PaymentMethodId, formatCheckoutPrice } from "@/lib/checkout";
+import { PaymentMethodId, BKASH_MERCHANT_CHARGE, formatCheckoutPrice } from "@/lib/checkout";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -64,9 +64,9 @@ export function PaymentMethodPicker({ method, onMethodChange, total }: Props) {
       {method === "bkash" && (
         <div className="checkout-payment-expand">
           <p className="text-sm text-zinc-600">
-            Pay <strong className="text-zinc-900">{formatCheckoutPrice(total)}</strong> with bKash.
-            After placing your order, you&apos;ll be redirected to bKash to complete payment
-            automatically.
+            Pay <strong className="text-zinc-900">{formatCheckoutPrice(total)}</strong> with bKash
+            (includes {formatCheckoutPrice(BKASH_MERCHANT_CHARGE)} merchant charge). After placing
+            your order, you&apos;ll be redirected to bKash to complete payment automatically.
           </p>
         </div>
       )}

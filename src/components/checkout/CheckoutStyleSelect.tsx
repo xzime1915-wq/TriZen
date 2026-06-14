@@ -14,7 +14,7 @@ export function CheckoutStyleSelect({
   options,
   value,
   onChange,
-  label = "Size / Style",
+  label = "Model",
 }: Props) {
   const selected = value ?? options[0]?.name ?? "";
 

@@ -8,6 +8,7 @@ import { CheckoutItemPrice } from "@/components/checkout/CheckoutItemPrice";
 import { CheckoutStyleSelect } from "@/components/checkout/CheckoutStyleSelect";
 import { discountPercent } from "@/lib/discount";
 import { displayImageSrc } from "@/lib/image-path";
+import { checkoutProductTitle } from "@/lib/product-edition";
 
 function UpsellCard({
   product,
@@ -33,8 +34,8 @@ function UpsellCard({
         : product.colors[0]?.name;
     addItem({
       productId: product.id,
-      name: color ? `${product.name}, ${color}` : product.name,
-      baseName: product.name,
+      name: color ? `${checkoutProductTitle(product.name)}, ${color}` : product.name,
+      baseName: checkoutProductTitle(product.name),
       price: product.price,
       compareAt: product.compareAt,
       image,
@@ -62,7 +63,7 @@ function UpsellCard({
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium leading-snug text-zinc-900">
-            {product.name}
+            {checkoutProductTitle(product.name)}
             {pct != null ? (
               <span className="checkout-discount-badge checkout-discount-badge--inline">
                 {pct}% OFF

@@ -1,7 +1,21 @@
 export type PaymentMethodId = "cod" | "bkash" | "bank";
 
+export const BKASH_MERCHANT_CHARGE = 15;
+
 export function isBkashPayment(id: PaymentMethodId) {
   return id === "bkash";
+}
+
+export function getPaymentSurcharge(paymentMethod: string): number {
+  return paymentMethod === "bkash" ? BKASH_MERCHANT_CHARGE : 0;
+}
+
+export function calculateCheckoutTotal(
+  subtotal: number,
+  deliveryCharge: number,
+  paymentMethod: PaymentMethodId
+): number {
+  return subtotal + deliveryCharge + getPaymentSurcharge(paymentMethod);
 }
 
 export type BankSettings = {

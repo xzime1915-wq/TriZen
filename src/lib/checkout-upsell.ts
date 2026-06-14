@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { parseColors, type ProductColor } from "@/lib/product-data";
+import { modelLabelFromProduct } from "@/lib/product-edition";
 import { isUpcoming, shouldShowProductPrice } from "@/lib/product-status";
 import { getShopGearLine, type ShopGearLine } from "@/lib/shop-gears";
 
@@ -70,6 +71,7 @@ export async function getCheckoutUpsells(
       tag: true,
       colors: true,
       category: true,
+      sku: true,
     },
     orderBy: [{ featured: "desc" }, { name: "asc" }],
   });
@@ -91,16 +93,24 @@ export async function getCheckoutUpsells(
     .sort((a, b) => a.rank - b.rank)
     .slice(0, limit);
 
-  return ranked.map(({ p }) => ({
-    id: p.id,
-    name: p.name,
-    slug: p.slug,
-    price: p.price,
-    compareAt: p.compareAt,
-    image: p.image,
-    stock: p.stock,
-    tag: p.tag,
-    colors: parseColors(p.colors),
-    headline,
-  }));
+  return ranked.map(({ p }) => {
+    const parsedColors = parseColors(p.colors);
+    const colors =
+      parsedColors.length > 0
+        ? parsedColors
+        : [{ name: modelLabelFromProduct(p.name, p.sku, p.slug), image: p.image }];
+
+    return {
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      price: p.price,
+      compareAt: p.compareAt,
+      image: p.image,
+      stock: p.stock,
+      tag: p.tag,
+      colors,
+      headline,
+    };
+  });
 }

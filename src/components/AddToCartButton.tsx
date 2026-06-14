@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useCart } from "@/lib/cart-store";
 import type { ProductColor } from "@/lib/product-data";
-import { ProductNotifyButton } from "@/components/product/ProductNotifyButton";
+import { checkoutProductTitle, modelLabelFromProduct } from "@/lib/product-edition";
 import { Button } from "./Button";
 import { Minus, Plus } from "lucide-react";
 
@@ -21,11 +21,13 @@ export function AddToCartButton({
   product,
   color,
   colors = [],
+  sku,
   comingSoon = false,
 }: {
   product: Product;
   color?: string;
   colors?: ProductColor[];
+  sku?: string | null;
   comingSoon?: boolean;
 }) {
   const addItem = useCart((s) => s.addItem);
@@ -63,17 +65,23 @@ export function AddToCartButton({
         size="lg"
         className="w-full px-4"
         onClick={() => {
+          const edition =
+            color ??
+            (colors.length === 1 ? colors[0]?.name : undefined) ??
+            (sku ? modelLabelFromProduct(product.name, sku, product.slug) : undefined);
+          const title = checkoutProductTitle(product.name);
+
           addItem({
             productId: product.id,
-            name: color ? `${product.name}, ${color}` : product.name,
-            baseName: product.name,
+            name: edition ? `${title}, ${edition}` : product.name,
+            baseName: title,
             price: product.price,
             compareAt: product.compareAt ?? null,
             image:
               colors.find((c) => c.name === color)?.image ?? product.image,
             stock: product.stock,
             quantity: qty,
-            color,
+            color: edition,
             variantOptions: colors.length > 1 ? colors : undefined,
           });
           setAdded(true);
