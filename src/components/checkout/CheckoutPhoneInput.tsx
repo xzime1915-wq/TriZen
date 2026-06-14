@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import {
@@ -31,6 +32,13 @@ export function CheckoutPhoneInput({ value, onChange, required }: Props) {
         )}
       >
         <span className="checkout-phone-prefix" aria-hidden="true">
+          <Image
+            src="/flags/bangladesh.png"
+            alt=""
+            width={18}
+            height={12}
+            className="checkout-phone-flag"
+          />
           +880
         </span>
         <input
@@ -51,9 +59,7 @@ export function CheckoutPhoneInput({ value, onChange, required }: Props) {
         <p id="checkout-phone-error" className="checkout-phone-hint checkout-phone-hint--error">
           {error}
         </p>
-      ) : (
-        <p className="checkout-phone-hint">Bangladeshi mobile number only</p>
-      )}
+      ) : null}
     </label>
   );
 }
