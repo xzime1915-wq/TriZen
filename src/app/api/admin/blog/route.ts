@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
 import { buildBlogDbPayload, slugifyTitle } from "@/lib/blog";
+import { broadcastBlogPostToSandbox } from "@/lib/newsletter-broadcast";
+import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   const admin = await requireAdmin();
@@ -40,6 +41,12 @@ export async function POST(request: Request) {
   const post = await prisma.blogPost.create({
     data: { ...payload, slug },
   });
+
+  if (post.published) {
+    void broadcastBlogPostToSandbox(post).catch((error) => {
+      console.error("[sandbox blog broadcast create]", error);
+    });
+  }
 
   return NextResponse.json(post, { status: 201 });
 }

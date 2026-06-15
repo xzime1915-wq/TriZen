@@ -256,3 +256,14 @@ model GearNotifyRequest {
   @@unique([gear, email])
   @@index([gear, notifiedAt])
 }
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  firstName String   @default("")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([active, createdAt])
+}

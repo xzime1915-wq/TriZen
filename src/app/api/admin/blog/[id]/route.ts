@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
 import { buildBlogDbPayload, slugifyTitle } from "@/lib/blog";
+import { broadcastBlogPostToSandbox } from "@/lib/newsletter-broadcast";
+import { prisma } from "@/lib/prisma";
 
 export async function PATCH(
   request: Request,
@@ -15,6 +16,11 @@ export async function PATCH(
   const { id } = await params;
   const body = await request.json();
   const payload = buildBlogDbPayload(body);
+
+  const existing = await prisma.blogPost.findUnique({ where: { id } });
+  if (!existing) {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
 
   const data: Record<string, unknown> = { ...payload };
 
@@ -32,6 +38,13 @@ export async function PATCH(
   }
 
   const post = await prisma.blogPost.update({ where: { id }, data });
+
+  if (post.published && !existing.published) {
+    void broadcastBlogPostToSandbox(post).catch((error) => {
+      console.error("[sandbox blog broadcast publish]", error);
+    });
+  }
+
   return NextResponse.json(post);
 }
 
