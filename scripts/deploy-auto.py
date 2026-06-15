@@ -87,6 +87,12 @@ def vps_deploy(password: str) -> int:
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+            sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
     password = load_vps_password()
     git_push()
     code = vps_deploy(password)

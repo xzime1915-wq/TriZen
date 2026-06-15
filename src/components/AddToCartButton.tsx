@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { normalizeTripadDisplayName } from "@/lib/product-edition";
 import { useCart } from "@/lib/cart-store";
 import type { ProductColor } from "@/lib/product-data";
