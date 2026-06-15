@@ -1628,7 +1628,13 @@ textarea {
   }
 
   .trizen-footer-bottom-bar {
-    @apply grid grid-cols-1 items-end gap-4 md:grid-cols-[1fr_auto_1fr] md:gap-6;
+    @apply items-end gap-4;
+  }
+
+  @media (min-width: 1024px) {
+    .trizen-footer-bottom-bar {
+      @apply grid grid-cols-[1fr_auto_1fr] gap-6;
+    }
   }
 
   .trizen-footer-bottom-center {
