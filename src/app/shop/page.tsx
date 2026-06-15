@@ -102,7 +102,10 @@ export default async function ShopPage({
 
       {productCount === 0 && !showAllGearSections ? (
         <section className="container-trizen-full py-16 md:py-24">
-          <ShopEmpty />
+          <ShopEmpty
+            gear={activeGear}
+            gearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}
+          />
         </section>
       ) : (
         gearsToRender.map((gear, index) => (

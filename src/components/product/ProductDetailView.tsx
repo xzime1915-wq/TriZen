@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { sanitizeDisplayText, splitSanitizedParagraphs } from "@/lib/utils";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { StarRating } from "./StarRating";
 import { ProductFaqSection } from "./ProductFaqSection";
@@ -71,11 +72,11 @@ export function ProductDetailView({
   const gearLabel = SHOP_GEAR_COPY[gearLine].title;
   const savePct = discountPercent(product.price, product.compareAt);
 
-  const introParagraphs = (product.longDescription || product.description)
-    .split("\n\n")
-    .map((p) => p.trim())
-    .filter(Boolean)
-    .slice(0, 3);
+  const introParagraphs = splitSanitizedParagraphs(
+    product.longDescription || product.description,
+  ).slice(0, 3);
+
+  const highlightFeatures = features.slice(0, 3);
 
   const specFeatureImage =
     descriptionSlides[0] ?? gallery[1] ?? gallery[0] ?? product.image;
@@ -123,37 +124,35 @@ export function ProductDetailView({
               </div>
             </div>
 
-            {introParagraphs.length > 0 && (
-              <div className="product-buy-copy trizen-prose mt-4 max-w-md space-y-4 sm:mt-6">
-                {introParagraphs.map((para) => (
-                  <p key={para.slice(0, 48)}>{para}</p>
-                ))}
-              </div>
-            )}
+            <div className="product-buy-body">
+              {introParagraphs.length > 0 && (
+                <div className="product-buy-copy trizen-prose">
+                  {introParagraphs.map((para) => (
+                    <p key={para.slice(0, 48)}>{para}</p>
+                  ))}
+                </div>
+              )}
 
-            {reviews.length > 0 ? (
-              <div className="mt-5 flex items-center gap-3 sm:mt-6">
-                <StarRating value={avgRating} size="sm" />
-                <a
-                  href="#reviews"
-                  className="text-xs font-normal text-black hover:underline"
-                >
-                  ({avgRating})
-                </a>
-              </div>
-            ) : null}
+              {reviews.length > 0 ? (
+                <div className="flex items-center gap-3">
+                  <StarRating value={avgRating} size="sm" />
+                  <a
+                    href="#reviews"
+                    className="text-xs font-normal text-black hover:underline"
+                  >
+                    ({avgRating})
+                  </a>
+                </div>
+              ) : null}
 
-            {selectedColor && colors.length > 0 && (
-              <div className="mt-6">
+              {selectedColor && colors.length > 0 && (
                 <ProductColorPicker
                   colors={colors}
                   selected={selectedColor}
                   onSelect={setSelectedColor}
                 />
-              </div>
-            )}
+              )}
 
-            <div className="mt-6 sm:mt-8">
               <AddToCartButton
                 product={{
                   id: product.id,
@@ -168,6 +167,16 @@ export function ProductDetailView({
                 colors={colors}
                 comingSoon={upcoming}
               />
+
+              {highlightFeatures.length > 0 && (
+                <ul className="product-buy-features">
+                  {highlightFeatures.map((f) => (
+                    <li key={f} className="trizen-detail">
+                      {sanitizeDisplayText(f)}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
@@ -189,6 +198,8 @@ export function ProductDetailView({
       <ProductReviewsBlock>
         <ProductReviewSection
           slug={product.slug}
+          productName={product.name}
+          productImage={selectedColor?.image ?? product.image}
           reviews={reviews}
           onReviewAdded={onReviewAdded}
         />

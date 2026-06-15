@@ -16,6 +16,7 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
   const [length, setLength] = useState(0);
   const [runId, setRunId] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [compact, setCompact] = useState(false);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -43,8 +44,16 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
   }, []);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers reduced motion: reduce)");
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const apply = () => setReduceMotion(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => setCompact(mq.matches);
     apply();
     mq.addEventListener("change", apply);
     return () => mq.removeEventListener("change", apply);
@@ -68,14 +77,31 @@ export function GlideAnimatedTitle({ className = "" }: Props) {
       ? TITLE
       : TITLE.slice(0, length);
 
+  if (compact) {
+    return (
+      <h2
+        ref={rootRef}
+        className={`glide-animated-title glide-animated-title--compact font-light uppercase tracking-[0.06em] text-white ${className}`}
+        aria-label={TITLE}
+      >
+        <span
+          className={`block max-w-[16rem] text-left leading-[1.15] transition-opacity duration-300 sm:max-w-none ${
+            inView ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          {visible}
+        </span>
+      </h2>
+    );
+  }
+
   return (
     <h2
       ref={rootRef}
-      className={`font-light uppercase tracking-[0.08em] text-white md:mt-2 ${className}`}
+      className={`glide-animated-title font-light uppercase tracking-[0.08em] text-white md:mt-2 ${className}`}
       aria-label={TITLE}
     >
-      <span className="relative inline-block min-h-[1.2em] max-w-full text-center">
-        {/* Invisible full text reserves space so typing never shifts layout */}
+      <span className="relative inline-block min-h-[1.2em] max-w-full">
         <span
           className="invisible block whitespace-nowrap text-left text-[clamp(1.125rem,4.5vw,2.25rem)] leading-[1.12] sm:text-inherit"
           aria-hidden

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { TrizenBrandName } from "@/components/TrizenBrandName";
 import { lockPageScroll, unlockPageScroll } from "@/lib/scroll-lock";
+import { useNewsletterUi } from "@/lib/newsletter-ui-store";
 
 /** Permanent — after subscribe or "No thanks" / close */
 const DISMISS_KEY = "trizen-newsletter-popup-dismissed";
@@ -48,6 +49,9 @@ export function NewsletterPopup({ signedIn }: Props) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const scheduledRef = useRef(false);
+  const manualOpen = useNewsletterUi((s) => s.isOpen);
+  const closeNewsletter = useNewsletterUi((s) => s.closeNewsletter);
+  const visible = open || manualOpen;
 
   const hiddenRoute = isHiddenRoute(pathname);
 
@@ -73,23 +77,24 @@ export function NewsletterPopup({ signedIn }: Props) {
   }, [signedIn, hiddenRoute]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!visible) return;
     lockPageScroll();
     return () => unlockPageScroll();
-  }, [open]);
+  }, [visible]);
 
   useEffect(() => {
-    if (!open) return;
+    if (!visible) return;
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") dismissWithoutEmail();
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+  }, [visible]);
 
   function dismissWithoutEmail() {
     markPermanentDismiss("dismissed");
     setOpen(false);
+    closeNewsletter();
   }
 
   async function handleSubmit(event: React.FormEvent) {
@@ -110,13 +115,16 @@ export function NewsletterPopup({ signedIn }: Props) {
       if (!res.ok) throw new Error("failed");
       setStatus("done");
       markPermanentDismiss("subscribed");
-      window.setTimeout(() => setOpen(false), 1400);
+      window.setTimeout(() => {
+        setOpen(false);
+        closeNewsletter();
+      }, 1400);
     } catch {
       setStatus("error");
     }
   }
 
-  if (signedIn || !open) return null;
+  if (signedIn || !visible) return null;
 
   return (
     <div
@@ -129,7 +137,7 @@ export function NewsletterPopup({ signedIn }: Props) {
         type="button"
         className="newsletter-popup-backdrop"
         onClick={dismissWithoutEmail}
-        aria-label="Close newsletter popup"
+        aria-label="Close Sandbox popup"
       />
 
       <div className="newsletter-popup-panel">
@@ -144,7 +152,7 @@ export function NewsletterPopup({ signedIn }: Props) {
 
         <p className="newsletter-popup-eyebrow">
           <TrizenBrandName className="inline-flex text-[10px] text-zinc-300" />
-          <span className="trizen-wh-hero-eyebrow text-zinc-500">Newsletter</span>
+          <span className="trizen-wh-hero-eyebrow text-zinc-500">Sandbox</span>
         </p>
 
         <h2 id="newsletter-popup-title" className="newsletter-popup-title">
@@ -152,12 +160,11 @@ export function NewsletterPopup({ signedIn }: Props) {
         </h2>
 
         <p className="newsletter-popup-copy">
-          Drops, restocks, and competitive play updates from Bangladesh&apos;s glass
-          pad store.
+          Drops, restocks, and competitive play updates from TRIZEN Store.
         </p>
 
         {status === "done" ? (
-          <p className="newsletter-popup-success">Thanks — you&apos;re on the list.</p>
+          <p className="newsletter-popup-success">Thanks, you&apos;re on the list.</p>
         ) : (
           <form onSubmit={handleSubmit} className="newsletter-popup-form">
             <input

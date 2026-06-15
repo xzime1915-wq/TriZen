@@ -38,7 +38,7 @@ export function CheckoutInput({
       <input
         className={cn(
           "checkout-field-input",
-          visibleError && "checkout-field-input--invalid"
+          visibleError ? "checkout-field-input--invalid" : undefined
         )}
         placeholder={fieldPlaceholder}
         aria-label={hideLabel ? label : undefined}
@@ -71,7 +71,7 @@ export function CheckoutTextarea({
       <textarea
         className={cn(
           "checkout-field-input min-h-[88px] resize-y",
-          visibleError && "checkout-field-input--invalid"
+          visibleError ? "checkout-field-input--invalid" : undefined
         )}
         placeholder={fieldPlaceholder}
         aria-label={hideLabel ? label : undefined}
@@ -108,7 +108,7 @@ export function CheckoutSelect({
       <select
         className={cn(
           "checkout-field-input checkout-field-select",
-          visibleError && "checkout-field-input--invalid"
+          visibleError ? "checkout-field-input--invalid" : undefined
         )}
         aria-label={hideLabel ? label : undefined}
         aria-invalid={visibleError ? true : undefined}

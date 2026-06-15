@@ -1,4 +1,5 @@
 import { PageHero } from "@/components/PageHero";
+import { SITE_CONTACT } from "@/lib/site-config";
 
 export default function PrivacyPolicyPage() {
   return (
@@ -20,7 +21,7 @@ export default function PrivacyPolicyPage() {
             personal data to third parties.
           </p>
           <p>
-            For questions about this policy, contact us at info@trizenstorebd.com.
+            For questions about this policy, contact us at {SITE_CONTACT.email}.
           </p>
         </div>
       </section>

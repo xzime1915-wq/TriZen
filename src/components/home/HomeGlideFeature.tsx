@@ -5,7 +5,7 @@ import { IMAGE_QUALITY } from "@/lib/image-quality";
 
 function GlideActionBanner() {
   return (
-    <div className="relative min-h-[30vh] sm:min-h-[40vh] md:min-h-[58vh] overflow-hidden bg-black">
+    <div className="relative min-h-[38vh] sm:min-h-[42vh] md:min-h-[58vh] overflow-hidden bg-black">
       <Image
         src={HOME_GLIDE_IMAGE}
         alt="Mouse gliding at speed on TRIZEN glass surface"
@@ -17,8 +17,8 @@ function GlideActionBanner() {
 
       <div className="glide-banner-overlay" aria-hidden />
 
-      <div className="container-trizen-full relative z-10 flex min-h-[30vh] items-end sm:min-h-[40vh] md:min-h-[58vh] md:px-0">
-        <div className="glide-performance-block w-full max-w-lg px-4 pb-6 sm:pb-8 md:pb-12">
+      <div className="product-page-pad relative z-10 flex min-h-[38vh] items-end sm:min-h-[42vh] md:min-h-[58vh]">
+        <div className="glide-performance-block w-full max-w-lg pb-8 sm:pb-8 md:pb-12">
           <p className="glide-performance-eyebrow">Performance</p>
           <GlideAnimatedTitle className="glide-performance-title" />
           <p className="glide-performance-body">

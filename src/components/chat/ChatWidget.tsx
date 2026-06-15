@@ -480,7 +480,7 @@ export function ChatWidget() {
               aria-label="Close chat"
               onClick={closeChat}
             />
-            <div className="pointer-events-none fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[9999] flex flex-col items-end sm:right-6 lg:bottom-auto lg:top-[4.75rem] lg:right-6">
+            <div className="pointer-events-none fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-[9999] flex flex-col items-end sm:right-6 lg:bottom-auto lg:top-[4.75rem] lg:right-6">
               {panel}
             </div>
           </>,

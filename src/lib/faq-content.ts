@@ -1,4 +1,5 @@
 import type { ShopGearLine } from "@/lib/shop-gears";
+import { SITE_URL } from "@/lib/site-config";
 
 export type FaqItem = {
   question: string;
@@ -51,7 +52,7 @@ export const HOME_FAQS: FaqItem[] = [
   {
     question: "How can I contact TRIZEN Store?",
     answer:
-      "Email info@trizenstorebd.com or call 01778741431. You can also use the Contact page for general questions about products and orders.",
+      "Email support@trizenstore.com.bd or call 01778741431. You can also use the Contact page for general questions about products and orders.",
   },
   {
     question: "Is TRIPAD suitable for all mice?",
@@ -69,12 +70,12 @@ export const ALL_PRODUCTS_FAQS: FaqItem[] = [
   {
     question: "Where can I learn about new products or campaigns?",
     answer:
-      "Check the shop page for upcoming gear, follow TRIZEN Store on social media, and subscribe to the newsletter for launch updates and offers.",
+      "Check the shop page for upcoming gear, follow TRIZEN Store on social media, and join Sandbox for launch updates and offers.",
   },
   {
     question: "How do I become part of the TRIZEN community?",
     answer:
-      "Follow us on social media, share your setup, and tag TRIZEN Store. For orders and support, email info@trizenstorebd.com or call 01778741431.",
+      "Follow us on social media, share your setup, and tag TRIZEN Store. For orders and support, email support@trizenstore.com.bd or call 01778741431.",
   },
   {
     question: "Which payment options are available?",
@@ -84,7 +85,7 @@ export const ALL_PRODUCTS_FAQS: FaqItem[] = [
   {
     question: "How can I track my order?",
     answer:
-      "Use Track Your Order on trizenstorebd.com with your order number and phone. You will see updates as your order is processed and shipped.",
+      `Use Track Your Order on ${SITE_URL.replace("https://", "")} with your order number and phone. You will see updates as your order is processed and shipped.`,
   },
 ];
 
@@ -107,7 +108,7 @@ function gearSpecificFaqs(
         {
           question: `What is ${productName}?`,
           answer: isUpcoming
-            ? `${productName} is an upcoming TRIZEN TRIPAD glass mouse pad with edition-specific branding. It shares the same competitive glass glide as TRIPAD V1 — check back for launch updates.`
+            ? `${productName} is an upcoming TRIZEN TRIPAD glass mouse pad with edition-specific branding. It shares the same competitive glass glide as TRIPAD V1, check back for launch updates.`
             : `${productName} is a TRIZEN tempered glass mouse pad built for esports. The surface is ultra smooth and low friction for precise tracking, flicks, and long sessions.`,
         },
         {

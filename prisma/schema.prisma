@@ -118,7 +118,7 @@ model StoreSettings {
   id              Int    @id @default(1)
   storeName       String @default("TRIZEN Store")
   tagline         String @default("Premium Tech & Lifestyle")
-  email           String @default("support@trizenstore.com")
+  email           String @default("support@trizenstore.com.bd")
   phone           String @default("+1 (555) 123-4567")
   address         String @default("123 Innovation Drive, Tech City, TC 10001")
   bankName        String @default("First National Bank")
@@ -154,6 +154,7 @@ model User {
   orders       Order[]
   reviews      ProductReview[]
   notifyRequests ProductNotifyRequest[]
+  gearNotifyRequests GearNotifyRequest[]
 }
 
 model BlogPost {
@@ -241,4 +242,17 @@ model ProductNotifyRequest {
 
   @@unique([productId, email])
   @@index([productId, notifiedAt])
+}
+
+model GearNotifyRequest {
+  id         String    @id @default(cuid())
+  gear       String
+  email      String
+  userId     String?
+  user       User?     @relation(fields: [userId], references: [id])
+  notifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@unique([gear, email])
+  @@index([gear, notifiedAt])
 }

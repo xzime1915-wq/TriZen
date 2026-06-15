@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
+import { Minus, Plus, Trash2, X } from "lucide-react";
+import { TrizenCartIcon } from "@/components/TrizenCartIcon";
+import { CartUpsell } from "@/components/cart/CartUpsell";
 import { ProductImage } from "@/components/ProductImage";
 import { Button } from "@/components/Button";
 import { useCart } from "@/lib/cart-store";
@@ -44,10 +46,10 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
           className="cart-panel-close"
           aria-label="Close cart"
         >
-          <X className="h-5 w-5" strokeWidth={1.5} />
+          <X className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={1.5} />
         </button>
         <h2 className="cart-panel-title">
-          <ShoppingBag className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} aria-hidden />
+          <TrizenCartIcon className="h-5 w-5 shrink-0" strokeWidth={1.5} />
           <span>Cart{count > 0 ? ` (${count})` : ""}</span>
         </h2>
         <span className="cart-panel-header-spacer" aria-hidden />
@@ -69,8 +71,9 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
             </Link>
           </div>
         ) : (
-          <ul className="cart-panel-items">
-            {items.map((item) => (
+          <>
+            <ul className="cart-panel-items">
+              {items.map((item) => (
               <li
                 key={`${item.productId}${item.color ? `-${item.color}` : ""}`}
                 className="cart-panel-item"
@@ -79,8 +82,8 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
                   <ProductImage
                     src={item.image}
                     alt={item.name}
-                    sizes="80px"
-                    className="p-1.5"
+                    sizes="64px"
+                    className="p-1 sm:p-1.5"
                   />
                 </div>
                 <div className="cart-panel-item-main">
@@ -102,7 +105,7 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
                         }
                         aria-label="Decrease quantity"
                       >
-                        <Minus className="h-3 w-3" />
+                        <Minus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                       </button>
                       <span className="cart-panel-qty-value">{item.quantity}</span>
                       <button
@@ -113,7 +116,7 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
                         }
                         aria-label="Increase quantity"
                       >
-                        <Plus className="h-3 w-3" />
+                        <Plus className="h-2.5 w-2.5 sm:h-3 sm:w-3" />
                       </button>
                     </div>
                     <button
@@ -122,18 +125,21 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
                       onClick={() => removeItem(item.productId, item.color)}
                       aria-label="Remove item"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </button>
                   </div>
                 </div>
               </li>
             ))}
-          </ul>
+            </ul>
+          </>
         )}
       </div>
 
       {items.length > 0 ? (
-        <footer className="cart-panel-footer">
+        <>
+          <CartUpsell />
+          <footer className="cart-panel-footer">
           <div className="cart-panel-total-row">
             <span className="cart-panel-total-label">Total</span>
             <span className="cart-panel-total-value">{formatCurrency(total)}</span>
@@ -146,6 +152,7 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
             Continue Shopping
           </button>
         </footer>
+        </>
       ) : null}
     </div>
   );

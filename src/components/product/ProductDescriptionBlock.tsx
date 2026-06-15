@@ -1,3 +1,4 @@
+import { splitSanitizedParagraphs } from "@/lib/utils";
 import { ProductDescriptionCarousel } from "./ProductDescriptionCarousel";
 import { ProductFeaturesList } from "./ProductFeaturesList";
 
@@ -14,10 +15,7 @@ export function ProductDescriptionBlock({
   descriptionSlides = [],
   features,
 }: Props) {
-  const paragraphs = description
-    .split("\n\n")
-    .map((p) => p.trim())
-    .filter(Boolean);
+  const paragraphs = splitSanitizedParagraphs(description);
 
   if (paragraphs.length === 0 && descriptionSlides.length === 0 && features.length === 0) {
     return null;
@@ -40,8 +38,8 @@ export function ProductDescriptionBlock({
           >
             <h2 className="product-display-title md:text-2xl">{productName}</h2>
             <div className="trizen-prose mt-6 space-y-5">
-              {paragraphs.map((para) => (
-                <p key={para.slice(0, 48)}>{para}</p>
+              {paragraphs.map((para, index) => (
+                <p key={`${index}-${para.slice(0, 48)}`}>{para}</p>
               ))}
             </div>
           </div>

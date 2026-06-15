@@ -5,7 +5,7 @@ import { OUR_GEARS } from "@/lib/our-gears";
 
 export function HomeOurGears() {
   return (
-    <section className="our-gears-section bg-white py-12 md:py-20 lg:py-24">
+    <section className="our-gears-section bg-white py-10 md:py-20 lg:py-24">
       <div className="container-trizen-full">
         <div className="mb-8 text-center md:mb-12">
           <h2 className="trizen-display-title">Our Gears</h2>

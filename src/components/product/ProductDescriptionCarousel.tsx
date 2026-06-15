@@ -58,9 +58,7 @@ export function ProductDescriptionCarousel({
       onBlurCapture={() => setPaused(false)}
     >
       <div className="trizen-desc-carousel-header">
-        <span className="trizen-desc-carousel-line" aria-hidden />
-        <p className="trizen-eyebrow text-zinc-900 font-light">Product highlights</p>
-        <span className="trizen-desc-carousel-line" aria-hidden />
+        <p className="product-related-heading mb-0">Product highlights</p>
       </div>
 
       <div className="trizen-desc-carousel-shell">

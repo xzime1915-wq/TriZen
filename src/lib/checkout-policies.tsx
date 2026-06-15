@@ -35,7 +35,7 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
         </p>
         <p>
           For refund requests, email{" "}
-          <a href="mailto:support@trizenstore.com">support@trizenstore.com</a> with
+          <a href="mailto:support@trizenstore.com.bd">support@trizenstore.com.bd</a> with
           your order details.
         </p>
       </>
@@ -61,7 +61,7 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
         </p>
         <p>
           For shipping questions, contact{" "}
-          <a href="mailto:support@trizenstore.com">support@trizenstore.com</a> or
+          <a href="mailto:support@trizenstore.com.bd">support@trizenstore.com.bd</a> or
           call 01778741431.
         </p>
       </>
@@ -88,7 +88,7 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
         </p>
         <p>
           For questions about this policy, contact{" "}
-          <a href="mailto:support@trizenstore.com">support@trizenstore.com</a>.
+          <a href="mailto:support@trizenstore.com.bd">support@trizenstore.com.bd</a>.
         </p>
       </>
     ),
@@ -120,7 +120,7 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
         </p>
         <p>
           For order or product questions, email{" "}
-          <a href="mailto:support@trizenstore.com">support@trizenstore.com</a> or
+          <a href="mailto:support@trizenstore.com.bd">support@trizenstore.com.bd</a> or
           call 01778741431.
         </p>
       </>
@@ -134,7 +134,7 @@ export const CHECKOUT_POLICIES: Record<CheckoutPolicyId, CheckoutPolicy> = {
         <p>Questions about TRIPAD, orders, or shipping? We are here to help.</p>
         <p>
           <strong>Email:</strong>{" "}
-          <a href="mailto:support@trizenstore.com">support@trizenstore.com</a>
+          <a href="mailto:support@trizenstore.com.bd">support@trizenstore.com.bd</a>
         </p>
         <p>
           <strong>Phone:</strong>{" "}

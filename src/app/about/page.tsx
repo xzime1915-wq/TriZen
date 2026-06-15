@@ -38,7 +38,7 @@ export default function AboutPage() {
         <div className="container-trizen py-16 md:py-20">
           <p className="trizen-eyebrow mb-4">Our gear</p>
           <h2 className="trizen-headline text-2xl md:text-3xl mb-10">What we build</h2>
-          <ul className="grid sm:grid-cols-3 gap-6">
+          <ul className="trizen-divider-list max-w-2xl">
             {[
               {
                 title: "Glass mouse pads",
@@ -53,7 +53,7 @@ export default function AboutPage() {
                 body: "Precision replacements for competitive mice.",
               },
             ].map((item) => (
-              <li key={item.title} className="trizen-panel p-6 trizen-card-hover">
+              <li key={item.title} className="trizen-divider-list-item">
                 <h3 className="text-sm font-normal uppercase tracking-wider text-black">
                   {item.title}
                 </h3>

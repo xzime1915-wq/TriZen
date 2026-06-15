@@ -5,7 +5,6 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartProvider } from "@/components/CartProvider";
 import { ChatWidgetHost } from "@/components/chat/ChatWidgetHost";
-import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { SiteJsonLd } from "@/components/seo/SiteJsonLd";
 import { MediaProtect } from "@/components/MediaProtect";
 import { SmoothScroll } from "@/components/SmoothScroll";
@@ -83,11 +82,8 @@ export default async function RootLayout({
         <SiteJsonLd />
         <CartProvider>
           <Header user={user ? { name: user.name, email: user.email } : null} />
-          <main className="flex-1 max-lg:pb-[calc(4rem+env(safe-area-inset-bottom))]">
-            {children}
-          </main>
+          <main className="flex-1">{children}</main>
           <Footer />
-          <MobileBottomNav />
           <ChatWidgetHost />
           <NewsletterPopup signedIn={!!user} />
         </CartProvider>

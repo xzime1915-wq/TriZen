@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -34,7 +35,7 @@ export function NewsletterForm({ variant = "footer" }: Props) {
   if (status === "done") {
     return (
       <p className="text-sm text-[var(--color-muted)]">
-        Thanks — you&apos;re on the list.
+        Thanks, you&apos;re on the list.
       </p>
     );
   }
@@ -42,18 +43,19 @@ export function NewsletterForm({ variant = "footer" }: Props) {
   const isSection = variant === "section";
 
   return (
-    <form onSubmit={handleSubmit} className={isSection ? "mx-auto max-w-xl" : ""}>
-      {isSection ? (
-        <p className="mb-6 text-center text-[10px] font-light uppercase tracking-[0.32em] text-zinc-900">
-          Subscribe to our newsletter
-        </p>
-      ) : (
-        <p className="mb-4 text-sm leading-relaxed text-[var(--color-muted)]">
-          Sign up for updates about new drops and restocks.
+    <form
+      onSubmit={handleSubmit}
+      className={cn(
+        isSection ? "mx-auto max-w-xl" : "trizen-footer-newsletter-form",
+      )}
+    >
+      {isSection ? null : (
+        <p className="trizen-footer-newsletter-copy">
+          Join Sandbox for the latest gear and esports updates.
         </p>
       )}
 
-      <div className={isSection ? "trizen-box-inline" : "trizen-box-stack"}>
+      <div className={isSection ? "trizen-newsletter-inline" : "trizen-box-stack"}>
         <input
           type="email"
           required
@@ -63,7 +65,7 @@ export function NewsletterForm({ variant = "footer" }: Props) {
           className={cn(
             "trizen-box-field",
             isSection &&
-              "trizen-box-field--inline font-normal placeholder:font-light placeholder:text-zinc-900",
+              "font-normal placeholder:font-light placeholder:text-zinc-900",
           )}
         />
         <button
@@ -77,14 +79,27 @@ export function NewsletterForm({ variant = "footer" }: Props) {
 
       <p
         className={cn(
-          "mt-3 text-[10px] font-light text-zinc-900",
-          isSection && "text-center",
+          "mt-3 text-[10px] leading-relaxed",
+          isSection
+            ? "text-center font-light text-zinc-900"
+            : "trizen-footer-newsletter-note",
         )}
       >
-        By signing up, you agree with our privacy policy.
+        By signing up, you agree with our{" "}
+        <Link href="/privacy" className="underline underline-offset-2">
+          privacy policy
+        </Link>
+        .
       </p>
       {status === "error" ? (
-        <p className="mt-2 text-xs text-red-400">Could not subscribe. Try again.</p>
+        <p
+          className={cn(
+            "mt-2 text-xs",
+            isSection ? "text-red-600" : "text-red-400",
+          )}
+        >
+          Could not subscribe. Try again.
+        </p>
       ) : null}
     </form>
   );

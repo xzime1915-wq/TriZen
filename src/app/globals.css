@@ -352,8 +352,33 @@ textarea {
     @apply mt-6;
   }
 
+  .product-buy-body {
+    @apply mt-4 flex w-full flex-col gap-6 sm:mt-6;
+  }
+
+  .product-buy-copy {
+    @apply w-full;
+  }
+
+  .product-buy-copy p {
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .product-buy-body .product-buy-actions {
+    @apply mt-0;
+  }
+
+  .product-buy-features {
+    @apply w-full space-y-2.5 sm:space-y-3;
+  }
+
   .product-buy-actions {
     @apply mt-8;
+  }
+
+  .product-buy-actions .trizen-box-action {
+    @apply text-sm font-light tracking-[0.18em];
   }
 
   .trizen-full-bleed {
@@ -532,6 +557,11 @@ textarea {
     @apply mb-10 md:mb-12;
   }
 
+  .product-related-heading {
+    font-family: var(--font-mono);
+    @apply mb-6 text-[10px] font-light uppercase tracking-[0.16em] text-zinc-800 md:mb-8 md:text-[11px];
+  }
+
   .trizen-brand-wordmark {
     display: inline;
     font-family: var(--font-sans);
@@ -683,7 +713,49 @@ textarea {
   }
 
   .trizen-box-inline {
-    @apply flex w-full flex-col border border-zinc-300 sm:flex-row sm:items-stretch;
+    @apply flex w-full flex-col overflow-hidden border border-zinc-300 sm:flex-row sm:items-stretch;
+  }
+
+  .trizen-newsletter-inline {
+    @apply flex w-full flex-col gap-2 md:flex-row md:items-stretch md:gap-0 md:overflow-hidden md:border md:border-zinc-300;
+  }
+
+  .trizen-newsletter-inline .trizen-box-field {
+    @apply box-border flex w-full items-center self-stretch border border-zinc-300 px-4 text-[10px] leading-none focus:border-zinc-900 md:min-w-0 md:flex-1 md:border-0 md:border-r md:border-zinc-300 md:focus:border-r md:focus:border-zinc-300;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    max-height: 2.75rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    appearance: none;
+  }
+
+  .trizen-newsletter-inline .trizen-box-action {
+    @apply box-border flex w-full shrink-0 items-center justify-center self-stretch border-none bg-zinc-900 px-6 outline-none ring-0 md:w-auto;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    max-height: 2.75rem;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .trizen-box-inline .trizen-box-field {
+    @apply box-border flex w-full min-w-0 flex-1 items-center self-stretch border-0 px-4 text-[10px] leading-none focus:border-0 sm:border-r sm:border-zinc-300;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    max-height: 2.75rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    appearance: none;
+  }
+
+  .trizen-box-inline .trizen-box-action {
+    @apply box-border flex w-full shrink-0 items-center justify-center self-stretch border-0 px-6 sm:w-auto;
+    height: 2.75rem;
+    min-height: 2.75rem;
+    max-height: 2.75rem;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .trizen-box-stack {
@@ -692,7 +764,15 @@ textarea {
 
   .trizen-box-stack .trizen-box-field,
   .trizen-box-stack .trizen-box-action {
-    @apply w-full sm:w-auto;
+    @apply h-11 w-full py-0 sm:w-auto;
+  }
+
+  .trizen-box-stack .trizen-box-field {
+    @apply text-[10px] leading-none;
+  }
+
+  .trizen-box-stack .trizen-box-action {
+    @apply shrink-0;
   }
 
   .trizen-box-label {
@@ -876,28 +956,28 @@ textarea {
   }
 
   .trizen-nav-link {
-    @apply relative z-20 inline-flex items-center justify-center px-2 py-2 text-[9px] font-medium uppercase tracking-[0.22em] text-black rounded-none xl:px-3 xl:text-[10px] xl:tracking-[0.26em];
+    @apply relative z-20 inline-flex items-center justify-center px-2 py-2 text-[9px] font-medium uppercase tracking-[0.22em] text-black transition-colors duration-300 rounded-none xl:px-3 xl:text-[10px] xl:tracking-[0.26em];
     border: none;
   }
 
   .trizen-nav-link::before {
-    content: "< ";
-    opacity: 0;
-    transition: opacity 0.15s ease;
+    content: ">";
+    @apply mr-0 inline-block w-0 overflow-hidden opacity-0 transition-all duration-300;
   }
 
-  .trizen-nav-link::after {
-    content: " >";
-    opacity: 0;
-    transition: opacity 0.15s ease;
+  .trizen-nav-link--mobile {
+    @apply block w-full justify-start py-3 text-left text-[11px] tracking-[0.2em];
   }
 
   @media (hover: hover) and (pointer: fine) {
+    .trizen-nav-link:hover,
+    .trizen-nav-link:focus-visible {
+      @apply text-zinc-700;
+    }
+
     .trizen-nav-link:hover::before,
-    .trizen-nav-link:hover::after,
-    .trizen-nav-link:focus-visible::before,
-    .trizen-nav-link:focus-visible::after {
-      opacity: 1;
+    .trizen-nav-link:focus-visible::before {
+      @apply mr-1 w-auto opacity-100;
     }
   }
 
@@ -1002,7 +1082,7 @@ textarea {
 
   .home-statement-copy {
     @apply mx-auto mt-8 max-w-lg text-sm font-normal normal-case leading-[1.75] tracking-normal text-zinc-900 sm:mt-10 md:max-w-xl md:text-[0.9375rem];
-    font-family: var(--font-sans);
+    font-family: var(--font-body);
   }
 
   .trizen-wh-spec-tag {
@@ -1118,16 +1198,97 @@ textarea {
 
   .trizen-mega-group-title {
     font-family: var(--font-mono);
-    @apply text-[11px] font-light uppercase tracking-[0.22em] text-zinc-900 md:text-xs;
+    @apply text-[10px] font-light uppercase tracking-[0.2em] text-zinc-900 md:text-[11px];
   }
 
   .trizen-mega-link {
-    @apply block py-1.5 text-[11px] font-light uppercase tracking-[0.18em] text-zinc-900 underline-offset-[3px] transition-colors hover:text-black hover:underline md:text-xs;
+    @apply inline-flex items-center py-1 text-[10px] font-light uppercase tracking-[0.16em] text-zinc-900 transition-[color,transform] duration-300 md:text-[11px];
   }
 
   .trizen-mega-link::before {
-    content: "> ";
-    @apply text-zinc-900;
+    content: ">";
+    @apply mr-0 inline-block w-0 overflow-hidden opacity-0 transition-all duration-300;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .trizen-mega-link:hover,
+    .trizen-mega-link:focus-visible {
+      @apply translate-x-0.5 text-black;
+    }
+
+    .trizen-mega-link:hover::before,
+    .trizen-mega-link:focus-visible::before {
+      @apply mr-1.5 w-auto opacity-100;
+    }
+  }
+
+  .trizen-mega-shop {
+    @apply grid items-start gap-10 xl:grid-cols-[auto_minmax(0,1fr)] xl:gap-14;
+  }
+
+  .trizen-mega-explore {
+    @apply flex items-center gap-16 xl:gap-24;
+  }
+
+  .trizen-mega-explore-links {
+    @apply grid gap-1;
+  }
+
+  .trizen-mega-explore-social {
+    @apply gap-2;
+  }
+
+  .trizen-mega-shop-links {
+    @apply grid gap-8 sm:grid-cols-3 sm:gap-10 xl:gap-12;
+  }
+
+  .trizen-mega-shop--mouse-pads .trizen-mega-shop-links {
+    @apply sm:grid-cols-2;
+  }
+
+  .trizen-mega-shop .trizen-mega-group-title {
+    font-family: var(--font-sans);
+    @apply text-[10px] font-bold uppercase tracking-[0.16em] text-zinc-900 md:text-[11px];
+  }
+
+  .trizen-mega-shop .trizen-mega-link {
+    @apply py-0.5 text-[10px] font-normal uppercase tracking-[0.14em] text-zinc-900 md:text-[11px];
+    font-family: var(--font-sans);
+  }
+
+  .trizen-mega-promo-grid {
+    @apply grid gap-3 sm:grid-cols-3 sm:gap-4;
+    grid-template-columns: repeat(3, minmax(0, 11.25rem));
+  }
+
+  .trizen-mega-promo-grid--duo {
+    @apply sm:grid-cols-2;
+    grid-template-columns: repeat(2, minmax(0, 11.25rem));
+  }
+
+  .trizen-mega-promo-item {
+    @apply relative isolate flex aspect-square w-full flex-col justify-between overflow-hidden border border-zinc-800 bg-zinc-900 p-4 transition-[border-color,background-color,transform] duration-300 hover:border-zinc-600 hover:bg-black;
+  }
+
+  .trizen-mega-promo-title {
+    font-family: var(--font-brand);
+    @apply text-left text-[1.05rem] font-light uppercase leading-[1.08] tracking-[0.05em] text-white transition-transform duration-300 group-hover:translate-x-0.5 md:text-[1.125rem];
+  }
+
+  .trizen-mega-promo-desc {
+    font-family: var(--font-body);
+    @apply mt-4 line-clamp-4 text-left text-[10px] font-normal normal-case leading-snug text-white/90 transition-[color,transform] duration-300 group-hover:translate-x-0.5 group-hover:text-white md:text-[11px];
+  }
+
+  .trizen-mega-promo-arrow {
+    font-family: var(--font-mono);
+    @apply absolute bottom-4 right-4 text-sm text-zinc-500 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-white;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .trizen-mega-promo-item:hover {
+      @apply -translate-y-0.5;
+    }
   }
 
   .trizen-mega-gear-grid {
@@ -1232,6 +1393,81 @@ textarea {
     -moz-osx-font-smoothing: auto;
   }
 
+  .home-faq-seo-copy {
+    font-family: var(--font-body);
+    @apply text-sm font-light leading-relaxed text-zinc-900;
+  }
+
+  .home-cta-title {
+    @apply flex flex-col items-center gap-1 text-[clamp(1.75rem,4.5vw,3.25rem)] leading-[1.08];
+  }
+
+  .home-cta-title-line {
+    @apply block tracking-[0.08em];
+  }
+
+  .home-cta-subtitle {
+    font-family: var(--font-body);
+    @apply text-sm font-normal leading-relaxed tracking-normal text-zinc-900 md:text-base;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+
+  .home-newsletter-title {
+    @apply text-[clamp(1.5rem,4vw,2.25rem)] leading-[1.1];
+  }
+
+  .home-newsletter-section {
+    @apply relative isolate overflow-hidden;
+  }
+
+  .home-newsletter-video {
+    @apply absolute inset-0 h-full w-full object-cover;
+  }
+
+  .home-newsletter-content {
+    @apply relative z-10 w-full;
+  }
+
+  .home-newsletter-section .home-newsletter-title {
+    @apply text-white;
+  }
+
+  .home-newsletter-cta {
+    @apply flex justify-center;
+  }
+
+  .home-newsletter-subscribe-btn {
+    @apply min-w-[10rem];
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-newsletter-section {
+      @apply bg-[var(--color-surface)];
+    }
+
+    .home-newsletter-video {
+      @apply hidden;
+    }
+
+    .home-newsletter-section .home-newsletter-icon,
+    .home-newsletter-section .home-newsletter-title {
+      @apply text-zinc-900;
+    }
+  }
+
+  .home-newsletter-form-wrap .trizen-newsletter-inline .trizen-box-field,
+  .home-newsletter-form-wrap .trizen-newsletter-inline .trizen-box-action {
+    @apply text-[10px];
+  }
+
+  .home-newsletter-form-wrap .trizen-newsletter-inline .trizen-box-field {
+    @apply font-normal normal-case tracking-normal leading-none placeholder:text-[10px] placeholder:font-light placeholder:text-zinc-500;
+    font-family: var(--font-body);
+  }
+
   .home-hero-title .home-hero-letter-hollow {
     color: transparent;
     -webkit-text-stroke: 0.035em #18181b;
@@ -1250,6 +1486,54 @@ textarea {
     @apply border-b border-zinc-200 py-5 md:py-6;
   }
 
+  .trizen-divider-list--center .trizen-divider-list-item {
+    @apply text-center;
+  }
+
+  .trizen-divider-list--center .trizen-feature-desc {
+    @apply justify-center;
+  }
+
+  .trizen-divider-list--split {
+    @apply mx-auto w-full max-w-2xl;
+  }
+
+  .trizen-divider-list--split .trizen-divider-list-item {
+    @apply grid gap-3 sm:grid-cols-[minmax(6.5rem,9rem)_minmax(0,1fr)] sm:items-start sm:gap-6 md:gap-10;
+  }
+
+  .trizen-feature-title {
+    @apply text-left text-sm font-light normal-case tracking-normal text-zinc-900 md:text-base;
+  }
+
+  .trizen-divider-list--split .trizen-feature-desc {
+    @apply mt-0 justify-start text-left;
+  }
+
+  .trizen-feature-desc {
+    font-family: var(--font-body);
+    @apply mt-3 inline-flex items-start text-sm font-light leading-relaxed text-zinc-900 transition-[transform] duration-300 md:text-[15px];
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+
+  .trizen-feature-desc::before {
+    content: ">";
+    @apply mr-1.5 inline-block shrink-0 transition-all duration-300;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .trizen-divider-list-item:hover .trizen-feature-desc {
+      @apply translate-x-0.5 text-black;
+    }
+
+    .trizen-divider-list-item:hover .trizen-feature-desc::before {
+      @apply mr-2;
+    }
+  }
+
   .trizen-search-input::-webkit-search-cancel-button,
   .trizen-search-input::-webkit-search-decoration,
   .trizen-search-input::-webkit-search-results-button {
@@ -1259,7 +1543,234 @@ textarea {
   }
 
   .trizen-footer-link {
-    @apply transition-colors duration-300 hover:text-[var(--color-foreground)] hover:translate-x-0.5 inline-block;
+    @apply inline-block font-medium normal-case tracking-normal transition-colors duration-300 hover:text-[var(--color-foreground)] hover:translate-x-0.5;
+    font-family: var(--font-body);
+  }
+
+  .trizen-footer-dark .trizen-footer-nav-list {
+    @apply space-y-2.5 text-sm text-zinc-400;
+    font-family: var(--font-body);
+  }
+
+  .trizen-footer-dark .trizen-footer-nav-list .trizen-footer-link {
+    @apply inline-flex items-center text-zinc-400 transition-[color,transform] duration-300 hover:translate-x-0 hover:text-[var(--color-foreground)];
+  }
+
+  .trizen-footer-dark .trizen-footer-nav-list .trizen-footer-link::before {
+    content: ">";
+    @apply mr-0 inline-block w-0 overflow-hidden opacity-0 transition-all duration-300;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .trizen-footer-dark .trizen-footer-nav-list .trizen-footer-link:hover::before,
+    .trizen-footer-dark .trizen-footer-nav-list .trizen-footer-link:focus-visible::before {
+      @apply mr-1.5 w-auto opacity-100;
+    }
+  }
+
+  .trizen-footer-dark .trizen-footer-link {
+    @apply text-zinc-400;
+  }
+
+  .trizen-footer-dark .trizen-footer-newsletter-copy {
+    @apply mb-4 text-sm font-normal leading-relaxed text-zinc-400;
+    font-family: var(--font-body);
+  }
+
+  .trizen-footer-dark .trizen-footer-newsletter-form .trizen-box-field {
+    @apply text-[10px] font-normal normal-case tracking-normal leading-none placeholder:font-normal placeholder:normal-case placeholder:tracking-normal;
+    font-family: var(--font-body);
+  }
+
+  .trizen-footer-dark .trizen-footer-newsletter-note {
+    font-family: var(--font-body);
+    @apply font-normal text-zinc-500;
+  }
+
+  .trizen-footer-dark .trizen-footer-bottom-copy {
+    font-family: var(--font-body);
+    @apply text-center text-[10px] font-normal normal-case leading-relaxed tracking-normal text-zinc-400 md:text-xs;
+  }
+
+  .trizen-footer-dark .trizen-footer-bottom-copy .trizen-footer-bottom-brand {
+    font-family: var(--font-sans);
+    @apply text-[9px] font-normal uppercase tracking-[0.03em] text-zinc-400 md:text-[10px];
+  }
+
+  .trizen-footer-dark .trizen-footer-bottom-copy .trizen-brand-t,
+  .trizen-footer-dark .trizen-footer-bottom-copy .trizen-brand-rest,
+  .trizen-footer-dark .trizen-footer-bottom-copy .trizen-brand-suffix {
+    font-weight: 400;
+    font-size: 1em;
+    line-height: inherit;
+  }
+
+  .trizen-footer-dark .trizen-footer-bottom-copy .trizen-brand-t {
+    font-size: 1em;
+  }
+
+  .trizen-footer-dark .trizen-footer-bottom-copy .trizen-footer-link {
+    @apply text-[10px] font-normal text-zinc-400 md:text-xs;
+  }
+
+  .trizen-footer-bottom-bar {
+    @apply grid grid-cols-1 items-end gap-4 md:grid-cols-[1fr_auto_1fr] md:gap-6;
+  }
+
+  .trizen-footer-bottom-center {
+    @apply flex flex-col items-center gap-2 md:col-start-2 md:justify-self-center;
+  }
+
+  .trizen-footer-bottom-bar .trizen-footer-bottom-copy {
+    @apply text-center;
+  }
+
+  .trizen-footer-bottom-pay {
+    @apply w-full max-w-none;
+  }
+
+  .trizen-footer-bottom-pay ul {
+    @apply flex-wrap justify-center gap-1;
+  }
+
+  .trizen-footer-bottom-pay li {
+    @apply shrink-0;
+  }
+
+  .trizen-footer-bottom-pay .trizen-pay-with-slot {
+    @apply flex items-center justify-center rounded bg-white px-0.5 py-px;
+    width: 1.875rem;
+    height: 1.25rem;
+  }
+
+  .trizen-footer-bottom-bar .trizen-footer-bottom-social {
+    @apply justify-self-center md:col-start-3 md:justify-self-end;
+  }
+
+  .trizen-footer-mobile {
+    @apply px-4 pb-2 pt-8;
+  }
+
+  .trizen-footer-mobile-verified {
+    @apply mb-2 flex items-center justify-center gap-2.5;
+  }
+
+  .trizen-footer-mobile-verified-text {
+    font-family: var(--font-sans);
+    @apply text-sm font-normal normal-case tracking-normal text-white;
+  }
+
+  .trizen-footer-mobile-verified-mark {
+    @apply flex h-5 w-5 items-center justify-center border border-white text-white;
+  }
+
+  .trizen-footer-mobile-accordion {
+    @apply border-t border-zinc-800;
+  }
+
+  .trizen-footer-mobile-accordion-item {
+    @apply border-b border-zinc-800;
+  }
+
+  .trizen-footer-mobile-accordion-trigger {
+    @apply flex w-full items-center justify-between gap-4 py-4 text-left;
+  }
+
+  .trizen-footer-mobile-accordion-title {
+    font-family: var(--font-brand);
+    @apply text-[1.35rem] font-light uppercase leading-none tracking-[0.04em] text-white;
+  }
+
+  .trizen-footer-mobile-accordion-chevron {
+    @apply h-4 w-4 shrink-0 text-white transition-transform duration-300;
+  }
+
+  .trizen-footer-mobile-accordion-chevron-open {
+    @apply rotate-180;
+  }
+
+  .trizen-footer-mobile-accordion-panel {
+    @apply space-y-3 pb-5;
+    font-family: var(--font-body);
+  }
+
+  .trizen-footer-mobile-link {
+    @apply block text-sm font-normal normal-case tracking-normal text-zinc-400 transition-colors hover:text-white;
+  }
+
+  .trizen-footer-mobile-sandbox {
+    @apply py-10 text-center;
+  }
+
+  .trizen-footer-mobile-sandbox-title {
+    font-family: var(--font-brand);
+    @apply mb-4 text-[1.35rem] font-light uppercase leading-none tracking-[0.04em] text-white;
+  }
+
+  .trizen-footer-mobile-sandbox .trizen-footer-newsletter-copy {
+    @apply mx-auto mb-5 max-w-sm text-sm font-normal normal-case leading-relaxed tracking-normal text-zinc-400;
+  }
+
+  .trizen-footer-mobile-sandbox .trizen-box-stack {
+    @apply mx-auto max-w-md flex-row items-stretch gap-0;
+  }
+
+  .trizen-footer-mobile-sandbox .trizen-box-stack .trizen-box-field,
+  .trizen-footer-mobile-sandbox .trizen-box-stack .trizen-box-action {
+    @apply h-11 min-h-11 w-auto flex-1 py-0;
+  }
+
+  .trizen-footer-mobile-sandbox .trizen-box-stack .trizen-box-action {
+    @apply shrink-0 px-5;
+  }
+
+  .trizen-footer-mobile-sandbox .trizen-footer-newsletter-note {
+    @apply mx-auto max-w-sm text-center text-[10px] font-normal normal-case tracking-normal text-zinc-500;
+  }
+
+  .trizen-footer-mobile-sandbox .trizen-footer-newsletter-note a {
+    @apply text-zinc-400 transition-colors hover:text-white;
+  }
+
+  .trizen-footer-mobile-bottom {
+    @apply flex flex-col items-center gap-6 px-4 py-8;
+  }
+
+  .trizen-footer-mobile-region {
+    font-family: var(--font-brand);
+    @apply inline-flex items-center gap-2 text-[11px] font-light uppercase tracking-[0.14em] text-white;
+  }
+
+  .trizen-footer-mobile-social {
+    @apply gap-3;
+  }
+
+  .trizen-footer-mobile-copy {
+    font-family: var(--font-sans);
+    @apply text-center text-[10px] font-normal normal-case tracking-normal text-zinc-500;
+  }
+
+  .trizen-footer-mobile-copy .trizen-footer-bottom-brand {
+    @apply text-[10px] font-normal uppercase tracking-[0.03em] text-zinc-500;
+  }
+
+  @media (min-width: 768px) {
+    .trizen-footer-bottom-pay .trizen-pay-with-slot {
+      width: 2rem;
+      height: 1.375rem;
+    }
+  }
+
+  .trizen-social-links {
+    @apply gap-2;
+  }
+
+  .trizen-social-link {
+    @apply h-9 w-9;
+  }
+
+  .trizen-social-icon {
+    @apply h-7 w-auto max-w-[1.75rem];
   }
 
   .trizen-footer-contact-icon {
@@ -1274,23 +1785,14 @@ textarea {
     @apply inline-flex shrink-0 items-center justify-center text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-foreground)] leading-none;
   }
 
+  .trizen-pay-with-slot {
+    @apply flex items-center justify-center;
+    width: 1.875rem;
+    height: 1.25rem;
+  }
+
   .trizen-pay-with-logo {
-    @apply mx-auto block h-auto w-full max-h-[1.05rem] object-contain object-center opacity-[0.92] transition-opacity duration-300 hover:opacity-100;
-  }
-
-  @media (min-width: 640px) {
-    .trizen-pay-with-logo {
-      @apply w-auto max-h-[2rem];
-      width: 3.5rem;
-      height: 2rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .trizen-pay-with-logo {
-      width: 4rem;
-      height: 2.25rem;
-    }
+    @apply h-full w-full object-contain object-center opacity-90 transition-opacity duration-300 hover:opacity-100;
   }
 
   .trizen-chat-backdrop {
@@ -1577,7 +2079,15 @@ textarea {
   }
 
   .trizen-wh-review-thumb {
-    @apply relative h-20 w-20 shrink-0 overflow-hidden bg-zinc-100 md:h-24 md:w-24;
+    @apply relative block h-20 w-20 shrink-0 overflow-hidden bg-white md:h-24 md:w-24;
+  }
+
+  .trizen-wh-review-thumb:hover img {
+    @apply scale-[1.03];
+  }
+
+  .trizen-wh-review-thumb img {
+    @apply transition-transform duration-500;
   }
 
   .trizen-wh-review-verified {
@@ -1636,11 +2146,43 @@ textarea {
   }
 
   .trizen-wh-review-product-thumb {
-    @apply relative block h-10 w-10 shrink-0 overflow-hidden bg-white;
+    @apply relative block h-11 w-11 shrink-0 overflow-hidden bg-white md:h-12 md:w-12;
   }
 
   .trizen-wh-review-product-label {
     @apply text-[11px] font-light text-zinc-700;
+  }
+
+  .product-reviews-heading {
+    @apply mb-8 text-center md:mb-10;
+  }
+
+  .product-reviews-section {
+    @apply flex flex-col items-center text-center;
+  }
+
+  .product-reviews-summary {
+    @apply mb-8 flex flex-col items-center gap-2 md:mb-10;
+  }
+
+  .product-reviews-summary-text {
+    @apply text-sm font-light text-zinc-600;
+  }
+
+  .product-reviews-list {
+    @apply w-full border-t border-zinc-200 text-left;
+  }
+
+  .product-reviews-item {
+    @apply border-b border-zinc-200 py-6 md:py-8;
+  }
+
+  .product-reviews-empty {
+    @apply max-w-md text-sm font-light leading-relaxed text-zinc-500;
+  }
+
+  .product-reviews-action {
+    @apply mt-8 md:mt-10;
   }
 
   .trizen-panel {
@@ -1656,11 +2198,7 @@ textarea {
   }
 
   .trizen-desc-carousel-header {
-    @apply flex items-center justify-center gap-4 mb-8;
-  }
-
-  .trizen-desc-carousel-line {
-    @apply h-px w-10 sm:w-16 bg-gradient-to-r from-transparent via-zinc-700 to-transparent;
+    @apply mb-8;
   }
 
   .trizen-desc-carousel-shell {
@@ -1854,6 +2392,7 @@ textarea {
 
   .glide-performance-body {
     @apply mt-3 max-w-md text-sm font-light normal-case leading-relaxed text-white md:mt-4 md:text-[0.9375rem];
+    font-family: var(--font-body);
   }
 
   @media (max-width: 767px) {
@@ -1862,22 +2401,119 @@ textarea {
       line-height: 1.2;
     }
 
-    /* Glide banner — compact mobile type */
-    .glide-performance-block .glide-performance-eyebrow {
-      font-size: 0.5625rem;
-      letter-spacing: 0.24em;
+    .glide-banner-overlay {
+      background: linear-gradient(
+        to top,
+        rgb(0 0 0 / 0.88) 0%,
+        rgb(0 0 0 / 0.52) 42%,
+        rgb(0 0 0 / 0.18) 100%
+      );
     }
 
-    .glide-performance-block .glide-performance-title {
-      margin-top: 0.5rem;
+    /* Glide banner — compact mobile type */
+    .glide-performance-block {
+      @apply space-y-2;
+    }
+
+    .glide-performance-block .glide-performance-eyebrow {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+    }
+
+    .glide-performance-block .glide-performance-title,
+    .glide-animated-title--compact {
+      margin-top: 0;
+      font-size: 1.25rem;
+      line-height: 1.15;
+      letter-spacing: 0.06em;
     }
 
     .glide-performance-block .glide-performance-body {
-      margin-top: 0.75rem;
+      margin-top: 0.625rem;
+      max-width: 16rem;
       font-size: 0.75rem;
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
+    .home-statement-copy {
+      @apply mt-5 max-w-[18rem] text-xs font-light leading-[1.65] text-zinc-600;
+    }
+
+    .our-gears-subtitle {
+      @apply mt-3 max-w-[18rem] text-xs font-light leading-[1.65] text-zinc-600;
+    }
+
+    /* Home FAQ / SEO block — compact mobile type */
+    .home-faq-section .home-faq-seo-title,
+    .home-faq-section .home-faq-list-title {
+      font-size: 1.125rem;
+      line-height: 1.22;
+      letter-spacing: 0.05em;
+    }
+
+    .home-faq-seo-copy {
+      font-family: var(--font-body);
+      @apply mx-auto max-w-[20rem] text-xs font-light leading-[1.65] text-zinc-600 sm:max-w-none sm:text-sm;
+    }
+
+    .home-faq-section .trizen-faq-wh .trizen-faq-trigger {
+      @apply py-4 text-xs;
+    }
+
+    .home-faq-section .trizen-faq-wh .trizen-faq-answer {
+      @apply pr-8 text-xs;
+    }
+
+    .home-faq-see-more-btn {
+      @apply px-4 py-2 text-[9px] tracking-[0.2em];
+    }
+
+    /* Home CTA — 2 lines on mobile, smaller type */
+    .home-cta-title {
+      font-size: clamp(1.125rem, 4.5vw, 1.375rem);
+      line-height: 1.14;
+      letter-spacing: 0.05em;
+    }
+
+    .home-cta-title-line {
+      @apply whitespace-nowrap tracking-[0.05em];
+    }
+
+    .home-cta-subtitle {
+      @apply text-xs;
+    }
+
+    /* Home newsletter — compact mobile */
+    .home-newsletter-title {
+      font-size: 1.125rem;
+      line-height: 1.22;
+      letter-spacing: 0.05em;
+    }
+
+    .home-newsletter-form-wrap .trizen-newsletter-inline {
+      @apply flex-col gap-2 border-0;
+    }
+
+    .home-newsletter-form-wrap .trizen-newsletter-inline .trizen-box-field,
+    .home-newsletter-form-wrap .trizen-newsletter-inline .trizen-box-action {
+      height: 2.5rem;
+      min-height: 2.5rem;
+      max-height: 2.5rem;
+      @apply w-full text-[9px];
+    }
+
+    .home-newsletter-form-wrap .trizen-newsletter-inline .trizen-box-field {
+      @apply border border-zinc-300 font-normal normal-case tracking-normal leading-none placeholder:text-[9px] placeholder:font-light placeholder:text-zinc-500;
+      font-family: var(--font-body);
+    }
+
+    .home-newsletter-form-wrap .trizen-newsletter-inline .trizen-box-action {
+      @apply border-none outline-none ring-0;
+    }
+
+    .home-newsletter-form-wrap form > p {
+      @apply mt-2 text-[9px] leading-relaxed text-white/90;
+    }
   }
 
   @media (min-width: 768px) {
@@ -2033,8 +2669,8 @@ textarea {
   }
 
   .our-gears-subtitle {
-    font-family: var(--font-sans);
-    @apply mx-auto mt-4 max-w-2xl text-sm font-medium normal-case leading-relaxed tracking-[0.04em] text-black md:text-[0.9375rem];
+    font-family: var(--font-body);
+    @apply mx-auto mt-4 max-w-2xl text-sm font-normal normal-case leading-relaxed tracking-normal text-zinc-700 md:text-[0.9375rem];
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -2588,7 +3224,45 @@ textarea {
 /* Checkout — Shopify-style split layout */
 .checkout-page {
   @apply overflow-x-hidden text-zinc-900;
+  font-family: var(--font-body);
   letter-spacing: normal;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes checkout-autofill-start {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.checkout-email-guest-input:-webkit-autofill,
+.checkout-email-guest-input:-webkit-autofill:hover,
+.checkout-email-guest-input:-webkit-autofill:focus,
+.checkout-email-guest-input:-webkit-autofill:active,
+.checkout-field-input:-webkit-autofill,
+.checkout-field-input:-webkit-autofill:hover,
+.checkout-field-input:-webkit-autofill:focus,
+.checkout-field-input:-webkit-autofill:active,
+.checkout-phone-input:-webkit-autofill,
+.checkout-phone-input:-webkit-autofill:hover,
+.checkout-phone-input:-webkit-autofill:focus,
+.checkout-phone-input:-webkit-autofill:active,
+.checkout-promo-input:-webkit-autofill,
+.checkout-promo-input:-webkit-autofill:hover,
+.checkout-promo-input:-webkit-autofill:focus,
+.checkout-promo-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #18181b !important;
+  caret-color: #18181b;
+  animation-name: checkout-autofill-start;
+  animation-duration: 0.01s;
+  transition: background-color 99999s ease-out 0s;
 }
 
 .checkout-email-verify {
@@ -2616,13 +3290,13 @@ textarea {
 }
 
 .checkout-email-continue-btn {
-  @apply relative isolate inline-flex shrink-0 items-center justify-center overflow-hidden border border-zinc-900 bg-zinc-900 px-6 py-3.5 text-[10px] font-bold uppercase tracking-[0.22em] text-white transition-colors hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60 rounded-none w-full mt-2;
-  font-family: var(--font-sans);
+  @apply relative isolate inline-flex shrink-0 items-center justify-center overflow-hidden border border-zinc-900 bg-zinc-900 px-6 py-3.5 text-sm font-semibold normal-case tracking-normal text-white transition-colors hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60 rounded-none w-full mt-2;
+  font-family: var(--font-body);
 }
 
 .checkout-email-guest-input {
-  @apply w-full border border-zinc-300 bg-white px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-900 outline-none transition placeholder:uppercase placeholder:tracking-[0.16em] placeholder:text-zinc-400 focus:border-zinc-900 rounded-none text-center normal-case tracking-normal placeholder:uppercase;
-  font-family: var(--font-sans);
+  @apply w-full border border-zinc-300 bg-white px-4 py-3.5 text-sm font-normal text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 rounded-none text-center normal-case tracking-normal;
+  font-family: var(--font-body);
 }
 
 .checkout-email-confirm-alt {
@@ -2634,11 +3308,13 @@ textarea {
 }
 
 .checkout-email-verify-footer {
-  @apply mt-auto w-full justify-center px-1 pb-2 pt-10 text-center uppercase tracking-wide sm:pb-4 lg:ml-auto lg:mr-0 lg:max-w-[min(560px,calc(50vw-2.5rem))];
+  @apply mt-auto w-full justify-center px-1 pb-2 pt-10 text-center normal-case tracking-normal sm:pb-4 lg:ml-auto lg:mr-0 lg:max-w-[min(560px,calc(50vw-2.5rem))];
+  font-family: var(--font-body);
 }
 
 .checkout-email-verify-title {
   @apply w-full text-[1.625rem] font-semibold leading-tight tracking-tight text-zinc-900 sm:text-[1.75rem];
+  font-family: var(--font-body);
 }
 
 .checkout-email-verify-subtitle {
@@ -2667,7 +3343,7 @@ textarea {
 
 .checkout-email-verify-digit {
   @apply h-11 w-11 shrink-0 border border-zinc-300 bg-white p-0 text-center text-base font-semibold text-zinc-900 outline-none transition rounded-none sm:h-11 sm:w-11;
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
 }
 
 .checkout-email-verify-digit:focus {
@@ -2834,8 +3510,8 @@ textarea {
 }
 
 .checkout-variant-select-input {
-  @apply w-full border border-zinc-300 bg-white px-4 py-2.5 pl-3 pr-9 text-[11px] font-semibold uppercase tracking-[0.16em] text-zinc-900 outline-none transition placeholder:uppercase placeholder:tracking-[0.16em] placeholder:text-zinc-400 focus:border-zinc-900 rounded-none appearance-none normal-case tracking-normal;
-  font-family: var(--font-sans);
+  @apply w-full border border-zinc-300 bg-white px-4 py-2.5 pl-3 pr-9 text-sm font-normal text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 rounded-none appearance-none normal-case tracking-normal;
+  font-family: var(--font-body);
 }
 
 .checkout-variant-select-icon {
@@ -2918,6 +3594,22 @@ textarea {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.checkout-brand-wordmark .trizen-brand-name {
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+}
+
+.checkout-brand-wordmark .trizen-brand-t {
+  font-size: 1.15em;
+  line-height: 0.92;
+}
+
+.checkout-brand-wordmark .trizen-brand-rest {
+  font-size: 0.82em;
+  line-height: 1;
+}
+
 .checkout-header-cart {
   @apply shrink-0 text-zinc-900 transition hover:text-zinc-600;
 }
@@ -2944,6 +3636,29 @@ textarea {
 
 .checkout-sidebar-items {
   @apply space-y-4;
+}
+
+.checkout-promo {
+  @apply mt-4 border-t border-zinc-200 pt-4;
+}
+
+.checkout-promo-row {
+  @apply flex items-stretch gap-2;
+}
+
+.checkout-promo-input {
+  @apply min-w-0 flex-1 border border-zinc-300 bg-white px-3.5 py-2.5 text-sm font-normal text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 rounded-none normal-case tracking-normal;
+  font-family: var(--font-body);
+}
+
+.checkout-promo-apply {
+  @apply shrink-0 border border-zinc-300 bg-zinc-100 px-4 py-2.5 text-sm font-normal text-zinc-700 transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:opacity-50 rounded-none;
+  font-family: var(--font-body);
+}
+
+.checkout-promo-error {
+  @apply mt-2 text-xs text-red-600;
+  font-family: var(--font-body);
 }
 
 .checkout-sidebar-item {
@@ -2976,13 +3691,12 @@ textarea {
 
 .checkout-sidebar-total-label,
 .checkout-sidebar-total-amount {
-  @apply text-xl font-black text-black;
-  -webkit-text-stroke: 0.025em currentColor;
-  paint-order: stroke fill;
+  @apply text-2xl font-extrabold text-black;
+  font-family: var(--font-body);
 }
 
 .checkout-sidebar-total-currency {
-  @apply text-xs font-normal text-zinc-500;
+  @apply text-sm font-semibold text-zinc-600;
 }
 
 .checkout-section {
@@ -2994,7 +3708,8 @@ textarea {
 }
 
 .checkout-section-title {
-  @apply text-lg font-semibold text-zinc-900;
+  @apply text-lg font-semibold tracking-tight text-zinc-900;
+  font-family: var(--font-body);
 }
 
 .checkout-section-subtitle {
@@ -3010,8 +3725,8 @@ textarea {
 }
 
 .checkout-field-input {
-  @apply w-full border border-zinc-300 bg-white px-4 py-3.5 text-sm text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 rounded-none normal-case tracking-normal placeholder:normal-case placeholder:tracking-normal focus:placeholder:text-transparent;
-  font-family: var(--font-sans);
+  @apply w-full border border-zinc-300 bg-white px-4 py-3.5 text-sm font-normal text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 rounded-none normal-case tracking-normal placeholder:normal-case placeholder:tracking-normal focus:placeholder:text-transparent;
+  font-family: var(--font-body);
 }
 
 .checkout-field-input--invalid {
@@ -3031,8 +3746,8 @@ textarea {
 }
 
 .checkout-phone-prefix {
-  @apply flex shrink-0 items-center gap-2 border-r border-zinc-300 bg-zinc-50 px-3 py-3.5 text-sm font-medium text-zinc-700 tabular-nums;
-  font-family: var(--font-sans);
+  @apply flex shrink-0 items-center gap-2 border-r border-zinc-300 bg-zinc-50 px-3 py-3.5 text-sm font-normal text-zinc-700 tabular-nums;
+  font-family: var(--font-body);
 }
 
 .checkout-phone-flag {
@@ -3040,8 +3755,8 @@ textarea {
 }
 
 .checkout-phone-input {
-  @apply min-w-0 flex-1 border-0 bg-transparent px-4 py-3.5 text-sm text-zinc-900 outline-none placeholder:text-zinc-400 focus:placeholder:text-transparent;
-  font-family: var(--font-sans);
+  @apply min-w-0 flex-1 border-0 bg-transparent px-4 py-3.5 text-sm font-normal text-zinc-900 outline-none placeholder:text-xs placeholder:font-light placeholder:text-zinc-400 focus:placeholder:text-transparent;
+  font-family: var(--font-body);
 }
 
 .checkout-field-select {
@@ -3075,11 +3790,12 @@ textarea {
 
 .checkout-submit-btn {
   @apply relative isolate inline-flex shrink-0 items-center justify-center overflow-hidden border border-zinc-900 bg-zinc-900 px-6 py-4 text-sm font-semibold text-white transition-colors hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60 rounded-none w-full normal-case tracking-normal;
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
 }
 
 .checkout-footer-links {
-  @apply flex flex-wrap justify-center gap-x-4 gap-y-2 pt-2 text-xs uppercase tracking-wide text-zinc-500;
+  @apply flex flex-wrap justify-center gap-x-4 gap-y-2 pt-2 text-xs normal-case tracking-normal text-zinc-500;
+  font-family: var(--font-body);
 }
 
 .checkout-footer-link {
@@ -3190,6 +3906,156 @@ textarea {
   @apply block py-2 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-700 transition-colors hover:text-zinc-900;
 }
 
+/* Mobile nav — full-screen drawer (mobile), Wallhack-style */
+.mobile-nav-drawer-root {
+  @apply fixed inset-0 z-[55] lg:hidden;
+}
+
+.mobile-nav-drawer-backdrop {
+  @apply absolute inset-0 bg-black/45 backdrop-blur-[12px];
+}
+
+.mobile-nav-drawer-panel {
+  @apply fixed inset-0 flex w-full flex-col bg-white;
+  animation: mobile-nav-drawer-in 0.28s ease-out;
+}
+
+@keyframes mobile-nav-drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.mobile-nav-drawer-body {
+  @apply flex min-h-0 flex-1 flex-col overflow-y-auto px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-[calc(3.5rem+env(safe-area-inset-top))];
+}
+
+.mobile-nav-drawer-primary {
+  @apply space-y-1;
+}
+
+.mobile-nav-drawer-primary-link {
+  font-family: var(--font-brand);
+  @apply relative isolate inline-flex w-full items-center overflow-hidden border-0 bg-transparent py-3 text-left text-[1.35rem] font-light uppercase leading-none tracking-[0.04em] text-zinc-900 transition-[color,transform] duration-300;
+}
+
+.mobile-nav-drawer-primary-link::before {
+  content: ">";
+  font-family: var(--font-mono);
+  @apply mr-0 inline-block w-0 overflow-hidden opacity-0 transition-all duration-300;
+}
+
+.mobile-nav-drawer-primary-link:active {
+  @apply translate-x-0.5 text-black;
+}
+
+.mobile-nav-drawer-primary-link:active::before {
+  @apply mr-1.5 w-auto opacity-100;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mobile-nav-drawer-primary-link:hover,
+  .mobile-nav-drawer-primary-link:focus-visible {
+    @apply translate-x-0.5 text-black;
+  }
+
+  .mobile-nav-drawer-primary-link:hover::before,
+  .mobile-nav-drawer-primary-link:focus-visible::before {
+    @apply mr-1.5 w-auto opacity-100;
+  }
+}
+
+.mobile-nav-drawer-divider {
+  @apply my-5 border-t border-zinc-200;
+}
+
+.mobile-nav-drawer-secondary {
+  @apply space-y-3;
+}
+
+.mobile-nav-drawer-secondary-link {
+  font-family: var(--font-sans);
+  @apply block text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-900 transition hover:text-zinc-600;
+}
+
+.mobile-nav-drawer-footer {
+  @apply mt-auto;
+}
+
+.mobile-nav-drawer-social-wrap {
+  @apply mt-6 shrink-0;
+}
+
+.mobile-nav-drawer-social {
+  @apply flex items-center gap-3;
+}
+
+.mobile-nav-drawer-social .trizen-social-link {
+  @apply h-8 w-8;
+}
+
+.mobile-nav-drawer-social .trizen-social-icon,
+.mobile-nav-drawer-social img {
+  height: 1.25rem !important;
+  width: 1.25rem !important;
+  max-height: 1.25rem !important;
+  max-width: 1.25rem !important;
+}
+
+.mobile-nav-drawer-meta {
+  @apply space-y-4 border-t border-zinc-200 pt-5;
+}
+
+.mobile-nav-drawer-region {
+  font-family: var(--font-sans);
+  @apply flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-600;
+}
+
+.mobile-nav-drawer-account {
+  font-family: var(--font-sans);
+  @apply inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-900 transition hover:text-zinc-600;
+}
+
+.mobile-nav-drawer-back {
+  font-family: var(--font-sans);
+  @apply mb-5 inline-flex items-center justify-center rounded-xl border-0 bg-[#FFD324] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-black transition hover:brightness-95 active:brightness-90;
+}
+
+.mobile-nav-drawer-sub {
+  @apply space-y-8;
+}
+
+.mobile-nav-drawer-sub-group + .mobile-nav-drawer-sub-group {
+  @apply pt-2;
+}
+
+.mobile-nav-drawer-sub-heading {
+  font-family: var(--font-sans);
+  @apply mb-4 text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-900;
+}
+
+.mobile-nav-drawer-sub-list {
+  @apply space-y-3;
+}
+
+.mobile-nav-drawer-sub-link {
+  font-family: var(--font-sans);
+  @apply inline-flex items-center text-sm font-normal normal-case tracking-normal text-zinc-900 transition-[color,transform] duration-300;
+}
+
+.mobile-nav-drawer-sub-link::before {
+  content: ">";
+  font-family: var(--font-mono);
+  @apply mr-2 inline-block text-zinc-900;
+}
+
+.mobile-nav-drawer-sub-link:active {
+  @apply translate-x-0.5 text-black;
+}
+
 /* Guest newsletter popup — TRIZEN dark modal */
 .newsletter-popup-root {
   @apply fixed inset-0 z-[9995] flex items-center justify-center p-4 sm:p-6;
@@ -3200,7 +4066,7 @@ textarea {
 }
 
 .newsletter-popup-panel {
-  @apply relative z-[1] w-full max-w-md overflow-hidden border border-zinc-800 bg-black px-6 py-8 sm:px-8 sm:py-10;
+  @apply relative z-[1] w-full max-w-md overflow-hidden bg-black px-6 py-8 sm:px-8 sm:py-10;
 }
 
 .newsletter-popup-close {
@@ -3223,6 +4089,15 @@ textarea {
 
 .newsletter-popup-form {
   @apply relative z-[1] mt-7 space-y-2;
+  color-scheme: dark;
+}
+
+@keyframes newsletter-popup-autofill-start {
+  from,
+  to {
+    background-color: #18181b;
+    color: #ffffff;
+  }
 }
 
 .newsletter-popup-input {
@@ -3230,8 +4105,31 @@ textarea {
   font-family: var(--font-sans);
 }
 
+.newsletter-popup-input:-webkit-autofill,
+.newsletter-popup-input:-webkit-autofill:hover,
+.newsletter-popup-input:-webkit-autofill:focus,
+.newsletter-popup-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #18181b inset !important;
+  box-shadow: 0 0 0 1000px #18181b inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  border-color: #3f3f46 !important;
+  background-color: #18181b !important;
+  animation-name: newsletter-popup-autofill-start;
+  animation-duration: 0.01s;
+  transition: background-color 99999s ease-out 0s;
+}
+
+.newsletter-popup-input:autofill {
+  box-shadow: 0 0 0 1000px #18181b inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  border-color: #3f3f46 !important;
+  background-color: #18181b !important;
+}
+
 .newsletter-popup-submit {
-  @apply relative isolate w-full overflow-hidden border border-white bg-white px-6 py-3.5 text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-900 disabled:cursor-not-allowed disabled:opacity-60 rounded-none;
+  @apply relative isolate w-full overflow-hidden rounded-none border border-white bg-white px-6 py-3.5 text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-900 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60;
   font-family: var(--font-sans);
 }
 
@@ -3340,6 +4238,91 @@ textarea {
 
 .notify-drawer-success {
   @apply flex flex-1 flex-col justify-center text-center;
+}
+
+/* Product review write modal */
+.review-modal-root {
+  @apply fixed inset-0 z-[9995] flex items-center justify-center p-4 sm:p-6;
+}
+
+.review-modal-backdrop {
+  @apply absolute inset-0 bg-black/45 backdrop-blur-[4px];
+}
+
+.review-modal-panel {
+  @apply relative z-[1] flex max-h-[min(92vh,720px)] w-full max-w-md flex-col overflow-y-auto border border-zinc-200 bg-white px-5 py-6 sm:px-7 sm:py-8;
+  animation: cart-drawer-in 0.24s ease-out;
+}
+
+.review-modal-close {
+  @apply absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center text-zinc-600 transition hover:bg-zinc-100 hover:text-black;
+}
+
+.review-modal-product {
+  @apply mb-6 flex items-center gap-4 border-b border-zinc-200 pb-6 pr-8 text-left;
+}
+
+.review-modal-product-thumb {
+  @apply relative block h-20 w-20 shrink-0 sm:h-24 sm:w-24;
+}
+
+.review-modal-product-kicker {
+  @apply text-[10px] font-light uppercase tracking-[0.18em] text-zinc-500;
+  font-family: var(--font-mono);
+}
+
+.review-modal-product-name {
+  font-family: var(--font-brand);
+  @apply mt-1 text-sm font-normal uppercase leading-tight tracking-[0.06em] text-black sm:text-base;
+  font-synthesis: none;
+}
+
+.review-modal-copy {
+  @apply text-left text-sm font-light leading-relaxed text-zinc-600;
+}
+
+.review-modal-form {
+  @apply flex flex-col gap-4 text-left;
+}
+
+.review-modal-field {
+  @apply block;
+}
+
+.review-modal-field-label {
+  @apply mb-2 block text-[10px] font-light uppercase tracking-[0.18em] text-zinc-500;
+  font-family: var(--font-mono);
+}
+
+.review-modal-input,
+.review-modal-textarea {
+  @apply w-full border border-zinc-300 bg-white px-4 py-3 text-sm font-normal normal-case tracking-normal text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-zinc-900 rounded-none;
+  font-family: var(--font-body);
+}
+
+.review-modal-textarea {
+  @apply min-h-[7rem] resize-y leading-relaxed;
+}
+
+.review-modal-error {
+  @apply text-left text-xs text-red-600;
+}
+
+.review-modal-footnote {
+  @apply text-left text-xs font-light leading-relaxed text-zinc-500;
+}
+
+.review-modal-success {
+  @apply text-left;
+}
+
+.review-modal-success-title {
+  font-family: var(--font-brand);
+  @apply text-base font-normal uppercase tracking-[0.08em] text-black;
+}
+
+.review-modal-verify {
+  @apply text-left;
 }
 
 .auth-wallhack-page {
@@ -3616,7 +4599,7 @@ textarea {
 }
 
 .cart-panel-title {
-  @apply flex items-center justify-center gap-1.5 text-center text-[11px] font-normal uppercase tracking-[0.14em] text-zinc-500;
+  @apply flex items-center justify-center gap-2.5 text-center text-[11px] font-medium uppercase tracking-[0.14em] text-zinc-800;
   font-family: var(--font-sans);
 }
 
@@ -3667,10 +4650,12 @@ textarea {
 }
 
 .cart-panel-item-name {
+  font-family: var(--font-sans);
   @apply min-w-0 flex-1 text-sm font-medium leading-snug text-zinc-900;
 }
 
 .cart-panel-item-price {
+  font-family: var(--font-sans);
   @apply shrink-0 text-sm font-semibold tabular-nums text-zinc-900;
 }
 
@@ -3687,6 +4672,7 @@ textarea {
 }
 
 .cart-panel-qty-value {
+  font-family: var(--font-sans);
   @apply min-w-[2rem] border-x border-zinc-300 px-2 text-center text-sm font-medium tabular-nums;
 }
 
@@ -3699,6 +4685,7 @@ textarea {
 }
 
 .cart-panel-total-row {
+  font-family: var(--font-sans);
   @apply flex items-center justify-between text-sm;
 }
 
@@ -3711,11 +4698,155 @@ textarea {
 }
 
 .cart-panel-note {
-  @apply text-xs text-zinc-500;
+  font-family: var(--font-sans);
+  @apply text-xs font-normal text-zinc-500;
 }
 
 .cart-panel-continue {
-  @apply block w-full pt-1 text-center text-xs uppercase tracking-wide text-zinc-500 transition hover:text-zinc-800;
+  font-family: var(--font-sans);
+  @apply block w-full pt-1 text-center text-xs font-medium uppercase tracking-wide text-zinc-500 transition hover:text-zinc-800;
+}
+
+.cart-upsell {
+  @apply shrink-0 border-t border-zinc-200 px-4 py-4 sm:px-5;
+}
+
+.cart-upsell-header {
+  @apply mb-3 flex items-center justify-between gap-3;
+}
+
+.cart-upsell-title {
+  font-family: var(--font-sans);
+  @apply text-[10px] font-semibold uppercase tracking-[0.2em] text-zinc-900;
+}
+
+.cart-upsell-nav {
+  @apply flex shrink-0 items-center gap-1.5;
+}
+
+.cart-upsell-nav-btn {
+  @apply flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300 text-zinc-700 transition hover:border-zinc-900 hover:text-zinc-900;
+}
+
+.cart-upsell-track {
+  @apply flex gap-2.5 overflow-x-auto pb-1;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.cart-upsell-track::-webkit-scrollbar {
+  display: none;
+}
+
+.cart-upsell-card {
+  @apply flex min-w-[calc(50%-0.3125rem)] shrink-0 snap-start gap-2.5 bg-zinc-100 p-2.5 sm:min-w-[11.5rem];
+}
+
+.cart-upsell-card-thumb {
+  @apply relative h-[4.25rem] w-[4.25rem] shrink-0 overflow-hidden bg-white;
+}
+
+.cart-upsell-card-body {
+  @apply flex min-w-0 flex-1 flex-col justify-center;
+}
+
+.cart-upsell-card-name {
+  font-family: var(--font-sans);
+  @apply line-clamp-2 text-[10px] font-semibold uppercase leading-snug tracking-[0.04em] text-zinc-900;
+}
+
+.cart-upsell-card-price {
+  font-family: var(--font-sans);
+  @apply mt-1 text-[11px] font-medium tabular-nums text-zinc-900;
+}
+
+.cart-upsell-card-add {
+  font-family: var(--font-sans);
+  @apply mt-1.5 w-fit text-left text-[9px] font-semibold uppercase tracking-[0.14em] text-zinc-900 underline underline-offset-2 transition hover:text-zinc-600 disabled:cursor-default disabled:opacity-60;
+}
+
+@media (max-width: 767px) {
+  .cart-panel-header {
+    @apply px-3 py-3;
+  }
+
+  .cart-panel-close,
+  .cart-panel-header-spacer {
+    @apply h-8 w-8;
+  }
+
+  .cart-panel-title {
+    @apply gap-1 text-[10px] tracking-[0.12em];
+  }
+
+  .cart-panel-body {
+    @apply px-3 py-3;
+  }
+
+  .cart-upsell {
+    @apply px-3 py-3.5;
+  }
+
+  .cart-panel-items {
+    @apply space-y-3;
+  }
+
+  .cart-panel-item {
+    @apply gap-2.5 pb-3;
+  }
+
+  .cart-panel-item-thumb {
+    @apply h-14 w-14;
+  }
+
+  .cart-panel-item-name {
+    @apply text-xs leading-snug;
+  }
+
+  .cart-panel-item-price {
+    @apply text-xs;
+  }
+
+  .cart-panel-item-actions {
+    @apply mt-2;
+  }
+
+  .cart-panel-qty-btn {
+    @apply h-7 w-7;
+  }
+
+  .cart-panel-qty-value {
+    @apply min-w-[1.75rem] px-1.5 text-xs;
+  }
+
+  .cart-panel-footer {
+    @apply space-y-2 px-3 py-3.5;
+  }
+
+  .cart-panel-total-row {
+    @apply text-xs;
+  }
+
+  .cart-panel-total-label {
+    @apply font-medium tracking-wide;
+  }
+
+  .cart-panel-total-value {
+    @apply text-sm font-semibold;
+  }
+
+  .cart-panel-note {
+    @apply text-[10px] leading-snug;
+  }
+
+  .cart-panel-footer .trizen-box-action {
+    @apply py-2.5 text-[9px] tracking-[0.16em];
+  }
+
+  .cart-panel-continue {
+    @apply pt-0 text-[10px];
+  }
 }
 
 @media print {

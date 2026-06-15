@@ -88,10 +88,27 @@ export async function getCheckoutUpsells(
       return { p, rank: idx };
     })
     .filter(({ rank }) => rank !== -1)
-    .sort((a, b) => a.rank - b.rank)
-    .slice(0, limit);
+    .sort((a, b) => a.rank - b.rank);
 
-  return ranked.map(({ p }) => ({
+  const rankedIds = new Set(ranked.map(({ p }) => p.id));
+  const fallback = candidates
+    .filter((p) => {
+      if (rankedIds.has(p.id)) return false;
+      if (isUpcoming(p.tag) || !shouldShowProductPrice(p.tag)) return false;
+      return true;
+    })
+    .map((p) => ({ p, rank: 999 }));
+
+  let pool = [...ranked, ...fallback].slice(0, limit);
+
+  if (pool.length === 0) {
+    pool = candidates
+      .filter((p) => !isUpcoming(p.tag) && shouldShowProductPrice(p.tag))
+      .map((p) => ({ p, rank: 999 }))
+      .slice(0, limit);
+  }
+
+  return pool.map(({ p }) => ({
     id: p.id,
     name: p.name,
     slug: p.slug,

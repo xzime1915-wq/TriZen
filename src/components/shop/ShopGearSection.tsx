@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ShopProductCard } from "./ShopProductCard";
+import { ShopGearEmptyState } from "./ShopGearEmptyState";
 import { SHOP_GEAR_COPY } from "@/lib/shop-gears";
 import type { ShopGearLine } from "@/lib/shop-gears";
 
@@ -80,9 +81,7 @@ export function ShopGearSection({
             ))}
           </div>
         ) : (
-          <p className="py-10 text-center trizen-wh-hero-eyebrow text-zinc-500 md:py-14">
-            Products launching soon
-          </p>
+          <ShopGearEmptyState gear={gear} title={copy.title} compact />
         )}
       </div>
       </div>

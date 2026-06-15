@@ -41,7 +41,8 @@ export default function ContactPage() {
       <PageHero
         eyebrow="Support"
         title="Contact us"
-        description="Questions about TRIPAD, orders, or shipping — we're here to help."
+        description="Questions about TRIPAD, orders, or shipping. We're here to help."
+        hideBottomLine
       />
 
       <section>
@@ -88,9 +89,9 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <h2 className="trizen-wh-section-label mb-2">Send a message</h2>
-                <Input label="Name" required />
-                <Input label="Email" type="email" required />
-                <Textarea label="Message" required />
+                <Input placeholder="Name" required />
+                <Input placeholder="Email" type="email" required />
+                <Textarea placeholder="Message" required />
                 <Button type="submit" className="auth-wallhack-submit w-full" size="lg">
                   Send message
                 </Button>

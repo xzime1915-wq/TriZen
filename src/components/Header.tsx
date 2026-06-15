@@ -4,24 +4,27 @@ import Link from "next/link";
 import { TrizenLogo } from "@/components/TrizenLogo";
 import { SearchDrawer } from "@/components/SearchDrawer";
 import { usePathname, useSearchParams } from "next/navigation";
-import { ShoppingCart, Menu, X, Search, User, MessageCircle } from "lucide-react";
-import { useChatStore } from "@/lib/chat-store";
+import { Menu, X, Search, User } from "lucide-react";
+import { TrizenCartIcon } from "@/components/TrizenCartIcon";
 import { useState, useEffect, useRef } from "react";
 import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
 import { useTrackOrderUi } from "@/lib/track-order-ui-store";
 import { cn } from "@/lib/utils";
 import { ChatHeaderButton } from "@/components/chat/ChatHeaderButton";
-import { MegaMenuGearCard } from "@/components/MegaMenuGearCard";
+import { MegaMenuPromoCard } from "@/components/MegaMenuPromoCard";
+import { MobileNavDrawer } from "@/components/MobileNavDrawer";
+import { SocialLinks } from "@/components/SocialLinks";
 import {
   EXPLORE_LINKS,
   HEADER_NAV,
-  MOUSE_PAD_GROUPS,
+  MOUSE_PAD_MEGA_GROUPS,
+  MOUSE_PAD_MEGA_PROMOS,
   SHOP_MEGA_GROUPS,
+  SHOP_MEGA_PROMOS,
   type HeaderMegaKey,
   type HeaderNavItem,
 } from "@/lib/nav-config";
-import { OUR_GEARS } from "@/lib/our-gears";
 
 type HeaderUser = { name: string | null; email: string } | null;
 
@@ -39,32 +42,23 @@ function isNavActive(
     return (
       gear === "glass-mouse-pad" ||
       gear === "soft-mouse-pad" ||
-      (pathname.startsWith("/product/") &&
-        (pathname.includes("tripad") || pathname.includes("soft")))
+      (pathname.startsWith("/product/") && pathname.includes("tripad"))
     );
   }
 
   if (mega === "shop") {
-    return pathname === "/shop" && !gear;
+    if (gear === "glass-mouse-pad" || gear === "soft-mouse-pad") {
+      return false;
+    }
+    if (pathname.startsWith("/product/") && pathname.includes("tripad")) {
+      return false;
+    }
+    return pathname === "/shop" || pathname.startsWith("/shop?");
   }
 
   if (mega === "explore") {
     return ["/about", "/blog", "/contact"].some(
       (p) => pathname === p || pathname.startsWith(`${p}/`),
-    );
-  }
-
-  if (item.href.includes("gear=skates")) {
-    return (
-      gear === "skates" ||
-      (pathname.startsWith("/product/") && pathname.includes("skate"))
-    );
-  }
-
-  if (item.href.includes("gear=hand-sleeves")) {
-    return (
-      gear === "hand-sleeves" ||
-      (pathname.startsWith("/product/") && pathname.includes("sleeve"))
     );
   }
 
@@ -75,8 +69,6 @@ function isNavActive(
   return pathname === item.href || pathname.startsWith(`${item.href}/`);
 }
 
-const MOUSE_PAD_GEAR_IDS = ["glass-mouse-pad", "soft-mouse-pad"] as const;
-
 function CartCountBadge({ count }: { count: number }) {
   if (count <= 0) return null;
 
@@ -84,36 +76,6 @@ function CartCountBadge({ count }: { count: number }) {
     <span className="absolute -right-0.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[9px] font-bold leading-none text-white ring-2 ring-white">
       {count > 99 ? "99+" : count}
     </span>
-  );
-}
-
-function MegaGearGrid({
-  gearIds,
-  onNavigate,
-  wide,
-}: {
-  gearIds: readonly string[];
-  onNavigate: () => void;
-  wide?: boolean;
-}) {
-  const gears = OUR_GEARS.filter((gear) => gearIds.includes(gear.id));
-
-  return (
-    <div
-      className={cn(
-        "trizen-mega-gear-grid",
-        wide && "trizen-mega-gear-grid--wide",
-      )}
-    >
-      {gears.map((gear, index) => (
-        <MegaMenuGearCard
-          key={gear.id}
-          gear={gear}
-          priority={index === 0}
-          onNavigate={onNavigate}
-        />
-      ))}
-    </div>
   );
 }
 
@@ -151,6 +113,12 @@ export function Header({ user = null }: { user?: HeaderUser }) {
   }, []);
 
   useEffect(() => {
+    if (open || searchOpen) {
+      setHeaderHidden(false);
+    }
+  }, [open, searchOpen]);
+
+  useEffect(() => {
     const headerHeight = 72;
 
     function onScroll() {
@@ -180,27 +148,25 @@ export function Header({ user = null }: { user?: HeaderUser }) {
     return null;
   }
 
-  const authLinks = user
-    ? [{ href: "/account", label: user.name || "Account" }]
-    : [
-        { href: "/sign-in", label: "Sign In" },
-        { href: "/register", label: "Register" },
-      ];
-
   return (
     <>
       <header
         ref={headerRef}
         className={cn(
-          "sticky top-0 z-50 bg-white transition-transform duration-300 ease-in-out motion-reduce:transition-none",
-          headerHidden && "-translate-y-full",
+          "top-0 bg-white transition-transform duration-300 ease-in-out motion-reduce:transition-none",
+          open ? "fixed inset-x-0 z-[60] lg:sticky lg:z-50" : "sticky z-50",
+          headerHidden && !open && !searchOpen && "-translate-y-full",
         )}
       >
         <div className="container-trizen-full relative flex h-14 items-center justify-between gap-4 lg:h-16">
           <button
             type="button"
             className="flex h-9 w-9 shrink-0 items-center justify-center text-zinc-900 transition-colors hover:text-zinc-600 lg:hidden"
-            onClick={() => setOpen(!open)}
+            onClick={() => {
+              setMegaOpen(null);
+              setHeaderHidden(false);
+              setOpen((value) => !value);
+            }}
             aria-label="Menu"
             aria-expanded={open}
           >
@@ -323,7 +289,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
                 className="trizen-header-icon relative"
                 aria-label={`Cart${mounted && totalItems > 0 ? `, ${totalItems} items` : ""}`}
               >
-                <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
+                <TrizenCartIcon className={iconClass} strokeWidth={iconStroke} />
                 {mounted ? <CartCountBadge count={totalItems} /> : null}
               </button>
             </div>
@@ -343,7 +309,7 @@ export function Header({ user = null }: { user?: HeaderUser }) {
                 className="trizen-header-icon relative"
                 aria-label={`Cart${mounted && totalItems > 0 ? `, ${totalItems} items` : ""}`}
               >
-                <ShoppingCart className={iconClass} strokeWidth={iconStroke} />
+                <TrizenCartIcon className={iconClass} strokeWidth={iconStroke} />
                 {mounted ? <CartCountBadge count={totalItems} /> : null}
               </button>
             </div>
@@ -357,16 +323,16 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           >
             <div className="container-trizen-full py-8">
               {megaOpen === "shop" ? (
-                <div className="grid gap-10 lg:grid-cols-[minmax(0,280px)_1fr]">
-                  <div className="space-y-8">
+                <div className="trizen-mega-shop">
+                  <div className="trizen-mega-shop-links">
                     {SHOP_MEGA_GROUPS.map((group) => (
                       <div key={group.title}>
-                        <p className="trizen-mega-group-title mb-3">
+                        <p className="trizen-mega-group-title mb-4">
                           {group.title}
                         </p>
-                        <ul className="space-y-1">
+                        <ul className="space-y-0.5">
                           {group.links.map((link) => (
-                            <li key={link.href}>
+                            <li key={link.href + link.label}>
                               <Link
                                 href={link.href}
                                 className="trizen-mega-link"
@@ -380,23 +346,27 @@ export function Header({ user = null }: { user?: HeaderUser }) {
                       </div>
                     ))}
                   </div>
-                  <MegaGearGrid
-                    gearIds={OUR_GEARS.map((gear) => gear.id)}
-                    onNavigate={() => setMegaOpen(null)}
-                    wide
-                  />
+                  <div className="trizen-mega-promo-grid trizen-mega-promo-grid--duo">
+                    {SHOP_MEGA_PROMOS.map((promo) => (
+                      <MegaMenuPromoCard
+                        key={promo.eyebrow}
+                        promo={promo}
+                        onNavigate={() => setMegaOpen(null)}
+                      />
+                    ))}
+                  </div>
                 </div>
               ) : megaOpen === "mouse-pads" ? (
-                <div className="grid gap-10 lg:grid-cols-[minmax(0,280px)_1fr]">
-                  <div className="space-y-8">
-                    {MOUSE_PAD_GROUPS.map((group) => (
+                <div className="trizen-mega-shop trizen-mega-shop--mouse-pads">
+                  <div className="trizen-mega-shop-links">
+                    {MOUSE_PAD_MEGA_GROUPS.map((group) => (
                       <div key={group.title}>
-                        <p className="trizen-mega-group-title mb-3">
+                        <p className="trizen-mega-group-title mb-4">
                           {group.title}
                         </p>
-                        <ul className="space-y-1">
+                        <ul className="space-y-0.5">
                           {group.links.map((link) => (
-                            <li key={link.href}>
+                            <li key={link.href + link.label}>
                               <Link
                                 href={link.href}
                                 className="trizen-mega-link"
@@ -410,89 +380,44 @@ export function Header({ user = null }: { user?: HeaderUser }) {
                       </div>
                     ))}
                   </div>
-                  <MegaGearGrid
-                    gearIds={MOUSE_PAD_GEAR_IDS}
-                    onNavigate={() => setMegaOpen(null)}
-                  />
+                  <div className="trizen-mega-promo-grid">
+                    {MOUSE_PAD_MEGA_PROMOS.map((promo) => (
+                      <MegaMenuPromoCard
+                        key={promo.eyebrow}
+                        promo={promo}
+                        onNavigate={() => setMegaOpen(null)}
+                      />
+                    ))}
+                  </div>
                 </div>
               ) : (
-                <div className="grid max-w-md gap-1">
-                  {EXPLORE_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="trizen-mega-link py-2"
-                      onClick={() => setMegaOpen(null)}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                <div className="trizen-mega-explore">
+                  <div className="trizen-mega-explore-links">
+                    {EXPLORE_LINKS.map((link) => (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className="trizen-mega-link py-2"
+                        onClick={() => setMegaOpen(null)}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                  </div>
+                  <SocialLinks className="trizen-mega-explore-social" />
                 </div>
               )}
             </div>
           </div>
         ) : null}
-
-        {open ? (
-          <nav className="bg-white px-4 py-3 lg:hidden">
-            <button
-              type="button"
-              onClick={() => {
-                useChatStore.getState().toggle();
-                setOpen(false);
-              }}
-              className="flex w-full items-center gap-3 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-black"
-            >
-              <MessageCircle className={iconClass} strokeWidth={iconStroke} />
-              Live Chat
-            </button>
-            {HEADER_NAV.map((item) =>
-              item.drawer === "track-order" ? (
-                <button
-                  key={item.href + item.label}
-                  type="button"
-                  onClick={() => {
-                    openTrackOrder();
-                    setOpen(false);
-                  }}
-                  className="block w-full py-3 text-left text-[11px] font-medium uppercase tracking-[0.2em] text-black"
-                >
-                  {item.label}
-                </button>
-              ) : (
-                <Link
-                  key={item.href + item.label}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-black"
-                >
-                  {item.label}
-                </Link>
-              ),
-            )}
-            {EXPLORE_LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="block py-2 pl-4 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-600"
-              >
-                {l.label}
-              </Link>
-            ))}
-            {authLinks.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="block py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-zinc-500"
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-        ) : null}
       </header>
+
+      <MobileNavDrawer
+        open={open}
+        onClose={() => setOpen(false)}
+        onTrackOrder={openTrackOrder}
+        user={user}
+      />
 
       <SearchDrawer open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>

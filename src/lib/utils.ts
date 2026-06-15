@@ -55,3 +55,21 @@ export function getStatusColor(status: string) {
 export function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
+
+/** Replace em/en dashes in customer-facing copy with commas. */
+export function sanitizeDisplayText(text: string) {
+  return text
+    .replace(/&mdash;|&ndash;/gi, " ")
+    .replace(/\s*[\u2010\u2011\u2012\u2013\u2014\u2015]\s*/g, ", ")
+    .replace(/,\s*,/g, ",")
+    .replace(/,\s+\./g, ".")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+export function splitSanitizedParagraphs(text: string) {
+  return text
+    .split("\n\n")
+    .map((paragraph) => sanitizeDisplayText(paragraph.trim()))
+    .filter(Boolean);
+}

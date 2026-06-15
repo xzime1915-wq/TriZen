@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ProductImage } from "@/components/ProductImage";
 import { StarRating } from "@/components/product/StarRating";
-import { displayImageSrc } from "@/lib/image-path";
 
 type Review = {
   id: string;
@@ -67,13 +66,11 @@ export function HomeReviews({ reviews, averageRating, totalReviews }: Props) {
                 className="trizen-wh-review-thumb group"
                 title={`${review.productName} — ${review.authorName}`}
               >
-                <Image
-                  src={displayImageSrc(review.productImage)}
+                <ProductImage
+                  src={review.productImage}
                   alt={review.productName}
-                  fill
-                  unoptimized
                   sizes="96px"
-                  className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="p-2 md:p-2.5"
                 />
               </Link>
             ))}
@@ -116,13 +113,11 @@ export function HomeReviews({ reviews, averageRating, totalReviews }: Props) {
               >
                 {review.productImage ? (
                   <span className="trizen-wh-review-product-thumb">
-                    <Image
-                      src={displayImageSrc(review.productImage)}
+                    <ProductImage
+                      src={review.productImage}
                       alt=""
-                      fill
-                      unoptimized
-                      sizes="40px"
-                      className="object-cover object-center"
+                      sizes="48px"
+                      className="p-0.5"
                     />
                   </span>
                 ) : null}

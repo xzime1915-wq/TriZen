@@ -16,11 +16,14 @@ export const SEO_ESPORTS_MOUSE_PAD_BD =
 export const SITE_CONTACT = {
   phone: "+8801778741431",
   phoneDisplay: "01778741431",
-  email: "info@trizenstorebd.com",
+  email: "support@trizenstore.com.bd",
 } as const;
+
+export const SUPPORT_EMAIL = SITE_CONTACT.email;
 
 export const SITE_SOCIAL = [
   "https://www.facebook.com/trizenstore",
+  "https://discord.gg/sRtArTTvSf",
   "https://www.youtube.com/@TRIZENSTORE",
 ] as const;
 

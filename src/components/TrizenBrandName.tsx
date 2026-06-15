@@ -21,7 +21,6 @@ export function TrizenBrandName({
     <Tag
       className={cn(
         "trizen-brand-name inline-flex items-baseline uppercase",
-        suffix && "gap-[0.35em]",
         vertical && "trizen-brand-name--vertical",
         className
       )}
@@ -30,7 +29,9 @@ export function TrizenBrandName({
       <span className="trizen-brand-t">T</span>
       <span className="trizen-brand-rest">RIZEN</span>
       {suffix ? (
-        <span className={cn("trizen-brand-suffix", suffixClassName)}>{suffix}</span>
+        <span className={cn("trizen-brand-suffix ml-[0.35em]", suffixClassName)}>
+          {suffix}
+        </span>
       ) : null}
     </Tag>
   );

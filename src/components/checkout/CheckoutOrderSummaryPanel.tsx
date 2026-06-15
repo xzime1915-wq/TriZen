@@ -6,6 +6,7 @@ import { formatCheckoutPrice } from "@/lib/checkout";
 import { discountPercent } from "@/lib/discount";
 import type { CartItem } from "@/lib/cart-store";
 import { cn } from "@/lib/utils";
+import { CheckoutPromoCode } from "./CheckoutPromoCode";
 
 type Props = {
   items: CartItem[];
@@ -80,6 +81,8 @@ export function CheckoutOrderSummaryPanel({
           />
         ))}
       </ul>
+
+      <CheckoutPromoCode />
 
       <div className="checkout-sidebar-totals">
         <div className="checkout-sidebar-row">

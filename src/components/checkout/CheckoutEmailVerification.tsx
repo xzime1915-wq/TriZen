@@ -225,7 +225,7 @@ export function CheckoutEmailVerification({
       <div className="checkout-email-verify-form">
         <div className="checkout-email-verify-digits">
           <div className="checkout-email-verify-group">
-            {digits.slice(0, 3).map((digit, index) => (
+            {digits.map((digit, index) => (
               <DigitInput
                 key={index}
                 index={index}
@@ -238,25 +238,6 @@ export function CheckoutEmailVerification({
                 onPaste={handlePaste}
               />
             ))}
-          </div>
-          <span className="checkout-email-verify-sep" aria-hidden />
-          <div className="checkout-email-verify-group">
-            {digits.slice(3, 6).map((digit, offset) => {
-              const index = offset + 3;
-              return (
-                <DigitInput
-                  key={index}
-                  index={index}
-                  digit={digit}
-                  inputRef={(el) => {
-                    inputsRef.current[index] = el;
-                  }}
-                  onChange={updateDigit}
-                  onKeyDown={handleKeyDown}
-                  onPaste={handlePaste}
-                />
-              );
-            })}
           </div>
         </div>
 

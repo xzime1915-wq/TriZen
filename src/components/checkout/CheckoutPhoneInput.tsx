@@ -49,7 +49,7 @@ export function CheckoutPhoneInput({
           autoComplete="tel-national"
           required={required}
           className="checkout-phone-input"
-          placeholder="01XXX XXXXXX"
+          placeholder="Phone *"
           value={formatBangladeshPhoneDisplay(value)}
           onChange={(e) => onChange(formatBangladeshPhoneInput(e.target.value))}
           aria-invalid={visibleError ? true : undefined}

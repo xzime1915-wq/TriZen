@@ -13,7 +13,7 @@ export function ShopHero({ count, activeGearLabel, query }: Props) {
     ? `Results for “${query}”`
     : activeGearLabel
       ? `Browse ${activeGearLabel.toLowerCase()} from TRIZEN Store.`
-      : "Esports mouse pads, glass TRIPAD, soft pads, skates and sleeves — built for competitive play in Bangladesh.";
+      : "Esports mouse pads, glass TRIPAD, soft pads, skates and sleeves, built for competitive play in Bangladesh.";
 
   return (
     <section className="shop-hero bg-white">

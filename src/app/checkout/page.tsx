@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ShoppingBag } from "lucide-react";
+import { TrizenCartIcon } from "@/components/TrizenCartIcon";
 import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
 import { DELIVERY_CHARGE, formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/Button";
+import { TrizenBrandName } from "@/components/TrizenBrandName";
 import { PaymentMethodId, buildPaymentRef, isBkashPayment } from "@/lib/checkout";
 import { validateCheckoutForm, type CheckoutFieldErrors } from "@/lib/checkout-form-validation";
 import { normalizeBangladeshPhone } from "@/lib/phone";
@@ -188,7 +189,7 @@ export default function CheckoutPage() {
         <main className="checkout-main">
           <header className="checkout-main-header">
             <Link href="/" className="checkout-brand-wordmark">
-              TRIZEN
+              <TrizenBrandName />
             </Link>
             <button
               type="button"
@@ -196,7 +197,7 @@ export default function CheckoutPage() {
               className="checkout-header-cart"
               aria-label="Open cart"
             >
-              <ShoppingBag className="h-6 w-6" strokeWidth={1.5} />
+              <TrizenCartIcon className="h-6 w-6" />
             </button>
           </header>
 

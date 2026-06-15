@@ -338,7 +338,7 @@ export async function buildInvoicePdf(
   drawText(`Collect ${formatMoney(order.total)} in cash upon delivery.`, margin, 10);
   y -= 24;
   drawText(
-    `Thank you for shopping at ${storeName}. For questions contact ${settings?.email || "support@trizenstore.com"}`,
+    `Thank you for shopping at ${storeName}. For questions contact ${settings?.email || "support@trizenstore.com.bd"}`,
     margin,
     8,
     false,

@@ -107,7 +107,7 @@ export default async function ProductPage({
         }))}
       />
       <div className="product-page-pad pb-14 md:pb-16">
-        <RelatedProducts products={related} category={product.category} />
+        <RelatedProducts products={related} />
       </div>
     </div>
   );

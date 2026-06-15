@@ -12,14 +12,14 @@ export function PayWithLogos({ className }: { className?: string }) {
       )}
     >
       {PAYMENT_LOGOS.map((logo) => (
-        <li key={logo.src} className="min-w-0 flex-1 sm:flex-none sm:shrink-0">
+        <li key={logo.src} className="trizen-pay-with-slot shrink-0">
           <Image
             src={logo.src}
             alt={logo.alt}
             width={88}
             height={36}
             className="trizen-pay-with-logo"
-            sizes="(max-width: 639px) 11vw, 88px"
+            sizes="52px"
           />
         </li>
       ))}

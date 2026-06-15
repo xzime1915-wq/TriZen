@@ -1,4 +1,5 @@
 import { PageHero } from "@/components/PageHero";
+import { SITE_CONTACT } from "@/lib/site-config";
 
 export default function TermsPage() {
   return (
@@ -21,8 +22,8 @@ export default function TermsPage() {
             according to our support policy. Contact us before sending items back.
           </p>
           <p>
-            For order or product questions, email info@trizenstorebd.com or call
-            01778741431.
+            For order or product questions, email {SITE_CONTACT.email} or call
+            {SITE_CONTACT.phoneDisplay}.
           </p>
         </div>
       </section>

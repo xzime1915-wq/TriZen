@@ -23,7 +23,7 @@ export const OUR_GEARS: OurGearCard[] = [
     statusLabel: "Shop Collection",
     taglineLine1: "Unparalleled glide.",
     taglineLine2: "Ultimate control.",
-    image: "/products/our-gears/glass-mouse-pad.png",
+    image: "/products/tripad-v1-black.webp",
     href: "/shop?gear=glass-mouse-pad",
   },
   {
@@ -63,7 +63,7 @@ export const OUR_GEARS: OurGearCard[] = [
 
 /** Temporary visuals until you add files in public/products/our-gears/ */
 export const OUR_GEARS_FALLBACK_IMAGES: Record<string, string> = {
-  "glass-mouse-pad": "/products/tripad-v1-black.png",
+  "glass-mouse-pad": "/products/tripad-v1-black.webp",
   "soft-mouse-pad": "/products/tripad-anti-slip-base.png",
   skates: "/products/tripad-3mm-feature.png",
   "hand-sleeves": "/products/engineered-glide.png",

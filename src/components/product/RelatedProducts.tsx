@@ -1,42 +1,62 @@
-import Link from "next/link";
-import { ProductCard } from "@/components/ProductCard";
+import { ShopShowcaseProductCell } from "@/components/shop/ShopShowcaseProductCell";
+import { cn } from "@/lib/utils";
 
 type RelatedProduct = {
   id: string;
   name: string;
   slug: string;
+  description: string;
+  longDescription: string;
   price: number;
   compareAt: number | null;
   image: string;
   category: string;
   stock: number;
-  tag?: string | null;
+  tag: string | null;
 };
 
 export function RelatedProducts({
   products,
-  category,
 }: {
   products: RelatedProduct[];
-  category: string;
 }) {
   if (products.length === 0) return null;
 
+  const gridCols =
+    products.length === 1
+      ? "grid-cols-1"
+      : products.length === 2
+        ? "grid-cols-2"
+        : products.length === 3
+          ? "grid-cols-2 sm:grid-cols-3"
+          : "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4";
+
   return (
-    <section className="border-t border-zinc-200 pt-12 md:pt-14">
-      <div className="mb-8 flex flex-wrap items-end justify-between gap-4 md:mb-10">
-        <div>
-          <h2 className="trizen-wh-section-label md:text-2xl">Recently viewed</h2>
-          <p className="product-section-eyebrow mt-2">More from {category}</p>
+    <section className="shop-glass-showcase pt-12 md:pt-16 lg:pt-20">
+      <div className="edition-showcase-section edition-showcase-v1 edition-showcase-v1--shop">
+        <h3 className="product-related-heading">More from Trizen Store</h3>
+
+        <div className={cn("grid bg-white edition-showcase-shop-grid", gridCols)}>
+          {products.map((product) => (
+            <ShopShowcaseProductCell
+              key={product.id}
+              href={`/product/${product.slug}`}
+              label={product.name}
+              product={{
+                id: product.id,
+                slug: product.slug,
+                name: product.name,
+                price: product.price,
+                compareAt: product.compareAt,
+                image: product.image,
+                stock: product.stock,
+                tag: product.tag,
+              }}
+              imageSrc={product.image}
+              imageAlt={product.name}
+            />
+          ))}
         </div>
-        <Link href={`/shop?gear=${encodeURIComponent(category)}`} className="trizen-wh-ghost-btn">
-          View all
-        </Link>
-      </div>
-      <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-4">
-        {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
-        ))}
       </div>
     </section>
   );

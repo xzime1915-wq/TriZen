@@ -15,24 +15,18 @@ export function HomeProductActions({ slug, productName, tag }: Props) {
   const upcoming = isUpcoming(tag);
 
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+    <div className="flex w-full flex-col gap-3">
       {upcoming ? (
-        <div className="w-full max-w-sm">
-          <ProductNotifyButton productSlug={slug} productName={productName} />
-        </div>
+        <ProductNotifyButton productSlug={slug} productName={productName} />
       ) : (
         <>
-          <Link href={`/product/${slug}`} className="w-full sm:w-auto">
-            <Button size="lg" className="w-full sm:min-w-[200px]">
+          <Link href={`/product/${slug}`} className="w-full">
+            <Button size="lg" className="w-full">
               Shop now
             </Button>
           </Link>
-          <Link href="/shop" className="w-full sm:w-auto">
-            <Button
-              size="lg"
-              variant="secondary"
-              className="w-full sm:min-w-[200px]"
-            >
+          <Link href="/shop" className="w-full">
+            <Button size="lg" variant="secondary" className="w-full">
               View collection
             </Button>
           </Link>

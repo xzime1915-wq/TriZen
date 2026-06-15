@@ -3,8 +3,7 @@ import { StarRating } from "@/components/product/StarRating";
 import { ProductVisualFrame } from "@/components/product/ProductVisualFrame";
 import { HomeProductActions } from "./HomeProductActions";
 import { shouldShowProductPrice } from "@/lib/product-status";
-import { formatCurrency } from "@/lib/utils";
-import { isUpcoming } from "@/lib/product-status";
+import { formatCurrency, sanitizeDisplayText } from "@/lib/utils";
 import { getLargeProductImageScale } from "@/lib/product-visual-scale";
 
 type Props = {
@@ -48,7 +47,6 @@ export function HomeProductShowcase({
     .slice(0, 3);
 
   const highlightFeatures = features.slice(0, 3);
-  const upcoming = isUpcoming(product.tag);
   const mainVisual = visualImage || product.image;
   const featuredScale = getLargeProductImageScale(mainVisual);
 
@@ -101,47 +99,40 @@ export function HomeProductShowcase({
               </p>
             )}
 
-            <div className="home-product-copy mt-4 max-w-md text-left sm:mt-6">
-              {paragraphs.map((para) => (
-                <p key={para.slice(0, 48)}>{para}</p>
-              ))}
-            </div>
+            <div className="product-buy-body">
+              {paragraphs.length > 0 && (
+                <div className="product-buy-copy trizen-prose">
+                  {paragraphs.map((para) => (
+                    <p key={para.slice(0, 48)}>{para}</p>
+                  ))}
+                </div>
+              )}
 
-            {reviewCount > 0 ? (
-              <div className="mt-5 flex items-center gap-3 sm:mt-6">
-                <StarRating value={avgRating} />
-                <span className="text-xs font-normal text-black">
-                  ({avgRating})
-                </span>
-              </div>
-            ) : null}
+              {reviewCount > 0 ? (
+                <div className="flex items-center gap-3">
+                  <StarRating value={avgRating} />
+                  <span className="text-xs font-normal text-black">
+                    ({avgRating})
+                  </span>
+                </div>
+              ) : null}
 
-            <div className="mt-6 sm:mt-8">
               <HomeProductActions
                 slug={product.slug}
                 productName={headline}
                 tag={product.tag}
               />
-            </div>
 
-            {highlightFeatures.length > 0 && (
-              <ul className="mt-7 max-w-xl space-y-2.5 pt-6 sm:mt-10 sm:space-y-3 sm:pt-8">
-                {highlightFeatures.map((f) => (
-                  <li
-                    key={f}
-                    className="trizen-detail flex items-start gap-3"
-                  >
-                    <span
-                      className="trizen-wh-section-arrow mt-0.5 shrink-0 text-sm leading-none"
-                      aria-hidden
-                    >
-                      &gt;
-                    </span>
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
+              {highlightFeatures.length > 0 && (
+                <ul className="product-buy-features">
+                  {highlightFeatures.map((f) => (
+                    <li key={f} className="trizen-detail">
+                      {sanitizeDisplayText(f)}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </div>
       </div>

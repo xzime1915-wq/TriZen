@@ -28,18 +28,14 @@ const FEATURES = [
 export function HomeFeaturesGrid() {
   return (
     <section className="bg-white">
-      <div className="container-trizen mx-auto max-w-3xl py-20 md:py-28">
+      <div className="container-trizen py-20 md:py-28">
         <h2 className="trizen-display-title mb-10 md:mb-14">Built different</h2>
 
-        <div className="trizen-divider-list">
+        <div className="trizen-divider-list trizen-divider-list--split">
           {FEATURES.map((f) => (
-            <div key={f.title} className="trizen-divider-list-item">
-              <h3 className="text-sm font-light normal-case tracking-normal text-zinc-900 md:text-base">
-                {f.title}
-              </h3>
-              <p className="mt-3 text-sm font-light leading-relaxed text-zinc-900 md:text-base">
-                {f.body}
-              </p>
+            <div key={f.title} className="trizen-divider-list-item trizen-feature-row">
+              <h3 className="trizen-feature-title">{f.title}</h3>
+              <p className="trizen-feature-desc">{f.body}</p>
             </div>
           ))}
         </div>

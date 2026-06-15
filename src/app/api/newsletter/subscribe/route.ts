@@ -20,9 +20,9 @@ export async function POST(req: Request) {
 
     await sendEmail({
       to: notifyTo,
-      subject: "New newsletter signup — TRIZEN Store",
-      text: `New newsletter subscriber: ${email}${nameLine}`,
-      html: `<p>New newsletter subscriber: <strong>${email}</strong>${firstName ? ` — ${firstName}` : ""}</p>`,
+      subject: "New Sandbox signup, TRIZEN Store",
+      text: `New Sandbox subscriber: ${email}${nameLine}`,
+      html: `<p>New Sandbox subscriber: <strong>${email}</strong>${firstName ? `, ${firstName}` : ""}</p>`,
       replyTo: email,
     });
 
