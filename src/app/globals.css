@@ -1468,6 +1468,20 @@ textarea {
     font-family: var(--font-body);
   }
 
+  .sandbox-subscribe-form {
+    @apply space-y-2 text-left;
+  }
+
+  .sandbox-subscribe-input {
+    @apply w-full border border-zinc-500/60 bg-black/40 px-4 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white outline-none transition placeholder:text-zinc-400 focus:border-zinc-200 rounded-none;
+    font-family: var(--font-sans);
+  }
+
+  .sandbox-subscribe-submit {
+    @apply relative isolate w-full overflow-hidden rounded-none border border-white bg-white px-6 py-3.5 text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-900 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60;
+    font-family: var(--font-sans);
+  }
+
   .home-hero-title .home-hero-letter-hollow {
     color: transparent;
     -webkit-text-stroke: 0.035em #18181b;

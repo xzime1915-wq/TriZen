@@ -1,10 +1,11 @@
 "use client";
 
 import { Mail } from "lucide-react";
-import { useNewsletterUi } from "@/lib/newsletter-ui-store";
+import { useState } from "react";
+import { SandboxSubscribeForm } from "@/components/SandboxSubscribeForm";
 
 export function HomeNewsletter() {
-  const openNewsletter = useNewsletterUi((s) => s.openNewsletter);
+  const [showForm, setShowForm] = useState(false);
 
   return (
     <section
@@ -32,15 +33,22 @@ export function HomeNewsletter() {
           <h2 className="home-newsletter-title trizen-display-title">
             Join Sandbox
           </h2>
-          <div className="home-newsletter-cta mt-5 md:mt-8">
-            <button
-              type="button"
-              onClick={openNewsletter}
-              className="trizen-wh-ghost-btn home-newsletter-subscribe-btn"
-            >
-              Subscribe
-            </button>
-          </div>
+
+          {showForm ? (
+            <div className="home-newsletter-form-wrap mx-auto mt-5 max-w-md md:mt-8">
+              <SandboxSubscribeForm theme="dark" />
+            </div>
+          ) : (
+            <div className="home-newsletter-cta mt-5 md:mt-8">
+              <button
+                type="button"
+                onClick={() => setShowForm(true)}
+                className="trizen-wh-ghost-btn home-newsletter-subscribe-btn"
+              >
+                Subscribe
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </section>

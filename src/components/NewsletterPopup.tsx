@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { TrizenBrandName } from "@/components/TrizenBrandName";
+import { SandboxSubscribeForm } from "@/components/SandboxSubscribeForm";
 import { lockPageScroll, unlockPageScroll } from "@/lib/scroll-lock";
 import { useNewsletterUi } from "@/lib/newsletter-ui-store";
 
@@ -24,6 +25,8 @@ const HIDDEN_PATH_PREFIXES = [
 
 type Props = {
   signedIn: boolean;
+  userEmail?: string | null;
+  userName?: string | null;
 };
 
 function isHiddenRoute(pathname: string) {
@@ -42,18 +45,27 @@ function markPermanentDismiss(reason: "dismissed" | "subscribed") {
   window.sessionStorage.setItem(SESSION_KEY, "1");
 }
 
-export function NewsletterPopup({ signedIn }: Props) {
+export function NewsletterPopup({ signedIn, userEmail, userName }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [subscribed, setSubscribed] = useState(false);
   const scheduledRef = useRef(false);
   const manualOpen = useNewsletterUi((s) => s.isOpen);
   const closeNewsletter = useNewsletterUi((s) => s.closeNewsletter);
-  const visible = open || manualOpen;
+  const visible = manualOpen || (open && !signedIn);
 
   const hiddenRoute = isHiddenRoute(pathname);
+  const prefilledFirstName = userName?.trim().split(/\s+/)[0] ?? "";
+
+  function handleSubscribeSuccess() {
+    setSubscribed(true);
+    markPermanentDismiss("subscribed");
+    window.setTimeout(() => {
+      setOpen(false);
+      closeNewsletter();
+      setSubscribed(false);
+    }, 1400);
+  }
 
   useEffect(() => {
     if (signedIn) {
@@ -97,34 +109,7 @@ export function NewsletterPopup({ signedIn }: Props) {
     closeNewsletter();
   }
 
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    const value = email.trim();
-    if (!value) return;
-
-    setStatus("loading");
-    try {
-      const res = await fetch("/api/newsletter/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: value,
-          firstName: firstName.trim(),
-        }),
-      });
-      if (!res.ok) throw new Error("failed");
-      setStatus("done");
-      markPermanentDismiss("subscribed");
-      window.setTimeout(() => {
-        setOpen(false);
-        closeNewsletter();
-      }, 1400);
-    } catch {
-      setStatus("error");
-    }
-  }
-
-  if (signedIn || !visible) return null;
+  if (!visible) return null;
 
   return (
     <div
@@ -163,38 +148,14 @@ export function NewsletterPopup({ signedIn }: Props) {
           Drops, restocks, and competitive play updates from TRIZEN Store.
         </p>
 
-        {status === "done" ? (
+        {subscribed ? (
           <p className="newsletter-popup-success">Thanks, you&apos;re on the list.</p>
         ) : (
-          <form onSubmit={handleSubmit} className="newsletter-popup-form">
-            <input
-              type="text"
-              value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
-              placeholder="Name"
-              autoComplete="given-name"
-              className="newsletter-popup-input normal-case tracking-normal placeholder:uppercase"
-            />
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="E-mail"
-              autoComplete="email"
-              className="newsletter-popup-input normal-case tracking-normal placeholder:uppercase"
-            />
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="newsletter-popup-submit"
-            >
-              {status === "loading" ? "..." : "Subscribe"}
-            </button>
-            {status === "error" ? (
-              <p className="newsletter-popup-error">Could not subscribe. Try again.</p>
-            ) : null}
-          </form>
+          <SandboxSubscribeForm
+            initialEmail={userEmail ?? ""}
+            initialFirstName={prefilledFirstName}
+            onSuccess={handleSubscribeSuccess}
+          />
         )}
 
         <p className="newsletter-popup-note">

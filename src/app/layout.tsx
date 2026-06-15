@@ -85,7 +85,11 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <ChatWidgetHost />
-          <NewsletterPopup signedIn={!!user} />
+          <NewsletterPopup
+            signedIn={!!user}
+            userEmail={user?.email}
+            userName={user?.name}
+          />
         </CartProvider>
       </body>
     </html>
