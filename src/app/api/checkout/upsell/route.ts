@@ -8,9 +8,14 @@ export async function GET(request: Request) {
   const limit = Number.isFinite(limitParam)
     ? Math.min(Math.max(limitParam, 1), 8)
     : 2;
+  const contextParam = searchParams.get("context");
+  const context =
+    contextParam === "cart" || contextParam === "checkout"
+      ? contextParam
+      : "checkout";
 
   try {
-    const items = await getCheckoutUpsells(exclude, limit);
+    const items = await getCheckoutUpsells(exclude, limit, context);
     return NextResponse.json({ items });
   } catch {
     return NextResponse.json({ items: [] }, { status: 500 });

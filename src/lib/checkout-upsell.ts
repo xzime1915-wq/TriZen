@@ -37,9 +37,12 @@ function upsellHeadline(cartLines: Set<ShopGearLine>): string {
   return "Add more TriZen gear to your order.";
 }
 
+export type UpsellContext = "checkout" | "cart";
+
 export async function getCheckoutUpsells(
   excludeIds: string[],
-  limit = 2
+  limit = 2,
+  context: UpsellContext = "checkout",
 ): Promise<CheckoutUpsellItem[]> {
   const cartProducts =
     excludeIds.length > 0
@@ -76,13 +79,19 @@ export async function getCheckoutUpsells(
   });
 
   const headline = upsellHeadline(cartLines);
+  const excludeSameGearLine = context === "checkout";
+
+  const isEligible = (p: (typeof candidates)[number]) => {
+    if (isUpcoming(p.tag) || !shouldShowProductPrice(p.tag)) return false;
+    if (excludeSameGearLine) {
+      const line = getShopGearLine(p.slug, p.name, p.category);
+      if (cartLines.has(line)) return false;
+    }
+    return true;
+  };
 
   const ranked = candidates
-    .filter((p) => {
-      if (isUpcoming(p.tag) || !shouldShowProductPrice(p.tag)) return false;
-      const line = getShopGearLine(p.slug, p.name, p.category);
-      return !cartLines.has(line);
-    })
+    .filter(isEligible)
     .map((p) => {
       const line = getShopGearLine(p.slug, p.name, p.category);
       const idx = preferred.indexOf(line);
@@ -95,9 +104,7 @@ export async function getCheckoutUpsells(
   const fallback = candidates
     .filter((p) => {
       if (rankedIds.has(p.id)) return false;
-      if (isUpcoming(p.tag) || !shouldShowProductPrice(p.tag)) return false;
-      const line = getShopGearLine(p.slug, p.name, p.category);
-      return !cartLines.has(line);
+      return isEligible(p);
     })
     .map((p) => ({ p, rank: 999 }));
 
@@ -108,8 +115,11 @@ export async function getCheckoutUpsells(
       .filter((p) => {
         if (isUpcoming(p.tag) || !shouldShowProductPrice(p.tag)) return false;
         if (excludeIds.includes(p.id)) return false;
-        const line = getShopGearLine(p.slug, p.name, p.category);
-        return !cartLines.has(line);
+        if (excludeSameGearLine) {
+          const line = getShopGearLine(p.slug, p.name, p.category);
+          if (cartLines.has(line)) return false;
+        }
+        return true;
       })
       .map((p) => ({ p, rank: 999 }))
       .slice(0, limit);

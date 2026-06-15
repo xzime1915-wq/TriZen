@@ -66,7 +66,7 @@ export function CartUpsell() {
   useEffect(() => {
     const exclude = cartItems.map((i) => i.productId).join(",");
     fetch(
-      `/api/checkout/upsell?exclude=${encodeURIComponent(exclude)}&limit=6`,
+      `/api/checkout/upsell?exclude=${encodeURIComponent(exclude)}&limit=6&context=cart`,
     )
       .then((r) => r.json())
       .then((data: { items?: CheckoutUpsellItem[] }) => {
