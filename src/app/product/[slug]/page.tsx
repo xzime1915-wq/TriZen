@@ -13,6 +13,7 @@ import {
 } from "@/lib/product-data";
 import type { Metadata } from "next";
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
+import { getTripadCatalogBySlug } from "@/lib/product-catalog-content";
 import { verifiedReviewSelect, verifiedReviewWhere } from "@/lib/reviews";
 
 export const dynamic = "force-dynamic";
@@ -29,12 +30,16 @@ export async function generateMetadata({
   });
   if (!product) return { title: "Product" };
 
+  const catalog = getTripadCatalogBySlug(slug);
+  const displayName = catalog?.name ?? product.name;
+  const displayDescription = catalog?.description ?? product.description;
+
   const isGlass =
-    slug.includes("tripad") || product.description.toLowerCase().includes("glass");
+    slug.includes("tripad") || displayDescription.toLowerCase().includes("glass");
   const title = isGlass
-    ? `${product.name}, Esports Glass Mouse Pad Bangladesh`
-    : `${product.name}, Esports Gear Bangladesh`;
-  const description = product.description.slice(0, 160);
+    ? `${displayName}, Esports Glass Mouse Pad Bangladesh`
+    : `${displayName}, Esports Gear Bangladesh`;
+  const description = displayDescription.slice(0, 160);
 
   return {
     title,
@@ -67,7 +72,11 @@ export default async function ProductPage({
   });
   if (!product) notFound();
 
-  const features = parseFeatures(product.features);
+  const catalog = getTripadCatalogBySlug(slug);
+  const description = catalog?.description ?? product.description;
+  const longDescription = catalog?.longDescription ?? product.longDescription;
+
+  const features = parseFeatures(catalog?.features ?? product.features);
   const specifications = parseSpecs(product.specifications);
   const gallery = parseGallery(product.galleryImages, product.image, {
     slug: product.slug,
@@ -83,10 +92,10 @@ export default async function ProductPage({
       <ProductDetailView
         product={{
           id: product.id,
-          name: product.name,
+          name: catalog?.name ?? product.name,
           slug: product.slug,
-          description: product.description,
-          longDescription: product.longDescription,
+          description,
+          longDescription,
           price: product.price,
           compareAt: product.compareAt,
           image: product.image,

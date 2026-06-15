@@ -169,6 +169,21 @@ export function buildTripadProductData(variant: "black" | "white") {
   };
 }
 
+const TRIPAD_CATALOG_BY_SLUG: Record<
+  string,
+  ReturnType<typeof buildTripadProductData>
+> = {
+  "trizen-tripad-v1-black": buildTripadProductData("black"),
+  "trizen-tripad-v1-white": buildTripadProductData("white"),
+  "trizen-tripad-v2-black": buildTripadV2ProductData("black"),
+  "trizen-tripad-v2-white": buildTripadV2ProductData("white"),
+};
+
+/** Catalog copy for TriPad slugs — keeps product page in sync even before DB migration. */
+export function getTripadCatalogBySlug(slug: string) {
+  return TRIPAD_CATALOG_BY_SLUG[slug] ?? null;
+}
+
 /** Default rich content for non-tripad products by category */
 export function defaultCategoryContent(category: string, name: string) {
   return {

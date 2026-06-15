@@ -96,7 +96,8 @@ export async function getCheckoutUpsells(
     .filter((p) => {
       if (rankedIds.has(p.id)) return false;
       if (isUpcoming(p.tag) || !shouldShowProductPrice(p.tag)) return false;
-      return true;
+      const line = getShopGearLine(p.slug, p.name, p.category);
+      return !cartLines.has(line);
     })
     .map((p) => ({ p, rank: 999 }));
 

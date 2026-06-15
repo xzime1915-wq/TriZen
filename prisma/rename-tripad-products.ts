@@ -20,10 +20,13 @@ async function main() {
       data: {
         name: data.name,
         sku: data.sku,
+        description: data.description,
+        longDescription: data.longDescription,
+        features: data.features,
         specifications: data.specifications,
       },
     });
-    console.log(`Renamed: ${data.slug} -> ${data.name}`);
+    console.log(`Synced: ${data.slug} -> ${data.name}`);
   }
 }
 
