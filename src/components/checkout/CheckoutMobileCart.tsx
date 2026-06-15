@@ -4,13 +4,13 @@ import { useState } from "react";
 import { ChevronDown, Minus, Plus } from "lucide-react";
 import { useCart } from "@/lib/cart-store";
 import { formatCheckoutPrice } from "@/lib/checkout";
-import { CheckoutCartItemCard } from "@/components/checkout/CheckoutCartItemCard";
+import { cartItemDisplayName } from "@/lib/product-edition";
 
 export function CheckoutMobileCart() {
   const items = useCart((s) => s.items);
   const subtotal = useCart((s) => s.subtotal());
   const updateQuantity = useCart((s) => s.updateQuantity);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   if (items.length === 0) return null;
 
@@ -18,13 +18,6 @@ export function CheckoutMobileCart() {
 
   return (
     <div className="checkout-cart-section">
-      {items.map((item) => (
-        <CheckoutCartItemCard
-          key={`${item.productId}${item.color ? `-${item.color}` : ""}`}
-          item={item}
-        />
-      ))}
-
       <div className="checkout-cart-collapsible">
         <button
           type="button"
@@ -58,7 +51,10 @@ export function CheckoutMobileCart() {
                 className="checkout-cart-qty-row"
               >
                 <p className="min-w-0 truncate text-sm text-zinc-700">
-                  {item.name}
+                  {cartItemDisplayName(item)}
+                  {item.color ? (
+                    <span className="text-zinc-500"> · {item.color}</span>
+                  ) : null}
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="checkout-qty-stepper">

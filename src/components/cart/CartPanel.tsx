@@ -9,8 +9,8 @@ import { ProductImage } from "@/components/ProductImage";
 import { Button } from "@/components/Button";
 import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
-import { formatCurrency } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import { cartItemDisplayName } from "@/lib/product-edition";
+import { formatCurrency, cn } from "@/lib/utils";
 
 type Props = {
   onClose?: () => void;
@@ -89,7 +89,7 @@ export function CartPanel({ onClose, variant = "drawer" }: Props) {
                 <div className="cart-panel-item-main">
                   <div className="cart-panel-item-top">
                     <p className="cart-panel-item-name">
-                      {item.name}
+                      {cartItemDisplayName(item)}
                     </p>
                     <p className="cart-panel-item-price">
                       {formatCurrency(item.price * item.quantity)}

@@ -4,6 +4,7 @@ import { parseColors } from "@/lib/product-data";
 import {
   baseNameFromProductName,
   editionLabelFromName,
+  normalizeTripadDisplayName,
 } from "@/lib/product-edition";
 import { isUpcoming, shouldShowProductPrice } from "@/lib/product-status";
 import { getShopGearLine } from "@/lib/shop-gears";
@@ -50,7 +51,7 @@ export async function GET(request: Request) {
       .map((p) => ({
         productId: p.id,
         label: editionLabelFromName(p.name),
-        name: p.name,
+        name: normalizeTripadDisplayName(p.name),
         baseName: baseNameFromProductName(p.name),
         price: p.price,
         compareAt: p.compareAt,

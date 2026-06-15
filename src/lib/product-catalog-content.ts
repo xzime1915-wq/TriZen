@@ -41,18 +41,20 @@ export const tripadSpecs = [
 ];
 
 export function tripadLongDescription(variant: "black" | "white") {
+  const model =
+    variant === "black" ? TRIPAD_MODEL_NAMES.v1Black : TRIPAD_MODEL_NAMES.v1White;
   const accent =
     variant === "black"
       ? "matte black finish that looks clean on any battlestation"
       : "clean white aesthetic perfect for minimal desk setups";
 
-  return `The TRIZEN TRIPAD V1 is a premium tempered glass mouse pad built for players who care about speed, control, and consistency.
+  return `The ${model} is a premium tempered glass mouse pad built for players who care about speed, control, and consistency.
 
 Our glass surface is tuned for competitive esports, you get an ultra smooth glide with low friction, so micro adjustments, flicks, and tracking feel sharp and predictable match after match.
 
 This edition features a ${accent}. TRIZEN branding is applied with a durable finish designed for daily use.
 
-Whether you play FPS, battle royale, or MOBA, TRIPAD V1 helps your mouse move freely while the pad stays planted on your desk thanks to the stable base.
+Whether you play FPS, battle royale, or MOBA, ${model} helps your mouse move freely while the pad stays planted on your desk thanks to the stable base.
 
 Order from TRIZEN Store with Cash on Delivery, bKash, Nagad, or bank transfer. We ship across Bangladesh.`;
 }
@@ -83,16 +85,18 @@ export const tripadV2Specs = [
 ];
 
 export function tripadV2LongDescription(variant: "black" | "white") {
+  const model =
+    variant === "black" ? TRIPAD_MODEL_NAMES.v2Black : TRIPAD_MODEL_NAMES.v2White;
   const accent =
     variant === "black"
       ? "deep black glass with high contrast white TRIZEN lettering along the edge"
       : "light silver white glass with bold black TRIZEN lettering along the edge";
 
-  return `TRIZEN TRIPAD V2 is the next chapter of our glass mouse pad line, same competitive DNA as V1, with a fresh design language players asked for.
+  return `${model} is the next chapter of our glass mouse pad line, same competitive DNA as V1, with a fresh design language players asked for.
 
 The V2 layout features ${accent}. The surface is tuned for ultra smooth, low friction glide so tracking and micro adjustments stay predictable.
 
-TRIPAD V2 is upcoming at TRIZEN Store. Register interest by visiting the product page. We will announce launch dates on this site.`;
+${model} is upcoming at TRIZEN Store. Register interest by visiting the product page. We will announce launch dates on this site.`;
 }
 
 export function tripadV2ShortDescription(variant: "black" | "white") {

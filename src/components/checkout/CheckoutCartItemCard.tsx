@@ -7,7 +7,7 @@ import { CheckoutItemPrice } from "@/components/checkout/CheckoutItemPrice";
 import { CheckoutStyleSelect } from "@/components/checkout/CheckoutStyleSelect";
 import { discountPercent } from "@/lib/discount";
 import { displayImageSrc } from "@/lib/image-path";
-import { editionLabelFromName } from "@/lib/product-edition";
+import { cartItemDisplayName, editionLabelFromName } from "@/lib/product-edition";
 import type { ProductColor } from "@/lib/product-data";
 
 type EditionOption = {
@@ -23,7 +23,7 @@ type EditionOption = {
 };
 
 function displayName(item: CartItem) {
-  return item.baseName ?? item.name.split(/, | — /)[0] ?? item.name;
+  return cartItemDisplayName(item);
 }
 
 export function CheckoutCartItemCard({ item }: { item: CartItem }) {

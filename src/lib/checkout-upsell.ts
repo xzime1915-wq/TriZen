@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { parseColors, type ProductColor } from "@/lib/product-data";
 import { isUpcoming, shouldShowProductPrice } from "@/lib/product-status";
 import { getShopGearLine, type ShopGearLine } from "@/lib/shop-gears";
+import { normalizeTripadDisplayName } from "@/lib/product-edition";
 
 const COMPLEMENTARY: Record<ShopGearLine, ShopGearLine[]> = {
   "glass-mouse-pad": ["skates", "hand-sleeves", "soft-mouse-pad"],
@@ -103,14 +104,19 @@ export async function getCheckoutUpsells(
 
   if (pool.length === 0) {
     pool = candidates
-      .filter((p) => !isUpcoming(p.tag) && shouldShowProductPrice(p.tag))
+      .filter((p) => {
+        if (isUpcoming(p.tag) || !shouldShowProductPrice(p.tag)) return false;
+        if (excludeIds.includes(p.id)) return false;
+        const line = getShopGearLine(p.slug, p.name, p.category);
+        return !cartLines.has(line);
+      })
       .map((p) => ({ p, rank: 999 }))
       .slice(0, limit);
   }
 
   return pool.map(({ p }) => ({
     id: p.id,
-    name: p.name,
+    name: normalizeTripadDisplayName(p.name),
     slug: p.slug,
     price: p.price,
     compareAt: p.compareAt,

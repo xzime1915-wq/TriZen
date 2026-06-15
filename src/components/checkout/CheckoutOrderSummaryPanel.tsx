@@ -16,13 +16,11 @@ type Props = {
   className?: string;
 };
 
-function displayName(item: CartItem) {
-  return item.baseName ?? item.name.split(/, | — /)[0] ?? item.name;
-}
+import { cartItemDisplayName } from "@/lib/product-edition";
 
 function SummaryLine({ item }: { item: CartItem }) {
   const pct = discountPercent(item.price, item.compareAt);
-  const title = displayName(item);
+  const title = cartItemDisplayName(item);
 
   return (
     <li className="checkout-sidebar-item">

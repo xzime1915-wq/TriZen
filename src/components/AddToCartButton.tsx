@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { normalizeTripadDisplayName } from "@/lib/product-edition";
 import { useCart } from "@/lib/cart-store";
 import type { ProductColor } from "@/lib/product-data";
 import { ProductNotifyButton } from "@/components/product/ProductNotifyButton";
@@ -65,8 +65,10 @@ export function AddToCartButton({
         onClick={() => {
           addItem({
             productId: product.id,
-            name: color ? `${product.name}, ${color}` : product.name,
-            baseName: product.name,
+            name: color
+              ? `${normalizeTripadDisplayName(product.name)}, ${color}`
+              : normalizeTripadDisplayName(product.name),
+            baseName: normalizeTripadDisplayName(product.name),
             price: product.price,
             compareAt: product.compareAt ?? null,
             image:
