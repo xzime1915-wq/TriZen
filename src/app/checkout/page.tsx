@@ -21,7 +21,6 @@ import { CheckoutMobileCart } from "@/components/checkout/CheckoutMobileCart";
 import { CheckoutUpsell } from "@/components/checkout/CheckoutUpsell";
 import { CheckoutMobileOrderSummary } from "@/components/checkout/CheckoutMobileOrderSummary";
 import { CheckoutSidebar } from "@/components/checkout/CheckoutSidebar";
-import { CheckoutSidebarEmpty } from "@/components/checkout/CheckoutSidebarEmpty";
 import { PaymentMethodPicker } from "@/components/checkout/PaymentMethodPicker";
 import {
   CheckoutEmailVerification,
@@ -220,8 +219,6 @@ export default function CheckoutPage() {
                 subtotal={sub}
                 deliveryCharge={DELIVERY_CHARGE}
                 total={total}
-                empty
-                showBack
               />
               <CheckoutVerifyFooter />
             </div>
@@ -350,16 +347,12 @@ export default function CheckoutPage() {
         </main>
 
         <aside className="checkout-sidebar">
-          {emailVerified ? (
-            <CheckoutSidebar
-              items={items}
-              subtotal={sub}
-              deliveryCharge={DELIVERY_CHARGE}
-              total={total}
-            />
-          ) : (
-            <CheckoutSidebarEmpty />
-          )}
+          <CheckoutSidebar
+            items={items}
+            subtotal={sub}
+            deliveryCharge={DELIVERY_CHARGE}
+            total={total}
+          />
         </aside>
       </div>
     </div>
