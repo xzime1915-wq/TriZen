@@ -11,6 +11,7 @@ import {
 } from "@/lib/blog";
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
 import { BlogCard } from "@/components/blog/BlogCard";
+import { BlogShareBar } from "@/components/blog/BlogShareBar";
 
 export const dynamic = "force-dynamic";
 
@@ -144,6 +145,7 @@ export default async function BlogPostPage({ params }: Params) {
 
   if (!post || !post.published) notFound();
 
+  const shareUrl = `${SITE_URL}/blog/${post.slug}`;
   const paragraphs = contentToParagraphs(post.content);
   const related = await prisma.blogPost.findMany({
     where: { published: true, slug: { not: post.slug } },
@@ -193,6 +195,8 @@ export default async function BlogPostPage({ params }: Params) {
         </h1>
         <p className="mt-3 text-sm text-zinc-500">By {post.author}</p>
 
+        <BlogShareBar url={shareUrl} title={post.title} />
+
         {post.coverImage && (
           <div className="relative mt-8 aspect-[16/9] overflow-hidden border border-[var(--color-border)] bg-zinc-100">
             <Image
@@ -210,6 +214,12 @@ export default async function BlogPostPage({ params }: Params) {
         <div className="mt-8 space-y-5 text-[0.95rem] leading-relaxed text-zinc-700 md:text-base">
           {renderBlocks(paragraphs)}
         </div>
+
+        <BlogShareBar
+          url={shareUrl}
+          title={post.title}
+          className="blog-share-bar--end"
+        />
       </article>
 
       {related.length > 0 && (
