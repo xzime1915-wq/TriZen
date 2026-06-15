@@ -9,9 +9,23 @@ type SendEmailInput = {
   replyTo?: string;
 };
 
+const FROM_DISPLAY_NAME = "TRIZEN STORE";
+
 function senderDomain(from: string) {
   const match = from.match(/@([^>]+)>?$|@(\S+)$/);
   return match?.[1] || match?.[2] || "trizenstore.com.bd";
+}
+
+function resolveFromAddress() {
+  const raw =
+    process.env.EMAIL_FROM?.trim() ||
+    "TRIZEN STORE <support@trizenstore.com.bd>";
+  const emailMatch = raw.match(/<([^>]+)>/);
+  const email =
+    emailMatch?.[1]?.trim() ||
+    process.env.SMTP_USER?.trim() ||
+    "support@trizenstore.com.bd";
+  return `${FROM_DISPLAY_NAME} <${email}>`;
 }
 
 function getSmtpConfig() {
@@ -35,8 +49,7 @@ function getSmtpConfig() {
 
 export async function sendEmail(input: SendEmailInput) {
   const smtp = getSmtpConfig();
-  const from =
-    process.env.EMAIL_FROM?.trim() || "TRIZEN Store <support@trizenstore.com.bd>";
+  const from = resolveFromAddress();
   const reply =
     input.replyTo?.trim() ||
     process.env.EMAIL_REPLY_TO?.trim() ||
