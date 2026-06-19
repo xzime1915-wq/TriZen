@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Orbitron } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -12,16 +12,16 @@ import { NewsletterPopup } from "@/components/NewsletterPopup";
 import { getUserSession } from "@/lib/user-auth";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site-config";
 
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+const orbitron = localFont({
+  src: "./fonts/Orbitron-Variable.ttf",
+  weight: "400 900",
   variable: "--font-orbitron",
   display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
+const inter = localFont({
+  src: "./fonts/Inter-Variable.ttf",
+  weight: "300 500",
   variable: "--font-inter",
   display: "swap",
 });

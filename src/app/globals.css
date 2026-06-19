@@ -1663,10 +1663,6 @@ textarea {
     height: 1.25rem;
   }
 
-  .trizen-footer-bottom-bar .trizen-footer-bottom-social {
-    @apply justify-self-center md:col-start-3 md:justify-self-end;
-  }
-
   .trizen-footer-mobile {
     @apply px-4 pb-2 pt-8;
   }

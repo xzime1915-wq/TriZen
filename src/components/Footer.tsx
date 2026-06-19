@@ -216,7 +216,6 @@ export function Footer() {
               <PayWithLogos className="justify-center gap-1" />
             </div>
           </div>
-          <SocialLinks className="trizen-footer-bottom-social gap-2" />
         </div>
       </div>
     </footer>
