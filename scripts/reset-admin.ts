@@ -30,6 +30,8 @@ async function main() {
       email,
       passwordHash: hash,
       name: "TriZen Admin",
+      role: "owner",
+      expiresAt: null,
     },
   });
 

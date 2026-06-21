@@ -138,6 +138,8 @@ model Admin {
   email        String   @unique
   passwordHash String
   name         String   @default("Admin")
+  role         String   @default("owner")
+  expiresAt    DateTime?
   createdAt    DateTime @default(now())
 }
 

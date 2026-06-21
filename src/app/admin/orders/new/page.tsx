@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { requireAdmin } from "@/lib/auth";
+import { isOwnerAdmin, requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { AdminOrderForm } from "@/components/admin/AdminOrderForm";
 import { ArrowLeft } from "lucide-react";
@@ -20,9 +20,15 @@ export default async function AdminNewOrderPage() {
     return (
       <div className="ml-56 p-8">
         <p className="text-[var(--color-muted)]">Add products before creating orders.</p>
-        <Link href="/admin/products" className="text-sm underline mt-4 inline-block">
-          Go to Products
-        </Link>
+        {isOwnerAdmin(admin) ? (
+          <Link href="/admin/products" className="text-sm underline mt-4 inline-block">
+            Go to Products
+          </Link>
+        ) : (
+          <p className="text-sm text-[var(--color-muted)] mt-4">
+            Ask an owner admin to add products first.
+          </p>
+        )}
       </div>
     );
   }

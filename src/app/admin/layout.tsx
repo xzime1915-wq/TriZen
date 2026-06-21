@@ -1,4 +1,4 @@
-import { getAdminSession } from "@/lib/auth";
+import { getAdminSession, isOwnerAdmin } from "@/lib/auth";
 import { AdminAlerts } from "@/components/admin/AdminAlerts";
 import { AdminNav } from "@/components/admin/AdminNav";
 
@@ -14,7 +14,7 @@ export default async function AdminLayout({
       {admin && (
         <>
           <AdminNav admin={admin} />
-          <AdminAlerts />
+          {isOwnerAdmin(admin) && <AdminAlerts />}
         </>
       )}
       <div className="relative z-10">{children}</div>

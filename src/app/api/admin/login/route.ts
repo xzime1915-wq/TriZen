@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
   }
 
-  const token = await signAdminToken(admin.id);
+  const token = await signAdminToken(admin.id, admin.role);
   const response = NextResponse.json({ ok: true, name: admin.name });
   response.cookies.set(ADMIN_COOKIE, token, adminSessionCookieOptions());
   return response;

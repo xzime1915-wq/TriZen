@@ -53,7 +53,7 @@ export default async function AdminOrderDetailPage({
           >
             <FileText className="h-4 w-4" /> Invoice
           </Link>
-          {order.customerPhone && (
+          {admin.role === "owner" && order.customerPhone && (
             <Link
               href={`/admin/customers?q=${encodeURIComponent(order.customerPhone)}`}
               className="inline-flex items-center gap-2 px-4 py-2 border border-[var(--color-border)] text-sm uppercase tracking-wider hover:border-white"

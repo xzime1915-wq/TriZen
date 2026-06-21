@@ -15,6 +15,7 @@
     "db:setup-safe": "prisma db push && tsx prisma/seed-safe.ts",
     "db:backup": "bash scripts/vps-backup-db.sh",
     "admin:reset": "tsx scripts/reset-admin.ts",
+    "admin:temp-order": "tsx scripts/upsert-temp-order-admin.ts",
     "db:migrate-sqlite": "tsx scripts/migrate-sqlite-to-postgres.ts",
     "icons:generate": "node scripts/generate-favicons.mjs",
     "images:compress": "node scripts/compress-product-images.mjs",

@@ -54,6 +54,8 @@ async function main() {
       email: process.env.ADMIN_EMAIL?.trim() || "admin@trizenstore.com",
       passwordHash: hash,
       name: "TriZen Admin",
+      role: "owner",
+      expiresAt: null,
     },
   });
 

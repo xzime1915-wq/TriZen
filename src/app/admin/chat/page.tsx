@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { requireAdmin } from "@/lib/auth";
+import { isOwnerAdmin, requireAdmin } from "@/lib/auth";
 import { AdminChat } from "@/components/admin/AdminChat";
 
 export const dynamic = "force-dynamic";
@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminChatPage() {
   const admin = await requireAdmin();
   if (!admin) redirect("/admin/login");
+  if (!isOwnerAdmin(admin)) redirect("/admin/orders");
 
   return (
     <div className="ml-56 p-8">

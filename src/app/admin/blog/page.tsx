@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { requireAdmin } from "@/lib/auth";
+import { isOwnerAdmin, requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { BlogManager } from "@/components/admin/BlogManager";
 
@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminBlogPage() {
   const admin = await requireAdmin();
   if (!admin) redirect("/admin/login");
+  if (!isOwnerAdmin(admin)) redirect("/admin/orders");
 
   const posts = await prisma.blogPost.findMany({
     orderBy: { createdAt: "desc" },

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { requireAdmin } from "@/lib/auth";
+import { isOwnerAdmin, requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatCurrency, getStatusLabel } from "@/lib/utils";
 import { DollarSign, Package, ShoppingBag, Clock } from "lucide-react";
@@ -10,6 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminDashboard() {
   const admin = await requireAdmin();
   if (!admin) redirect("/admin/login");
+  if (!isOwnerAdmin(admin)) redirect("/admin/orders");
 
   const [orders, products, pending] = await Promise.all([
     prisma.order.findMany({ orderBy: { createdAt: "desc" }, take: 5, include: { items: true } }),

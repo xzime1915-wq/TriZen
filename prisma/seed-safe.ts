@@ -63,8 +63,10 @@ async function main() {
         email: adminEmail,
         passwordHash: hash,
         name: "TriZen Admin",
+        role: "owner",
+        expiresAt: null,
       },
-      update: { passwordHash: hash },
+      update: { passwordHash: hash, role: "owner", expiresAt: null },
     });
     console.log(`Admin ready: ${adminEmail}`);
   } else {

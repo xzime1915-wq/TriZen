@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { requireAdmin } from "@/lib/auth";
+import { isOwnerAdmin, requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { ProductManager } from "@/components/admin/ProductManager";
 
@@ -8,6 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function AdminProductsPage() {
   const admin = await requireAdmin();
   if (!admin) redirect("/admin/login");
+  if (!isOwnerAdmin(admin)) redirect("/admin/orders");
 
   const products = await prisma.product.findMany({ orderBy: { name: "asc" } });
 
