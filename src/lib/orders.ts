@@ -109,7 +109,10 @@ export async function createOrder(data: {
       include: { items: true, customer: true },
     });
 
-    if (data.decrementStock !== false) {
+    const shouldDecrementStock =
+      data.decrementStock !== false && (data.status || "pending_payment") !== "cancelled";
+
+    if (shouldDecrementStock) {
       for (const item of orderItems) {
         await tx.product.update({
           where: { id: item.productId },

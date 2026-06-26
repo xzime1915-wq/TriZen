@@ -18,6 +18,27 @@ npm ci 2>/dev/null || npm install
 echo ""
 
 echo ">>> Sync database schema (Prisma)..."
+if node - <<'NODE'
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
+async function main() {
+  const columns = await prisma.$queryRawUnsafe("PRAGMA table_info('Product')");
+  const hasBarcode = columns.some((column) => column.name === "barcode");
+  process.exit(hasBarcode ? 0 : 1);
+}
+
+main()
+  .catch(() => process.exit(1))
+  .finally(() => prisma.$disconnect());
+NODE
+then
+  echo "Inventory identifiers already present."
+else
+  echo "Applying inventory identifier backfill..."
+  npx prisma db execute --schema prisma/schema.prisma --file prisma/migrations/20260626000000_inventory_identifiers/migration.sql
+  npx prisma migrate resolve --applied 20260626000000_inventory_identifiers || true
+fi
 npx prisma generate
 npx prisma db push --accept-data-loss
 echo ""

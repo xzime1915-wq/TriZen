@@ -8,6 +8,13 @@ export const TRIPAD_MODEL_NAMES = {
   v2White: "TP - V2 (white)",
 } as const;
 
+const TRIPAD_INVENTORY = {
+  v1Black: { sku: "TS-GP-V1-BLK", barcode: "890000000002" },
+  v1White: { sku: "TS-GP-V1-WHT", barcode: "890000000001" },
+  v2Black: { sku: "TS-GP-V2-BLK", barcode: "890000000004" },
+  v2White: { sku: "TS-GP-V2-WHT", barcode: "890000000003" },
+} as const;
+
 /** TRIPAD glass mouse pad — physical size (all V1 & V2 editions) */
 export const TRIPAD_DIMENSIONS = "490 × 430 × 3 mm";
 
@@ -107,21 +114,25 @@ export function tripadV2ShortDescription(variant: "black" | "white") {
 
 export function buildTripadSpecs(variant: "black" | "white") {
   const edition = variant === "black" ? "Black" : "White";
+  const inventory =
+    variant === "black" ? TRIPAD_INVENTORY.v1Black : TRIPAD_INVENTORY.v1White;
   return [
     { label: "Product", value: "TP-V1 Glass Mouse Pad" },
     { label: "Edition", value: edition },
-    { label: "SKU", value: variant === "black" ? "TZ TRIPAD V1 BLK" : "TZ TRIPAD V1 WHT" },
+    { label: "SKU", value: inventory.sku },
     ...tripadSpecsShared,
   ];
 }
 
 export function buildTripadV2Specs(variant: "black" | "white") {
   const edition = variant === "black" ? "Black" : "White";
+  const inventory =
+    variant === "black" ? TRIPAD_INVENTORY.v2Black : TRIPAD_INVENTORY.v2White;
   return [
     { label: "Product", value: "TP-V2 Glass Mouse Pad" },
     { label: "Series", value: "TP-V2 (Upcoming)" },
     { label: "Edition", value: edition },
-    { label: "SKU", value: variant === "black" ? "TZ TRIPAD V2 BLK" : "TZ TRIPAD V2 WHT" },
+    { label: "SKU", value: inventory.sku },
     ...tripadSpecsShared,
     { label: "Design", value: "Vertical TRIZEN signature layout" },
   ];
@@ -129,6 +140,9 @@ export function buildTripadV2Specs(variant: "black" | "white") {
 
 export function buildTripadV2ProductData(variant: "black" | "white") {
   const isBlack = variant === "black";
+  const inventory = isBlack
+    ? TRIPAD_INVENTORY.v2Black
+    : TRIPAD_INVENTORY.v2White;
   return {
     name: isBlack ? "TP - V2 (black)" : "TP - V2 (white)",
     slug: isBlack ? "trizen-tripad-v2-black" : "trizen-tripad-v2-white",
@@ -140,7 +154,8 @@ export function buildTripadV2ProductData(variant: "black" | "white") {
       isBlack ? "/products/tripad-v2-black.png" : "/products/tripad-v2-white.png",
     ]),
     colors: stringifyJsonField([]),
-    sku: isBlack ? "TZ TRIPAD V2 BLK" : "TZ TRIPAD V2 WHT",
+    sku: inventory.sku,
+    barcode: inventory.barcode,
     tag: "Upcoming",
     image: isBlack ? "/products/tripad-v2-black.png" : "/products/tripad-v2-white.png",
     category: "Mouse Pads",
@@ -150,6 +165,9 @@ export function buildTripadV2ProductData(variant: "black" | "white") {
 
 export function buildTripadProductData(variant: "black" | "white") {
   const isBlack = variant === "black";
+  const inventory = isBlack
+    ? TRIPAD_INVENTORY.v1Black
+    : TRIPAD_INVENTORY.v1White;
   return {
     name: isBlack ? "TP - V1 (black)" : "TP - V1 (White)",
     slug: isBlack ? "trizen-tripad-v1-black" : "trizen-tripad-v1-white",
@@ -161,7 +179,8 @@ export function buildTripadProductData(variant: "black" | "white") {
       isBlack ? "/products/tripad-v1-black.png" : "/products/tripad-v1-white.png",
     ]),
     colors: stringifyJsonField([]),
-    sku: isBlack ? "TZ TRIPAD V1 BLK" : "TZ TRIPAD V1 WHT",
+    sku: inventory.sku,
+    barcode: inventory.barcode,
     tag: isBlack ? "Hot" : null,
     image: isBlack ? "/products/tripad-v1-black.png" : "/products/tripad-v1-white.png",
     category: "Mouse Pads",
@@ -171,7 +190,7 @@ export function buildTripadProductData(variant: "black" | "white") {
 
 const TRIPAD_CATALOG_BY_SLUG: Record<
   string,
-  ReturnType<typeof buildTripadProductData>
+  ReturnType<typeof buildTripadProductData> | ReturnType<typeof buildTripadV2ProductData>
 > = {
   "trizen-tripad-v1-black": buildTripadProductData("black"),
   "trizen-tripad-v1-white": buildTripadProductData("white"),

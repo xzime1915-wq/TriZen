@@ -20,6 +20,7 @@ async function main() {
       data: {
         name: data.name,
         sku: data.sku,
+        barcode: data.barcode,
         description: data.description,
         longDescription: data.longDescription,
         features: data.features,

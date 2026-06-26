@@ -21,6 +21,27 @@ export async function GET(request: Request) {
           }
         : {}),
     },
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      description: true,
+      longDescription: true,
+      features: true,
+      specifications: true,
+      galleryImages: true,
+      colors: true,
+      sku: true,
+      tag: true,
+      price: true,
+      compareAt: true,
+      image: true,
+      category: true,
+      stock: true,
+      featured: true,
+      createdAt: true,
+      updatedAt: true,
+    },
     orderBy: { createdAt: "desc" },
   });
 

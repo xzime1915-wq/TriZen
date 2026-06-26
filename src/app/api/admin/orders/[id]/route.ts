@@ -5,6 +5,13 @@ import { normalizePhone, upsertCustomerFromOrder } from "@/lib/customers";
 import { buildOrderItems, restoreOrderStock } from "@/lib/orders";
 import { sendReviewInvitesForOrder } from "@/lib/review-invite";
 
+function orderHoldsStock(order: { status: string; paymentRef: string | null }) {
+  return (
+    order.status !== "cancelled" &&
+    !order.paymentRef?.startsWith("bkash_pending:")
+  );
+}
+
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -65,9 +72,17 @@ export async function PATCH(
     } = body;
 
     let subtotal = existing.subtotal;
+    const nextStatus = status ?? existing.status;
+    const existingHeldStock = orderHoldsStock(existing);
+    const deferredPaymentStock =
+      existing.paymentRef?.startsWith("bkash_pending:") &&
+      existing.status === "pending_payment";
+    const nextShouldHoldStock = nextStatus !== "cancelled" && !deferredPaymentStock;
 
     if (items?.length) {
-      await restoreOrderStock(id);
+      if (existingHeldStock) {
+        await restoreOrderStock(id);
+      }
       const built = await buildOrderItems(items);
       subtotal = built.subtotal;
 
@@ -76,11 +91,13 @@ export async function PATCH(
         data: built.orderItems.map((i) => ({ ...i, orderId: id })),
       });
 
-      for (const item of built.orderItems) {
-        await prisma.product.update({
-          where: { id: item.productId },
-          data: { stock: { decrement: item.quantity } },
-        });
+      if (nextShouldHoldStock) {
+        for (const item of built.orderItems) {
+          await prisma.product.update({
+            where: { id: item.productId },
+            data: { stock: { decrement: item.quantity } },
+          });
+        }
       }
     }
 
@@ -134,6 +151,23 @@ export async function PATCH(
       });
     }
 
+    if (!items?.length && status === "cancelled" && existingHeldStock) {
+      await restoreOrderStock(id);
+    }
+
+    if (
+      !items?.length &&
+      existing.status === "cancelled" &&
+      nextShouldHoldStock
+    ) {
+      for (const item of existing.items) {
+        await prisma.product.update({
+          where: { id: item.productId },
+          data: { stock: { decrement: item.quantity } },
+        });
+      }
+    }
+
     return NextResponse.json(order);
   } catch (e) {
     const msg = e instanceof Error ? e.message : "Failed to update order";
@@ -156,7 +190,7 @@ export async function DELETE(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  if (order.status !== "cancelled") {
+  if (orderHoldsStock(order)) {
     await restoreOrderStock(id);
   }
 

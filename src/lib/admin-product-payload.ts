@@ -5,6 +5,7 @@ import {
   colorsFromLines,
   stringifyJsonField,
 } from "./product-data";
+import { generateSku, normalizeBarcode, normalizeSku } from "./inventory-codes";
 
 export type AdminProductFormInput = {
   name: string;
@@ -14,13 +15,18 @@ export type AdminProductFormInput = {
   specificationsText?: string;
   galleryText?: string;
   colorsText?: string;
-  sku?: string;
+  modelCode?: string;
+  variantCode?: string;
+  sku?: string | null;
+  barcode?: string | null;
   tag?: string;
   price: number;
+  costPrice?: number;
   compareAt: number | null;
   image: string;
   category: string;
   stock: number;
+  lowStockAlert?: number;
   featured: boolean;
   slug?: string;
 };
@@ -37,13 +43,25 @@ export function buildProductDbPayload(form: AdminProductFormInput) {
     specifications: stringifyJsonField(specsFromLines(form.specificationsText || "")),
     galleryImages: stringifyJsonField(gallery),
     colors: stringifyJsonField(colorsFromLines(form.colorsText || "")),
-    sku: form.sku?.trim() || null,
+    sku:
+      normalizeSku(form.sku) ||
+      generateSku({
+        category: form.category,
+        name: form.name,
+        model: form.modelCode,
+        variant: form.variantCode,
+      }),
+    barcode: normalizeBarcode(form.barcode),
     tag: form.tag?.trim() || null,
     price: form.price,
+    costPrice: Number.isFinite(form.costPrice) ? form.costPrice ?? 0 : 0,
     compareAt: form.compareAt,
     image: mainImage,
     category: form.category,
-    stock: form.stock,
+    stock: Number.isFinite(form.stock) ? Math.max(0, Math.floor(form.stock)) : 0,
+    lowStockAlert: Number.isFinite(form.lowStockAlert)
+      ? Math.max(0, Math.floor(form.lowStockAlert ?? 0))
+      : 5,
     featured: form.featured,
     ...(form.slug ? { slug: form.slug } : {}),
   };

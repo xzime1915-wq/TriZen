@@ -22,6 +22,7 @@ async function main() {
         galleryImages: data.galleryImages,
         colors: data.colors,
         sku: data.sku,
+        barcode: data.barcode,
         tag: "Upcoming",
         image: data.image,
         category: data.category,

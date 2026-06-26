@@ -122,6 +122,11 @@ export function ProductDetailView({
                   </span>
                 )}
               </div>
+              {product.sku ? (
+                <p className="mt-2 text-[10px] font-normal uppercase tracking-[0.18em] text-zinc-500">
+                  SKU: {product.sku}
+                </p>
+              ) : null}
             </div>
 
             <div className="product-buy-body">
