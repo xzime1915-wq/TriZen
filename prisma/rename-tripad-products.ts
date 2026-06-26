@@ -14,6 +14,18 @@ const updates = [
 ];
 
 async function main() {
+  const runId = Date.now();
+
+  for (const [index, data] of updates.entries()) {
+    await prisma.product.update({
+      where: { slug: data.slug },
+      data: {
+        sku: `TEMP-SKU-${runId}-${index}`,
+        barcode: `TEMP-BARCODE-${runId}-${index}`,
+      },
+    });
+  }
+
   for (const data of updates) {
     await prisma.product.update({
       where: { slug: data.slug },
@@ -32,5 +44,8 @@ async function main() {
 }
 
 main()
-  .catch(console.error)
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  })
   .finally(() => prisma.$disconnect());
