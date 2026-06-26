@@ -1,10 +1,21 @@
 import { readFile } from "fs/promises";
 import path from "path";
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
+import sharp from "sharp";
 import type { Order, OrderItem, StoreSettings } from "@prisma/client";
 import { getStatusLabel } from "@/lib/utils";
+import { renderCode128Svg } from "@/lib/barcode-svg";
+import { renderQrSvg } from "@/lib/qr-svg";
+import { SITE_URL } from "@/lib/site-config";
 
-type OrderWithItems = Order & { items: OrderItem[] };
+type OrderWithItems = Order & {
+  items: (OrderItem & {
+    product: {
+      sku: string;
+      barcode: string;
+    };
+  })[];
+};
 
 function formatMoney(amount: number) {
   const n = amount.toLocaleString("en-BD", {
@@ -61,6 +72,10 @@ function wrapText(
 
   if (carry.value) lines.push(carry.value);
   return lines;
+}
+
+async function svgToPng(svg: string) {
+  return sharp(Buffer.from(svg)).png().toBuffer();
 }
 
 export async function buildInvoicePdf(
@@ -158,7 +173,57 @@ export async function buildInvoicePdf(
   y -= 14;
   drawRight(`Order: ${order.orderNumber}`, 10);
 
-  const headerLineY = Math.min(headerBottom, y) - 14;
+  let codeBottom = y;
+  try {
+    const invoiceCode = order.invoiceNumber || order.orderNumber;
+    const trackUrl = `${SITE_URL}/track-order?orderNumber=${encodeURIComponent(
+      order.orderNumber
+    )}`;
+    const barcodePng = await svgToPng(renderCode128Svg(invoiceCode));
+    const qrPng = await svgToPng(renderQrSvg(trackUrl));
+    const barcodeImage = await pdf.embedPng(barcodePng);
+    const qrImage = await pdf.embedPng(qrPng);
+    const qrSize = 58;
+    const barcodeW = 150;
+    const barcodeH = 48;
+    const gap = 12;
+    const qrX = pageWidth - margin - qrSize;
+    const barcodeX = qrX - gap - barcodeW;
+    const labelY = y - 16;
+    const imageY = y - 68;
+
+    page.drawText("INVOICE BARCODE", {
+      x: barcodeX,
+      y: labelY,
+      size: 6,
+      font: fontBold,
+      color: rgb(0.45, 0.45, 0.45),
+    });
+    page.drawText("TRACK QR", {
+      x: qrX + 8,
+      y: labelY,
+      size: 6,
+      font: fontBold,
+      color: rgb(0.45, 0.45, 0.45),
+    });
+    page.drawImage(barcodeImage, {
+      x: barcodeX,
+      y: imageY,
+      width: barcodeW,
+      height: barcodeH,
+    });
+    page.drawImage(qrImage, {
+      x: qrX,
+      y: imageY,
+      width: qrSize,
+      height: qrSize,
+    });
+    codeBottom = imageY;
+  } catch {
+    codeBottom = y;
+  }
+
+  const headerLineY = Math.min(headerBottom, codeBottom) - 14;
   page.drawLine({
     start: { x: margin, y: headerLineY },
     end: { x: pageWidth - margin, y: headerLineY },
@@ -261,12 +326,21 @@ export async function buildInvoicePdf(
   y -= 20;
 
   for (const item of order.items) {
+    const rowTopY = y;
     drawText(item.name, margin, 10);
-    page.drawText(String(item.quantity), { x: colQty, y, size: 10, font });
-    page.drawText(formatMoney(item.price), { x: colUnit, y, size: 10, font });
+    y -= 12;
+    page.drawText(`SKU: ${item.product.sku} | Barcode: ${item.product.barcode}`, {
+      x: margin,
+      y,
+      size: 7,
+      font,
+      color: rgb(0.35, 0.35, 0.35),
+    });
+    page.drawText(String(item.quantity), { x: colQty, y: rowTopY, size: 10, font });
+    page.drawText(formatMoney(item.price), { x: colUnit, y: rowTopY, size: 10, font });
     const amt = formatMoney(item.price * item.quantity);
     const amtW = font.widthOfTextAtSize(amt, 10);
-    page.drawText(amt, { x: pageWidth - margin - amtW, y, size: 10, font });
+    page.drawText(amt, { x: pageWidth - margin - amtW, y: rowTopY, size: 10, font });
     y -= 14;
     page.drawLine({
       start: { x: margin, y: y + 4 },

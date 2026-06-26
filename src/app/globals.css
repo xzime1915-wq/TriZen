@@ -3235,6 +3235,34 @@ textarea {
   letter-spacing: 0.02em;
 }
 
+.invoice-print .invoice-code-panel {
+  break-inside: avoid;
+}
+
+.invoice-print .invoice-code-label {
+  margin-bottom: 0.25rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #737373;
+}
+
+.invoice-print .invoice-barcode-img {
+  display: block;
+  width: 170px;
+  height: 54px;
+  object-fit: contain;
+  object-position: right center;
+}
+
+.invoice-print .invoice-qr-img {
+  display: block;
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+}
+
 .invoice-print .invoice-section-label {
   font-size: 0.6875rem;
   font-weight: 600;
@@ -3253,6 +3281,13 @@ textarea {
 .invoice-print .invoice-table td {
   font-size: 0.875rem;
   font-weight: 400;
+}
+
+.invoice-print .invoice-item-code {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #525252;
 }
 
 .invoice-print .invoice-total-row {

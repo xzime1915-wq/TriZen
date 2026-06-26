@@ -4,8 +4,15 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatCurrency, getStatusLabel } from "@/lib/utils";
 import { InvoiceActions } from "@/components/admin/InvoiceActions";
+import { renderCode128Svg } from "@/lib/barcode-svg";
+import { renderQrSvg } from "@/lib/qr-svg";
+import { SITE_URL } from "@/lib/site-config";
 
 export const dynamic = "force-dynamic";
+
+function svgDataUri(svg: string) {
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
 
 export default async function InvoicePage({
   params,
@@ -18,13 +25,30 @@ export default async function InvoicePage({
   const { id } = await params;
   const order = await prisma.order.findUnique({
     where: { id },
-    include: { items: true },
+    include: {
+      items: {
+        include: {
+          product: {
+            select: {
+              sku: true,
+              barcode: true,
+            },
+          },
+        },
+      },
+    },
   });
   if (!order) notFound();
 
   const settings = await prisma.storeSettings.findFirst();
   const storeName = settings?.storeName?.trim() || "TRIZEN Store";
   const tagline = settings?.tagline?.trim() || "Premium Esports Gear";
+  const invoiceCode = order.invoiceNumber || order.orderNumber;
+  const trackUrl = `${SITE_URL}/track-order?orderNumber=${encodeURIComponent(
+    order.orderNumber
+  )}`;
+  const invoiceBarcodeSrc = svgDataUri(renderCode128Svg(invoiceCode));
+  const invoiceQrSrc = svgDataUri(renderQrSvg(trackUrl));
 
   return (
   <>
@@ -53,6 +77,24 @@ export default async function InvoicePage({
             Date: {new Date(order.createdAt).toLocaleDateString()}
           </p>
           <p className="invoice-meta">Order: {order.orderNumber}</p>
+          <div className="invoice-code-panel mt-4 flex items-center justify-end gap-3">
+            <div className="text-right">
+              <p className="invoice-code-label">Invoice Barcode</p>
+              <img
+                src={invoiceBarcodeSrc}
+                alt={`Invoice barcode ${invoiceCode}`}
+                className="invoice-barcode-img"
+              />
+            </div>
+            <div className="text-right">
+              <p className="invoice-code-label">Track QR</p>
+              <img
+                src={invoiceQrSrc}
+                alt={`Track order QR ${order.orderNumber}`}
+                className="invoice-qr-img"
+              />
+            </div>
+          </div>
         </div>
       </header>
 
@@ -90,7 +132,12 @@ export default async function InvoicePage({
         <tbody>
           {order.items.map((item) => (
             <tr key={item.id} className="border-b border-gray-200">
-              <td className="py-3">{item.name}</td>
+              <td className="py-3">
+                <p>{item.name}</p>
+                <p className="invoice-item-code mt-1">
+                  SKU: {item.product.sku} | Barcode: {item.product.barcode}
+                </p>
+              </td>
               <td className="py-3 text-center">{item.quantity}</td>
               <td className="py-3 text-right">{formatCurrency(item.price)}</td>
               <td className="py-3 text-right">
