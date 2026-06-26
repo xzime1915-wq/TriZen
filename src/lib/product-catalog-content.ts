@@ -220,6 +220,7 @@ export function buildPtfeMouseSkatesProductData() {
     ]),
     galleryImages: stringifyJsonField([
       "/products/trizen-ptfe-mouse-skates.webp",
+      "/products/trizen-ptfe-mouse-skates-detail.webp",
       "/products/trizen-ptfe-mouse-skates.png",
     ]),
     colors: stringifyJsonField([]),
