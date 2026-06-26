@@ -45,4 +45,4 @@ Then reply briefly with: draft title, admin link, and that Telegram was notified
 
 ## Model
 
-Local Ollama `llama3.2:3b` — keep responses concise. **Prefer running scripts over long chat.**
+Local Ollama **`qwen2.5:7b`** — supports tools/exec. Keep responses short. **Run scripts first, chat second.**

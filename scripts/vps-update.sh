@@ -47,6 +47,10 @@ echo ">>> Sync TriPad names & SKU in database..."
 npm run db:rename-tripad
 echo ""
 
+echo ">>> Upsert PTFE mouse skates product..."
+npm run db:upsert-ptfe-skates
+echo ""
+
 echo ">>> Build (may take 2-3 min)..."
 rm -rf .next
 npm run build

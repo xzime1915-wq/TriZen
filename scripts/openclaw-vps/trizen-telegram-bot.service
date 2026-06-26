@@ -1,0 +1,16 @@
+[Unit]
+Description=TRIZEN Telegram automation bot (no LLM)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/trizen-automation
+Environment=TRIZEN_ENV_FILE=/root/.trizen-automation.env
+ExecStart=/usr/bin/python3 /opt/trizen-automation/trizen-telegram-bot.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

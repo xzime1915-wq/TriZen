@@ -188,6 +188,50 @@ export function buildTripadProductData(variant: "black" | "white") {
   };
 }
 
+export const ptfeMouseSkatesFeatures = [
+  "PTFE glide dots for smooth, low friction mouse movement",
+  "Universal dot layout for quick mouse tuning",
+  "Rounded edge feel for controlled glide",
+  "White skates on TRIZEN branded backing sheet",
+  "Easy peel and apply installation",
+  "Great for refreshing worn mouse feet",
+  "Designed for competitive gaming setups",
+];
+
+export function buildPtfeMouseSkatesProductData() {
+  const sku = "TS-MS-PTFE";
+
+  return {
+    name: "TRIZEN PTFE Mouse Skates",
+    slug: "trizen-ptfe-mouse-skates",
+    description:
+      "PTFE mouse skate dots for smoother glide, lower friction, and quick mouse tuning.",
+    longDescription:
+      "TRIZEN PTFE Mouse Skates are made for players who want a smoother, cleaner glide from their gaming mouse.\n\nThe universal dot layout makes installation simple across many mouse shapes. Apply the skates to refresh worn feet, fine tune glide, or prepare a mouse for competitive play.\n\nOrder from TRIZEN Store with Cash on Delivery, bKash, Nagad, or bank transfer. We ship across Bangladesh.",
+    features: stringifyJsonField(ptfeMouseSkatesFeatures),
+    specifications: stringifyJsonField([
+      { label: "Product", value: "PTFE Mouse Skates" },
+      { label: "Category", value: "Mouse Skates" },
+      { label: "Material", value: "PTFE" },
+      { label: "Type", value: "Universal dot skates" },
+      { label: "Color", value: "White" },
+      { label: "SKU", value: sku },
+      { label: "Sold By", value: "TRIZEN Store (Official)" },
+    ]),
+    galleryImages: stringifyJsonField([
+      "/products/trizen-ptfe-mouse-skates.webp",
+      "/products/trizen-ptfe-mouse-skates.png",
+    ]),
+    colors: stringifyJsonField([]),
+    sku,
+    barcode: "890000000005",
+    tag: "Upcoming",
+    image: "/products/trizen-ptfe-mouse-skates.webp",
+    category: "Mouse Skates",
+    featured: false,
+  };
+}
+
 const TRIPAD_CATALOG_BY_SLUG: Record<
   string,
   ReturnType<typeof buildTripadProductData> | ReturnType<typeof buildTripadV2ProductData>

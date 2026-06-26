@@ -5,6 +5,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import {
+  buildPtfeMouseSkatesProductData,
   buildTripadProductData,
   buildTripadV2ProductData,
 } from "../src/lib/product-catalog-content";
@@ -16,6 +17,7 @@ const catalog = [
   { ...buildTripadProductData("white"), price: 6100, compareAt: null, stock: 40 },
   { ...buildTripadV2ProductData("black"), price: 0, compareAt: null, stock: 0 },
   { ...buildTripadV2ProductData("white"), price: 0, compareAt: null, stock: 0 },
+  { ...buildPtfeMouseSkatesProductData(), price: 0, compareAt: null, stock: 0 },
 ];
 
 async function main() {
