@@ -1,56 +1,67 @@
 # TriZen Store
 
-E-commerce for **TriZen Store** — TriPad glass mouse pads, checkout (COD / bKash / Nagad / bank), admin panel, invoices, and customer accounts.
+E-commerce for TriZen Store: TriPad glass mouse pads, checkout, admin panel, invoices, live chat, customer accounts, and product management.
 
-## Quick start (development)
+## Fresh Windows Setup
+
+On a new Windows install, run this first:
+
+```bat
+scripts\setup-windows-tools.bat
+```
+
+If Windows asks for admin permission, approve it. After it finishes, close the terminal and open a new CMD or PowerShell so Git, Node.js, npm, and Python are available in PATH.
+
+## Run Locally
+
+Fast path:
+
+```bat
+scripts\localhost.bat
+```
+
+Manual path:
 
 ```bash
 npm install
-cp .env.example .env
-# Edit .env — set ADMIN_PASSWORD, JWT_SECRET, wallet numbers
-
+copy .env.example .env
+# Edit .env, then:
 npx prisma db push
-npm run db:seed
-
+npm run db:setup-safe
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000).
 
-Admin: [http://localhost:3000/admin/login](http://localhost:3000/admin/login) — use `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env`.
+Admin login: [http://localhost:3000/admin/login](http://localhost:3000/admin/login). Use `ADMIN_EMAIL` and `ADMIN_PASSWORD` from `.env`.
 
-## Production deploy
+## Before Push Or Deploy
 
-See **[DEPLOY.md](./DEPLOY.md)** for the full checklist (Railway, env vars, safe DB setup).
+Run:
 
-**Never** run `db:seed` in production — it deletes all orders. Use:
-
-```bash
-npm run db:setup-safe
+```bat
+scripts\prepare-deploy.bat
 ```
 
-## Features
+This verifies dependencies, Prisma, typecheck, and production build.
 
-- Storefront: home, shop, product pages, cart, checkout
-- TriPad V1 (in stock) + V2 (upcoming)
-- Orders + track order + confirmation (email required)
-- Admin: products, orders, customers, settings, PDF invoice
-- Customer sign-in (email/password + optional Google OAuth)
+Push only:
 
-## Tech stack
+```bat
+scripts\publish-git.bat
+```
 
-- Next.js 15 (App Router), TypeScript, Tailwind CSS 4
-- Prisma + SQLite (single-server deploy) or PostgreSQL for serverless
-- Zustand cart, Jose JWT sessions
+Push and VPS deploy:
 
-## Security (built-in)
+```bat
+publish.bat
+```
 
-- Admin routes protected by middleware + JWT (`role: admin`)
-- Production env validation on startup
-- Order confirmation requires customer email
-- Rate limits on orders, admin login, reviews
-- Google OAuth `state` CSRF protection
-- Destructive seed blocked in production
+Never run `npm run db:seed` in production. It can wipe orders. Use `npm run db:setup-safe`.
+
+## Production Deploy
+
+See [DEPLOY.md](./DEPLOY.md) for hosting notes and env variables. The current VPS update script pulls `origin/main`, installs dependencies, syncs Prisma, builds, and restarts PM2.
 
 ## Scripts
 
@@ -59,7 +70,9 @@ npm run db:setup-safe
 | `npm run dev` | Development server |
 | `npm run build` | Production build |
 | `npm start` | Run production server |
+| `npm run lint` | TypeScript typecheck |
 | `npm run db:push` | Apply Prisma schema |
-| `npm run db:seed` | Dev: reset DB + sample data |
-| `npm run db:setup-safe` | Prod: upsert products without wiping orders |
-| `npm run db:upsert-v2` | Upsert TriPad V2 products only |
+| `npm run db:seed` | Dev reset only; wipes data |
+| `npm run db:setup-safe` | Upsert products without wiping orders |
+| `scripts\localhost.bat` | Windows localhost setup and dev server |
+| `scripts\prepare-deploy.bat` | Windows pre-deploy verification |

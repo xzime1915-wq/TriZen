@@ -1,0 +1,117 @@
+TRIZEN STORE - WINDOWS 11 SETUP
+===============================
+
+Repo:
+https://github.com/xzime1915-wq/TriZen.git
+
+Project folder:
+F:\trizenweb1\trizenweb
+
+
+1. INSTALL WINDOWS TOOLS
+========================
+
+Run this file:
+
+scripts\setup-windows-tools.bat
+
+It installs:
+
+1. Git
+2. Node.js LTS
+3. Python 3
+4. Python paramiko package for VPS deploy
+
+If Windows shows an admin/UAC prompt, click Yes.
+After install, close CMD/PowerShell and open a new one.
+
+
+2. LOCALHOST RUN
+================
+
+Run:
+
+scripts\localhost.bat
+
+Then open:
+
+http://localhost:3000
+
+Admin:
+
+http://localhost:3000/admin/login
+
+Use ADMIN_EMAIL and ADMIN_PASSWORD from .env.
+
+
+3. BEFORE GIT PUSH OR DEPLOY
+============================
+
+Run:
+
+scripts\prepare-deploy.bat
+
+It checks:
+
+1. npm dependencies
+2. Prisma generate
+3. SQLite schema sync
+4. Safe product/admin upsert
+5. TypeScript typecheck
+6. Next.js production build
+7. Git status
+
+
+4. PUSH
+=======
+
+Run:
+
+scripts\publish-git.bat
+
+GitHub login/token may be needed on a new Windows install.
+
+
+5. VPS DEPLOY
+=============
+
+Make sure this file exists locally:
+
+.env.vps
+
+Then run:
+
+publish.bat
+
+The deploy script pushes code, connects to VPS, pulls origin/main,
+builds the app, and restarts PM2.
+
+
+IMPORTANT BACKUPS
+=================
+
+Before formatting Windows, keep these:
+
+1. .env
+2. .env.vps
+3. prisma\dev.db
+4. public\products
+5. public\uploads
+6. public\blog
+
+Best backup:
+
+Full F:\trizenweb1\trizenweb folder.
+
+
+DO NOT COMMIT THESE
+===================
+
+node_modules
+.next
+.env
+.env.vps
+*.db
+tmp
+public\uploads\chat
+public\blog generated files

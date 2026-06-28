@@ -5,6 +5,7 @@ __pycache__/
 .next.backup-*/
 .next.zip
 *.zip
+tmp/
 .env
 .env.local
 .env.vps
