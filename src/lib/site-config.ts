@@ -5,7 +5,7 @@ export const SITE_NAME = "TRIZEN Store";
 export const SITE_TITLE = "TRIZEN STORE ESPORTS GEARS";
 
 export const SITE_DESCRIPTION =
-  "Esports mouse pad in Bangladesh, TRIZEN Store sells TRIPAD glass pads, soft pads, skates & sleeves. COD, bKash, Nagad & nationwide delivery.";
+  "Premium esports mouse pads and gaming gear in Bangladesh. TRIZEN Store sells TRIPAD glass pads, soft pads, mouse skates and hand sleeves.";
 
 export const SEO_GLASS_MOUSE_PAD_BD =
   "Glass mouse pad in Bangladesh, TRIZEN TRIPAD";

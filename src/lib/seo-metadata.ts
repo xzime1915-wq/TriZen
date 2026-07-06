@@ -12,12 +12,12 @@ export function glassMousePadShopMetadata(): Metadata {
   return {
     title: "Glass Mouse Pad in Bangladesh",
     description:
-      "Esports glass mouse pad in Bangladesh, TRIZEN TRIPAD tempered glass, low friction glide. COD, bKash, Nagad & nationwide delivery.",
+      "Esports glass mouse pad in Bangladesh, TRIZEN TRIPAD tempered glass surface with low friction glide for competitive FPS and ranked play.",
     alternates: { canonical: `${SITE_URL}${path}` },
     openGraph: {
       title: `Glass Mouse Pad in Bangladesh | ${SITE_NAME}`,
       description:
-        "TRIZEN TRIPAD, premium esports glass mouse pads. Buy online in Bangladesh with COD.",
+        "TRIZEN TRIPAD, premium esports glass mouse pads in Bangladesh with low friction competitive glide.",
       url: `${SITE_URL}${path}`,
     },
   };
@@ -28,7 +28,7 @@ export function esportsMousePadShopMetadata(): Metadata {
   return {
     title: "Esports Mouse Pad in Bangladesh",
     description:
-      "Shop esports mouse pad in Bangladesh at TRIZEN, glass TRIPAD, soft pads, mouse skates & hand sleeves. Competitive grade gear with COD, bKash & Nagad.",
+      "Shop esports mouse pads in Bangladesh at TRIZEN, including glass TRIPAD, soft pads, mouse skates and hand sleeves for competitive play.",
     alternates: { canonical: `${SITE_URL}${path}` },
     openGraph: {
       title: `Esports Mouse Pad in Bangladesh | ${SITE_NAME}`,
@@ -43,7 +43,7 @@ export function homePageMetadata(): Metadata {
   return {
     title: SITE_TITLE,
     description:
-      "Esports mouse pad in Bangladesh, TRIZEN TRIPAD glass pads, soft pads, skates & sleeves. COD, bKash, Nagad & order tracking.",
+      "Esports mouse pads in Bangladesh from TRIZEN Store. Explore TRIPAD glass pads, soft pads, mouse skates and hand sleeves for competitive play.",
     alternates: { canonical: SITE_URL },
     openGraph: {
       title: SITE_TITLE,
