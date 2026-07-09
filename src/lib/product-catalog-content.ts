@@ -31,7 +31,7 @@ const tripadSpecsShared = [
 ];
 
 export const tripadFeatures = [
-  `Generous playing area, ${TRIPAD_DIMENSIONS} (L × W × H)`,
+  `Large mouse pad playing area, ${TRIPAD_DIMENSIONS} (L × W × H)`,
   "Ultra smooth tempered glass surface, super fast, low friction glide",
   "Engineered for competitive esports: precision flicks, tracking & aim",
   "Hall effect level consistency, same feel across the entire pad",
@@ -43,7 +43,7 @@ export const tripadFeatures = [
 ];
 
 export const tripadSpecs = [
-  { label: "Product", value: "TP-V1 Glass Mouse Pad" },
+  { label: "Product", value: "TP-V1 Large Glass Mouse Pad" },
   ...tripadSpecsShared,
 ];
 
@@ -55,7 +55,7 @@ export function tripadLongDescription(variant: "black" | "white") {
       ? "matte black finish that looks clean on any battlestation"
       : "clean white aesthetic perfect for minimal desk setups";
 
-  return `The ${model} is a premium tempered glass mouse pad built for players who care about speed, control, and consistency.
+  return `The ${model} is a premium large tempered glass mouse pad built for players who care about speed, control, and consistency.
 
 Our glass surface is tuned for competitive esports, you get an ultra smooth glide with low friction, so micro adjustments, flicks, and tracking feel sharp and predictable match after match.
 
@@ -68,8 +68,8 @@ Order from TRIZEN Store with Cash on Delivery, bKash, Nagad, or bank transfer. W
 
 export function tripadShortDescription(variant: "black" | "white") {
   return variant === "black"
-    ? "Premium glass mouse pad for esports. Ultra smooth glide, durable tempered glass, matte black TRIZEN edition."
-    : "Premium glass mouse pad, white edition. Same esports grade glide, clean desk aesthetic, TRIZEN quality.";
+    ? "Premium large glass mouse pad for esports. Ultra smooth glide, durable tempered glass, matte black TRIZEN edition."
+    : "Premium large glass mouse pad, white edition. Same esports grade glide, clean desk aesthetic, TRIZEN quality.";
 }
 
 export const tripadV2Features = [
@@ -85,7 +85,7 @@ export const tripadV2Features = [
 ];
 
 export const tripadV2Specs = [
-  { label: "Product", value: "TP-V2 Glass Mouse Pad" },
+  { label: "Product", value: "TP-V2 Large Glass Mouse Pad" },
   { label: "Series", value: "TP-V2 (Upcoming)" },
   ...tripadSpecsShared,
   { label: "Design", value: "Vertical TRIZEN signature layout" },
@@ -99,7 +99,7 @@ export function tripadV2LongDescription(variant: "black" | "white") {
       ? "deep black glass with high contrast white TRIZEN lettering along the edge"
       : "light silver white glass with bold black TRIZEN lettering along the edge";
 
-  return `${model} is the next chapter of our glass mouse pad line, same competitive DNA as V1, with a fresh design language players asked for.
+  return `${model} is the next chapter of our glass mouse pad line, same large mouse pad size and competitive DNA as V1, with a fresh design language players asked for.
 
 The V2 layout features ${accent}. The surface is tuned for ultra smooth, low friction glide so tracking and micro adjustments stay predictable.
 
@@ -108,8 +108,8 @@ ${model} is upcoming at TRIZEN Store. Register interest by visiting the product 
 
 export function tripadV2ShortDescription(variant: "black" | "white") {
   return variant === "black"
-    ? "TRIPAD V2 Black, new vertical TRIZEN design. Same glass glide. Upcoming."
-    : "TRIPAD V2 White, clean silver aesthetic, bold branding. Upcoming.";
+    ? "TRIPAD V2 Black, large glass mouse pad with new vertical TRIZEN design. Same glass glide. Upcoming."
+    : "TRIPAD V2 White, large glass mouse pad with clean silver aesthetic and bold branding. Upcoming.";
 }
 
 export function buildTripadSpecs(variant: "black" | "white") {
@@ -117,7 +117,7 @@ export function buildTripadSpecs(variant: "black" | "white") {
   const inventory =
     variant === "black" ? TRIPAD_INVENTORY.v1Black : TRIPAD_INVENTORY.v1White;
   return [
-    { label: "Product", value: "TP-V1 Glass Mouse Pad" },
+    { label: "Product", value: "TP-V1 Large Glass Mouse Pad" },
     { label: "Edition", value: edition },
     { label: "SKU", value: inventory.sku },
     ...tripadSpecsShared,
@@ -129,7 +129,7 @@ export function buildTripadV2Specs(variant: "black" | "white") {
   const inventory =
     variant === "black" ? TRIPAD_INVENTORY.v2Black : TRIPAD_INVENTORY.v2White;
   return [
-    { label: "Product", value: "TP-V2 Glass Mouse Pad" },
+    { label: "Product", value: "TP-V2 Large Glass Mouse Pad" },
     { label: "Series", value: "TP-V2 (Upcoming)" },
     { label: "Edition", value: edition },
     { label: "SKU", value: inventory.sku },

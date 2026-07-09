@@ -5,13 +5,13 @@ export const SITE_NAME = "TRIZEN Store";
 export const SITE_TITLE = "TRIZEN STORE ESPORTS GEARS";
 
 export const SITE_DESCRIPTION =
-  "Premium esports mouse pads and gaming gear in Bangladesh. TRIZEN Store sells TRIPAD glass pads, soft pads, mouse skates and hand sleeves.";
+  "Premium esports mouse pads and gaming gear in Bangladesh. TRIZEN Store sells large TRIPAD glass pads, soft pads, mouse skates and hand sleeves.";
 
 export const SEO_GLASS_MOUSE_PAD_BD =
-  "Glass mouse pad in Bangladesh, TRIZEN TRIPAD";
+  "Large glass mouse pad in Bangladesh, TRIZEN TRIPAD";
 
 export const SEO_ESPORTS_MOUSE_PAD_BD =
-  "Esports mouse pad in Bangladesh, TRIZEN Store";
+  "Large esports mouse pad in Bangladesh, TRIZEN Store";
 
 export const SITE_CONTACT = {
   phone: "+8801778741431",
@@ -30,7 +30,7 @@ export const SITE_SOCIAL = [
 /** Primary nav URLs — helps Google understand sitelink candidates */
 export const SITE_NAV_LINKS = [
   { name: "Shop", url: `${SITE_URL}/shop` },
-  { name: "Glass Mouse Pad", url: `${SITE_URL}/shop?gear=glass-mouse-pad` },
+  { name: "Large Glass Mouse Pad", url: `${SITE_URL}/shop?gear=glass-mouse-pad` },
   { name: "Soft Mouse Pad", url: `${SITE_URL}/shop?gear=soft-mouse-pad` },
   { name: "Mouse Skates", url: `${SITE_URL}/shop?gear=skates` },
   { name: "Hand Sleeves", url: `${SITE_URL}/shop?gear=hand-sleeves` },

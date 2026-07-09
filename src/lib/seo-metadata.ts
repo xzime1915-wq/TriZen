@@ -10,14 +10,14 @@ import {
 export function glassMousePadShopMetadata(): Metadata {
   const path = "/shop?gear=glass-mouse-pad";
   return {
-    title: "Glass Mouse Pad in Bangladesh",
+    title: "Large Glass Mouse Pad in Bangladesh",
     description:
-      "Esports glass mouse pad in Bangladesh, TRIZEN TRIPAD tempered glass surface with low friction glide for competitive FPS and ranked play.",
+      "Large glass mouse pad in Bangladesh, TRIZEN TRIPAD tempered glass surface with low friction glide for competitive FPS and ranked play.",
     alternates: { canonical: `${SITE_URL}${path}` },
     openGraph: {
-      title: `Glass Mouse Pad in Bangladesh | ${SITE_NAME}`,
+      title: `Large Glass Mouse Pad in Bangladesh | ${SITE_NAME}`,
       description:
-        "TRIZEN TRIPAD, premium esports glass mouse pads in Bangladesh with low friction competitive glide.",
+        "TRIZEN TRIPAD, premium large esports glass mouse pads in Bangladesh with low friction competitive glide.",
       url: `${SITE_URL}${path}`,
     },
   };
@@ -28,7 +28,7 @@ export function esportsMousePadShopMetadata(): Metadata {
   return {
     title: "Esports Mouse Pad in Bangladesh",
     description:
-      "Shop esports mouse pads in Bangladesh at TRIZEN, including glass TRIPAD, soft pads, mouse skates and hand sleeves for competitive play.",
+      "Shop esports mouse pads in Bangladesh at TRIZEN, including large glass TRIPAD pads, soft pads, mouse skates and hand sleeves for competitive play.",
     alternates: { canonical: `${SITE_URL}${path}` },
     openGraph: {
       title: `Esports Mouse Pad in Bangladesh | ${SITE_NAME}`,
