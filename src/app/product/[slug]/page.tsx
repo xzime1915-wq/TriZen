@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { ProductDetailView } from "@/components/product/ProductDetailView";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getRelatedProducts } from "@/lib/related-products";
 import {
   parseFeatures,
@@ -14,9 +15,93 @@ import {
 import type { Metadata } from "next";
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
 import { getTripadCatalogBySlug } from "@/lib/product-catalog-content";
+import { isUpcoming } from "@/lib/product-status";
 import { verifiedReviewSelect, verifiedReviewWhere } from "@/lib/reviews";
 
 export const dynamic = "force-dynamic";
+
+type ProductJsonLdInput = {
+  name: string;
+  slug: string;
+  description: string;
+  longDescription: string;
+  image: string;
+  sku: string;
+  category: string;
+  price: number;
+  stock: number;
+  tag: string | null;
+  reviews: { rating: number }[];
+};
+
+function absoluteUrl(src: string): string {
+  if (/^https?:\/\//i.test(src)) return src;
+  return `${SITE_URL}${src.startsWith("/") ? "" : "/"}${src}`;
+}
+
+function cleanText(text: string): string {
+  return text.replace(/\s+/g, " ").trim();
+}
+
+function buildProductJsonLd({
+  product,
+  gallery,
+  avgRating,
+}: {
+  product: ProductJsonLdInput;
+  gallery: string[];
+  avgRating: number;
+}): Record<string, unknown> {
+  const productUrl = `${SITE_URL}/product/${product.slug}`;
+  const images = (gallery.length > 0 ? gallery : [product.image])
+    .filter(Boolean)
+    .map(absoluteUrl);
+
+  const jsonLd: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${productUrl}#product`,
+    name: product.name,
+    description: cleanText(product.longDescription || product.description),
+    image: images,
+    sku: product.sku,
+    brand: {
+      "@type": "Brand",
+      name: "TRIZEN",
+    },
+    category: product.category,
+    url: productUrl,
+    mainEntityOfPage: productUrl,
+  };
+
+  if (avgRating > 0 && product.reviews.length > 0) {
+    jsonLd.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: avgRating,
+      reviewCount: product.reviews.length,
+      bestRating: 5,
+      worstRating: 1,
+    };
+  }
+
+  if (!isUpcoming(product.tag) && product.price > 0) {
+    jsonLd.offers = {
+      "@type": "Offer",
+      "@id": `${productUrl}#offer`,
+      url: productUrl,
+      priceCurrency: "BDT",
+      price: Number(product.price.toFixed(2)),
+      availability:
+        product.stock > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
+      seller: { "@id": `${SITE_URL}/#store` },
+    };
+  }
+
+  return jsonLd;
+}
 
 export async function generateMetadata({
   params,
@@ -86,9 +171,27 @@ export default async function ProductPage({
   const colors = parseColors(product.colors);
   const avgRating = averageRating(product.reviews);
   const related = await getRelatedProducts(product.id, product.category);
+  const productJsonLd = buildProductJsonLd({
+    product: {
+      name: catalog?.name ?? product.name,
+      slug: product.slug,
+      description,
+      longDescription,
+      image: product.image,
+      sku: product.sku,
+      category: product.category,
+      price: product.price,
+      stock: product.stock,
+      tag: product.tag,
+      reviews: product.reviews,
+    },
+    gallery,
+    avgRating,
+  });
 
   return (
     <div className="min-h-screen w-full bg-white">
+      <JsonLd data={productJsonLd} />
       <ProductDetailView
         product={{
           id: product.id,
