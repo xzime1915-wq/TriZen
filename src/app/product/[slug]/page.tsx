@@ -122,7 +122,7 @@ export async function generateMetadata({
   const isGlass =
     slug.includes("tripad") || displayDescription.toLowerCase().includes("glass");
   const title = isGlass
-    ? `${displayName}, Large Esports Glass Mouse Pad Bangladesh`
+    ? `${displayName}, Large Mouse Pad Bangladesh`
     : `${displayName}, Esports Gear Bangladesh`;
   const description = displayDescription.slice(0, 160);
 

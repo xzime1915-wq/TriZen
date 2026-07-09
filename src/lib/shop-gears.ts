@@ -51,7 +51,7 @@ export const SHOP_GEAR_COPY: Record<
 > = {
   "glass-mouse-pad": {
     eyebrow: "In stock",
-    title: "Large Glass Mouse Pad",
+    title: "Large Mouse Pad",
     statusLabel: "Grab Now",
   },
   "soft-mouse-pad": {

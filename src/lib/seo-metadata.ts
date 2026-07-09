@@ -10,12 +10,12 @@ import {
 export function glassMousePadShopMetadata(): Metadata {
   const path = "/shop?gear=glass-mouse-pad";
   return {
-    title: "Large Glass Mouse Pad in Bangladesh",
+    title: "Large Mouse Pad in Bangladesh",
     description:
-      "Large glass mouse pad in Bangladesh, TRIZEN TRIPAD tempered glass surface with low friction glide for competitive FPS and ranked play.",
+      "Large mouse pad in Bangladesh, TRIZEN TRIPAD tempered glass surface with low friction glide for competitive FPS and ranked play.",
     alternates: { canonical: `${SITE_URL}${path}` },
     openGraph: {
-      title: `Large Glass Mouse Pad in Bangladesh | ${SITE_NAME}`,
+      title: `Large Mouse Pad in Bangladesh | ${SITE_NAME}`,
       description:
         "TRIZEN TRIPAD, premium large esports glass mouse pads in Bangladesh with low friction competitive glide.",
       url: `${SITE_URL}${path}`,
