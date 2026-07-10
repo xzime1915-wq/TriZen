@@ -15,8 +15,10 @@ import {
 import type { Metadata } from "next";
 import {
   esportsMousePadShopMetadata,
-  glassMousePadShopMetadata,
+  shopGearMetadata,
 } from "@/lib/seo-metadata";
+import { ALL_PRODUCTS_FAQS } from "@/lib/faq-content";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export const dynamic = "force-dynamic";
 
@@ -26,9 +28,10 @@ export async function generateMetadata({
   searchParams: Promise<{ category?: string; gear?: string; q?: string }>;
 }): Promise<Metadata> {
   const params = await searchParams;
+  const activeGear = isShopGearLine(params.gear) ? params.gear : undefined;
 
-  if (params.gear === "glass-mouse-pad") {
-    return glassMousePadShopMetadata();
+  if (activeGear) {
+    return shopGearMetadata(activeGear);
   }
 
   if (params.q) {
@@ -91,49 +94,66 @@ export default async function ShopPage({
     : sectionsToShow;
 
   return (
-    <div className="min-h-screen bg-white">
-      <ShopHero
-        count={productCount}
-        activeGearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}
-        query={params.q}
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: ALL_PRODUCTS_FAQS.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: faq.answer,
+            },
+          })),
+        }}
       />
 
-      {showEditionShowcase ? <ShopEditionShowcase /> : null}
+      <div className="min-h-screen bg-white">
+        <ShopHero
+          count={productCount}
+          activeGearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}
+          query={params.q}
+        />
 
-      {productCount === 0 && !showAllGearSections ? (
-        <section className="container-trizen-full py-16 md:py-24">
-          <ShopEmpty
-            gear={activeGear}
-            gearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}
-          />
-        </section>
-      ) : (
-        gearsToRender.map((gear, index) => (
-          <ShopGearSection
-            key={gear}
-            gear={gear}
-            index={index}
-            showWhenEmpty={showAllGearSections}
-            products={grouped[gear].map((p) => ({
-              id: p.id,
-              name: p.name,
-              slug: p.slug,
-              description: p.description,
-              longDescription: p.longDescription,
-              price: p.price,
-              compareAt: p.compareAt,
-              image: p.image,
-              category: p.category,
-              stock: p.stock,
-              tag: p.tag,
-            }))}
-          />
-        ))
-      )}
+        {showEditionShowcase ? <ShopEditionShowcase /> : null}
 
-      <AllProductsFaqSection />
+        {productCount === 0 && !showAllGearSections ? (
+          <section className="container-trizen-full py-16 md:py-24">
+            <ShopEmpty
+              gear={activeGear}
+              gearLabel={activeGear ? SHOP_GEAR_COPY[activeGear].title : undefined}
+            />
+          </section>
+        ) : (
+          gearsToRender.map((gear, index) => (
+            <ShopGearSection
+              key={gear}
+              gear={gear}
+              index={index}
+              showWhenEmpty={showAllGearSections}
+              products={grouped[gear].map((p) => ({
+                id: p.id,
+                name: p.name,
+                slug: p.slug,
+                description: p.description,
+                longDescription: p.longDescription,
+                price: p.price,
+                compareAt: p.compareAt,
+                image: p.image,
+                category: p.category,
+                stock: p.stock,
+                tag: p.tag,
+              }))}
+            />
+          ))
+        )}
 
-      <HomeCta />
-    </div>
+        <AllProductsFaqSection />
+
+        <HomeCta />
+      </div>
+    </>
   );
 }

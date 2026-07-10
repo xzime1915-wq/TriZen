@@ -7,18 +7,34 @@ export type FaqItem = {
 };
 
 export const HOME_SEO_TITLE =
-  "Esports Mouse Pad in Bangladesh, Glass TRIPAD & Gaming Gear";
+  "Gaming Mouse Pad in Bangladesh, TRIPAD Glass Mouse Pad & Esports Gear";
 
 export const HOME_SEO_SUBTITLE =
   "Esports mouse pads, glass TRIPAD, soft pads, skates & sleeves";
 
 export const HOME_SEO_PARAGRAPHS = [
-  "TRIZEN Store is Bangladesh's shop for esports mouse pad buyers who want glide, control, and consistency. Browse glass mouse pads (TRIPAD V1 & V2), soft mouse pads, mouse skates, and hand sleeves, shipped nationwide.",
+  "TRIZEN Store is Bangladesh's shop for esports and gaming mouse pad buyers who want glide, control, and consistency. Browse TRIPAD glass mouse pads, large mouse pads, soft pads, mouse skates, and hand sleeves, shipped nationwide.",
+  "If you are comparing gaming mouse pad price in Bangladesh, TRIPAD V1 is built as a premium tempered glass mouse pad for FPS players, Valorant, CS2, battle royale, MOBA, ranked play, and clean desk setups.",
   "Order in-stock items with Cash on Delivery, bKash, Nagad, or bank transfer. Sign in to checkout and track your order anytime from our website.",
-  "Whether you are upgrading from a cloth pad or building a new battlestation, TRIZEN gear is tuned for FPS, MOBA, and long ranked sessions.",
+  "Whether you are upgrading from a cloth mousepad or building a new battlestation, TRIZEN gear is tuned for low friction glide, precision tracking, micro adjustments, and long competitive sessions.",
 ];
 
 export const HOME_FAQS: FaqItem[] = [
+  {
+    question: "Where can I buy a gaming mouse pad in Bangladesh?",
+    answer:
+      "You can buy gaming mouse pads in Bangladesh from TRIZEN Store. TRIZEN sells TRIPAD glass mouse pads, soft mouse pads, mouse skates, and gaming desk gear with nationwide delivery.",
+  },
+  {
+    question: "What is the TRIPAD glass mouse pad price in Bangladesh?",
+    answer:
+      "The current TRIPAD glass mouse pad price is shown on each product page and in the shop. Prices can change by edition, stock, and campaign offer.",
+  },
+  {
+    question: "Is a glass mouse pad good for Valorant and CS2?",
+    answer:
+      "Yes. A glass mouse pad gives very low friction and consistent glide, which helps with fast flicks, tracking, and micro adjustments in FPS games like Valorant and CS2.",
+  },
   {
     question: "What does TRIZEN Store sell?",
     answer:
@@ -62,6 +78,16 @@ export const HOME_FAQS: FaqItem[] = [
 ];
 
 export const ALL_PRODUCTS_FAQS: FaqItem[] = [
+  {
+    question: "Do you sell esports mouse pads in Bangladesh?",
+    answer:
+      "Yes. TRIZEN Store sells esports mouse pads and gaming gear in Bangladesh, including TRIPAD glass mouse pads, soft pads, mouse skates, and hand sleeves.",
+  },
+  {
+    question: "Can I order a gaming mouse pad outside Dhaka?",
+    answer:
+      "Yes. TRIZEN Store ships gaming mouse pads and esports gear across Bangladesh. Delivery time depends on your district and courier route.",
+  },
   {
     question: "Does TRIZEN Store ship nationwide?",
     answer:
@@ -115,6 +141,11 @@ function gearSpecificFaqs(
           question: "What are the TRIPAD dimensions?",
           answer:
             "TRIPAD editions measure 490 × 430 × 3 mm (L × W × H), a generous playing area for wide swipes and arm aiming.",
+        },
+        {
+          question: `Where can I check ${productName} price in Bangladesh?`,
+          answer:
+            `The current ${productName} price in Bangladesh is shown on this product page. You can order from TRIZEN Store with Cash on Delivery, bKash, Nagad, or bank transfer when available.`,
         },
         {
           question: "How should I clean my TRIPAD?",

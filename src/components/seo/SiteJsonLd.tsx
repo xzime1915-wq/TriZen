@@ -1,5 +1,6 @@
 import { JsonLd } from "./JsonLd";
 import {
+  SEO_MOUSE_PAD_KEYWORDS,
   SITE_CONTACT,
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -23,6 +24,7 @@ export function SiteJsonLd() {
       email: SITE_CONTACT.email,
       telephone: SITE_CONTACT.phone,
       sameAs: [...SITE_SOCIAL],
+      knowsAbout: [...SEO_MOUSE_PAD_KEYWORDS],
     },
     {
       "@type": "WebSite",
@@ -53,6 +55,10 @@ export function SiteJsonLd() {
       address: {
         "@type": "PostalAddress",
         addressCountry: "BD",
+      },
+      areaServed: {
+        "@type": "Country",
+        name: "Bangladesh",
       },
       parentOrganization: { "@id": orgId },
     },

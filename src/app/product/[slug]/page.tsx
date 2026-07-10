@@ -13,7 +13,7 @@ import {
   getTripadDescriptionSlides,
 } from "@/lib/product-data";
 import type { Metadata } from "next";
-import { SITE_NAME, SITE_URL } from "@/lib/site-config";
+import { SEO_MOUSE_PAD_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/site-config";
 import { getTripadCatalogBySlug } from "@/lib/product-catalog-content";
 import { isUpcoming } from "@/lib/product-status";
 import { verifiedReviewSelect, verifiedReviewWhere } from "@/lib/reviews";
@@ -122,13 +122,28 @@ export async function generateMetadata({
   const isGlass =
     slug.includes("tripad") || displayDescription.toLowerCase().includes("glass");
   const title = isGlass
-    ? `${displayName}, Large Mouse Pad Bangladesh`
-    : `${displayName}, Esports Gear Bangladesh`;
-  const description = displayDescription.slice(0, 160);
+    ? `${displayName} Glass Mouse Pad Price in Bangladesh`
+    : `${displayName} Price in Bangladesh`;
+  const description = cleanText(
+    isGlass
+      ? `${displayName} is a large TRIPAD glass mouse pad for esports, FPS, Valorant and CS2. Buy in Bangladesh from TRIZEN Store with COD delivery.`
+      : `${displayName} from TRIZEN Store, esports gear for competitive players in Bangladesh. Check price, details and delivery options online.`,
+  ).slice(0, 160);
+  const keywords = isGlass
+    ? [
+        displayName,
+        "glass mouse pad price in Bangladesh",
+        "gaming mouse pad price in Bangladesh",
+        "large mouse pad Bangladesh",
+        "TRIPAD glass mouse pad",
+        ...SEO_MOUSE_PAD_KEYWORDS,
+      ]
+    : [displayName, "esports gear Bangladesh", ...SEO_MOUSE_PAD_KEYWORDS];
 
   return {
     title,
     description,
+    keywords: Array.from(new Set(keywords)),
     alternates: { canonical: `${SITE_URL}/product/${slug}` },
     openGraph: {
       title: `${title} | ${SITE_NAME}`,

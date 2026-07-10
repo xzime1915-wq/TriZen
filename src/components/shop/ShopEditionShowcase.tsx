@@ -14,7 +14,7 @@ const GLASS_PAD_SLUGS = [
 ] as const;
 
 const GEAR_DESCRIPTION =
-  "Engineered for maximum glide and control. The TriPad glass surface delivers pro-level speed.";
+  "TRIPAD glass mouse pads in Bangladesh, engineered for maximum glide, low friction, FPS tracking and pro-level control.";
 
 export async function ShopEditionShowcase() {
   const products = await prisma.product.findMany({

@@ -12,8 +12,8 @@ export function ShopHero({ count, activeGearLabel, query }: Props) {
   const subtitle = query
     ? `Results for “${query}”`
     : activeGearLabel
-      ? `Browse ${activeGearLabel.toLowerCase()} from TRIZEN Store.`
-      : "Esports mouse pads, large mouse pad TRIPAD glass, soft pads, skates and sleeves, built for competitive play in Bangladesh.";
+      ? `Browse ${activeGearLabel.toLowerCase()} from TRIZEN Store, shipped across Bangladesh.`
+      : "Gaming mouse pad price in Bangladesh, TRIPAD glass mouse pads, large mouse pads, soft pads, skates and sleeves for competitive play.";
 
   return (
     <section className="shop-hero bg-white">

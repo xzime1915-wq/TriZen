@@ -20,11 +20,13 @@ type ShopProduct = {
 
 const GEAR_DESCRIPTIONS: Record<ShopGearLine, string> = {
   "glass-mouse-pad":
-    "Engineered for maximum glide and control. The TRIPAD glass surface delivers pro-level speed.",
+    "TRIPAD glass mouse pads in Bangladesh, engineered for maximum glide, low friction, FPS tracking and pro-level control.",
   "soft-mouse-pad":
-    "Soft-touch cloth surface with precise control for every play style.",
-  skates: "Low-friction mouse skates built for smooth, consistent movement.",
-  "hand-sleeves": "Compression sleeves that reduce friction and keep you focused.",
+    "Soft gaming mouse pads with a cloth surface for precise control, comfort and long ranked sessions.",
+  skates:
+    "Low-friction PTFE mouse skates in Bangladesh, built for smoother and more consistent mouse movement.",
+  "hand-sleeves":
+    "Gaming hand sleeves that reduce arm friction and help keep mouse movement smooth during long sessions.",
 };
 
 export function ShopGearSection({
