@@ -25,9 +25,9 @@ export async function POST(req: Request) {
 
       await sendEmail({
         to: notifyTo,
-        subject: "New Sandbox signup, TRIZEN Store",
-        text: `New Sandbox subscriber: ${email.trim().toLowerCase()}${nameLine}`,
-        html: `<p>New Sandbox subscriber: <strong>${email.trim().toLowerCase()}</strong>${firstName ? `, ${firstName}` : ""}</p>`,
+        subject: "New Newsletter signup, TRIZEN Store",
+        text: `New Newsletter subscriber: ${email.trim().toLowerCase()}${nameLine}`,
+        html: `<p>New Newsletter subscriber: <strong>${email.trim().toLowerCase()}</strong>${firstName ? `, ${firstName}` : ""}</p>`,
         replyTo: email.trim().toLowerCase(),
       });
     } catch (error) {

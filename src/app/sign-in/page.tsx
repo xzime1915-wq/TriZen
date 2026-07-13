@@ -202,7 +202,7 @@ function SignInForm() {
       </Button>
 
       <Link href={registerHref} className="block">
-        <Button type="button" variant="secondary" className="auth-wallhack-secondary w-full" size="lg">
+        <Button type="button" variant="secondary" className="auth-wallhack-secondary auth-create-account-btn w-full" size="lg">
           Create account
         </Button>
       </Link>

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { X } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 import { ChatMessageBubble } from "./ChatMessageBubble";
 import { ChatComposer } from "./ChatComposer";
 import { ChatTypingIndicator } from "./ChatTypingIndicator";
@@ -354,16 +354,16 @@ export function ChatWidget() {
   const panel = panelMounted ? (
     <div
       className={cn(
-        "trizen-chat-panel w-[min(100vw-2rem,380px)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[0_24px_80px_-24px_rgba(0,0,0,0.95)]",
+        "trizen-chat-panel border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[0_32px_120px_-32px_rgba(0,0,0,0.95)]",
         panelEntered ? "trizen-chat-panel--open" : "trizen-chat-panel--closed"
       )}
       role="dialog"
       aria-modal="true"
       aria-label="TRIZEN support chat"
     >
-      <header className="shrink-0 flex items-center justify-between gap-3 border-b border-[var(--color-border)] px-4 py-3 bg-[var(--color-surface-elevated)]">
+      <header className="shrink-0 flex items-center justify-between gap-3 border-b border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-5 py-4 sm:px-6">
         <div className="min-w-0">
-          <TrizenBrandName className="text-xs tracking-[0.2em] text-zinc-500" suffix=" Support" suffixClassName="text-[0.9em]" />
+          <TrizenBrandName className="trizen-chat-brand text-xs tracking-[0.2em] text-zinc-500" suffix=" Support" suffixClassName="text-[0.9em]" />
           <p className="text-sm font-semibold text-[var(--color-foreground)]">Live Chat</p>
         </div>
         <button
@@ -385,7 +385,7 @@ export function ChatWidget() {
       {showIntro ? (
         <form
           onSubmit={startConversation}
-          className="flex flex-1 min-h-0 flex-col gap-3 overflow-y-auto p-4"
+          className="mx-auto flex w-full max-w-xl flex-1 min-h-0 flex-col justify-center gap-4 overflow-y-auto p-5 sm:p-6"
           data-lenis-prevent
         >
           <p className="text-sm text-zinc-400">
@@ -425,14 +425,14 @@ export function ChatWidget() {
       ) : (
         <>
           <div
-            className="trizen-chat-messages flex-1 min-h-0 overflow-y-auto p-4 space-y-3 trizen-chat-scroll"
+            className="trizen-chat-messages mx-auto flex-1 min-h-0 w-full max-w-4xl overflow-y-auto p-5 space-y-3 trizen-chat-scroll sm:p-6"
             data-lenis-prevent
           >
             {loading && messages.length === 0 && (
               <p className="text-sm text-zinc-500 text-center py-8">Loading…</p>
             )}
             {!loading && messages.length === 0 && (
-              <p className="text-sm text-zinc-500 text-center py-8">
+              <p className="trizen-chat-empty-state text-sm text-zinc-500 text-center py-8">
                 Say hello. We&apos;re here to help with orders, TriPad, and more.
               </p>
             )}
@@ -446,11 +446,11 @@ export function ChatWidget() {
             <div ref={bottomRef} />
           </div>
           {otherTyping && (
-            <div className="shrink-0 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2">
+            <div className="shrink-0 border-t border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-2 sm:px-6">
               <ChatTypingIndicator text="typing....." />
             </div>
           )}
-          <div className="shrink-0 border-t border-[var(--color-border)] bg-[var(--color-surface)] pointer-events-auto">
+          <div className="trizen-chat-composer-wrap mx-auto w-full max-w-4xl shrink-0 border-t border-[var(--color-border)] bg-[var(--color-surface)] pointer-events-auto">
             <ChatComposer
               disabled={!conversationId}
               onSendText={sendText}
@@ -465,6 +465,25 @@ export function ChatWidget() {
 
   return (
     <>
+      {mounted && !panelMounted &&
+        createPortal(
+          <button
+            type="button"
+            className="trizen-chat-launcher"
+            onClick={() => setOpen(true)}
+            aria-label="Open TRIZEN support chat"
+          >
+            <span className="trizen-chat-launcher-icon" aria-hidden>
+              <MessageCircle className="h-5 w-5" strokeWidth={1.8} />
+            </span>
+            <span className="trizen-chat-launcher-copy">
+              <strong>Chat with us</strong>
+              <small>TRIZEN support</small>
+            </span>
+            {unreadCount > 0 ? <span className="trizen-chat-launcher-unread">{unreadCount > 9 ? "9+" : unreadCount}</span> : null}
+          </button>,
+          document.body,
+        )}
       {mounted &&
         panelMounted &&
         createPortal(
@@ -480,7 +499,7 @@ export function ChatWidget() {
               aria-label="Close chat"
               onClick={closeChat}
             />
-            <div className="pointer-events-none fixed bottom-[calc(1rem+env(safe-area-inset-bottom))] right-4 z-[9999] flex flex-col items-end sm:right-6 lg:bottom-auto lg:top-[4.75rem] lg:right-6">
+            <div className="pointer-events-none fixed inset-0 z-[10002] flex items-stretch justify-center p-0 sm:items-end sm:justify-end sm:p-5 lg:p-6">
               {panel}
             </div>
           </>,

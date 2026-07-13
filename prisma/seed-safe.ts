@@ -20,6 +20,8 @@ const catalog = [
   { ...buildPtfeMouseSkatesProductData(), price: 0, compareAt: null, stock: 0 },
 ];
 
+const PERMANENT_ORDER_BLOG_ADMIN_EMAIL = "trizenstore@gmail.com";
+
 async function main() {
   for (const data of catalog) {
     await prisma.product.upsert({
@@ -74,6 +76,23 @@ async function main() {
     console.log(`Admin ready: ${adminEmail}`);
   } else {
     console.log("Set ADMIN_EMAIL + ADMIN_PASSWORD in .env, then run again.");
+  }
+
+  const blogAdmin = await prisma.admin.findUnique({
+    where: { email: PERMANENT_ORDER_BLOG_ADMIN_EMAIL },
+  });
+  if (blogAdmin) {
+    await prisma.admin.update({
+      where: { email: PERMANENT_ORDER_BLOG_ADMIN_EMAIL },
+      data: { role: "order_blog_manager", expiresAt: null },
+    });
+    console.log(
+      `Permanent order + blog access ready: ${PERMANENT_ORDER_BLOG_ADMIN_EMAIL}`
+    );
+  } else {
+    console.log(
+      `Admin not found for permanent blog access: ${PERMANENT_ORDER_BLOG_ADMIN_EMAIL}`
+    );
   }
 
   console.log("Safe seed complete (products upserted, orders untouched).");

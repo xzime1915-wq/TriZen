@@ -8,7 +8,7 @@ export function HomeNewsletter() {
 
   return (
     <section
-      id="sandbox"
+      id="newsletter"
       className="home-newsletter-section flex min-h-[60vh] flex-col md:min-h-[85vh] lg:min-h-[92vh]"
     >
       <video
@@ -30,7 +30,7 @@ export function HomeNewsletter() {
             strokeWidth={1.25}
           />
           <h2 className="home-newsletter-title trizen-display-title">
-            Join Sandbox
+            Join Newsletter
           </h2>
           <div className="home-newsletter-cta mt-5 md:mt-8">
             <button

@@ -17,9 +17,6 @@ export function MegaMenuPromoCard({ promo, onNavigate }: Props) {
     >
       <h3 className="trizen-mega-promo-title">{promo.eyebrow}</h3>
       <p className="trizen-mega-promo-desc">{promo.description}</p>
-      <span className="trizen-mega-promo-arrow" aria-hidden>
-        →
-      </span>
     </Link>
   );
 }

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/auth";
+import { requireBlogAdmin } from "@/lib/auth";
 import { buildBlogDbPayload, slugifyTitle } from "@/lib/blog";
 import { broadcastBlogPostToSandbox } from "@/lib/newsletter-broadcast";
 import { prisma } from "@/lib/prisma";
@@ -8,7 +8,7 @@ export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const admin = await requireAdmin();
+  const admin = await requireBlogAdmin();
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -52,7 +52,7 @@ export async function DELETE(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const admin = await requireAdmin();
+  const admin = await requireBlogAdmin();
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

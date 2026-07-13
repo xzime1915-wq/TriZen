@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { requireAdmin } from "@/lib/auth";
+import { requireBlogAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { slugifyTitle } from "@/lib/blog";
 
@@ -143,7 +143,7 @@ async function downloadImage(
 }
 
 export async function POST(request: Request) {
-  const admin = await requireAdmin();
+  const admin = await requireBlogAdmin();
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

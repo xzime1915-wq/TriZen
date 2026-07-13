@@ -5,7 +5,7 @@ import { IMAGE_QUALITY } from "@/lib/image-quality";
 
 function GlideActionBanner() {
   return (
-    <div className="relative min-h-[38vh] sm:min-h-[42vh] md:min-h-[58vh] overflow-hidden bg-black">
+    <div className="home-glide-banner relative min-h-[38vh] sm:min-h-[42vh] md:min-h-[58vh] overflow-hidden bg-black">
       <Image
         src={HOME_GLIDE_IMAGE}
         alt="Mouse gliding at speed on TRIZEN glass surface"

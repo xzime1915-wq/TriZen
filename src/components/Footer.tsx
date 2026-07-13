@@ -132,7 +132,11 @@ export function Footer() {
         <ReviewTrustBar variant="dark" className="hidden lg:block" />
       ) : null}
 
-      <div className="trizen-footer-mobile lg:hidden">
+      <div className="trizen-footer-watermark" aria-hidden="true">
+        <TrizenBrandName className="trizen-footer-watermark-wordmark" />
+      </div>
+
+      <div className="trizen-footer-mobile relative z-10 lg:hidden">
         <div className="trizen-footer-mobile-verified">
           <span className="trizen-footer-mobile-verified-text">Verified</span>
           <span className="trizen-footer-mobile-verified-mark" aria-hidden>
@@ -143,12 +147,12 @@ export function Footer() {
         <FooterMobileAccordion />
 
         <div className="trizen-footer-mobile-sandbox">
-          <h4 className="trizen-footer-mobile-sandbox-title">Sandbox</h4>
+          <h4 className="trizen-footer-mobile-sandbox-title">Newsletter</h4>
           <NewsletterForm variant="footer" />
         </div>
       </div>
 
-      <div className="container-trizen relative hidden py-12 md:py-16 lg:block lg:py-20">
+      <div className="container-trizen relative z-10 hidden py-12 md:py-16 lg:block lg:py-20">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-8">
           <FooterColumn title="Shop" items={SHOP_LINKS} />
           <FooterColumn title="Support" items={SUPPORT_LINKS} />
@@ -156,26 +160,14 @@ export function Footer() {
           <FooterColumn title="Terms & Conditions" items={LEGAL_LINKS} />
           <div className="sm:col-span-2 lg:col-span-1">
             <h4 className="trizen-wh-mono mb-5 text-[10px] font-bold uppercase tracking-[0.24em] text-[var(--color-foreground)]">
-              Sandbox
+              Newsletter
             </h4>
             <NewsletterForm variant="footer" />
           </div>
         </div>
       </div>
 
-      <div className="border-t border-[var(--color-border)] overflow-hidden">
-        <div className="flex justify-center py-6 md:py-10">
-          <TrizenBrandName
-            className="trizen-brand-wordmark block w-full select-none whitespace-nowrap text-center leading-[0.8] text-[var(--color-foreground)] text-[21vw]"
-            style={{
-              WebkitTextStroke: "0.02em var(--color-foreground)",
-              paintOrder: "stroke fill",
-            } as React.CSSProperties}
-          />
-        </div>
-      </div>
-
-      <div className="border-t border-[var(--color-border)]">
+      <div className="relative z-10 border-t border-[var(--color-border)]">
         <div className="trizen-footer-mobile-bottom lg:hidden">
           <div className="trizen-footer-mobile-region">
             {/* eslint-disable-next-line @next/next/no-img-element */}

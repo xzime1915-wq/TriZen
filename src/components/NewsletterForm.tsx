@@ -51,7 +51,7 @@ export function NewsletterForm({ variant = "footer" }: Props) {
     >
       {isSection ? null : (
         <p className="trizen-footer-newsletter-copy">
-          Join Sandbox for the latest gear and esports updates.
+          Join Newsletter for the latest gear and esports updates.
         </p>
       )}
 

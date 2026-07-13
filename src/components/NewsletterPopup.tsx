@@ -122,7 +122,7 @@ export function NewsletterPopup({ signedIn, userEmail, userName }: Props) {
         type="button"
         className="newsletter-popup-backdrop"
         onClick={dismissWithoutEmail}
-        aria-label="Close Sandbox popup"
+        aria-label="Close Newsletter popup"
       />
 
       <div className="newsletter-popup-panel">
@@ -137,7 +137,7 @@ export function NewsletterPopup({ signedIn, userEmail, userName }: Props) {
 
         <p className="newsletter-popup-eyebrow">
           <TrizenBrandName className="inline-flex text-[10px] text-zinc-300" />
-          <span className="trizen-wh-hero-eyebrow text-zinc-500">Sandbox</span>
+          <span className="trizen-wh-hero-eyebrow text-zinc-500">Newsletter</span>
         </p>
 
         <h2 id="newsletter-popup-title" className="newsletter-popup-title">

@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 const ADMIN_COOKIE = "trizen_admin_session";
-type AdminRole = "owner" | "order_manager";
+type AdminRole = "owner" | "order_manager" | "order_blog_manager";
 
 function getJwtSecret() {
   const secret =
@@ -12,7 +12,7 @@ function getJwtSecret() {
 }
 
 function normalizeAdminRole(role: unknown): AdminRole {
-  return role === "order_manager" ? "order_manager" : "owner";
+  return role === "order_manager" || role === "order_blog_manager" ? role : "owner";
 }
 
 function isOrderManagerPath(pathname: string) {
@@ -23,6 +23,14 @@ function isOrderManagerPath(pathname: string) {
     pathname === "/api/admin/logout" ||
     pathname === "/api/admin/orders" ||
     pathname.startsWith("/api/admin/orders/")
+  );
+}
+
+function isOrderBlogManagerPath(pathname: string) {
+  return (
+    isOrderManagerPath(pathname) ||
+    pathname === "/admin/blog" ||
+    pathname.startsWith("/api/admin/blog")
   );
 }
 
@@ -75,7 +83,14 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    if (session.role === "order_manager" && !isOrderManagerPath(pathname)) {
+    const limitedAdminAllowed =
+      session.role === "order_manager"
+        ? isOrderManagerPath(pathname)
+        : session.role === "order_blog_manager"
+          ? isOrderBlogManagerPath(pathname)
+          : true;
+
+    if (!limitedAdminAllowed) {
       if (isAdminApi) {
         return applySecurityHeaders(
           NextResponse.json({ error: "Forbidden" }, { status: 403 })

@@ -26,7 +26,7 @@ export function HomeProductActions({ slug, productName, tag }: Props) {
             </Button>
           </Link>
           <Link href="/shop" className="w-full">
-            <Button size="lg" variant="secondary" className="w-full">
+            <Button size="lg" variant="secondary" className="home-product-collection-btn w-full">
               View collection
             </Button>
           </Link>

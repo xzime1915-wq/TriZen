@@ -25,10 +25,10 @@ export function ChatMessageBubble({
     >
       <div
         className={cn(
-          "rounded-sm px-3 py-2 text-sm leading-relaxed border",
+          "rounded-2xl px-3 py-2 text-sm leading-relaxed border",
           isOwn
-            ? "bg-zinc-900 text-white border-zinc-900"
-            : "bg-[var(--color-surface-elevated)] text-[var(--color-foreground)] border-[var(--color-border)]"
+            ? "rounded-br-sm bg-zinc-900 text-white border-zinc-900"
+            : "rounded-bl-sm bg-[var(--color-surface-elevated)] text-[var(--color-foreground)] border-[var(--color-border)]"
         )}
       >
         {message.attachmentType === "image" && message.attachmentUrl && (

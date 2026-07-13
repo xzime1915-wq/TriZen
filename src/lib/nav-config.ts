@@ -87,12 +87,12 @@ export const SHOP_MEGA_PROMOS: ShopMegaPromo[] = [
       "Fresh arrivals from our product team, straight off the line.",
   },
   {
-    href: "/#sandbox",
+    href: "/#newsletter",
     image: "/products/our-gears/hand-sleeves.png",
     fallbackImage: "/products/engineered-glide.webp",
     eyebrow: "Upcoming",
     description:
-      "Join Sandbox for launch alerts and first-order offers.",
+      "Join Newsletter for launch alerts and first-order offers.",
   },
 ];
 

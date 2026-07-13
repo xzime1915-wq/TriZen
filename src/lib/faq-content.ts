@@ -96,7 +96,7 @@ export const ALL_PRODUCTS_FAQS: FaqItem[] = [
   {
     question: "Where can I learn about new products or campaigns?",
     answer:
-      "Check the shop page for upcoming gear, follow TRIZEN Store on social media, and join Sandbox for launch updates and offers.",
+      "Check the shop page for upcoming gear, follow TRIZEN Store on social media, and join Newsletter for launch updates and offers.",
   },
   {
     question: "How do I become part of the TRIZEN community?",

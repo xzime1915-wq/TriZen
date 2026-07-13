@@ -51,6 +51,10 @@ echo ">>> Upsert PTFE mouse skates product..."
 npm run db:upsert-ptfe-skates
 echo ""
 
+echo ">>> Ensure permanent order + blog admin access..."
+npm run admin:grant-blog-access
+echo ""
+
 echo ">>> Build (may take 2-3 min)..."
 rm -rf .next
 npm run build

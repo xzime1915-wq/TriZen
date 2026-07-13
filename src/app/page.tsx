@@ -1,11 +1,9 @@
 import { prisma } from "@/lib/prisma";
-import { HomeMinimalHero } from "@/components/home/HomeMinimalHero";
 import { HomeMarquee } from "@/components/home/HomeMarquee";
 import { HomeStatement } from "@/components/home/HomeStatement";
 import { HomeGlideFeature } from "@/components/home/HomeGlideFeature";
 import { HomeProductShowcase } from "@/components/home/HomeProductShowcase";
 import { HomeFeaturesGrid } from "@/components/home/HomeFeaturesGrid";
-import { HomeProcess } from "@/components/home/HomeProcess";
 import { HomeReviews } from "@/components/home/HomeReviews";
 import { HomeCta } from "@/components/home/HomeCta";
 import { HomeOurGears } from "@/components/home/HomeOurGears";
@@ -16,17 +14,11 @@ import { HomeFaqJsonLd } from "@/components/seo/HomeFaqJsonLd";
 import { parseFeatures, averageRating } from "@/lib/product-data";
 import { homePageMetadata } from "@/lib/seo-metadata";
 import { verifiedReviewWhere } from "@/lib/reviews";
-import {
-  HOME_HERO_IMAGE,
-  HOME_HERO_IMAGE_SIZES,
-  HOME_HERO_IMAGE_SRC_SET,
-} from "@/lib/home-assets";
+import { HomePadStackScroll } from "@/components/home/HomePadStackScroll";
 
 export const revalidate = 60;
 
 export const metadata = homePageMetadata();
-
-const HERO_SLUG = "trizen-tripad-v1-black";
 
 export default async function HomePage() {
   const [products, reviews, reviewStats] = await Promise.all([
@@ -65,22 +57,9 @@ export default async function HomePage() {
     })
     .catch(() => []);
 
-  const heroProduct =
-    products.find((p) => p.slug === HERO_SLUG) ||
-    products.find((p) => p.name.toLowerCase().includes("black")) ||
-    products[0];
-
   return (
     <>
-      <link
-        rel="preload"
-        as="image"
-        href={HOME_HERO_IMAGE}
-        imageSrcSet={HOME_HERO_IMAGE_SRC_SET}
-        imageSizes={HOME_HERO_IMAGE_SIZES}
-        fetchPriority="high"
-      />
-      <HomeMinimalHero productSlug={heroProduct?.slug ?? HERO_SLUG} />
+      <HomePadStackScroll />
 
       <HomeMarquee />
       <HomeStatement />
@@ -113,7 +92,6 @@ export default async function HomePage() {
       ))}
 
       <HomeFeaturesGrid />
-      <HomeProcess />
       <HomeFaqJsonLd />
       <HomeFaqSection />
       <HomeNewsletter />

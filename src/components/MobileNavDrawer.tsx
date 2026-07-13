@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { User } from "lucide-react";
 import { SocialLinks } from "@/components/SocialLinks";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { lockPageScroll, unlockPageScroll } from "@/lib/scroll-lock";
 import {
   EXPLORE_LINKS,
@@ -172,18 +173,7 @@ export function MobileNavDrawer({ open, onClose, onTrackOrder, user }: Props) {
 
               <div className="mobile-nav-drawer-footer">
                 <div className="mobile-nav-drawer-meta">
-                  <div className="mobile-nav-drawer-region">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/flags/bangladesh.png"
-                      alt=""
-                      aria-hidden
-                      className="h-3 w-[1.125rem] shrink-0 rounded-[1px] object-cover"
-                      width={18}
-                      height={12}
-                    />
-                    <span>Bangladesh (BDT ৳)</span>
-                  </div>
+                  <LanguageSwitcher className="inline-flex" />
 
                   <Link
                     href={accountHref}

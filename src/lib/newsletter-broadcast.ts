@@ -30,7 +30,7 @@ function sandboxEmailShell(title: string, bodyHtml: string) {
       <tr>
         <td style="border-top:1px solid #e4e4e7;padding-top:32px">
           <p style="margin:0 0 12px;font-size:10px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#71717a;text-align:center">
-            Sandbox
+            Newsletter
           </p>
           <h1 style="margin:0 0 16px;font-size:20px;line-height:1.35;color:#18181b;text-align:center">${title}</h1>
           ${bodyHtml}
@@ -85,7 +85,7 @@ function buildBlogBroadcastEmail(
   );
 
   return {
-    subject: `New from Sandbox: ${post.title}`,
+    subject: `New from Newsletter: ${post.title}`,
     text,
     html,
   };

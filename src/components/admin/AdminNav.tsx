@@ -3,6 +3,7 @@
 import { TrizenLogo } from "@/components/TrizenLogo";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import type { ComponentType } from "react";
 import {
   LayoutDashboard,
   Package,
@@ -16,13 +17,21 @@ import {
 import { cn } from "@/lib/utils";
 import type { AdminSession } from "@/lib/auth";
 
-const links = [
+type AdminNavLink = {
+  href: string;
+  label: string;
+  icon: ComponentType<{ className?: string }>;
+  ownerOnly?: boolean;
+  blogAccess?: boolean;
+};
+
+const links: AdminNavLink[] = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, ownerOnly: true },
   { href: "/admin/orders", label: "Orders", icon: ShoppingBag },
   { href: "/admin/customers", label: "Customers", icon: Users, ownerOnly: true },
   { href: "/admin/chat", label: "Live Chat", icon: MessageCircle, ownerOnly: true },
   { href: "/admin/products", label: "Products", icon: Package, ownerOnly: true },
-  { href: "/admin/blog", label: "Blog", icon: Newspaper, ownerOnly: true },
+  { href: "/admin/blog", label: "Blog", icon: Newspaper, blogAccess: true },
   { href: "/admin/settings", label: "Settings", icon: Settings, ownerOnly: true },
 ];
 
@@ -33,8 +42,14 @@ export function AdminNav({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const homeHref = admin.role === "order_manager" ? "/admin/orders" : "/admin";
-  const visibleLinks = links.filter((link) => !link.ownerOnly || admin.role === "owner");
+  const homeHref = admin.role === "owner" ? "/admin" : "/admin/orders";
+  const visibleLinks = links.filter((link) => {
+    if (link.ownerOnly) return admin.role === "owner";
+    if (link.blogAccess) {
+      return admin.role === "owner" || admin.role === "order_blog_manager";
+    }
+    return true;
+  });
 
   async function logout() {
     await fetch("/api/admin/logout", { method: "POST" });

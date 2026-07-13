@@ -11,10 +11,10 @@ import { useCart } from "@/lib/cart-store";
 import { useCartUi } from "@/lib/cart-ui-store";
 import { useTrackOrderUi } from "@/lib/track-order-ui-store";
 import { cn } from "@/lib/utils";
-import { ChatHeaderButton } from "@/components/chat/ChatHeaderButton";
 import { MegaMenuPromoCard } from "@/components/MegaMenuPromoCard";
 import { MobileNavDrawer } from "@/components/MobileNavDrawer";
 import { SocialLinks } from "@/components/SocialLinks";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
   EXPLORE_LINKS,
   HEADER_NAV,
@@ -251,23 +251,8 @@ export function Header({ user = null }: { user?: HeaderUser }) {
           </nav>
 
           <div className="ml-auto flex items-center gap-1">
-            <span
-              className="trizen-header-region mr-2 hidden items-center gap-1.5 text-zinc-900 xl:inline-flex"
-              title="Bangladesh"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/flags/bangladesh.png"
-                alt=""
-                aria-hidden
-                className="h-3 w-[1.125rem] shrink-0 rounded-[1px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.08)]"
-                width={18}
-                height={12}
-              />
-              <span className="trizen-wh-ui">BDT ৳</span>
-            </span>
+            <LanguageSwitcher className="mr-2 hidden xl:inline-flex" />
             <div className="hidden items-center gap-0.5 lg:flex">
-              <ChatHeaderButton className="trizen-header-icon" />
               <Link
                 href={user ? "/account" : "/sign-in"}
                 className="trizen-header-icon"

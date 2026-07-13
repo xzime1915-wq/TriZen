@@ -5,7 +5,7 @@ import { prisma } from "./prisma";
 
 const COOKIE = "trizen_admin_session";
 
-export const ADMIN_ROLES = ["owner", "order_manager"] as const;
+export const ADMIN_ROLES = ["owner", "order_manager", "order_blog_manager"] as const;
 export type AdminRole = (typeof ADMIN_ROLES)[number];
 
 export type AdminSession = {
@@ -16,7 +16,7 @@ export type AdminSession = {
 };
 
 export function normalizeAdminRole(role: string | null | undefined): AdminRole {
-  return role === "order_manager" ? "order_manager" : "owner";
+  return role === "order_manager" || role === "order_blog_manager" ? role : "owner";
 }
 
 export function isOwnerAdmin(
@@ -27,6 +27,10 @@ export function isOwnerAdmin(
 
 export function canManageOrders(admin: AdminSession | null | undefined) {
   return Boolean(admin);
+}
+
+export function canManageBlog(admin: AdminSession | null | undefined) {
+  return admin?.role === "owner" || admin?.role === "order_blog_manager";
 }
 
 function isExpiredAdmin(admin: { expiresAt: Date | null }) {
@@ -127,5 +131,11 @@ export async function requireAdmin() {
 export async function requireOwnerAdmin() {
   const admin = await getAdminSession();
   if (!isOwnerAdmin(admin)) return null;
+  return admin;
+}
+
+export async function requireBlogAdmin() {
+  const admin = await getAdminSession();
+  if (!canManageBlog(admin)) return null;
   return admin;
 }

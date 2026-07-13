@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { requireAdmin } from "@/lib/auth";
+import { requireBlogAdmin } from "@/lib/auth";
 import { buildBlogDbPayload, slugifyTitle } from "@/lib/blog";
 import { broadcastBlogPostToSandbox } from "@/lib/newsletter-broadcast";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const admin = await requireAdmin();
+  const admin = await requireBlogAdmin();
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -17,7 +17,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const admin = await requireAdmin();
+  const admin = await requireBlogAdmin();
   if (!admin) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
