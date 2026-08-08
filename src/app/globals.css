@@ -5429,7 +5429,7 @@ textarea {
 /* Homepage mouse-pad stack: each layer rises during its own scroll segment. */
 .home-pad-stack-section {
   position: relative;
-  height: 420svh;
+  height: 480svh;
   background: #ffffff;
   isolation: isolate;
 }
@@ -5497,7 +5497,7 @@ textarea {
 .home-pad-stack-layer {
   position: absolute;
   left: 50%;
-  top: calc(76svh + var(--home-pad-offset));
+  top: calc(64svh + var(--home-pad-offset));
   width: min(88vw, 43rem, 80svh);
   transform: translate3d(-50%, 0, 0);
   transform-origin: 50% 0;
@@ -5537,12 +5537,15 @@ textarea {
   }
 
   .home-pad-stack-intro {
-    opacity: 1 !important;
-    transform: none !important;
+    opacity: 0 !important;
+    transform: translate3d(0, -40vh, 0) !important;
+    pointer-events: none !important;
     will-change: auto;
   }
 
   .home-pad-stack-layer {
+    /* Show the stacked pads in-frame instead of leaving them below the fold. */
+    top: calc(8svh + var(--home-pad-offset));
     transform: translate3d(-50%, 0, 0) !important;
     will-change: auto;
   }

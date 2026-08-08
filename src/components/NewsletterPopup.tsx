@@ -88,10 +88,8 @@ export function NewsletterPopup({ signedIn, userEmail, userName }: Props) {
       setOpen(true);
     };
 
-    // Homepage pad-stack needs free scroll — don't lock the page mid-hero.
+    // Homepage pad-stack needs free scroll — never lock the page mid-hero.
     if (pathname === "/") {
-      let fallback = 0;
-
       const onScroll = () => {
         const section = document.querySelector(".home-pad-stack-section");
         if (!section) {
@@ -100,18 +98,18 @@ export function NewsletterPopup({ signedIn, userEmail, userName }: Props) {
         }
 
         const rect = section.getBoundingClientRect();
-        if (rect.bottom <= window.innerHeight * 0.6) {
+        // Only after the sticky pad sequence has fully left the viewport.
+        if (rect.bottom <= 0) {
           openPopup();
         }
       };
 
-      fallback = window.setTimeout(openPopup, 22000);
       window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
 
       return () => {
         cancelled = true;
         window.removeEventListener("scroll", onScroll);
-        window.clearTimeout(fallback);
       };
     }
 

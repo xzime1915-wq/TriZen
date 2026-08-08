@@ -78,7 +78,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${orbitron.variable} ${inter.variable}`}>
-      <body className={`${orbitron.className} min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)] overflow-x-clip`}>
+      <body className={`${orbitron.className} min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)]`}>
         <SmoothScroll />
         <LanguageRuntime />
         <PageScrollIndicator />

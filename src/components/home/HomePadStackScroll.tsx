@@ -36,10 +36,10 @@ const PADS = [
   },
 ] as const;
 
-const INTRO_DURATION = 0.8;
-const FIRST_PAD_START = 0.38;
-const PAD_STEP = 0.72;
-const PAD_DURATION = 0.85;
+const INTRO_DURATION = 0.7;
+const FIRST_PAD_START = 0.22;
+const PAD_STEP = 0.62;
+const PAD_DURATION = 0.78;
 const TIMELINE_DURATION =
   FIRST_PAD_START + (PADS.length - 1) * PAD_STEP + PAD_DURATION;
 
@@ -73,24 +73,31 @@ export function HomePadStackScroll() {
       if (!section) return;
 
       const prefersReducedMotion = reducedMotion.matches;
-      const scrollDistance = Math.max(
-        section.offsetHeight - window.innerHeight,
-        1,
+      const viewportH = window.innerHeight;
+      const scrollDistance = Math.max(section.offsetHeight - viewportH, 1);
+      const rawProgress = prefersReducedMotion
+        ? 1
+        : clamp01(-section.getBoundingClientRect().top / scrollDistance);
+      // Scroll-lock sets body to position:fixed and resets window.scrollY — keep last pad phase.
+      const locked = document.documentElement.classList.contains(
+        "trizen-scroll-locked",
       );
-      const sectionTop = section.getBoundingClientRect().top;
-      const progress = prefersReducedMotion
-        ? 0
-        : clamp01(-sectionTop / scrollDistance);
+      const progress = locked
+        ? clamp01(Number(section.dataset.padProgress || String(rawProgress)))
+        : rawProgress;
+      if (!locked) {
+        section.dataset.padProgress = String(progress);
+      }
       const timelineProgress = progress * TIMELINE_DURATION;
       const introPhase = prefersReducedMotion
-        ? 0
+        ? 1
         : smoothstep(clamp01(timelineProgress / INTRO_DURATION));
-      const travel = window.innerHeight * 0.7;
+      const travel = viewportH * 0.88;
 
       if (introRef.current) {
         introRef.current.style.opacity = clamp01(1 - introPhase).toFixed(3);
         introRef.current.style.transform = `translate3d(0, ${(
-          window.innerHeight * -0.52 * introPhase
+          viewportH * -0.55 * introPhase
         ).toFixed(2)}px, 0)`;
         introRef.current.style.pointerEvents =
           introPhase < 0.72 ? "auto" : "none";
@@ -101,7 +108,7 @@ export function HomePadStackScroll() {
 
         const padStart = FIRST_PAD_START + index * PAD_STEP;
         const phase = prefersReducedMotion
-          ? 0
+          ? 1
           : easeOutCubic(
               clamp01((timelineProgress - padStart) / PAD_DURATION),
             );
@@ -120,14 +127,23 @@ export function HomePadStackScroll() {
 
     render();
     window.addEventListener("scroll", requestRender, { passive: true });
+    document.addEventListener("scroll", requestRender, {
+      passive: true,
+      capture: true,
+    });
     window.addEventListener("resize", requestRender);
+    window.visualViewport?.addEventListener("resize", requestRender);
+    window.visualViewport?.addEventListener("scroll", requestRender);
     window.addEventListener("trizen:scroll-lock", onScrollLock);
     reducedMotion.addEventListener("change", requestRender);
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", requestRender);
+      document.removeEventListener("scroll", requestRender, true);
       window.removeEventListener("resize", requestRender);
+      window.visualViewport?.removeEventListener("resize", requestRender);
+      window.visualViewport?.removeEventListener("scroll", requestRender);
       window.removeEventListener("trizen:scroll-lock", onScrollLock);
       reducedMotion.removeEventListener("change", requestRender);
     };
