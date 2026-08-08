@@ -19,7 +19,7 @@ import {
   colorsToLines,
 } from "@/lib/product-data";
 import { buildProductDbPayload } from "@/lib/admin-product-payload";
-import { Barcode, Plus, Pencil, QrCode, Search, Trash2, Wand2 } from "lucide-react";
+import { Barcode, Download, Plus, Pencil, QrCode, Search, Trash2, Wand2 } from "lucide-react";
 
 type Product = {
   id: string;
@@ -480,7 +480,7 @@ export function ProductManager({ products }: { products: Product[] }) {
                   </td>
                   <td className="p-3">{formatCurrency(p.price)}</td>
                   <td className="p-3">
-                    <div className="flex gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
                       <a
                         href={`/api/admin/products/${p.id}/barcode`}
                         target="_blank"
@@ -491,6 +491,14 @@ export function ProductManager({ products }: { products: Product[] }) {
                         <Barcode className="h-4 w-4" />
                       </a>
                       <a
+                        href={`/api/admin/products/${p.id}/barcode?download=1`}
+                        className="inline-flex items-center gap-1 border border-[var(--color-border)] px-2 py-1 text-xs font-medium hover:bg-zinc-100"
+                        title="Download barcode SVG"
+                      >
+                        <Download className="h-3.5 w-3.5" />
+                        Barcode
+                      </a>
+                      <a
                         href={`/api/admin/products/${p.id}/qr`}
                         target="_blank"
                         rel="noreferrer"
@@ -498,6 +506,14 @@ export function ProductManager({ products }: { products: Product[] }) {
                         title="Product page QR code"
                       >
                         <QrCode className="h-4 w-4" />
+                      </a>
+                      <a
+                        href={`/api/admin/products/${p.id}/qr?download=1`}
+                        className="inline-flex items-center gap-1 border border-[var(--color-border)] px-2 py-1 text-xs font-medium hover:bg-zinc-100"
+                        title="Download QR code SVG"
+                      >
+                        <Download className="h-3.5 w-3.5" />
+                        QR
                       </a>
                       <button
                         type="button"

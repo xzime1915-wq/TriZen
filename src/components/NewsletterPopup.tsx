@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { TrizenBrandName } from "@/components/TrizenBrandName";
 import { SandboxSubscribeForm } from "@/components/SandboxSubscribeForm";
@@ -49,7 +49,6 @@ export function NewsletterPopup({ signedIn, userEmail, userName }: Props) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
-  const scheduledRef = useRef(false);
   const manualOpen = useNewsletterUi((s) => s.isOpen);
   const closeNewsletter = useNewsletterUi((s) => s.closeNewsletter);
   const visible = manualOpen || (open && !signedIn);
@@ -76,17 +75,52 @@ export function NewsletterPopup({ signedIn, userEmail, userName }: Props) {
     if (hiddenRoute || permanentlyDismissed()) return;
     if (typeof window === "undefined") return;
     if (window.sessionStorage.getItem(SESSION_KEY)) return;
-    if (scheduledRef.current) return;
 
-    scheduledRef.current = true;
-    const timer = window.setTimeout(() => {
+    let cancelled = false;
+    let opened = false;
+
+    const openPopup = () => {
+      if (cancelled || opened) return;
       if (permanentlyDismissed()) return;
+      if (window.sessionStorage.getItem(SESSION_KEY)) return;
+      opened = true;
       window.sessionStorage.setItem(SESSION_KEY, "1");
       setOpen(true);
-    }, 900);
+    };
 
-    return () => window.clearTimeout(timer);
-  }, [signedIn, hiddenRoute]);
+    // Homepage pad-stack needs free scroll — don't lock the page mid-hero.
+    if (pathname === "/") {
+      let fallback = 0;
+
+      const onScroll = () => {
+        const section = document.querySelector(".home-pad-stack-section");
+        if (!section) {
+          openPopup();
+          return;
+        }
+
+        const rect = section.getBoundingClientRect();
+        if (rect.bottom <= window.innerHeight * 0.6) {
+          openPopup();
+        }
+      };
+
+      fallback = window.setTimeout(openPopup, 22000);
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      return () => {
+        cancelled = true;
+        window.removeEventListener("scroll", onScroll);
+        window.clearTimeout(fallback);
+      };
+    }
+
+    const timer = window.setTimeout(openPopup, 900);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
+  }, [signedIn, hiddenRoute, pathname]);
 
   useEffect(() => {
     if (!visible) return;

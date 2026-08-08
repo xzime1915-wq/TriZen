@@ -36,10 +36,10 @@ const PADS = [
   },
 ] as const;
 
-const INTRO_DURATION = 0.92;
-const FIRST_PAD_START = 0.7;
-const PAD_STEP = 0.9;
-const PAD_DURATION = 1;
+const INTRO_DURATION = 0.8;
+const FIRST_PAD_START = 0.38;
+const PAD_STEP = 0.72;
+const PAD_DURATION = 0.85;
 const TIMELINE_DURATION =
   FIRST_PAD_START + (PADS.length - 1) * PAD_STEP + PAD_DURATION;
 
@@ -116,15 +116,19 @@ export function HomePadStackScroll() {
       frame = window.requestAnimationFrame(render);
     };
 
+    const onScrollLock = () => requestRender();
+
     render();
     window.addEventListener("scroll", requestRender, { passive: true });
     window.addEventListener("resize", requestRender);
+    window.addEventListener("trizen:scroll-lock", onScrollLock);
     reducedMotion.addEventListener("change", requestRender);
 
     return () => {
       window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", requestRender);
       window.removeEventListener("resize", requestRender);
+      window.removeEventListener("trizen:scroll-lock", onScrollLock);
       reducedMotion.removeEventListener("change", requestRender);
     };
   }, []);

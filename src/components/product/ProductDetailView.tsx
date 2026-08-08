@@ -72,14 +72,20 @@ export function ProductDetailView({
   const gearLabel = SHOP_GEAR_COPY[gearLine].title;
   const savePct = discountPercent(product.price, product.compareAt);
 
-  const introParagraphs = splitSanitizedParagraphs(
-    product.longDescription || product.description,
-  ).slice(0, 3);
+  // Upcoming products stay teaser-only: no marketing copy, features, or specs.
+  const publicDescription = upcoming
+    ? ""
+    : product.longDescription || product.description;
+  const publicFeatures = upcoming ? [] : features;
+  const publicSpecs = upcoming ? [] : specifications;
+  const publicDescriptionSlides = upcoming ? [] : descriptionSlides;
 
-  const highlightFeatures = features.slice(0, 3);
+  const introParagraphs = splitSanitizedParagraphs(publicDescription).slice(0, 3);
+
+  const highlightFeatures = publicFeatures.slice(0, 3);
 
   const specFeatureImage =
-    descriptionSlides[0] ?? gallery[1] ?? gallery[0] ?? product.image;
+    publicDescriptionSlides[0] ?? gallery[1] ?? gallery[0] ?? product.image;
 
   function onReviewAdded(review: ProductReviewData) {
     const next = [review, ...reviews];
@@ -189,15 +195,15 @@ export function ProductDetailView({
 
       <ProductSpecShowcase
         productName={product.name}
-        specifications={specifications}
+        specifications={publicSpecs}
         featureImage={specFeatureImage}
       />
 
       <ProductDescriptionBlock
         productName={product.name}
-        description={product.longDescription || product.description}
-        descriptionSlides={descriptionSlides}
-        features={features}
+        description={publicDescription}
+        descriptionSlides={publicDescriptionSlides}
+        features={publicFeatures}
       />
 
       <ProductReviewsBlock>

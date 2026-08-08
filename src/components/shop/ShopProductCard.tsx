@@ -128,9 +128,15 @@ export function ShopProductCard({
           name={product.name}
           className="mt-2 text-sm md:text-base"
         />
-        <p className="mt-2 line-clamp-2 flex-1 text-xs leading-relaxed text-zinc-500">
-          {previewText(product)}
-        </p>
+        {upcoming ? (
+          <p className="mt-2 line-clamp-2 flex-1 text-xs leading-relaxed text-zinc-500">
+            Upcoming at TRIZEN Store.
+          </p>
+        ) : (
+          <p className="mt-2 line-clamp-2 flex-1 text-xs leading-relaxed text-zinc-500">
+            {previewText(product)}
+          </p>
+        )}
         <div className="mt-4 border-t border-zinc-200 pt-3">
           {shouldShowProductPrice(product.tag) ? (
             <p className="product-inline-price">

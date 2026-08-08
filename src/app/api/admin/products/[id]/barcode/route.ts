@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { renderCode128Svg } from "@/lib/barcode-svg";
 
 export async function GET(
-  _request: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const admin = await requireAdmin();
@@ -25,11 +25,15 @@ export async function GET(
   const svg = renderCode128Svg(product.barcode, {
     title: `${product.name} / ${product.sku}`,
   });
+  const disposition = new URL(request.url).searchParams.has("download")
+    ? "attachment"
+    : "inline";
+
 
   return new NextResponse(svg, {
     headers: {
       "Content-Type": "image/svg+xml; charset=utf-8",
-      "Content-Disposition": `inline; filename="${product.slug}-barcode.svg"`,
+      "Content-Disposition": `${disposition}; filename="${product.slug}-barcode.svg"`,
       "Cache-Control": "private, max-age=300",
     },
   });

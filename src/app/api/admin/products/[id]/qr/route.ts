@@ -34,11 +34,15 @@ export async function GET(
     const message = error instanceof Error ? error.message : "Could not create QR code.";
     return NextResponse.json({ error: message }, { status: 400 });
   }
+  const disposition = new URL(request.url).searchParams.has("download")
+    ? "attachment"
+    : "inline";
+
 
   return new NextResponse(svg, {
     headers: {
       "Content-Type": "image/svg+xml; charset=utf-8",
-      "Content-Disposition": `inline; filename="${product.slug}-qr.svg"`,
+      "Content-Disposition": `${disposition}; filename="${product.slug}-qr.svg"`,
       "Cache-Control": "private, max-age=300",
     },
   });

@@ -111,23 +111,28 @@ export async function generateMetadata({
   const { slug } = await params;
   const product = await prisma.product.findUnique({
     where: { slug },
-    select: { name: true, description: true, image: true },
+    select: { name: true, description: true, image: true, tag: true },
   });
   if (!product) return { title: "Product" };
 
   const catalog = getTripadCatalogBySlug(slug);
   const displayName = catalog?.name ?? product.name;
+  const upcoming = isUpcoming(product.tag ?? catalog?.tag);
   const displayDescription = catalog?.description ?? product.description;
 
   const isGlass =
     slug.includes("tripad") || displayDescription.toLowerCase().includes("glass");
-  const title = isGlass
-    ? `${displayName} Glass Mouse Pad Price in Bangladesh`
-    : `${displayName} Price in Bangladesh`;
+  const title = upcoming
+    ? `${displayName} — Upcoming at TRIZEN`
+    : isGlass
+      ? `${displayName} Glass Mouse Pad Price in Bangladesh`
+      : `${displayName} Price in Bangladesh`;
   const description = cleanText(
-    isGlass
-      ? `${displayName} is a large TRIPAD glass mouse pad for esports, FPS, Valorant and CS2. Buy in Bangladesh from TRIZEN Store with COD delivery.`
-      : `${displayName} from TRIZEN Store, esports gear for competitive players in Bangladesh. Check price, details and delivery options online.`,
+    upcoming
+      ? `${displayName} is upcoming at TRIZEN Store. Register interest on the product page — launch details will be announced soon.`
+      : isGlass
+        ? `${displayName} is a large TRIPAD glass mouse pad for esports, FPS, Valorant and CS2. Buy in Bangladesh from TRIZEN Store with COD delivery.`
+        : `${displayName} from TRIZEN Store, esports gear for competitive players in Bangladesh. Check price, details and delivery options online.`,
   ).slice(0, 160);
   const keywords = isGlass
     ? [
@@ -173,16 +178,26 @@ export default async function ProductPage({
   if (!product) notFound();
 
   const catalog = getTripadCatalogBySlug(slug);
-  const description = catalog?.description ?? product.description;
-  const longDescription = catalog?.longDescription ?? product.longDescription;
+  const upcoming = isUpcoming(product.tag ?? catalog?.tag);
+  const rawDescription = catalog?.description ?? product.description;
+  const rawLongDescription = catalog?.longDescription ?? product.longDescription;
+  // Keep marketing copy off public upcoming pages (admin + catalog).
+  const description = upcoming
+    ? `${catalog?.name ?? product.name} is upcoming at TRIZEN Store.`
+    : rawDescription;
+  const longDescription = upcoming ? "" : rawLongDescription;
 
-  const features = parseFeatures(catalog?.features ?? product.features);
-  const specifications = parseSpecs(product.specifications);
+  const features = upcoming
+    ? []
+    : parseFeatures(catalog?.features ?? product.features);
+  const specifications = upcoming ? [] : parseSpecs(product.specifications);
   const gallery = parseGallery(product.galleryImages, product.image, {
     slug: product.slug,
     name: product.name,
   });
-  const descriptionSlides = getTripadDescriptionSlides(product.slug, product.name);
+  const descriptionSlides = upcoming
+    ? []
+    : getTripadDescriptionSlides(product.slug, product.name);
   const colors = parseColors(product.colors);
   const avgRating = averageRating(product.reviews);
   const related = await getRelatedProducts(product.id, product.category);
