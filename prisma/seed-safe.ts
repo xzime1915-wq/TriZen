@@ -1,6 +1,9 @@
 /**
  * Safe production setup — upserts catalog + V2 without wiping orders.
  * Usage: npx tsx prisma/seed-safe.ts
+ *
+ * Inventory fields (tag / stock / price / compareAt) are admin-owned after create.
+ * Never rewrite them on update — deploy scripts were resetting PTFE to Upcoming.
  */
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
@@ -9,6 +12,7 @@ import {
   buildTripadProductData,
   buildTripadV2ProductData,
 } from "../src/lib/product-catalog-content";
+import { isUpcoming } from "../src/lib/product-status";
 
 const prisma = new PrismaClient();
 
@@ -24,25 +28,45 @@ const PERMANENT_ORDER_BLOG_ADMIN_EMAIL = "trizenstore@gmail.com";
 
 async function main() {
   for (const data of catalog) {
+    const { tag: _tag, price: _price, stock: _stock, compareAt: _compareAt, ...content } =
+      data as typeof data & {
+        tag?: string | null;
+        price?: number;
+        stock?: number;
+        compareAt?: number | null;
+      };
+
     await prisma.product.upsert({
       where: { slug: data.slug },
       create: data,
       update: {
-        name: data.name,
-        description: data.description,
-        longDescription: data.longDescription,
-        features: data.features,
-        specifications: data.specifications,
-        galleryImages: data.galleryImages,
-        colors: data.colors,
-        sku: data.sku,
-        barcode: data.barcode,
-        tag: data.tag,
-        image: data.image,
-        category: data.category,
-        featured: data.featured,
+        name: content.name,
+        description: content.description,
+        longDescription: content.longDescription,
+        features: content.features,
+        specifications: content.specifications,
+        galleryImages: content.galleryImages,
+        colors: content.colors,
+        sku: content.sku,
+        barcode: content.barcode,
+        image: content.image,
+        category: content.category,
+        featured: content.featured,
       },
     });
+  }
+
+  // If PTFE was launched in admin (stock > 0), strip any leftover Upcoming tag.
+  const ptfe = await prisma.product.findUnique({
+    where: { slug: "trizen-ptfe-mouse-skates" },
+    select: { tag: true, stock: true },
+  });
+  if (ptfe && ptfe.stock > 0 && isUpcoming(ptfe.tag)) {
+    await prisma.product.update({
+      where: { slug: "trizen-ptfe-mouse-skates" },
+      data: { tag: null },
+    });
+    console.log("Cleared Upcoming tag on trizen-ptfe-mouse-skates (in stock).");
   }
 
   await prisma.storeSettings.upsert({

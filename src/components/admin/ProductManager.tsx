@@ -346,7 +346,7 @@ export function ProductManager({ products }: { products: Product[] }) {
             </Button>
           </div>
           <Input
-            label="Tag (e.g. Hot)"
+            label='Tag (e.g. Hot — use "Upcoming" only for unreleased)'
             value={form.tag}
             onChange={(e) => setForm({ ...form, tag: e.target.value })}
           />

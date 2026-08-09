@@ -227,7 +227,9 @@ export function buildPtfeMouseSkatesProductData() {
     colors: stringifyJsonField([]),
     sku,
     barcode: "890000000005",
-    tag: "Upcoming",
+    // Live inventory is controlled in admin (stock/price/tag). Do not force Upcoming here —
+    // seed/upsert used to rewrite tag and keep the shop card stuck on "Upcoming".
+    tag: null,
     image: "/products/trizen-ptfe-mouse-skates.webp",
     category: "Mouse Skates",
     featured: false,

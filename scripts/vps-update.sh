@@ -47,7 +47,7 @@ echo ">>> Sync TriPad names & SKU in database..."
 npm run db:rename-tripad
 echo ""
 
-echo ">>> Upsert PTFE mouse skates product..."
+echo ">>> Sync PTFE mouse skates content (keeps admin tag/stock/price)..."
 npm run db:upsert-ptfe-skates
 echo ""
 
