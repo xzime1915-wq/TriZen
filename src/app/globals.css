@@ -2441,10 +2441,6 @@ textarea {
     display: none;
   }
 
-  .home-marquee-track {
-    animation: home-marquee 14s linear infinite;
-  }
-
   .home-marquee-strip {
     @apply shrink-0;
   }
@@ -2466,16 +2462,6 @@ textarea {
   @media (min-width: 768px) {
     .home-marquee .auth-wallhack-word {
       @apply text-[clamp(3.75rem,9vw,7.5rem)];
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .home-marquee-track {
-      animation: none;
-    }
-
-    .home-marquee-strip[aria-hidden="true"] {
-      display: none;
     }
   }
 
@@ -2664,15 +2650,6 @@ textarea {
     .glide-performance-block .glide-performance-title span {
       max-width: none;
       font-size: inherit;
-    }
-  }
-
-  @keyframes home-marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
     }
   }
 
@@ -2900,6 +2877,29 @@ textarea {
       transform: none;
       animation: none;
     }
+  }
+}
+
+/* ESPORTS / BANGLADESH marquee — unlayered so animation always runs. */
+.home-marquee-track {
+  animation: home-marquee 14s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes home-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keep a slow continuous scroll instead of freezing the brand strip. */
+  .home-marquee-track {
+    animation-duration: 36s;
   }
 }
 
