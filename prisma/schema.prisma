@@ -119,7 +119,7 @@ model OrderItem {
 
 model StoreSettings {
   id              Int    @id @default(1)
-  storeName       String @default("TRIZEN Store")
+  storeName       String @default("TRIZEN STORE")
   tagline         String @default("Premium Tech & Lifestyle")
   email           String @default("support@trizenstore.com.bd")
   phone           String @default("+1 (555) 123-4567")

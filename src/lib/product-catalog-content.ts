@@ -9,8 +9,8 @@ export const TRIPAD_MODEL_NAMES = {
 } as const;
 
 const TRIPAD_INVENTORY = {
-  v1Black: { sku: "TS-GP-V1-BLK", barcode: "890000000002" },
-  v1White: { sku: "TS-GP-V1-WHT", barcode: "890000000001" },
+  v1Black: { sku: "TS-GP-V1-BLK", barcode: "TZ-TPV1-BLACK-0001" },
+  v1White: { sku: "TS-GP-V1-WHT", barcode: "TZ-TPV1-WHT-0001" },
   v2Black: { sku: "TS-GP-V2-BLK", barcode: "890000000004" },
   v2White: { sku: "TS-GP-V2-WHT", barcode: "890000000003" },
 } as const;
@@ -226,7 +226,7 @@ export function buildPtfeMouseSkatesProductData() {
     ]),
     colors: stringifyJsonField([]),
     sku,
-    barcode: "890000000005",
+    barcode: "TZ-MS-V1-PTFE",
     // Live inventory is controlled in admin (stock/price/tag). Do not force Upcoming here —
     // seed/upsert used to rewrite tag and keep the shop card stuck on "Upcoming".
     tag: null,

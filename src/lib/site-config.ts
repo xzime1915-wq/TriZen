@@ -2,6 +2,9 @@ export const SITE_URL = "https://trizenstore.com.bd";
 
 export const SITE_NAME = "TRIZEN Store";
 
+/** Invoice / packing documents — always full caps. */
+export const INVOICE_STORE_NAME = "TRIZEN STORE";
+
 export const SITE_TITLE =
   "Esports Mouse Pad in Bangladesh | TRIZEN Store";
 

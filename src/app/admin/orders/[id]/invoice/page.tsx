@@ -6,7 +6,7 @@ import { formatCurrency, getStatusLabel } from "@/lib/utils";
 import { InvoiceActions } from "@/components/admin/InvoiceActions";
 import { renderCode128Svg } from "@/lib/barcode-svg";
 import { renderQrSvg } from "@/lib/qr-svg";
-import { SITE_URL } from "@/lib/site-config";
+import { INVOICE_STORE_NAME, SITE_URL } from "@/lib/site-config";
 
 export const dynamic = "force-dynamic";
 
@@ -41,7 +41,7 @@ export default async function InvoicePage({
   if (!order) notFound();
 
   const settings = await prisma.storeSettings.findFirst();
-  const storeName = settings?.storeName?.trim() || "TRIZEN Store";
+  const storeName = INVOICE_STORE_NAME;
   const tagline = settings?.tagline?.trim() || "Premium Esports Gear";
   const invoiceCode = order.invoiceNumber || order.orderNumber;
   const trackUrl = `${SITE_URL}/track-order?orderNumber=${encodeURIComponent(
@@ -58,7 +58,7 @@ export default async function InvoicePage({
         <div className="invoice-brand">
           <Image
             src="/logo_b.png"
-            alt="TRIZEN Store"
+            alt="TRIZEN STORE"
             width={88}
             height={88}
             className="invoice-brand-logo"
@@ -113,7 +113,7 @@ export default async function InvoicePage({
         </div>
         <div className="invoice-address-col min-w-0">
           <p className="invoice-section-label mb-2">From</p>
-          <p className="font-semibold">{settings?.storeName}</p>
+          <p className="font-semibold">{storeName}</p>
           <p className="break-words">{settings?.email}</p>
           <p>{settings?.phone}</p>
           <p className="mt-2 break-words">{settings?.address}</p>
@@ -174,7 +174,7 @@ export default async function InvoicePage({
           Collect <strong>{formatCurrency(order.total)}</strong> in cash upon delivery.
         </p>
         <p className="mt-6 text-xs">
-          Thank you for shopping at TRIZEN Store. For questions contact {settings?.email}
+          Thank you for shopping at TRIZEN STORE. For questions contact {settings?.email}
         </p>
       </footer>
     </div>

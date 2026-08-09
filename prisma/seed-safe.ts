@@ -71,9 +71,12 @@ async function main() {
 
   await prisma.storeSettings.upsert({
     where: { id: 1 },
-    update: {},
+    update: {
+      storeName: "TRIZEN STORE",
+    },
     create: {
       id: 1,
+      storeName: "TRIZEN STORE",
       tagline: "Premium Esports Gear",
       currency: "BDT",
     },

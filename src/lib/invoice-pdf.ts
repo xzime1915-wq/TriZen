@@ -6,7 +6,7 @@ import type { Order, OrderItem, StoreSettings } from "@prisma/client";
 import { getStatusLabel } from "@/lib/utils";
 import { renderCode128Svg } from "@/lib/barcode-svg";
 import { renderQrSvg } from "@/lib/qr-svg";
-import { SITE_URL } from "@/lib/site-config";
+import { INVOICE_STORE_NAME, SITE_URL } from "@/lib/site-config";
 
 type OrderWithItems = Order & {
   items: (OrderItem & {
@@ -87,7 +87,7 @@ export async function buildInvoicePdf(
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold);
 
-  const storeName = settings?.storeName || "TRIZEN Store";
+  const storeName = INVOICE_STORE_NAME;
   const margin = 50;
   const pageWidth = page.getWidth();
   const contentWidth = pageWidth - margin * 2;

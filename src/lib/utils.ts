@@ -1,5 +1,5 @@
 export const STORE_CURRENCY = "BDT";
-export const DELIVERY_CHARGE = 120;
+export const DELIVERY_CHARGE = 180;
 
 export function formatCurrency(amount: number, currency = STORE_CURRENCY) {
   const formatted = new Intl.NumberFormat("en-BD", {

@@ -48,8 +48,18 @@ export function normalizeSku(value: string | null | undefined) {
 }
 
 export function normalizeBarcode(value: string | null | undefined) {
-  const normalized = (value || "").replace(/\D/g, "");
-  return normalized || null;
+  const trimmed = (value || "").trim().toUpperCase();
+  if (!trimmed) return null;
+
+  // Alphanumeric Code 128 product codes (e.g. TZ-TPV1-BLACK-0001).
+  if (/[A-Z-]/.test(trimmed)) {
+    const alphanumeric = trimmed.replace(/[^A-Z0-9-]+/g, "").replace(/-+/g, "-");
+    return alphanumeric || null;
+  }
+
+  // Legacy numeric barcodes.
+  const digits = trimmed.replace(/\D/g, "");
+  return digits || null;
 }
 
 export function categoryCodeFromCategory(category: string) {
@@ -114,5 +124,11 @@ export function generateSku(input: {
 }
 
 export function isValidBarcode(value: string) {
-  return /^\d{8,18}$/.test(value);
+  if (/^\d{8,18}$/.test(value)) return true;
+  // TRIZEN printable Code 128 codes, e.g. TZ-TPV1-BLACK-0001 / TZ-MS-V1-PTFE
+  return (
+    value.length >= 6 &&
+    value.length <= 40 &&
+    /^[A-Z0-9]+(?:-[A-Z0-9]+)+$/.test(value)
+  );
 }

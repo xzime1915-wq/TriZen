@@ -41,7 +41,10 @@ export async function PATCH(
   const barcode = payload.barcode || before.barcode || (await generateUniqueBarcode());
   if (!isValidBarcode(barcode)) {
     return NextResponse.json(
-      { error: "Barcode must contain 8 to 18 digits." },
+      {
+        error:
+          "Barcode must be 8–18 digits or a TRIZEN code like TZ-TPV1-BLACK-0001.",
+      },
       { status: 400 }
     );
   }
