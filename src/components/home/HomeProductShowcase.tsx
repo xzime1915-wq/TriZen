@@ -2,7 +2,7 @@ import Link from "next/link";
 import { StarRating } from "@/components/product/StarRating";
 import { ProductVisualFrame } from "@/components/product/ProductVisualFrame";
 import { HomeProductActions } from "./HomeProductActions";
-import { shouldShowProductPrice } from "@/lib/product-status";
+import { isUpcoming, shouldShowProductPrice } from "@/lib/product-status";
 import { formatCurrency, sanitizeDisplayText } from "@/lib/utils";
 import { getLargeProductImageScale } from "@/lib/product-visual-scale";
 
@@ -40,13 +40,17 @@ export function HomeProductShowcase({
   priority = false,
 }: Props) {
   const headline = displayName ?? product.name;
-  const paragraphs = (product.longDescription || product.description)
-    .split("\n\n")
-    .map((p) => p.trim())
-    .filter(Boolean)
-    .slice(0, 3);
+  const upcoming = isUpcoming(product.tag);
+  // Upcoming products stay teaser-only — no marketing copy, specs, or feature bullets.
+  const paragraphs = upcoming
+    ? []
+    : (product.longDescription || product.description)
+        .split("\n\n")
+        .map((p) => p.trim())
+        .filter(Boolean)
+        .slice(0, 3);
 
-  const highlightFeatures = features.slice(0, 3);
+  const highlightFeatures = upcoming ? [] : features.slice(0, 3);
   const mainVisual = visualImage || product.image;
   const featuredScale = getLargeProductImageScale(mainVisual);
 
@@ -100,15 +104,19 @@ export function HomeProductShowcase({
             )}
 
             <div className="product-buy-body">
-              {paragraphs.length > 0 && (
+              {upcoming ? (
+                <div className="product-buy-copy trizen-prose">
+                  <p>Upcoming at TRIZEN Store. Register interest for launch updates.</p>
+                </div>
+              ) : paragraphs.length > 0 ? (
                 <div className="product-buy-copy trizen-prose">
                   {paragraphs.map((para) => (
                     <p key={para.slice(0, 48)}>{para}</p>
                   ))}
                 </div>
-              )}
+              ) : null}
 
-              {reviewCount > 0 ? (
+              {!upcoming && reviewCount > 0 ? (
                 <div className="flex items-center gap-3">
                   <StarRating value={avgRating} />
                   <span className="text-xs font-normal text-black">

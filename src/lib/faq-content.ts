@@ -134,24 +134,27 @@ function gearSpecificFaqs(
         {
           question: `What is ${productName}?`,
           answer: isUpcoming
-            ? `${productName} is an upcoming TRIZEN TRIPAD glass mouse pad with edition-specific branding. It shares the same competitive glass glide as TRIPAD V1, check back for launch updates.`
+            ? `${productName} is upcoming at TRIZEN Store. Register interest on the product page for launch updates.`
             : `${productName} is a TRIZEN tempered glass mouse pad built for esports. The surface is ultra smooth and low friction for precise tracking, flicks, and long sessions.`,
         },
-        {
-          question: "What are the TRIPAD dimensions?",
-          answer:
-            "TRIPAD editions measure 490 × 430 × 3 mm (L × W × H), a generous playing area for wide swipes and arm aiming.",
-        },
-        {
-          question: `Where can I check ${productName} price in Bangladesh?`,
-          answer:
-            `The current ${productName} price in Bangladesh is shown on this product page. You can order from TRIZEN Store with Cash on Delivery, bKash, Nagad, or bank transfer when available.`,
-        },
-        {
-          question: "How should I clean my TRIPAD?",
-          answer:
-            "Wipe the glass surface with a soft, dry or slightly damp cloth. Avoid harsh chemicals or abrasive pads to keep the glide consistent.",
-        },
+        ...(isUpcoming
+          ? []
+          : [
+              {
+                question: "What are the TRIPAD dimensions?",
+                answer:
+                  "TRIPAD editions measure 490 × 430 × 3 mm (L × W × H), a generous playing area for wide swipes and arm aiming.",
+              },
+              {
+                question: `Where can I check ${productName} price in Bangladesh?`,
+                answer: `The current ${productName} price in Bangladesh is shown on this product page. You can order from TRIZEN Store with Cash on Delivery, bKash, Nagad, or bank transfer when available.`,
+              },
+              {
+                question: "How should I clean my TRIPAD?",
+                answer:
+                  "Wipe the glass surface with a soft, dry or slightly damp cloth. Avoid harsh chemicals or abrasive pads to keep the glide consistent.",
+              },
+            ]),
       ];
     case "soft-mouse-pad":
       return [

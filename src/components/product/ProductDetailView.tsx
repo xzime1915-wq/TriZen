@@ -70,17 +70,22 @@ export function ProductDetailView({
   const upcoming = isUpcoming(product.tag);
   const gearLine = getShopGearLine(product.slug, product.name, product.category);
   const gearLabel = SHOP_GEAR_COPY[gearLine].title;
-  const savePct = discountPercent(product.price, product.compareAt);
+  const savePct = upcoming
+    ? null
+    : discountPercent(product.price, product.compareAt);
 
-  // Upcoming products stay teaser-only: no marketing copy, features, or specs.
+  // Upcoming products stay teaser-only: no marketing copy, features, specs, or SKU.
   const publicDescription = upcoming
-    ? ""
+    ? "Upcoming at TRIZEN Store. Register interest for launch updates."
     : product.longDescription || product.description;
   const publicFeatures = upcoming ? [] : features;
   const publicSpecs = upcoming ? [] : specifications;
   const publicDescriptionSlides = upcoming ? [] : descriptionSlides;
 
-  const introParagraphs = splitSanitizedParagraphs(publicDescription).slice(0, 3);
+  const introParagraphs = splitSanitizedParagraphs(publicDescription).slice(
+    0,
+    upcoming ? 1 : 3,
+  );
 
   const highlightFeatures = publicFeatures.slice(0, 3);
 
@@ -128,7 +133,7 @@ export function ProductDetailView({
                   </span>
                 )}
               </div>
-              {product.sku ? (
+              {!upcoming && product.sku ? (
                 <p className="mt-2 text-[10px] font-normal uppercase tracking-[0.18em] text-zinc-500">
                   SKU: {product.sku}
                 </p>
@@ -144,7 +149,7 @@ export function ProductDetailView({
                 </div>
               )}
 
-              {reviews.length > 0 ? (
+              {!upcoming && reviews.length > 0 ? (
                 <div className="flex items-center gap-3">
                   <StarRating value={avgRating} size="sm" />
                   <a
@@ -193,35 +198,39 @@ export function ProductDetailView({
         </div>
       </div>
 
-      <ProductSpecShowcase
-        productName={product.name}
-        specifications={publicSpecs}
-        featureImage={specFeatureImage}
-      />
+      {!upcoming ? (
+        <>
+          <ProductSpecShowcase
+            productName={product.name}
+            specifications={publicSpecs}
+            featureImage={specFeatureImage}
+          />
 
-      <ProductDescriptionBlock
-        productName={product.name}
-        description={publicDescription}
-        descriptionSlides={publicDescriptionSlides}
-        features={publicFeatures}
-      />
+          <ProductDescriptionBlock
+            productName={product.name}
+            description={publicDescription}
+            descriptionSlides={publicDescriptionSlides}
+            features={publicFeatures}
+          />
 
-      <ProductReviewsBlock>
-        <ProductReviewSection
-          slug={product.slug}
-          productName={product.name}
-          productImage={selectedColor?.image ?? product.image}
-          reviews={reviews}
-          onReviewAdded={onReviewAdded}
-        />
-      </ProductReviewsBlock>
+          <ProductReviewsBlock>
+            <ProductReviewSection
+              slug={product.slug}
+              productName={product.name}
+              productImage={selectedColor?.image ?? product.image}
+              reviews={reviews}
+              onReviewAdded={onReviewAdded}
+            />
+          </ProductReviewsBlock>
 
-      <ProductFaqSection
-        productName={product.name}
-        slug={product.slug}
-        category={product.category}
-        tag={product.tag}
-      />
+          <ProductFaqSection
+            productName={product.name}
+            slug={product.slug}
+            category={product.category}
+            tag={product.tag}
+          />
+        </>
+      ) : null}
     </div>
   );
 }

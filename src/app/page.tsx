@@ -15,6 +15,7 @@ import { parseFeatures, averageRating } from "@/lib/product-data";
 import { homePageMetadata } from "@/lib/seo-metadata";
 import { verifiedReviewWhere } from "@/lib/reviews";
 import { HomePadStackScroll } from "@/components/home/HomePadStackScroll";
+import { isUpcoming } from "@/lib/product-status";
 
 export const revalidate = 60;
 
@@ -76,8 +77,10 @@ export default async function HomePage() {
             id: p.id,
             name: p.name,
             slug: p.slug,
-            description: p.description,
-            longDescription: p.longDescription,
+            description: isUpcoming(p.tag)
+              ? "Upcoming at TRIZEN Store."
+              : p.description,
+            longDescription: isUpcoming(p.tag) ? "" : p.longDescription,
             price: p.price,
             compareAt: p.compareAt,
             image: p.image,
@@ -85,7 +88,7 @@ export default async function HomePage() {
             sku: p.sku,
             tag: p.tag,
           }}
-          features={parseFeatures(p.features)}
+          features={isUpcoming(p.tag) ? [] : parseFeatures(p.features)}
           avgRating={averageRating(p.reviews)}
           reviewCount={p.reviews.length}
         />
