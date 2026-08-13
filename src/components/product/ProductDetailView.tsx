@@ -10,6 +10,7 @@ import { ProductReviewSection } from "./ProductReviewSection";
 import { ProductGallery } from "./ProductGallery";
 import { ProductColorPicker } from "./ProductColorPicker";
 import { ProductSpecShowcase } from "./ProductSpecShowcase";
+import { SkatesPerformancePanel } from "./SkatesPerformancePanel";
 import { ProductDescriptionBlock } from "./ProductDescriptionBlock";
 import { ProductReviewsBlock } from "./ProductReviewsBlock";
 import { isUpcoming } from "@/lib/product-status";
@@ -200,6 +201,8 @@ export function ProductDetailView({
 
       {!upcoming ? (
         <>
+          {gearLine === "skates" ? <SkatesPerformancePanel /> : null}
+
           <ProductSpecShowcase
             productName={product.name}
             specifications={publicSpecs}

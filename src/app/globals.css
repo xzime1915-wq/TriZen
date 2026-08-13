@@ -6050,6 +6050,142 @@ textarea {
   font-weight: 700;
 }
 
+/* PTFE mouse skates performance graphic — black / TRIZEN gold. */
+.skates-panel {
+  --skates-bar-h: 2.35rem;
+  --skates-bar-gap: 0.7rem;
+  --skates-bars-h: calc(3 * var(--skates-bar-h) + 2 * var(--skates-bar-gap));
+  background: #000000;
+  color: #ffffff;
+}
+
+.skates-panel-inner {
+  width: min(100%, 48rem);
+  margin-inline: auto;
+  padding: clamp(1.75rem, 4vw, 3.25rem) clamp(1.25rem, 4vw, 2.5rem)
+    clamp(1.9rem, 4.5vw, 3.5rem);
+}
+
+.skates-panel-row {
+  display: grid;
+  grid-template-columns: var(--skates-bars-h) minmax(0, 1fr);
+  grid-template-areas:
+    ".    tags"
+    "dot  bars";
+  align-items: center;
+  column-gap: clamp(1rem, 3vw, 1.6rem);
+  row-gap: 0.85rem;
+}
+
+.skates-panel-visual {
+  grid-area: dot;
+  display: grid;
+  place-items: center;
+  width: var(--skates-bars-h);
+  height: var(--skates-bars-h);
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.skates-panel-dot-image {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: contain;
+  transform: scale(2.2);
+  transform-origin: center center;
+}
+
+.skates-panel-tags {
+  grid-area: tags;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0;
+}
+
+.skates-panel-tags span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 4.75rem;
+  padding: 0.38rem 0.9rem;
+  border-radius: 999px;
+  background: #2a2a2a;
+  color: #ffd324;
+  font-family: var(--font-brand);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.skates-panel-bars {
+  grid-area: bars;
+  display: grid;
+  gap: var(--skates-bar-gap);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.skates-panel-bars li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 3.4rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skates-panel-bar-track {
+  height: var(--skates-bar-h);
+  overflow: hidden;
+  border-radius: 999px;
+  background: #2a2a2a;
+}
+
+.skates-panel-bar-fill {
+  display: flex;
+  align-items: center;
+  width: 0;
+  height: 100%;
+  padding-inline: 1.05rem;
+  border-radius: 999px;
+  background: #ffd324;
+  overflow: hidden;
+}
+
+.skates-panel-bars.is-active .skates-panel-bar-fill {
+  transition: width 1.1s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.skates-panel-bar-fill span {
+  color: #000000;
+  font-family: var(--font-brand);
+  font-size: clamp(0.72rem, 2.2vw, 0.92rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.skates-panel-bar-value {
+  min-width: 3.4rem;
+  color: #ffd324;
+  font-family: var(--font-brand);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 639px) {
+  .skates-panel {
+    --skates-bar-h: 2.1rem;
+  }
+}
+
 .trizen-i18n-bn {
   font-family:
     "Noto Sans Bengali",
