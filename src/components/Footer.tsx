@@ -9,7 +9,6 @@ import { SocialLinks } from "@/components/SocialLinks";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { ReviewTrustBar } from "@/components/ReviewTrustBar";
 import { TrizenBrandName } from "@/components/TrizenBrandName";
-import { SITE_CONTACT } from "@/lib/site-config";
 import { EXPLORE_LINKS } from "@/lib/nav-config";
 import { cn } from "@/lib/utils";
 
@@ -186,8 +185,9 @@ export function Footer() {
           <SocialLinks className="trizen-footer-mobile-social justify-center" />
 
           <p className="trizen-footer-mobile-copy">
-            © {year} —{" "}
+            © {year}{" "}
             <TrizenBrandName className="trizen-footer-bottom-brand" suffix=" Store" />
+            . All rights reserved.
           </p>
         </div>
 
@@ -199,10 +199,7 @@ export function Footer() {
                 className="trizen-footer-bottom-brand"
                 suffix=" Store"
               />
-              {" · "}
-              <a href={`mailto:${SITE_CONTACT.email}`} className="trizen-footer-link">
-                {SITE_CONTACT.email}
-              </a>
+              . All rights reserved.
             </p>
             <div className="trizen-footer-bottom-pay">
               <PayWithLogos className="justify-center gap-1" />
