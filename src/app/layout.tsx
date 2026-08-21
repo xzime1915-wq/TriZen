@@ -9,7 +9,6 @@ import { SiteJsonLd } from "@/components/seo/SiteJsonLd";
 import { MediaProtect } from "@/components/MediaProtect";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { NewsletterPopup } from "@/components/NewsletterPopup";
-import { PageScrollIndicator } from "@/components/PageScrollIndicator";
 import { LanguageRuntime } from "@/components/LanguageRuntime";
 import { getUserSession } from "@/lib/user-auth";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site-config";
@@ -81,7 +80,6 @@ export default async function RootLayout({
       <body className={`${orbitron.className} min-h-screen flex flex-col antialiased font-sans bg-[var(--color-surface)]`}>
         <SmoothScroll />
         <LanguageRuntime />
-        <PageScrollIndicator />
         <MediaProtect />
         <SiteJsonLd />
         <CartProvider>

@@ -94,16 +94,6 @@ body.site-media-protect [data-protected-media]::after {
   background: transparent;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 ::selection {
   background: rgba(23, 23, 23, 0.12);
   color: #171717;
@@ -1023,14 +1013,6 @@ textarea {
       radial-gradient(ellipse 80% 60% at 72% 38%, rgba(255, 255, 255, 0.92) 0%, transparent 55%),
       radial-gradient(ellipse 55% 45% at 12% 72%, rgba(228, 228, 231, 0.4) 0%, transparent 50%),
       linear-gradient(180deg, #fafafa 0%, #f4f4f5 48%, #fafafa 100%);
-  }
-
-  .trizen-wh-noise {
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    opacity: 0.28;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   .trizen-wh-dark-gradient {
@@ -5786,80 +5768,6 @@ textarea {
   border-radius: 0.75rem;
 }
 
-/* ChatGPT-inspired page-position rail. */
-.trizen-page-scroll-indicator {
-  --scroll-progress: 0;
-  position: fixed;
-  top: 50%;
-  left: max(0.35rem, env(safe-area-inset-left));
-  z-index: 60;
-  width: 1.35rem;
-  height: min(15rem, 34vh);
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
-  cursor: ns-resize;
-  opacity: 0.62;
-  transform: translateY(-50%);
-  transition: opacity 180ms ease, background-color 180ms ease;
-  backdrop-filter: blur(8px);
-}
-
-.trizen-page-scroll-indicator:hover,
-.trizen-page-scroll-indicator:focus-visible {
-  background: rgba(255, 255, 255, 0.92);
-  opacity: 1;
-}
-
-.trizen-page-scroll-indicator:focus-visible {
-  outline: 2px solid #FFD324;
-  outline-offset: 2px;
-}
-
-.trizen-page-scroll-indicator__ticks {
-  position: absolute;
-  inset: 0.6rem 0.48rem;
-  border-radius: 999px;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(9, 9, 11, 0.32) 0 2px,
-    transparent 2px 10px
-  );
-}
-
-.trizen-page-scroll-indicator__position {
-  position: absolute;
-  top: calc(0.6rem + (100% - 1.2rem) * var(--scroll-progress));
-  left: 50%;
-  width: 0.72rem;
-  height: 0.22rem;
-  border-radius: 999px;
-  background: #FFD324;
-  box-shadow: 0 0 0 1px rgba(9, 9, 11, 0.7);
-  transform: translate(-50%, -50%);
-}
-
-@media (max-width: 639px) {
-  .trizen-page-scroll-indicator {
-    left: max(0.2rem, env(safe-area-inset-left));
-    width: 1rem;
-    height: min(11rem, 28vh);
-    opacity: 0.5;
-  }
-
-  .trizen-page-scroll-indicator__ticks {
-    inset-inline: 0.34rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .trizen-page-scroll-indicator {
-    transition: none;
-  }
-}
-
 /* Solid, borderless chat treatment. */
 .trizen-chat-panel {
   border: 0;
@@ -5912,65 +5820,6 @@ textarea {
   }
 }
 
-/* Borderless segmented page progress, readable on light and dark sections. */
-.trizen-page-scroll-indicator {
-  width: 0.9rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  opacity: 0.9;
-  backdrop-filter: none;
-}
-
-.trizen-page-scroll-indicator:hover,
-.trizen-page-scroll-indicator:focus-visible {
-  background: transparent;
-  opacity: 1;
-}
-
-.trizen-page-scroll-indicator:focus-visible {
-  outline: 0;
-  filter: drop-shadow(0 0 3px #FFD324);
-}
-
-.trizen-page-scroll-indicator__ticks,
-.trizen-page-scroll-indicator__position {
-  position: absolute;
-  inset: 0;
-  border: 0;
-  border-radius: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    currentColor 0 3px,
-    transparent 3px 9px
-  );
-}
-
-.trizen-page-scroll-indicator__ticks {
-  color: #fff;
-  mix-blend-mode: difference;
-}
-
-.trizen-page-scroll-indicator__position {
-  width: 100%;
-  height: calc(100% * var(--scroll-progress));
-  color: #FFD324;
-  box-shadow: none;
-  transform: none;
-}
-
-@media (max-width: 639px) {
-  .trizen-page-scroll-indicator {
-    width: 0.7rem;
-    opacity: 0.85;
-  }
-
-  .trizen-page-scroll-indicator__ticks {
-    inset: 0;
-  }
-}
-
 /* Use the readable Inter chat font and present the welcome copy as a message. */
 .trizen-chat-messages,
 .trizen-chat-composer {
@@ -6004,42 +5853,6 @@ textarea {
   border-radius: 0.75rem;
   background: #FFD324;
   color: #09090b;
-}
-
-.trizen-page-scroll-indicator__ticks {
-  color: #fff;
-  filter:
-    drop-shadow(0 0 1px #09090b)
-    drop-shadow(0 0 1px #09090b);
-  mix-blend-mode: normal;
-}
-
-.trizen-page-scroll-indicator__position {
-  filter: none;
-}
-
-.trizen-page-scroll-indicator {
-  width: 0.42rem;
-}
-
-.trizen-page-scroll-indicator__ticks {
-  color: #a3a3a3;
-  filter: none;
-}
-
-.trizen-page-scroll-indicator__ticks,
-.trizen-page-scroll-indicator__position {
-  background: repeating-linear-gradient(
-    to bottom,
-    currentColor 0 2px,
-    transparent 2px 8px
-  );
-}
-
-@media (max-width: 639px) {
-  .trizen-page-scroll-indicator {
-    width: 0.38rem;
-  }
 }
 
 .cart-panel-empty-btn,
