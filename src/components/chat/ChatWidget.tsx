@@ -473,14 +473,12 @@ export function ChatWidget() {
             onClick={() => setOpen(true)}
             aria-label="Open TRIZEN support chat"
           >
-            <span className="trizen-chat-launcher-icon" aria-hidden>
-              <MessageCircle className="h-5 w-5" strokeWidth={1.8} />
-            </span>
-            <span className="trizen-chat-launcher-copy">
-              <strong>Chat with us</strong>
-              <small>TRIZEN support</small>
-            </span>
-            {unreadCount > 0 ? <span className="trizen-chat-launcher-unread">{unreadCount > 9 ? "9+" : unreadCount}</span> : null}
+            <MessageCircle className="h-5 w-5" strokeWidth={1.8} aria-hidden />
+            {unreadCount > 0 ? (
+              <span className="trizen-chat-launcher-unread">
+                {unreadCount > 9 ? "9+" : unreadCount}
+              </span>
+            ) : null}
           </button>,
           document.body,
         )}
