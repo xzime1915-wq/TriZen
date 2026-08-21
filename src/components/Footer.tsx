@@ -193,7 +193,7 @@ export function Footer() {
 
         <div className="container-trizen trizen-footer-bottom-bar hidden py-3 md:py-4 lg:grid">
           <div className="trizen-footer-bottom-center">
-            <p className="trizen-footer-bottom-copy font-normal normal-case tracking-normal text-zinc-400">
+            <p className="trizen-footer-bottom-copy font-normal normal-case tracking-normal text-white">
               © {year}{" "}
               <TrizenBrandName
                 className="trizen-footer-bottom-brand"

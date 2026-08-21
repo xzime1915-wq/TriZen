@@ -1641,12 +1641,12 @@ textarea {
   }
 
   .trizen-footer-dark .trizen-footer-nav-list {
-    @apply space-y-2.5 text-sm text-zinc-400;
+    @apply space-y-2.5 text-sm text-white;
     font-family: var(--font-body);
   }
 
   .trizen-footer-dark .trizen-footer-nav-list .trizen-footer-link {
-    @apply inline-flex items-center text-zinc-400 transition-[color,transform] duration-300 hover:translate-x-0 hover:text-[var(--color-foreground)];
+    @apply inline-flex items-center text-white transition-[color,transform] duration-300 hover:translate-x-0 hover:text-white;
   }
 
   .trizen-footer-dark .trizen-footer-nav-list .trizen-footer-link::before {
@@ -1662,11 +1662,11 @@ textarea {
   }
 
   .trizen-footer-dark .trizen-footer-link {
-    @apply text-zinc-400;
+    @apply text-white;
   }
 
   .trizen-footer-dark .trizen-footer-newsletter-copy {
-    @apply mb-4 text-sm font-normal leading-relaxed text-zinc-400;
+    @apply mb-4 text-sm font-normal leading-relaxed text-white;
     font-family: var(--font-body);
   }
 
@@ -1677,17 +1677,17 @@ textarea {
 
   .trizen-footer-dark .trizen-footer-newsletter-note {
     font-family: var(--font-body);
-    @apply font-normal text-zinc-500;
+    @apply font-normal text-white;
   }
 
   .trizen-footer-dark .trizen-footer-bottom-copy {
     font-family: var(--font-body);
-    @apply text-center text-[10px] font-normal normal-case leading-relaxed tracking-normal text-zinc-400 md:text-xs;
+    @apply text-center text-[10px] font-normal normal-case leading-relaxed tracking-normal text-white md:text-xs;
   }
 
   .trizen-footer-dark .trizen-footer-bottom-copy .trizen-footer-bottom-brand {
     font-family: var(--font-sans);
-    @apply text-[9px] font-normal uppercase tracking-[0.03em] text-zinc-400 md:text-[10px];
+    @apply text-[9px] font-normal uppercase tracking-[0.03em] text-white md:text-[10px];
   }
 
   .trizen-footer-dark .trizen-footer-bottom-copy .trizen-brand-t,
@@ -1696,6 +1696,7 @@ textarea {
     font-weight: 400;
     font-size: 1em;
     line-height: inherit;
+    color: #fff !important;
   }
 
   .trizen-footer-dark .trizen-footer-bottom-copy .trizen-brand-t {
@@ -1703,7 +1704,7 @@ textarea {
   }
 
   .trizen-footer-dark .trizen-footer-bottom-copy .trizen-footer-link {
-    @apply text-[10px] font-normal text-zinc-400 md:text-xs;
+    @apply text-[10px] font-normal text-white md:text-xs;
   }
 
   .trizen-footer-bottom-bar {
@@ -1790,7 +1791,7 @@ textarea {
   }
 
   .trizen-footer-mobile-link {
-    @apply block text-sm font-normal normal-case tracking-normal text-zinc-400 transition-colors hover:text-white;
+    @apply block text-sm font-normal normal-case tracking-normal text-white transition-colors hover:text-white;
   }
 
   .trizen-footer-mobile-sandbox {
@@ -1803,7 +1804,7 @@ textarea {
   }
 
   .trizen-footer-mobile-sandbox .trizen-footer-newsletter-copy {
-    @apply mx-auto mb-5 max-w-sm text-sm font-normal normal-case leading-relaxed tracking-normal text-zinc-400;
+    @apply mx-auto mb-5 max-w-sm text-sm font-normal normal-case leading-relaxed tracking-normal text-white;
   }
 
   .trizen-footer-mobile-sandbox .trizen-box-stack {
@@ -1820,11 +1821,11 @@ textarea {
   }
 
   .trizen-footer-mobile-sandbox .trizen-footer-newsletter-note {
-    @apply mx-auto max-w-sm text-center text-[10px] font-normal normal-case tracking-normal text-zinc-500;
+    @apply mx-auto max-w-sm text-center text-[10px] font-normal normal-case tracking-normal text-white;
   }
 
   .trizen-footer-mobile-sandbox .trizen-footer-newsletter-note a {
-    @apply text-zinc-400 transition-colors hover:text-white;
+    @apply text-white transition-colors hover:text-white;
   }
 
   .trizen-footer-mobile-bottom {
@@ -1848,11 +1849,11 @@ textarea {
 
   .trizen-footer-mobile-copy {
     font-family: var(--font-sans);
-    @apply text-center text-[10px] font-normal normal-case tracking-normal text-zinc-500;
+    @apply text-center text-[10px] font-normal normal-case tracking-normal text-white;
   }
 
   .trizen-footer-mobile-copy .trizen-footer-bottom-brand {
-    @apply text-[10px] font-normal uppercase tracking-[0.03em] text-zinc-500;
+    @apply text-[10px] font-normal uppercase tracking-[0.03em] text-white;
   }
 
   @media (min-width: 768px) {
